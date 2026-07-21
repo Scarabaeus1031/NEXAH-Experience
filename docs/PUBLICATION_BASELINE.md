@@ -2,7 +2,7 @@
 
 ## Status
 
-**Publication candidate — not yet releasable.**
+**Publication candidate — locally publication-ready.**
 
 The Experience is a static presentation repository. It does not contain the
 ORION runtime, Framework, canonical Library Registry or a backend service.
@@ -37,21 +37,24 @@ On 21 July 2026 the local workspace produced:
 - static build: 195 HTML pages;
 - internal link check: 195 pages with no broken internal links.
 
-The first local Experience baseline is commit
-`28d099c89a109a58385335652c394242ebea278d`. Its generated ORION source content
-is present in local committed ORION baseline `0a9c031…`; subsequent ORION
-commit `f16adc9…` adds compatibility evidence without changing consumed Python
-sources. A public baseline still requires public immutable repository URLs and
-revisions.
+The local Experience baseline before license adoption is commit
+`a1e031cb51978ca1207851cc7f292a4a5c37b115`; the current clean commit also
+contains the approved licensing and repository identity. Its executable alpha
+entered at `28d099c89a109a58385335652c394242ebea278d`. Generated ORION source
+content is present in local committed ORION executable baseline `0a9c031…`;
+later ORION publication commits do not change consumed Python sources. A public
+baseline still requires public immutable repository URLs and revisions.
 
-## Publication blockers
+## Publication gates
 
-- repository-wide license requires owner approval;
-- public repository identity and remote require owner/GitHub action;
+- Apache 2.0 for software and CC BY 4.0 for original documentation and visual
+  material are recorded in `LICENSE`, `LICENSE-DOCS.md` and `LICENSES.md`;
+- approved repository identity is `NEXAH-Experience`; repository creation and
+  remote configuration require GitHub owner action;
 - ORION public remote and immutable revision are not yet available;
 - automated public CI cannot be finalized until the ORION source location is
   public and pinned;
 - canonical host, TLS and redirect behavior remain external Operations work;
 - legal hosting and tax/privacy facts remain owner or hosting input.
 
-No blocker may be hidden by committing generated output alone.
+No publication gate may be hidden by committing generated output alone.

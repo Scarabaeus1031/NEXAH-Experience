@@ -1,17 +1,17 @@
 # Public Repository Metadata
 
-Prepared values for the future public repository settings:
+Approved values for the public repository settings:
 
-- **Name:** owner confirmation required
-- **Suggested repository name:** `NEXAH-EXPERIENCE`
+- **Name:** `NEXAH-Experience`
 - **Description:** The static public NEXAH Experience: Library, Living Atlas,
   Laboratory, Reader, and a bounded orientation journey.
 - **Homepage:** `https://nexah.de` — apply only after canonical host and TLS
   verification.
 - **Topics:** `nexah`, `astro`, `digital-library`, `living-atlas`,
   `static-site`, `accessibility`
-- **Visibility:** owner confirmation required
+- **Visibility:** public
 - **Primary pin:** yes, after production publication
+- **Community files:** `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`
+  issue templates and the pull-request template are prepared.
 
-The suggested name is metadata preparation only. It does not create or rename a
-repository.
+These values do not create the repository, configure a remote or modify GitHub.

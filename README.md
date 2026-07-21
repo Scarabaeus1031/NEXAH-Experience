@@ -2,8 +2,8 @@
 
 The first public, local-first NEXAH experience.
 
-**Publication status:** candidate; no public release, public repository baseline
-or production deployment has been declared.
+**Publication status:** locally prepared candidate; no public release or
+production deployment has been declared.
 
 This is an independent application repository. It does not belong to ORION and
 does not redefine the frozen ORION v1 Architecture Baseline.
@@ -88,8 +88,14 @@ dependency.
 - Security reporting: [`SECURITY.md`](SECURITY.md)
 - Community conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
-## License status
+The approved public repository identity is `NEXAH-Experience`. Repository
+creation, remote configuration and publication remain GitHub owner actions;
+this local repository has not been renamed.
 
-No repository-wide public license has yet been approved for NEXAH Experience.
-Publication remains blocked until the owner chooses and records the license;
-the Experience does not inherit a license merely by referencing NEXAH or ORION.
+## Licensing
+
+Original software is licensed under the [Apache License 2.0](LICENSE).
+Original documentation, specifications, research, books and visual material
+are licensed under [CC BY 4.0](LICENSE-DOCS.md) where applicable. Third-party,
+publication and source-derived material retains its stated terms. See the
+complete [Licensing Scope](LICENSES.md).

@@ -1,4 +1,4 @@
-# Contributing to NEXAH Experience
+# Contributing to NEXAH-Experience
 
 NEXAH Experience owns presentation, navigation, accessibility and temporary
 interaction state. Contributions must stay inside that boundary.
@@ -39,7 +39,14 @@ edited by hand.
 
 ## Publication status
 
-The repository is currently a publication candidate. A public contribution
-workflow begins only after the repository license, public remote and supported
-baseline are approved by the owner. Until then, this file documents boundaries
-and verification; it does not invite unlicensed submissions.
+The repository is a locally prepared publication candidate under the approved
+identity `NEXAH-Experience`. A public contribution workflow begins after the
+repository and remote exist and the published baseline is identified.
+
+## Contribution licensing
+
+Software contributions are submitted under the
+[Apache License 2.0](LICENSE). Original documentation, specifications,
+research, books and visual material are submitted under
+[CC BY 4.0](LICENSE-DOCS.md) where applicable. Contributors must preserve
+third-party licenses and provenance. See [Licensing Scope](LICENSES.md).

@@ -2,7 +2,7 @@
 
 ## Status
 
-**Locally reproducible; external publication not yet authorized.**
+**Locally reproducible; external publication and deployment remain pending.**
 
 NEXAH Experience is a static Astro site. The browser contains no Python
 runtime, ORION service, provider call, account system, persistence layer or
@@ -19,9 +19,10 @@ A deployment candidate must record:
 - Node.js and pnpm versions; and
 - canonical host.
 
-The current local ORION commits are immutable locally but do not yet have a
-public repository identity. A deployment must not replace them with a moving
-branch or handwritten report data.
+The approved ORION repository identity is `NEXAH-ORION`, but the repository and
+remote do not yet exist publicly. A deployment must consume its eventual
+public immutable revision and must not replace it with a moving branch or
+handwritten report data.
 
 ## Build and verification
 
@@ -74,5 +75,5 @@ After deployment verify:
 
 ## Remaining gates
 
-Only owner-approved license, public remote, immutable ORION revision, hosting,
-DNS, TLS, legal hosting facts and deployment authorization remain.
+Only public remotes, immutable ORION revision, hosting, DNS, TLS, legal hosting
+facts and deployment authorization remain. Licensing is recorded locally.
