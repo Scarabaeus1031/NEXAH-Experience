@@ -1,0 +1,9 @@
+---
+import type { VisualCollection } from "@/data/atlas";
+type Props = { visual: VisualCollection };
+const { visual } = Astro.props;
+---
+<article class="visual-collection-card">
+  <img src={visual.cover} alt="" width="1024" height="1536" loading="lazy" />
+  <div><h3>{visual.title}</h3><p>{visual.summary}</p></div>
+</article>

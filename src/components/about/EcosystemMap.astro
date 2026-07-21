@@ -1,0 +1,154 @@
+---
+import { featuredLaboratoryPublication, repositoryGuide } from "@/data/laboratory";
+
+const publicRooms = [
+  {
+    symbol: "▤",
+    name: "Library",
+    description: "Published works, held in the Publication Catalog and opened through local Reading Spaces.",
+    invitation: "Open Library",
+    href: "/library/",
+    tone: "library",
+  },
+  {
+    symbol: "⌁",
+    name: "Laboratory",
+    description: "A public orientation to the research process and the living Repository.",
+    invitation: "Enter Laboratory",
+    href: "/laboratory/",
+    tone: "laboratory",
+  },
+  {
+    symbol: "⌘",
+    name: "Living Atlas",
+    description: "Explicitly curated relationships between publications, concepts, operators and themes.",
+    invitation: "Explore relationships",
+    href: "/atlas/",
+    tone: "atlas",
+  },
+] as const;
+
+const publicationPath = [
+  {
+    name: "Publication Catalog",
+    description: "records what exists",
+    invitation: "Browse the Catalog",
+    href: "/library/#publication-catalog",
+  },
+  {
+    name: "Reading Spaces",
+    description: "offer local selections",
+    invitation: "Enter a Reading Space",
+    href: "/library/visitors-guide/read/",
+  },
+  {
+    name: "Original Publications",
+    description: "remain the source",
+    invitation: "See source provenance",
+    href: `/library/${featuredLaboratoryPublication.routeSlug}/`,
+  },
+] as const;
+
+const researchPath = [
+  {
+    name: "Project README",
+    description: "introduces the project",
+    invitation: "Read the README",
+    href: repositoryGuide.readme.url,
+    external: true,
+  },
+  {
+    name: "Repository Map",
+    description: "orients the source",
+    invitation: "Open the Repository Map",
+    href: "/laboratory/repository/",
+    external: false,
+  },
+  {
+    name: "Repository",
+    description: "holds the living work",
+    invitation: "Browse the Repository",
+    href: repositoryGuide.repositoryUrl,
+    external: true,
+  },
+] as const;
+---
+
+<div class="ecosystem-map" aria-label="The current NEXAH ecosystem and its relationships">
+  <a class="ecosystem-map__entry ecosystem-destination" href="/">
+    <p class="ecosystem-map__label">Public entry</p>
+    <strong>Experience</strong>
+    <span>A quiet place to begin, read and continue.</span>
+    <small class="ecosystem-destination__invitation">Return home <span aria-hidden="true">→</span></small>
+  </a>
+
+  <div class="ecosystem-map__connector" aria-hidden="true"><span></span></div>
+
+  <div class="ecosystem-map__rooms" aria-label="Public rooms">
+    {publicRooms.map((room) => (
+      <a class={`ecosystem-room ecosystem-room--${room.tone} ecosystem-destination`} href={room.href}>
+        <span class="ecosystem-room__symbol" aria-hidden="true">{room.symbol}</span>
+        <span>
+          <small>Public room</small>
+          <strong>{room.name}</strong>
+          <span>{room.description}</span>
+          <small class="ecosystem-destination__invitation">{room.invitation} <span aria-hidden="true">→</span></small>
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <div class="ecosystem-map__relationships">
+    <section class="ecosystem-path ecosystem-path--knowledge" aria-labelledby="knowledge-path-title">
+      <p class="ecosystem-map__label" id="knowledge-path-title">Publication path</p>
+      <ol>
+        {publicationPath.map((destination) => (
+          <li>
+            <a class="ecosystem-path__destination" href={destination.href}>
+              <strong>{destination.name}</strong>
+              <span>{destination.description}</span>
+              <small class="ecosystem-destination__invitation">{destination.invitation} <span aria-hidden="true">→</span></small>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="ecosystem-path ecosystem-path--research" aria-labelledby="research-path-title">
+      <p class="ecosystem-map__label" id="research-path-title">Research path</p>
+      <ol>
+        {researchPath.map((destination) => (
+          <li>
+            <a
+              class="ecosystem-path__destination"
+              href={destination.href}
+              target={destination.external ? "_blank" : undefined}
+              rel={destination.external ? "noopener noreferrer" : undefined}
+            >
+              <strong>{destination.name}</strong>
+              <span>{destination.description}</span>
+              <small class="ecosystem-destination__invitation">{destination.invitation} <span aria-hidden="true">{destination.external ? "↗" : "→"}</span></small>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </div>
+
+  <a class="ecosystem-map__orientation ecosystem-destination" href="/orientation/">
+    <span class="ecosystem-map__orientation-mark" aria-hidden="true">◎</span>
+    <div>
+      <p class="ecosystem-map__label">Deterministic orientation</p>
+      <strong>ORION</strong>
+      <span>Provides bounded routes and evidence without owning publications, research or meaning.</span>
+      <small class="ecosystem-destination__invitation">Open orientation <span aria-hidden="true">→</span></small>
+    </div>
+  </a>
+
+  <aside class="ecosystem-map__future" aria-label="Future direction, informational only">
+    <p class="ecosystem-map__label">Future direction</p>
+    <strong>Orientation Studio</strong>
+    <span>Planned · not part of the current Experience.</span>
+    <small>Informational only</small>
+  </aside>
+</div>

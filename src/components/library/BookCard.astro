@@ -1,0 +1,26 @@
+---
+import type { LibraryBook } from "@/data/library";
+import { categoryById } from "@/data/library";
+
+type Props = {
+  book: LibraryBook;
+  featured?: boolean;
+};
+
+const { book, featured = false } = Astro.props;
+const category = categoryById.get(book.category);
+const publicationHref = `/library/${book.slug}/`;
+---
+
+<article class:list={["book-card", { "book-card--featured": featured }]}>
+  <a class="book-card__cover" href={publicationHref} aria-label={`Open ${book.title}`} data-carry-question>
+    <img src={book.cover} alt={book.coverAlt} width="1024" height="1536" loading={featured ? "eager" : "lazy"} />
+  </a>
+  <div class="book-card__body">
+    <p class="book-card__category">{category?.label}</p>
+    <h2><a href={publicationHref} data-carry-question>{book.title}</a></h2>
+    <p class="book-card__subtitle">{book.subtitle}</p>
+    <p class="book-card__description">{book.description}</p>
+    <a class="text-link" href={publicationHref} data-carry-question>Enter this work</a>
+  </div>
+</article>

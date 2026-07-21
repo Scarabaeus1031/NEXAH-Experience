@@ -1,0 +1,105 @@
+---
+import AtlasBreadcrumb from "@/components/atlas/AtlasBreadcrumb.astro";
+import AtlasMetadata from "@/components/atlas/AtlasMetadata.astro";
+import ConceptBadge from "@/components/atlas/ConceptBadge.astro";
+import OperatorBadge from "@/components/atlas/OperatorBadge.astro";
+import RelatedPublications from "@/components/atlas/RelatedPublications.astro";
+import RelationshipSection from "@/components/atlas/RelationshipSection.astro";
+import ThemeBadge from "@/components/atlas/ThemeBadge.astro";
+import VisualCollectionCard from "@/components/atlas/VisualCollectionCard.astro";
+import JourneyContinuation from "@/components/journey/JourneyContinuation.astro";
+import {
+  conceptById,
+  getConnectedEntities,
+  operatorById,
+  themeById,
+  visualById,
+  type AtlasEntityKind,
+  type AtlasRef,
+  type Concept,
+  type EditorialOperator,
+  type AtlasTheme,
+  type VisualCollection,
+} from "@/data/atlas";
+import { getFirstOrientationContinuation } from "@/data/journey";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type Props = {
+  entityRef: AtlasRef;
+  kind: Extract<AtlasEntityKind, "concept" | "operator" | "theme">;
+  title: string;
+  summary: string;
+  description: string;
+  detailLabel: string;
+  detail: string;
+};
+
+const { entityRef, kind, title, summary, description, detailLabel, detail } = Astro.props;
+const concepts = getConnectedEntities(entityRef, "concept")
+  .map((entity) => conceptById.get(entity.id))
+  .filter((entity): entity is Concept => Boolean(entity));
+const operators = getConnectedEntities(entityRef, "operator")
+  .map((entity) => operatorById.get(entity.id))
+  .filter((entity): entity is EditorialOperator => Boolean(entity));
+const themes = getConnectedEntities(entityRef, "theme")
+  .map((entity) => themeById.get(entity.id))
+  .filter((entity): entity is AtlasTheme => Boolean(entity));
+const visuals = getConnectedEntities(entityRef, "visual")
+  .map((entity) => visualById.get(entity.id))
+  .filter((entity): entity is VisualCollection => Boolean(entity));
+const kindLabel = kind === "concept" ? "Concept" : kind === "operator" ? "Editorial operator" : "Theme";
+const journeyContinuation = getFirstOrientationContinuation(entityRef);
+---
+
+<BaseLayout title={`${title} — Living Atlas`} description={summary}>
+  <AtlasBreadcrumb items={[{ label: "Atlas", href: "/atlas/" }, { label: `${kindLabel}s`, href: `/atlas/#${kind}s` }, { label: title }]} />
+  <article class="atlas-entity">
+    <header class="container atlas-entity__hero">
+      <div>
+        <p class="eyebrow">{kindLabel}</p>
+        <h1>{title}</h1>
+        <p class="lead">{summary}</p>
+      </div>
+      <blockquote>{detail}</blockquote>
+    </header>
+
+    <div class="container atlas-entity__body">
+      <section class="atlas-definition">
+        <p class="eyebrow">What is this?</p>
+        <h2>{detailLabel}</h2>
+        <p>{description}</p>
+      </section>
+      <AtlasMetadata entityRef={entityRef} kind={kind} />
+
+      {journeyContinuation && <JourneyContinuation continuation={journeyContinuation} />}
+
+      <RelationshipSection title="Where it appears" description="Publications connected by explicit editorial relations.">
+        <RelatedPublications subject={entityRef} />
+      </RelationshipSection>
+
+      {concepts.length > 0 && (
+        <RelationshipSection title="Related concepts" description="A curated neighborhood, not a similarity result.">
+          <div class="atlas-badge-row">{concepts.map((concept) => <ConceptBadge concept={concept} />)}</div>
+        </RelationshipSection>
+      )}
+
+      {operators.length > 0 && (
+        <RelationshipSection title="Operators" description="Editorial gestures explicitly connected to this entry.">
+          <div class="atlas-badge-row">{operators.map((operator) => <OperatorBadge operator={operator} />)}</div>
+        </RelationshipSection>
+      )}
+
+      {themes.length > 0 && (
+        <RelationshipSection title="Themes" description="The themes this entry is registered within.">
+          <div class="atlas-badge-row">{themes.map((theme) => <ThemeBadge theme={theme} />)}</div>
+        </RelationshipSection>
+      )}
+
+      {visuals.length > 0 && (
+        <RelationshipSection title="Visual collections" description="Existing visual material explicitly assigned to this entry.">
+          <div class="visual-collection-grid">{visuals.map((visual) => <VisualCollectionCard visual={visual} />)}</div>
+        </RelationshipSection>
+      )}
+    </div>
+  </article>
+</BaseLayout>

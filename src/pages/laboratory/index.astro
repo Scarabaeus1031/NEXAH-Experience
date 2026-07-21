@@ -1,0 +1,108 @@
+---
+import LaboratoryNav from "@/components/laboratory/LaboratoryNav.astro";
+import RepositoryMap from "@/components/laboratory/RepositoryMap.astro";
+import PublicationCover from "@/components/library/PublicationCover.astro";
+import { featuredLaboratoryPublication, laboratoryPublications, repositoryGuide } from "@/data/laboratory";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const featured = featuredLaboratoryPublication;
+const featuredCover = featured.localBook?.cover ?? featured.cover.src;
+const featuredCoverAlt = featured.localBook?.coverAlt ?? featured.cover.alt ?? `Cover of ${featured.title}`;
+const featuredWidth = featured.localBook ? 1024 : featured.cover.width;
+const featuredHeight = featured.localBook ? 1536 : featured.cover.height;
+---
+
+<BaseLayout title="Laboratory — NEXAH" description="The quiet bridge between ongoing NEXAH research, its public repository and published works.">
+  <LaboratoryNav />
+
+  <header class="container laboratory-hero">
+    <p class="eyebrow">The Laboratory</p>
+    <h1>How did this work come into being?</h1>
+    <p class="lead">A quiet view into how questions become observations, visual systems and publications.</p>
+    <p>The Laboratory does not reproduce the work itself. It shows where research happens, how it moves and when it becomes public.</p>
+    <a class="button" href="/laboratory/process/">Follow the research process</a>
+  </header>
+
+  <section class="container laboratory-feature" aria-labelledby="laboratory-feature-title">
+    <a class="laboratory-feature__cover" href={`/library/${featured.routeSlug}/`} data-carry-question>
+      <PublicationCover
+        src={featuredCover}
+        alt={featuredCoverAlt}
+        width={featuredWidth}
+        height={featuredHeight}
+        title={featured.title}
+        kind={featured.form.replaceAll("_", " ")}
+        loading="eager"
+        referrerpolicy="no-referrer"
+      />
+    </a>
+    <div>
+      <p class="eyebrow">Primary Laboratory reading</p>
+      <h2 id="laboratory-feature-title">{featured.localBook?.title ?? featured.title}</h2>
+      <p class="laboratory-feature__subtitle">{featured.localBook?.subtitle ?? featured.series}</p>
+      <p class="lead">A visitor’s guide to the Repository, its research wings and experimental facilities.</p>
+      <p class="publication-availability-note"><strong>Reading Selection available.</strong> The local Reading Space contains selected recorded pages; the Original Publication remains authoritative on Are.na.</p>
+      <div class="laboratory-feature__actions">
+        <a class="button" href={`/library/${featured.routeSlug}/read/`} data-carry-question>Enter Reading Space</a>
+        <a class="button button--secondary" href={`/library/${featured.routeSlug}/`} data-carry-question>Open Publication Record</a>
+      </div>
+      <p class="laboratory-feature__path">Laboratory → Publication Record → Reading Selection → Original Publication</p>
+    </div>
+  </section>
+
+  <section class="container laboratory-related-reading" aria-labelledby="laboratory-reading-title">
+    <header><p class="eyebrow">Further Laboratory reading</p><h2 id="laboratory-reading-title">Continue through existing publications.</h2></header>
+    <ul>
+      {laboratoryPublications.slice(1).map((publication) => (
+        <li><div><small>{publication.localBook ? "Reading Space available" : "Publication Record"}</small><strong>{publication.localBook?.title ?? publication.title}</strong></div><a href={`/library/${publication.routeSlug}/`} data-carry-question>Open Publication Record <span aria-hidden="true">→</span></a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container laboratory-distinction" aria-labelledby="distinction-title">
+    <header>
+      <p class="eyebrow">Three different places</p>
+      <h2 id="distinction-title">Work, publication and connection remain distinct.</h2>
+    </header>
+    <div>
+      <article>
+        <small>Laboratory</small>
+        <h3>See the process.</h3>
+        <p>Understand how research moves from an open question toward a citable work.</p>
+      </article>
+      <article>
+        <small>Library</small>
+        <h3>Read the publications.</h3>
+        <p>Enter works that have crossed the editorial threshold into the public collection.</p>
+        <a class="text-link" href="/library/">Enter the Library</a>
+      </article>
+      <article>
+        <small>Living Atlas</small>
+        <h3>Follow declared relationships.</h3>
+        <p>Move between publications, concepts and themes through curated connections.</p>
+        <a class="text-link" href="/atlas/">Enter the Atlas</a>
+      </article>
+    </div>
+  </section>
+
+  <div class="container laboratory-map-section">
+    <RepositoryMap compact />
+  </div>
+
+  <section class="container laboratory-readme" aria-labelledby="laboratory-readme-title">
+    <div><p class="eyebrow">Authoritative overview</p><h2 id="laboratory-readme-title">Begin with the Project README.</h2></div>
+    <div>
+      <p>{repositoryGuide.readme.description}</p>
+      <p class="fine">External authoritative document · {repositoryGuide.readme.path}</p>
+      <div class="laboratory-readme__actions">
+        <a class="button button--secondary" href={repositoryGuide.readme.url} target="_blank" rel="noopener noreferrer">Read the Project README <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="/laboratory/repository/">Orient before browsing</a>
+      </div>
+    </div>
+  </section>
+
+  <aside class="container laboratory-continuation">
+    <div><p class="eyebrow">The living source</p><h2>The Repository is where the work remains inspectable.</h2></div>
+    <a class="button button--secondary" href="/laboratory/repository/">Understand the Repository</a>
+  </aside>
+</BaseLayout>

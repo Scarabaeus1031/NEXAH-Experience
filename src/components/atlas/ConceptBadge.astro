@@ -1,0 +1,6 @@
+---
+import type { Concept } from "@/data/atlas";
+type Props = { concept: Concept };
+const { concept } = Astro.props;
+---
+<a class="atlas-badge atlas-badge--concept" href={`/atlas/concepts/${concept.id}/`}><span aria-hidden="true">○</span>{concept.title}</a>

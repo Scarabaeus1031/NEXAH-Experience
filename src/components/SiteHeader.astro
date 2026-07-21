@@ -1,0 +1,34 @@
+---
+import Brand from "./Brand.astro";
+
+const path = Astro.url.pathname;
+const links = [
+  ["Home", "/"],
+  ["Explore", "/explore/"],
+  ["Laboratory", "/laboratory/"],
+  ["Library", "/library/"],
+  ["Living Atlas", "/atlas/"],
+  ["About", "/about/"],
+] as const;
+
+const isCurrent = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <Brand />
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {links.map(([label, href]) => (
+        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
+      ))}
+    </nav>
+    <details class="mobile-nav">
+      <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
+      <nav aria-label="Mobile navigation">
+        {links.map(([label, href]) => (
+          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
+        ))}
+      </nav>
+    </details>
+  </div>
+</header>

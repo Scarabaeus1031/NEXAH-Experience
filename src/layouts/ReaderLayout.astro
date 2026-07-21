@@ -1,0 +1,161 @@
+---
+import ConceptBadge from "@/components/atlas/ConceptBadge.astro";
+import OperatorBadge from "@/components/atlas/OperatorBadge.astro";
+import ThemeBadge from "@/components/atlas/ThemeBadge.astro";
+import {
+  conceptById,
+  getConnectedEntities,
+  operatorById,
+  themeById,
+  type AtlasRef,
+  type AtlasTheme,
+  type Concept,
+  type EditorialOperator,
+} from "@/data/atlas";
+import type { LibraryBook } from "@/data/library";
+import type { ReaderPage, ReaderPublication } from "@/data/reader";
+import { publicationByRouteSlug } from "@/data/catalog";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type Props = {
+  book: LibraryBook;
+  reader: ReaderPublication;
+  page: ReaderPage;
+};
+
+const { book, reader, page } = Astro.props;
+const publication = publicationByRouteSlug.get(book.slug);
+if (!publication) throw new Error(`Missing Catalog metadata for reader ${book.slug}`);
+const pageIndex = reader.pages.findIndex((candidate) => candidate.id === page.id);
+const previousPage = pageIndex > 0 ? reader.pages[pageIndex - 1] : undefined;
+const nextPage = pageIndex < reader.pages.length - 1 ? reader.pages[pageIndex + 1] : undefined;
+const progress = Math.round(((pageIndex + 1) / reader.pages.length) * 100);
+const readerHref = (pageId: string) => `/library/${book.slug}/read/${pageId}/`;
+const bookRef = `book:${book.slug}` as AtlasRef;
+const concepts = getConnectedEntities(bookRef, "concept")
+  .map((entity) => conceptById.get(entity.id))
+  .filter((entity): entity is Concept => Boolean(entity));
+const operators = getConnectedEntities(bookRef, "operator")
+  .map((entity) => operatorById.get(entity.id))
+  .filter((entity): entity is EditorialOperator => Boolean(entity));
+const themes = getConnectedEntities(bookRef, "theme")
+  .map((entity) => themeById.get(entity.id))
+  .filter((entity): entity is AtlasTheme => Boolean(entity));
+const isFinalPage = !nextPage;
+const chapterRepeatsTitle = page.chapter.trim().toLocaleLowerCase() === page.title.trim().toLocaleLowerCase();
+---
+
+<BaseLayout title={`${page.title} — ${book.title}`} description={`Read ${page.title} in ${book.title}.`} hideFooter>
+  <article class="reader" data-reader data-previous={previousPage ? readerHref(previousPage.id) : undefined} data-next={nextPage ? readerHref(nextPage.id) : undefined}>
+    <header class="reader-bar">
+      <div class="container reader-bar__inner">
+        <a class="reader-return" href={`/library/${book.slug}/`} data-carry-question><span aria-hidden="true">←</span> About this work</a>
+        <div class="reader-identity">
+          <small>Reading</small>
+          <strong>{book.title}</strong>
+        </div>
+        <details class="reader-contents">
+          <summary>Chapters</summary>
+          <nav aria-label={`${book.title} chapters`}>
+            {reader.chapters.map((chapter, index) => (
+              <a href={readerHref(chapter.firstPageId)} aria-current={chapter.firstPageId === page.id ? "page" : undefined} data-carry-question>
+                <span>{String(index + 1).padStart(2, "0")}</span>{chapter.title}
+              </a>
+            ))}
+          </nav>
+        </details>
+      </div>
+      <div class="reader-progress" aria-label={`${progress}% read`}><span style={`width: ${progress}%`}></span></div>
+    </header>
+
+    <div class="container reader-page">
+      <header class="reader-page__heading">
+        {!chapterRepeatsTitle && <p class="eyebrow">{page.chapter}</p>}
+        <h1>{page.title}</h1>
+        <p>Selected page {page.sequence} of {reader.pages.length}</p>
+      </header>
+
+      <div class="reader-spread-shell">
+        {previousPage ? (
+          <a class="reader-spread-control reader-spread-control--previous" href={readerHref(previousPage.id)} rel="prev" aria-label={`Previous page: ${previousPage.title}`} data-carry-question>
+            <span aria-hidden="true">←</span><small>Previous</small>
+          </a>
+        ) : <span class="reader-spread-control-placeholder" aria-hidden="true"></span>}
+
+        <div class="reader-spread">
+          <img src={page.src} alt={`${book.title} — ${page.title}`} width={page.width} height={page.height} />
+          <button class="reader-zoom" type="button" data-open-reader-image aria-label={`Enlarge ${page.title}`}>
+            <span aria-hidden="true">⌕</span><span>Enlarge</span>
+          </button>
+        </div>
+
+        {nextPage ? (
+          <a class="reader-spread-control reader-spread-control--next" href={readerHref(nextPage.id)} rel="next" aria-label={`Next page: ${nextPage.title}`} data-carry-question>
+            <small>Next</small><span aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <a class="reader-spread-control reader-spread-control--next" href="#reader-atlas" aria-label="Continue into the Living Atlas">
+            <small>Continue</small><span aria-hidden="true">→</span>
+          </a>
+        )}
+      </div>
+
+      <nav class="reader-page-nav" aria-label="Page navigation">
+        {previousPage ? (
+          <a href={readerHref(previousPage.id)} rel="prev" data-carry-question><span>Previous</span><strong>{previousPage.title}</strong></a>
+        ) : (
+          <a href={`/library/${book.slug}/read/`} data-carry-question><span>Entrance</span><strong>{book.title}</strong></a>
+        )}
+        {nextPage ? (
+          <a href={readerHref(nextPage.id)} rel="next" data-carry-question><span>Next</span><strong>{nextPage.title}</strong></a>
+        ) : (
+          <a href="#reader-atlas"><span>Continue</span><strong>Enter the Atlas</strong></a>
+        )}
+      </nav>
+
+      {isFinalPage && (
+        <section class="reader-atlas-exit" id="reader-atlas" aria-labelledby="reader-atlas-title">
+          <p class="eyebrow">The Reading Space ends. The landscape continues.</p>
+          <h2 id="reader-atlas-title">Continue through its explicit Atlas relationships.</h2>
+          <p>This curated selection contains {reader.pages.length} of {publication.blockCount} recorded source pages. The original publication remains available on Are.na. These connections belong to the Living Atlas. The Reader displays them but does not create them.</p>
+          <div class="reader-atlas-groups">
+            {concepts.length > 0 && <div><h3>Concepts</h3><div class="atlas-badge-row">{concepts.map((concept) => <ConceptBadge concept={concept} />)}</div></div>}
+            {operators.length > 0 && <div><h3>Editorial operators</h3><div class="atlas-badge-row">{operators.map((operator) => <OperatorBadge operator={operator} />)}</div></div>}
+            {themes.length > 0 && <div><h3>Themes</h3><div class="atlas-badge-row">{themes.map((theme) => <ThemeBadge theme={theme} />)}</div></div>}
+          </div>
+          <div class="journey-actions">
+            <a class="button" href="/atlas/" data-carry-question>Continue into the Living Atlas</a>
+            <a class="button button--secondary" href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+            <a class="button button--quiet" href={`/library/${book.slug}/`} data-carry-question>Return to the publication</a>
+            <a class="button button--quiet" href="/library/" data-carry-question>Return to the Library</a>
+          </div>
+        </section>
+      )}
+    </div>
+
+    <dialog class="reader-dialog" data-reader-dialog aria-label={`${page.title}, full-size page`}>
+      <button class="reader-dialog__close" type="button" data-close-reader-image>Close</button>
+      <div class="reader-dialog__stage">
+        {previousPage ? (
+          <a class="reader-dialog__page reader-dialog__page--previous" href={readerHref(previousPage.id)} rel="prev" aria-label={`Previous page: ${previousPage.title}`} data-carry-question><span aria-hidden="true">←</span></a>
+        ) : <span class="reader-dialog__page-placeholder" aria-hidden="true"></span>}
+        <img src={page.src} alt={`${book.title} — ${page.title}, enlarged`} width={page.width} height={page.height} />
+        {nextPage ? (
+          <a class="reader-dialog__page reader-dialog__page--next" href={readerHref(nextPage.id)} rel="next" aria-label={`Next page: ${nextPage.title}`} data-carry-question><span aria-hidden="true">→</span></a>
+        ) : <span class="reader-dialog__page-placeholder" aria-hidden="true"></span>}
+      </div>
+    </dialog>
+  </article>
+
+  <script>
+    const reader = document.querySelector<HTMLElement>("[data-reader]");
+    const dialog = document.querySelector<HTMLDialogElement>("[data-reader-dialog]");
+    document.querySelector<HTMLButtonElement>("[data-open-reader-image]")?.addEventListener("click", () => dialog?.showModal());
+    document.querySelector<HTMLButtonElement>("[data-close-reader-image]")?.addEventListener("click", () => dialog?.close());
+    dialog?.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" && reader?.dataset.previous) window.location.href = reader.dataset.previous;
+      if (event.key === "ArrowRight" && reader?.dataset.next) window.location.href = reader.dataset.next;
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import LaboratoryNav from "@/components/laboratory/LaboratoryNav.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const fields = [
+  ["Architecture", "Keeping responsibilities, authority and extension points explicit."],
+  ["Orientation", "Studying how representations help people find position, direction and limits."],
+  ["Publications", "Turning selected research into durable works that can be read and cited."],
+  ["Visual systems", "Developing careful forms that reveal relationships without overstating claims."],
+  ["Research", "Observing, comparing and documenting questions that remain genuinely open."],
+] as const;
+---
+
+<BaseLayout title="Current Work — NEXAH Laboratory" description="A high-level view of the fields currently held open inside the NEXAH research process.">
+  <LaboratoryNav />
+
+  <header class="container laboratory-page-hero">
+    <p class="eyebrow">Current work</p>
+    <h1>Five fields remain in view.</h1>
+    <p class="lead">This is a stable orientation, not a schedule or status dashboard. Detailed work remains in the Repository.</p>
+  </header>
+
+  <section class="container current-work-list" aria-label="Current research fields">
+    {fields.map(([title, description], index) => (
+      <article><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{description}</p></div></article>
+    ))}
+  </section>
+
+  <aside class="container laboratory-continuation">
+    <div><p class="eyebrow">For the detailed record</p><h2>Follow the work at its source.</h2></div>
+    <a class="button button--secondary" href="/laboratory/repository/">Continue to Repository</a>
+  </aside>
+</BaseLayout>

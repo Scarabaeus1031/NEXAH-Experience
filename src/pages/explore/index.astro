@@ -1,0 +1,31 @@
+---
+import DoorCard from "@/components/navigation/DoorCard.astro";
+import { editorialDoors, guidedBeginnings } from "@/data/navigation";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Explore — NEXAH" description="Six editorial doors into the NEXAH Publication Catalog.">
+  <header class="container explore-hero">
+    <p class="eyebrow">Where should I begin?</p>
+    <h1>Choose a way into the landscape.</h1>
+    <p class="lead">These are editorial doors, not categories. A publication may be reached from more than one place.</p>
+  </header>
+
+  <section class="container door-grid" aria-label="Editorial entry doors">
+    {editorialDoors.map((door) => <DoorCard door={door} />)}
+  </section>
+
+  <section class="container guided-beginnings" aria-labelledby="guided-title">
+    <header><p class="eyebrow">Guided beginnings</p><h2 id="guided-title">If you would rather follow a path.</h2></header>
+    <ol>
+      {guidedBeginnings.map((beginning, index) => (
+        <li><span>{String(index + 1).padStart(2, "0")}</span><div><h3>{beginning.title}</h3><p>{beginning.description}</p></div><a href={beginning.href} aria-label={`Begin: ${beginning.title}`} data-carry-question={beginning.id === "study-the-system" ? undefined : true}>→</a></li>
+      ))}
+    </ol>
+  </section>
+
+  <aside class="container complete-library-invitation">
+    <div><p class="eyebrow">What exists?</p><h2>The complete Library remains open.</h2></div>
+    <a class="button button--secondary" href="/library/" data-carry-question>View all 61 publications</a>
+  </aside>
+</BaseLayout>

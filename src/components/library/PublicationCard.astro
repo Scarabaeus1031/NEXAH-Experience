@@ -1,0 +1,32 @@
+---
+import { getPublicationExcerpt, type WebsitePublication } from "@/data/catalog";
+import PublicationCover from "@/components/library/PublicationCover.astro";
+
+type Props = { publication: WebsitePublication; featured?: boolean };
+const { publication, featured = false } = Astro.props;
+const cover = publication.localBook?.cover ?? publication.cover.src;
+const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+const width = publication.localBook ? 1024 : publication.cover.width;
+const height = publication.localBook ? 1536 : publication.cover.height;
+---
+
+<article class:list={["publication-card", { "publication-card--featured": featured }]}>
+  <a class="publication-card__cover" href={`/library/${publication.routeSlug}/`} data-carry-question>
+    <PublicationCover
+      src={cover}
+      alt={coverAlt}
+      width={width}
+      height={height}
+      title={publication.title}
+      kind={publication.form.replaceAll("_", " ")}
+      loading={featured ? "eager" : "lazy"}
+      referrerpolicy="no-referrer"
+    />
+  </a>
+  <div>
+    <p class="publication-card__kind">{publication.type.replaceAll("_", " ")}{publication.localBook ? " · Reading Space available" : " · Publication record"}</p>
+    <h3><a href={`/library/${publication.routeSlug}/`} data-carry-question>{publication.title}</a></h3>
+    {featured && <p>{getPublicationExcerpt(publication)}</p>}
+    <a class="text-link" href={`/library/${publication.routeSlug}/`} data-carry-question>Open publication</a>
+  </div>
+</article>

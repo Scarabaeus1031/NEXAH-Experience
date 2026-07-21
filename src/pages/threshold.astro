@@ -1,0 +1,125 @@
+---
+import ThresholdResult from "@/components/threshold/ThresholdResult.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Orientation Threshold — NEXAH" description="A bounded deterministic entrance into NEXAH.">
+  <section class="container threshold-shell">
+    <header class="threshold-intro">
+      <p class="eyebrow">Orientation Threshold</p>
+      <h1>Find the supported place to begin.</h1>
+      <p class="lead">Ask about NEXAH, Orientation, a recorded publication or where to begin. The Threshold checks only approved explanations, explicit catalog records, editorial doors and registered ORION requests.</p>
+    </header>
+
+    <form class="threshold-form" action="/threshold/" method="get" data-threshold-form>
+      <label for="threshold-question">One bounded NEXAH question</label>
+      <div>
+        <input id="threshold-question" name="question" placeholder="What is NEXAH?" maxlength="280" autocomplete="off" required data-threshold-input />
+        <button class="button" type="submit">Check the available structure</button>
+      </div>
+      <p>No model, general search or hidden recommendation is used.</p>
+    </form>
+
+    <ThresholdResult />
+
+    <aside class="threshold-independent">
+      <p class="eyebrow">No question required</p>
+      <h2>Explore remains independent.</h2>
+      <a class="button button--secondary" href="/explore/">Explore without asking</a>
+    </aside>
+  </section>
+
+  <script>
+    import { resolveOrientationThreshold } from "@/threshold/runtime";
+
+    type ThresholdPublication = {
+      title: string;
+      form: string;
+      type: string;
+      availability: "locally-readable" | "catalog-record-only";
+      sourceAvailable: boolean;
+      reviewState: string;
+    };
+    type ThresholdAction = { label: string; href: string };
+    type ThresholdResponse = {
+      mode: string;
+      title: string;
+      explanation: string;
+      provenance?: string;
+      reviewStatus?: string;
+      publications?: ThresholdPublication[];
+      actions: ThresholdAction[];
+    };
+
+    const form = document.querySelector<HTMLFormElement>("[data-threshold-form]");
+    const input = document.querySelector<HTMLInputElement>("[data-threshold-input]");
+    const resultPanel = document.querySelector<HTMLElement>("[data-threshold-result]");
+    const mode = document.querySelector<HTMLElement>("[data-threshold-mode]");
+    const title = document.querySelector<HTMLElement>("[data-threshold-title]");
+    const explanation = document.querySelector<HTMLElement>("[data-threshold-explanation]");
+    const provenance = document.querySelector<HTMLElement>("[data-threshold-provenance]");
+    const publications = document.querySelector<HTMLElement>("[data-threshold-publications]");
+    const publicationList = document.querySelector<HTMLUListElement>("[data-threshold-publication-list]");
+    const actions = document.querySelector<HTMLElement>("[data-threshold-actions]");
+
+    function render(question: string) {
+      const response = resolveOrientationThreshold(question) as ThresholdResponse;
+      if (!resultPanel || !mode || !title || !explanation || !actions || !publications || !publicationList || !provenance) return;
+
+      mode.textContent = response.mode;
+      title.textContent = response.title;
+      explanation.textContent = response.explanation;
+      publicationList.replaceChildren();
+      actions.replaceChildren();
+
+      const matches = "publications" in response ? response.publications ?? [] : [];
+      publications.hidden = matches.length === 0;
+      matches.forEach((publication) => {
+        const item = document.createElement("li");
+        const heading = document.createElement("strong");
+        const metadata = document.createElement("span");
+        heading.textContent = publication.title;
+        metadata.textContent = `${publication.form || publication.type} · ${publication.availability === "locally-readable" ? "Readable here" : "Catalog record only"} · ${publication.sourceAvailable ? "Source available" : "No source link"} · ${publication.reviewState}`;
+        item.append(heading, metadata);
+        publicationList.append(item);
+      });
+
+      if (response.provenance) {
+        provenance.hidden = false;
+        provenance.textContent = `${response.reviewStatus ?? "reviewed"} · ${response.provenance}`;
+      } else {
+        provenance.hidden = true;
+        provenance.textContent = "";
+      }
+
+      response.actions.forEach((action, index) => {
+        const link = document.createElement("a");
+        link.href = action.href;
+        link.textContent = action.label;
+        link.className = index === 0 ? "button" : "button button--secondary";
+        actions.append(link);
+      });
+
+      const current = new URL(window.location.href);
+      current.searchParams.set("question", question);
+      window.history.replaceState({}, "", `${current.pathname}${current.search}`);
+      window.dispatchEvent(new CustomEvent("nexah:question-changed", { detail: question }));
+      resultPanel.hidden = false;
+      resultPanel.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      title.setAttribute("tabindex", "-1");
+      title.focus({ preventScroll: true });
+    }
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const question = input?.value.trim() ?? "";
+      if (question) render(question);
+    });
+
+    const initialQuestion = new URLSearchParams(window.location.search).get("question")?.trim() ?? "";
+    if (initialQuestion && input) {
+      input.value = initialQuestion;
+      render(initialQuestion);
+    }
+  </script>
+</BaseLayout>

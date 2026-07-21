@@ -1,0 +1,27 @@
+{
+  "name": "nexah-experience",
+  "version": "0.1.0-alpha.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate:catalog": "ruby scripts/generate-publication-catalog.rb",
+    "generate:orion": "./scripts/generate-orion-interaction",
+    "import:reader": "node scripts/import-reader-assets.mjs",
+    "predev": "npm run generate:orion",
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "prebuild": "npm run generate:orion",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "precheck": "npm run generate:orion",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "check:links": "node scripts/check-built-links.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "verify": "npm run generate:orion && ASTRO_TELEMETRY_DISABLED=1 astro check && node --test tests/*.test.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-built-links.mjs"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.1.1",
+    "typescript": "^6.0.3"
+  }
+}

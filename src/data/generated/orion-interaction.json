@@ -1,0 +1,613 @@
+{
+  "explanation": {
+    "alternatives": [
+      [
+        "T02",
+        "T04",
+        "T07",
+        "T09",
+        "T11",
+        "T13"
+      ],
+      [
+        "T03",
+        "T05",
+        "T06",
+        "T08",
+        "T11",
+        "T13"
+      ],
+      [
+        "T03",
+        "T05",
+        "T07",
+        "T09",
+        "T11",
+        "T13"
+      ],
+      [
+        "T02",
+        "T04",
+        "T06",
+        "T08",
+        "T11",
+        "T12",
+        "T14"
+      ],
+      [
+        "T02",
+        "T04",
+        "T07",
+        "T09",
+        "T11",
+        "T12",
+        "T14"
+      ],
+      [
+        "T03",
+        "T05",
+        "T06",
+        "T08",
+        "T11",
+        "T12",
+        "T14"
+      ],
+      [
+        "T03",
+        "T05",
+        "T07",
+        "T09",
+        "T11",
+        "T12",
+        "T14"
+      ]
+    ],
+    "blockers": [
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T02"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T02 requires Atlas/Correspondence Renderer; no renderer is registered",
+        "transition_id": "T02"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T04"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T04 requires Engine Renderer; no renderer is registered",
+        "transition_id": "T04"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered",
+        "transition_id": "T06"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingRenderer",
+        "reason": "T06 requires Topology Renderer; no renderer is registered",
+        "transition_id": "T06"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T08"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T08 requires Parametric Curve Renderer; no renderer is registered",
+        "transition_id": "T08"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T11"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T11 requires Stellar/Spherical Renderer; no renderer is registered",
+        "transition_id": "T11"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered",
+        "transition_id": "T13"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingRenderer",
+        "reason": "T13 requires Calendar/Temporal Renderer; no renderer is registered",
+        "transition_id": "T13"
+      }
+    ],
+    "evidence": [
+      "E0",
+      "E0",
+      "E0–E1",
+      "E0",
+      "E0",
+      "E0–E1"
+    ],
+    "sentences": [
+      "Status: blocked. The deterministic plan is blocked.",
+      "Registered route: T02 → T04 → T06 → T08 → T11 → T13.",
+      "Alternative paths: T02 → T04 → T07 → T09 → T11 → T13; T03 → T05 → T06 → T08 → T11 → T13; T03 → T05 → T07 → T09 → T11 → T13; T02 → T04 → T06 → T08 → T11 → T12 → T14; T02 → T04 → T07 → T09 → T11 → T12 → T14; T03 → T05 → T06 → T08 → T11 → T12 → T14; T03 → T05 → T07 → T09 → T11 → T12 → T14.",
+      "Missing Operator at T02: orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered Evidence: E0.",
+      "Missing Renderer at T02: T02 requires Atlas/Correspondence Renderer; no renderer is registered Evidence: E0.",
+      "Missing Operator at T04: orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered Evidence: E0.",
+      "Missing Renderer at T04: T04 requires Engine Renderer; no renderer is registered Evidence: E0.",
+      "Missing Operator at T06: orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered Evidence: E0–E1.",
+      "Missing Renderer at T06: T06 requires Topology Renderer; no renderer is registered Evidence: E0–E1.",
+      "Missing Operator at T08: orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered Evidence: E0.",
+      "Missing Renderer at T08: T08 requires Parametric Curve Renderer; no renderer is registered Evidence: E0.",
+      "Missing Operator at T11: orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered Evidence: E0.",
+      "Missing Renderer at T11: T11 requires Stellar/Spherical Renderer; no renderer is registered Evidence: E0.",
+      "Missing Operator at T13: orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered Evidence: E0–E1.",
+      "Missing Renderer at T13: T13 requires Calendar/Temporal Renderer; no renderer is registered Evidence: E0–E1.",
+      "Validation summary: invalid.",
+      "Validation checks: orientation-object:nexah-experience:observation-calendar:immutable; graph:orientation-representation-graph/0.1-draft:explicit-edges-only; path:selected:T02>T04>T06>T08>T11>T13; contract:T02:edge-compatible; contract:T02:invariants-preserved; contract:T04:edge-compatible; contract:T04:invariants-preserved; contract:T06:edge-compatible; contract:T06:invariants-preserved; contract:T08:edge-compatible; contract:T08:invariants-preserved; contract:T11:edge-compatible; contract:T11:invariants-preserved; contract:T13:edge-compatible; contract:T13:invariants-preserved; provenance-chain:complete; evidence-chain:complete.",
+      "Validation errors: orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered; T02 requires Atlas/Correspondence Renderer; no renderer is registered; orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered; T04 requires Engine Renderer; no renderer is registered; orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered; T06 requires Topology Renderer; no renderer is registered; orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered; T08 requires Parametric Curve Renderer; no renderer is registered; orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered; T11 requires Stellar/Spherical Renderer; no renderer is registered; orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered; T13 requires Calendar/Temporal Renderer; no renderer is registered.",
+      "Evidence summary: E0 → E0 → E0–E1 → E0 → E0 → E0–E1.",
+      "Source references: experience:canonical-example.",
+      "Source provenance: nexah-experience@0.1.0-alpha.0.",
+      "Transformation provenance: T02@0.1-draft:E0; T04@0.1-draft:E0; T06@0.1-draft:E0–E1; T08@0.1-draft:E0; T11@0.1-draft:E0; T13@0.1-draft:E0–E1.",
+      "Required invariants: identity; provenance; orientation_object_id; source_references.",
+      "Preserved invariants: identity; provenance; orientation_object_id; source_references.",
+      "No target representation was produced."
+    ],
+    "status": "blocked",
+    "text": "Status: blocked. The deterministic plan is blocked.\nRegistered route: T02 → T04 → T06 → T08 → T11 → T13.\nAlternative paths: T02 → T04 → T07 → T09 → T11 → T13; T03 → T05 → T06 → T08 → T11 → T13; T03 → T05 → T07 → T09 → T11 → T13; T02 → T04 → T06 → T08 → T11 → T12 → T14; T02 → T04 → T07 → T09 → T11 → T12 → T14; T03 → T05 → T06 → T08 → T11 → T12 → T14; T03 → T05 → T07 → T09 → T11 → T12 → T14.\nMissing Operator at T02: orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered Evidence: E0.\nMissing Renderer at T02: T02 requires Atlas/Correspondence Renderer; no renderer is registered Evidence: E0.\nMissing Operator at T04: orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered Evidence: E0.\nMissing Renderer at T04: T04 requires Engine Renderer; no renderer is registered Evidence: E0.\nMissing Operator at T06: orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered Evidence: E0–E1.\nMissing Renderer at T06: T06 requires Topology Renderer; no renderer is registered Evidence: E0–E1.\nMissing Operator at T08: orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered Evidence: E0.\nMissing Renderer at T08: T08 requires Parametric Curve Renderer; no renderer is registered Evidence: E0.\nMissing Operator at T11: orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered Evidence: E0.\nMissing Renderer at T11: T11 requires Stellar/Spherical Renderer; no renderer is registered Evidence: E0.\nMissing Operator at T13: orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered Evidence: E0–E1.\nMissing Renderer at T13: T13 requires Calendar/Temporal Renderer; no renderer is registered Evidence: E0–E1.\nValidation summary: invalid.\nValidation checks: orientation-object:nexah-experience:observation-calendar:immutable; graph:orientation-representation-graph/0.1-draft:explicit-edges-only; path:selected:T02>T04>T06>T08>T11>T13; contract:T02:edge-compatible; contract:T02:invariants-preserved; contract:T04:edge-compatible; contract:T04:invariants-preserved; contract:T06:edge-compatible; contract:T06:invariants-preserved; contract:T08:edge-compatible; contract:T08:invariants-preserved; contract:T11:edge-compatible; contract:T11:invariants-preserved; contract:T13:edge-compatible; contract:T13:invariants-preserved; provenance-chain:complete; evidence-chain:complete.\nValidation errors: orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered; T02 requires Atlas/Correspondence Renderer; no renderer is registered; orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered; T04 requires Engine Renderer; no renderer is registered; orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered; T06 requires Topology Renderer; no renderer is registered; orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered; T08 requires Parametric Curve Renderer; no renderer is registered; orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered; T11 requires Stellar/Spherical Renderer; no renderer is registered; orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered; T13 requires Calendar/Temporal Renderer; no renderer is registered.\nEvidence summary: E0 → E0 → E0–E1 → E0 → E0 → E0–E1.\nSource references: experience:canonical-example.\nSource provenance: nexah-experience@0.1.0-alpha.0.\nTransformation provenance: T02@0.1-draft:E0; T04@0.1-draft:E0; T06@0.1-draft:E0–E1; T08@0.1-draft:E0; T11@0.1-draft:E0; T13@0.1-draft:E0–E1.\nRequired invariants: identity; provenance; orientation_object_id; source_references.\nPreserved invariants: identity; provenance; orientation_object_id; source_references.\nNo target representation was produced."
+  },
+  "generator": "nexah-experience.build-integration/0.1",
+  "orion_source_sha256": "cab7e5b12f631ebe2008ad543320466c9391eaa02d0100f67d90743f62373829",
+  "orion_version": "0.3.0-dev.0",
+  "report": {
+    "issues": [
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T02"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T02 requires Atlas/Correspondence Renderer; no renderer is registered",
+        "transition_id": "T02"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T04"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T04 requires Engine Renderer; no renderer is registered",
+        "transition_id": "T04"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered",
+        "transition_id": "T06"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingRenderer",
+        "reason": "T06 requires Topology Renderer; no renderer is registered",
+        "transition_id": "T06"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T08"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T08 requires Parametric Curve Renderer; no renderer is registered",
+        "transition_id": "T08"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered",
+        "transition_id": "T11"
+      },
+      {
+        "evidence_level": "E0",
+        "kind": "MissingRenderer",
+        "reason": "T11 requires Stellar/Spherical Renderer; no renderer is registered",
+        "transition_id": "T11"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingOperator",
+        "reason": "orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered",
+        "transition_id": "T13"
+      },
+      {
+        "evidence_level": "E0–E1",
+        "kind": "MissingRenderer",
+        "reason": "T13 requires Calendar/Temporal Renderer; no renderer is registered",
+        "transition_id": "T13"
+      }
+    ],
+    "plan": {
+      "alternative_paths": [
+        [
+          "T02",
+          "T04",
+          "T07",
+          "T09",
+          "T11",
+          "T13"
+        ],
+        [
+          "T03",
+          "T05",
+          "T06",
+          "T08",
+          "T11",
+          "T13"
+        ],
+        [
+          "T03",
+          "T05",
+          "T07",
+          "T09",
+          "T11",
+          "T13"
+        ],
+        [
+          "T02",
+          "T04",
+          "T06",
+          "T08",
+          "T11",
+          "T12",
+          "T14"
+        ],
+        [
+          "T02",
+          "T04",
+          "T07",
+          "T09",
+          "T11",
+          "T12",
+          "T14"
+        ],
+        [
+          "T03",
+          "T05",
+          "T06",
+          "T08",
+          "T11",
+          "T12",
+          "T14"
+        ],
+        [
+          "T03",
+          "T05",
+          "T07",
+          "T09",
+          "T11",
+          "T12",
+          "T14"
+        ]
+      ],
+      "contract_registry_version": "orientation-transition-contracts/0.1-draft",
+      "evidence_chain": [
+        "E0",
+        "E0",
+        "E0–E1",
+        "E0",
+        "E0",
+        "E0–E1"
+      ],
+      "graph_version": "orientation-representation-graph/0.1-draft",
+      "operator_registry_version": "orion.operator-registry/0.1-draft",
+      "orientation_object_id": "nexah-experience:observation-calendar",
+      "orientation_object_version": "nexah-experience.orientation-object/0.1",
+      "path": [
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T02.md",
+          "evidence_level": "E0",
+          "operator_id": "orion.operator.placeholder/T02",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "unknown",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Atlas/Correspondence Renderer",
+          "required_parameters": [
+            "taxonomy_version",
+            "crosswalk",
+            "entity_identity",
+            "unit_normalization",
+            "ambiguity_policy"
+          ],
+          "sequence": 1,
+          "source_representation": "Observation",
+          "target_representation": "Planetary Chemistry",
+          "transition_id": "T02"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T04.md",
+          "evidence_level": "E0",
+          "operator_id": "orion.operator.placeholder/T04",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "unknown",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Engine Renderer",
+          "required_parameters": [
+            "category_state_crosswalk",
+            "state_field_ids",
+            "encoding",
+            "scale_units",
+            "normalization",
+            "merge_role"
+          ],
+          "sequence": 2,
+          "source_representation": "Planetary Chemistry",
+          "target_representation": "Scarabaeus Engine",
+          "transition_id": "T04"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T06.md",
+          "evidence_level": "E0–E1",
+          "operator_id": "orion.operator.placeholder/T06",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "candidate",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Topology Renderer",
+          "required_parameters": [
+            "state_strip_mapping",
+            "boundary_pair",
+            "seam",
+            "direction",
+            "landmark_crosswalk"
+          ],
+          "sequence": 3,
+          "source_representation": "Scarabaeus Engine",
+          "target_representation": "Möbius Topology",
+          "transition_id": "T06"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T08.md",
+          "evidence_level": "E0",
+          "operator_id": "orion.operator.placeholder/T08",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "unknown",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Parametric Curve Renderer",
+          "required_parameters": [
+            "selected_path",
+            "chart",
+            "seam_handling",
+            "observation_map",
+            "axes",
+            "phase_origin"
+          ],
+          "sequence": 4,
+          "source_representation": "Möbius Topology",
+          "target_representation": "Lissajous Geometry",
+          "transition_id": "T08"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T11.md",
+          "evidence_level": "E0",
+          "operator_id": "orion.operator.placeholder/T11",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "unknown",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Stellar/Spherical Renderer",
+          "required_parameters": [
+            "projection_operator",
+            "source_frame",
+            "target_frame",
+            "center_pole",
+            "orientation",
+            "point_crosswalk"
+          ],
+          "sequence": 5,
+          "source_representation": "Lissajous Geometry",
+          "target_representation": "Stellar Projection",
+          "transition_id": "T11"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "documentation_ref": "docs/architecture/transformations/contracts/T13.md",
+          "evidence_level": "E0–E1",
+          "operator_id": "orion.operator.placeholder/T13",
+          "operator_owner": "NEXAH ORION capability inventory; implementation owner unassigned",
+          "operator_status": "candidate",
+          "operator_version": "0.1-draft",
+          "renderer_family": "Calendar/Temporal Renderer",
+          "required_parameters": [
+            "phase_rule",
+            "epoch",
+            "period",
+            "direction",
+            "calendar_profile",
+            "timezone"
+          ],
+          "sequence": 6,
+          "source_representation": "Stellar Projection",
+          "target_representation": "Calendar Projection",
+          "transition_id": "T13"
+        }
+      ],
+      "plan_id": "transform-plan-d1a76244488c9ac3",
+      "preserved_invariants": [
+        "identity",
+        "provenance",
+        "orientation_object_id",
+        "source_references"
+      ],
+      "provenance_chain": [
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0",
+          "sequence": 1,
+          "source_representation": "Observation",
+          "target_representation": "Planetary Chemistry",
+          "transition_id": "T02"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0",
+          "sequence": 2,
+          "source_representation": "Planetary Chemistry",
+          "target_representation": "Scarabaeus Engine",
+          "transition_id": "T04"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0–E1",
+          "sequence": 3,
+          "source_representation": "Scarabaeus Engine",
+          "target_representation": "Möbius Topology",
+          "transition_id": "T06"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0",
+          "sequence": 4,
+          "source_representation": "Möbius Topology",
+          "target_representation": "Lissajous Geometry",
+          "transition_id": "T08"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0",
+          "sequence": 5,
+          "source_representation": "Lissajous Geometry",
+          "target_representation": "Stellar Projection",
+          "transition_id": "T11"
+        },
+        {
+          "contract_version": "0.1-draft",
+          "evidence_level": "E0–E1",
+          "sequence": 6,
+          "source_representation": "Stellar Projection",
+          "target_representation": "Calendar Projection",
+          "transition_id": "T13"
+        }
+      ],
+      "required_invariants": [
+        "identity",
+        "provenance",
+        "orientation_object_id",
+        "source_references"
+      ],
+      "schema_version": "orion.transformation-plan/0.1",
+      "source_provenance": [
+        "nexah-experience@0.1.0-alpha.0"
+      ],
+      "source_references": [
+        "experience:canonical-example"
+      ],
+      "source_representation": "Observation",
+      "source_representation_id": "nexah-experience:canonical-observation",
+      "source_representation_version": "representation/1",
+      "target_representation": "Calendar Projection",
+      "target_representation_version": null
+    },
+    "produced_representation": null,
+    "report_id": "transform-report-5e469731a3c48181",
+    "schema_version": "orion.transformation-report/0.1",
+    "status": "blocked",
+    "validation": {
+      "checks": [
+        "orientation-object:nexah-experience:observation-calendar:immutable",
+        "graph:orientation-representation-graph/0.1-draft:explicit-edges-only",
+        "path:selected:T02>T04>T06>T08>T11>T13",
+        "contract:T02:edge-compatible",
+        "contract:T02:invariants-preserved",
+        "contract:T04:edge-compatible",
+        "contract:T04:invariants-preserved",
+        "contract:T06:edge-compatible",
+        "contract:T06:invariants-preserved",
+        "contract:T08:edge-compatible",
+        "contract:T08:invariants-preserved",
+        "contract:T11:edge-compatible",
+        "contract:T11:invariants-preserved",
+        "contract:T13:edge-compatible",
+        "contract:T13:invariants-preserved",
+        "provenance-chain:complete",
+        "evidence-chain:complete"
+      ],
+      "errors": [
+        "orion.operator.placeholder/T02 is unknown and executable=false; no executable operator is registered",
+        "T02 requires Atlas/Correspondence Renderer; no renderer is registered",
+        "orion.operator.placeholder/T04 is unknown and executable=false; no executable operator is registered",
+        "T04 requires Engine Renderer; no renderer is registered",
+        "orion.operator.placeholder/T06 is candidate and executable=false; no executable operator is registered",
+        "T06 requires Topology Renderer; no renderer is registered",
+        "orion.operator.placeholder/T08 is unknown and executable=false; no executable operator is registered",
+        "T08 requires Parametric Curve Renderer; no renderer is registered",
+        "orion.operator.placeholder/T11 is unknown and executable=false; no executable operator is registered",
+        "T11 requires Stellar/Spherical Renderer; no renderer is registered",
+        "orion.operator.placeholder/T13 is candidate and executable=false; no executable operator is registered",
+        "T13 requires Calendar/Temporal Renderer; no renderer is registered"
+      ],
+      "valid": false
+    }
+  },
+  "request": {
+    "orientation_object": {
+      "epoch": null,
+      "known_constants": [],
+      "orientation_object_id": "nexah-experience:observation-calendar",
+      "orientation_object_version": "nexah-experience.orientation-object/0.1",
+      "provenance": [
+        "nexah-experience@0.1.0-alpha.0"
+      ],
+      "representation": {
+        "coordinate_profile": "coordinate-profile/1",
+        "representation_id": "nexah-experience:canonical-observation",
+        "representation_type": "Observation",
+        "representation_version": "representation/1"
+      },
+      "source_references": [
+        "experience:canonical-example"
+      ]
+    },
+    "utterance": "I want to understand how this observation reaches the calendar."
+  },
+  "translation": {
+    "intents": [
+      "Navigate",
+      "Explain"
+    ],
+    "source_representation": "Observation",
+    "target": {
+      "representation_type": "Calendar Projection",
+      "representation_version": null
+    },
+    "vocabulary_version": "orion.lyra-vocabulary/0.1"
+  }
+}

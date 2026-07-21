@@ -1,0 +1,41 @@
+---
+import type { LibraryBook } from "@/data/library";
+import { categoryById } from "@/data/library";
+import type { WebsitePublication } from "@/data/catalog";
+
+type Props = {
+  book: LibraryBook;
+  publication: WebsitePublication;
+  selectedPageCount: number;
+};
+
+const { book, publication, selectedPageCount } = Astro.props;
+const category = categoryById.get(book.category);
+---
+
+<dl class="editorial-metadata">
+  <div>
+    <dt>Publication status</dt>
+    <dd>{book.status}</dd>
+  </div>
+  <div>
+    <dt>Reading Space</dt>
+    <dd>Available here</dd>
+  </div>
+  <div>
+    <dt>Reading selection</dt>
+    <dd>{selectedPageCount} of {publication.blockCount} recorded source pages</dd>
+  </div>
+  <div>
+    <dt>Original publication</dt>
+    <dd>Available on Are.na</dd>
+  </div>
+  <div>
+    <dt>Edition</dt>
+    <dd>{book.edition}</dd>
+  </div>
+  <div>
+    <dt>Category</dt>
+    <dd>{category?.label}</dd>
+  </div>
+</dl>

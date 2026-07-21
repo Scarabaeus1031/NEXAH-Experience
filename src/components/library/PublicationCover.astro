@@ -1,0 +1,68 @@
+---
+type Props = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  title: string;
+  kind: string;
+  loading?: "eager" | "lazy";
+  referrerpolicy?: "no-referrer";
+};
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  title,
+  kind,
+  loading = "lazy",
+  referrerpolicy,
+} = Astro.props;
+---
+
+<span class="publication-cover-frame" data-publication-cover>
+  <span class="publication-cover-fallback" aria-hidden="true">
+    <small>{kind}</small>
+    <strong>{title}</strong>
+    <span>Cover unavailable here</span>
+  </span>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    referrerpolicy={referrerpolicy}
+    data-publication-cover-image
+  />
+</span>
+
+<script>
+  const preparePublicationCovers = () => {
+    document.querySelectorAll<HTMLElement>("[data-publication-cover]").forEach((frame) => {
+      if (frame.dataset.coverPrepared === "true") return;
+      const image = frame.querySelector<HTMLImageElement>("[data-publication-cover-image]");
+      if (!image) return;
+
+      frame.dataset.coverPrepared = "true";
+      const showImage = () => frame.classList.add("is-loaded");
+      const showFallback = () => {
+        frame.classList.remove("is-loaded");
+        image.hidden = true;
+      };
+
+      if (image.complete) {
+        image.naturalWidth > 0 ? showImage() : showFallback();
+      } else {
+        image.addEventListener("load", showImage, { once: true });
+        image.addEventListener("error", showFallback, { once: true });
+      }
+    });
+  };
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", preparePublicationCovers, { once: true })
+    : preparePublicationCovers();
+</script>

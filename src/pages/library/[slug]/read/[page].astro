@@ -1,0 +1,18 @@
+---
+import { bookBySlug } from "@/data/library";
+import { readerPublications } from "@/data/reader";
+import ReaderLayout from "@/layouts/ReaderLayout.astro";
+
+export function getStaticPaths() {
+  return readerPublications.flatMap((reader) => reader.pages.map((page) => ({
+    params: { slug: reader.bookSlug, page: page.id },
+    props: { reader, page },
+  })));
+}
+
+const { reader, page } = Astro.props;
+const book = bookBySlug.get(reader.bookSlug);
+if (!book) throw new Error(`Missing Library metadata for reader ${reader.bookSlug}`);
+---
+
+<ReaderLayout book={book} reader={reader} page={page} />

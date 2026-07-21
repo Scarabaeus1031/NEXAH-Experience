@@ -1,0 +1,265 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { orientationAdapter } from "@/adapters/orientation-adapter";
+
+const { request, report, explanation, orionVersion, orionSourceSha256 } = orientationAdapter;
+const canonicalUtterance = request.utterance;
+---
+
+<BaseLayout title="Begin an orientation — NEXAH" description="Bring one real question to a bounded NEXAH orientation." hideFooter>
+  <div class="container orientation-shell" data-orientation-root data-canonical-question={canonicalUtterance}>
+    <ol class="journey-progress" aria-label="Orientation journey">
+      <li data-progress="question" data-step="1" data-active="true">Question</li>
+      <li data-progress="confirmation" data-step="2">Confirm</li>
+      <li data-progress="processing" data-step="3">Orient</li>
+      <li data-progress="result" data-step="4">Boundary</li>
+      <li data-progress="reflection" data-step="5">Continue</li>
+    </ol>
+
+    <section class="journey-panel" data-panel="question" aria-labelledby="question-title">
+      <header class="journey-panel__head">
+        <p class="eyebrow">Your question</p>
+        <h1 id="question-title">What are you trying to understand?</h1>
+        <p class="lead">Write one question. It will remain visible and unchanged throughout this orientation.</p>
+      </header>
+      <form class="journey-form" data-question-form>
+        <label class="fine" for="orientation-question">One orientation question</label>
+        <textarea id="orientation-question" name="question" placeholder="I want to understand…" maxlength="280" required></textarea>
+        <p class="question-guidance">This is not a conversation. NEXAH will make the available boundary visible and will not invent a route.</p>
+        <div class="journey-actions">
+          <button class="button" type="submit">Confirm this question</button>
+          <a class="button button--quiet" href="/">Back home</a>
+        </div>
+      </form>
+    </section>
+
+    <section class="journey-panel" data-panel="confirmation" aria-labelledby="confirmation-title" hidden>
+      <header class="journey-panel__head">
+        <p class="eyebrow">Confirm before orientation</p>
+        <h1 id="confirmation-title">Is this the question you want to carry?</h1>
+        <p class="lead">Nothing has been interpreted yet.</p>
+      </header>
+      <div class="confirmation-card">
+        <dl class="confirmation-grid">
+          <div><dt>Your question</dt><dd data-session-question-text></dd></div>
+          <div><dt>Next action</dt><dd>Check the existing deterministic language boundary.</dd></div>
+          <div><dt>Authority</dt><dd>Your wording remains yours. ORION may only use an already registered request.</dd></div>
+        </dl>
+        <div class="journey-actions">
+          <button class="button" type="button" data-go="processing">Begin orientation</button>
+          <button class="button button--quiet" type="button" data-go="question">Edit the question</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-panel" data-panel="processing" aria-labelledby="processing-title" hidden>
+      <header class="journey-panel__head">
+        <p class="eyebrow">Orientation</p>
+        <h1 id="processing-title">Your question has reached the boundary.</h1>
+        <p class="lead">Your wording remains unchanged. Continue when you are ready to see what the existing deterministic structure can support.</p>
+      </header>
+      <div class="processing-field" aria-hidden="true">✦</div>
+      <div class="journey-actions">
+        <button class="button" type="button" data-processing-continue>See what is available</button>
+        <button class="button button--quiet" type="button" data-go="confirmation">Return to confirmation</button>
+      </div>
+    </section>
+
+    <section class="journey-panel" data-panel="translation-boundary" aria-labelledby="translation-boundary-title" hidden>
+      <header class="journey-panel__head">
+        <p class="eyebrow">Language boundary</p>
+        <h1 id="translation-boundary-title">This question does not yet have a registered ORION request.</h1>
+        <p class="lead">The question remains intact. No route, result or evidence has been invented.</p>
+      </header>
+      <article class="orientation-card orientation-card--boundary">
+        <span class="orientation-status"><span aria-hidden="true">○</span> Translation unavailable</span>
+        <section class="question-boundary" aria-labelledby="preserved-question-title">
+          <p class="eyebrow" id="preserved-question-title">Your question</p>
+          <blockquote data-session-question-text></blockquote>
+        </section>
+        <div class="authority-ledger" aria-label="Authority summary">
+          <div><small>Experience</small><p>Preserved your exact question and checked the existing boundary.</p></div>
+          <div><small>ORION</small><p>Did not plan a route. No TransformationReport exists for this wording.</p></div>
+          <div><small>Library</small><p>Remains available for independent editorial exploration. No publication is being recommended.</p></div>
+          <div><small>Living Atlas</small><p>Remains available through its explicit registries. No relationship was inferred from your question.</p></div>
+          <div><small>Still unknown</small><p>How this wording should map to an existing Orientation Object and Representation Target.</p></div>
+        </div>
+        <div class="journey-actions">
+          <button class="button" type="button" data-go="question">Clarify the question</button>
+          <a class="button button--secondary" href="/library/" data-carry-question>Enter the Library independently</a>
+          <a class="button button--secondary" href="/atlas/" data-carry-question>Open the Atlas registries</a>
+          <a class="button button--quiet" href="/departure/" data-carry-question>Leave here</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="journey-panel" data-panel="result" aria-labelledby="result-title" hidden>
+      <header class="journey-panel__head">
+        <p class="eyebrow">Deterministic result</p>
+        <h1 id="result-title">The path is visible. It cannot yet be completed.</h1>
+      </header>
+      <article class="orientation-card">
+        <section class="question-boundary" aria-label="Question used for this result">
+          <p class="eyebrow">Your question</p>
+          <blockquote data-session-question-text></blockquote>
+        </section>
+        <div class="result-origin">
+          <span>User question</span><span aria-hidden="true">→</span><span>Existing LYRA request</span><span aria-hidden="true">→</span><span>ORION report</span>
+        </div>
+        <span class="orientation-status"><span aria-hidden="true">●</span> Current status: {report.status}</span>
+        <h2>{explanation.sentences[0]}</h2>
+        <p class="quiet">{explanation.sentences[1]}</p>
+        <div class="transition-path" aria-label="Registered route">
+          {report.plan.path.map((step) => (
+            <article class="transition-step">
+              <small>{step.transition_id} · {step.evidence_level}</small>
+              <h3>{step.source_representation}</h3>
+              <span aria-hidden="true">↓</span>
+              <p>{step.target_representation}</p>
+            </article>
+          ))}
+        </div>
+        <aside class="uncertainty">
+          <h3>Where ORION stops</h3>
+          <p>The six registered transitions do not yet have the executable operators and renderers they require. No target representation has been produced.</p>
+        </aside>
+        {report.produced_representation === null && <p class="alpha-notice">No target representation was produced.</p>}
+        <div class="journey-actions">
+          <button class="button" type="button" data-go="evidence">Inspect the ORION boundary</button>
+          <button class="button button--secondary" type="button" data-go="reflection">Pause and reflect</button>
+          <a class="button button--quiet" href="/departure/" data-carry-question>Leave here</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="journey-panel" data-panel="evidence" aria-labelledby="evidence-title" hidden>
+      <header class="journey-panel__head">
+        <p class="eyebrow">ORION boundary</p>
+        <h1 id="evidence-title">See exactly where the deterministic path stops.</h1>
+        <p class="lead">The route, its evidence and its limits remain visible without becoming a conclusion.</p>
+      </header>
+      <div class="evidence-card">
+        <section class="report-facts" aria-label="Report identity">
+          <div><small>Report</small><strong>{report.report_id}</strong></div>
+          <div><small>Plan</small><strong>{report.plan.plan_id}</strong></div>
+          <div><small>Validation</small><strong>{report.validation.valid ? "valid" : "invalid"}</strong></div>
+          <div><small>Schema</small><strong>{report.schema_version}</strong></div>
+        </section>
+        <ul class="evidence-list">
+          {report.plan.provenance_chain.map((step) => (
+            <li class="evidence-item">
+              <div><h3>{step.transition_id}: {step.source_representation} → {step.target_representation}</h3><p>Contract {step.contract_version ?? "unknown"} · sequence {step.sequence}</p></div>
+              <small>Evidence {step.evidence_level}</small>
+            </li>
+          ))}
+        </ul>
+        <details class="report-explanation" open>
+          <summary>Inspect all reported blockers</summary>
+          <ul class="issue-list">
+            {report.issues.map((issue) => (
+              <li><strong>{issue.kind}{issue.transition_id ? ` · ${issue.transition_id}` : ""}</strong><span>{issue.reason}</span><small>Evidence: {issue.evidence_level}</small></li>
+            ))}
+          </ul>
+        </details>
+        <section class="report-detail"><h3>Source references</h3><p>{report.plan.source_references.join(" · ") || "none"}</p></section>
+        <section class="report-detail"><h3>Source provenance</h3><p>{report.plan.source_provenance.join(" · ") || "none"}</p></section>
+        <section class="report-detail"><h3>Required invariants</h3><p>{report.plan.required_invariants.join(" · ") || "none"}</p></section>
+        <section class="report-detail"><h3>Preserved invariants</h3><p>{report.plan.preserved_invariants.join(" · ") || "none"}</p></section>
+        <details class="report-explanation"><summary>Read the complete LYRA explanation</summary><div>{explanation.sentences.map((sentence) => <p>{sentence}</p>)}</div></details>
+        <details class="report-explanation"><summary>Inspect build provenance</summary><div><p>ORION {orionVersion}</p><p>Source digest: {orionSourceSha256}</p></div></details>
+        <aside class="editorial-handoff">
+          <p class="eyebrow">Editorial continuation</p>
+          <h2>The report ends here. Reading may continue.</h2>
+          <p>The Cartography Laboratory is connected through the existing curated Sprint 05 path. It does not validate or amend this report.</p>
+        </aside>
+        <div class="journey-actions">
+          <a class="button" href="/library/cartography-laboratory/#first-orientation" data-carry-question>Continue into the field</a>
+          <button class="button button--secondary" type="button" data-go="reflection">Pause and reflect</button>
+          <button class="button button--quiet" type="button" data-go="result">Return to orientation</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey-panel" data-panel="reflection" aria-labelledby="reflection-title" hidden>
+      <div class="reflection-card">
+        <p class="eyebrow">Before you continue</p>
+        <h1 id="reflection-title">The report is {report.status}. What it changes for you remains yours.</h1>
+        <blockquote>What does the visible boundary change in how you see your question?</blockquote>
+        <p class="quiet">This reflection is yours. You do not need to answer.</p>
+        <div class="journey-actions">
+          <a class="button" href="/library/cartography-laboratory/#first-orientation" data-carry-question>Continue into the field</a>
+          <button class="button button--secondary" type="button" data-go="result">Return to orientation</button>
+          <a class="button button--quiet" href="/departure/" data-carry-question>Leave here</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const root = document.querySelector<HTMLElement>("[data-orientation-root]");
+    const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-panel]"));
+    const progress = Array.from(document.querySelectorAll<HTMLElement>("[data-progress]"));
+    const questionForm = document.querySelector<HTMLFormElement>("[data-question-form]");
+    const questionInput = document.querySelector<HTMLTextAreaElement>("#orientation-question");
+    const processingContinue = document.querySelector<HTMLButtonElement>("[data-processing-continue]");
+    const canonicalQuestion = root?.dataset.canonicalQuestion?.trim() ?? "";
+
+    const progressMap: Record<string, string> = {
+      question: "question",
+      confirmation: "confirmation",
+      processing: "processing",
+      "translation-boundary": "result",
+      result: "result",
+      evidence: "result",
+      reflection: "reflection",
+    };
+
+    function activeQuestion() {
+      return questionInput?.value.trim() ?? "";
+    }
+
+    function preserveQuestion(question: string) {
+      const current = new URL(window.location.href);
+      current.searchParams.set("question", question);
+      window.history.replaceState({}, "", `${current.pathname}${current.search}${current.hash}`);
+      window.dispatchEvent(new CustomEvent("nexah:question-changed", { detail: question }));
+    }
+
+    function isCanonicalQuestion(question: string) {
+      return question === canonicalQuestion;
+    }
+
+    function showPanel(name: string) {
+      panels.forEach((panel) => { panel.hidden = panel.dataset.panel !== name; });
+      const current = progressMap[name] ?? name;
+      progress.forEach((item) => { item.dataset.active = String(item.dataset.progress === current); });
+      if (name === "processing" && processingContinue) {
+        processingContinue.dataset.go = isCanonicalQuestion(activeQuestion()) ? "result" : "translation-boundary";
+      }
+      root?.scrollIntoView({ behavior: "smooth", block: "start" });
+      const heading = panels.find((panel) => panel.dataset.panel === name)?.querySelector<HTMLElement>("h1");
+      heading?.setAttribute("tabindex", "-1");
+      heading?.focus({ preventScroll: true });
+    }
+
+    document.querySelectorAll<HTMLButtonElement>("[data-go], [data-processing-continue]").forEach((button) => {
+      button.addEventListener("click", () => showPanel(button.dataset.go ?? "question"));
+    });
+
+    questionForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const question = activeQuestion();
+      if (!question) return;
+      preserveQuestion(question);
+      showPanel("confirmation");
+    });
+
+    const incoming = new URLSearchParams(window.location.search).get("question")?.trim();
+    const remembered = window.sessionStorage.getItem("nexah.orientation.question")?.trim();
+    if (questionInput) questionInput.value = incoming || remembered || "";
+    if (incoming) {
+      preserveQuestion(incoming);
+      showPanel("confirmation");
+    }
+  </script>
+</BaseLayout>

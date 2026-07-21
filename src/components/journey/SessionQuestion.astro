@@ -1,0 +1,61 @@
+<aside class="session-question" data-session-question hidden aria-label="Current orientation question">
+  <div class="container session-question__inner">
+    <div>
+      <small>Your question</small>
+      <p data-session-question-text></p>
+    </div>
+    <button type="button" data-end-question>End this session</button>
+  </div>
+</aside>
+
+<script>
+  const questionKey = "nexah.orientation.question";
+  const sessionPanel = document.querySelector<HTMLElement>("[data-session-question]");
+  const questionTexts = Array.from(document.querySelectorAll<HTMLElement>("[data-session-question-text]"));
+
+  function currentQuestion() {
+    const fromUrl = new URLSearchParams(window.location.search).get("question")?.trim();
+    if (fromUrl) {
+      window.sessionStorage.setItem(questionKey, fromUrl);
+      return fromUrl;
+    }
+    return window.sessionStorage.getItem(questionKey)?.trim() ?? "";
+  }
+
+  function carryQuestion(question: string) {
+    document.querySelectorAll<HTMLAnchorElement>("a[data-carry-question]").forEach((link) => {
+      const target = new URL(link.href, window.location.origin);
+      if (question) target.searchParams.set("question", question);
+      else target.searchParams.delete("question");
+      link.href = `${target.pathname}${target.search}${target.hash}`;
+    });
+  }
+
+  function renderQuestion(question: string) {
+    questionTexts.forEach((element) => { element.textContent = question; });
+    if (sessionPanel) sessionPanel.hidden = !question || window.location.pathname === "/";
+    carryQuestion(question);
+  }
+
+  renderQuestion(currentQuestion());
+
+  window.addEventListener("nexah:question-changed", (event) => {
+    const question = (event as CustomEvent<string>).detail.trim();
+    if (question) window.sessionStorage.setItem(questionKey, question);
+    else window.sessionStorage.removeItem(questionKey);
+    renderQuestion(question);
+  });
+
+  function endSession() {
+    window.sessionStorage.removeItem(questionKey);
+    const current = new URL(window.location.href);
+    current.searchParams.delete("question");
+    window.history.replaceState({}, "", `${current.pathname}${current.search}${current.hash}`);
+    renderQuestion("");
+  }
+
+  document.querySelector<HTMLButtonElement>("[data-end-question]")?.addEventListener("click", endSession);
+  document.querySelectorAll<HTMLElement>("[data-end-session]").forEach((element) => {
+    element.addEventListener("click", endSession);
+  });
+</script>

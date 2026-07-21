@@ -1,0 +1,44 @@
+---
+import LaboratoryNav from "@/components/laboratory/LaboratoryNav.astro";
+import RepositoryMap from "@/components/laboratory/RepositoryMap.astro";
+import { repositoryGuide } from "@/data/laboratory";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Repository — NEXAH Laboratory" description="The NEXAH Repository is the living, inspectable source behind the public Experience.">
+  <LaboratoryNav />
+
+  <header class="container laboratory-page-hero laboratory-page-hero--repository">
+    <p class="eyebrow">Repository</p>
+    <h1>The work remains open.</h1>
+    <p class="lead">The Repository is where NEXAH is documented, tested and changed. It is the living source; this website is its public orientation.</p>
+    <div class="repository-primary-actions">
+      <a class="button" href={repositoryGuide.repositoryUrl} target="_blank" rel="noopener noreferrer">Browse the Repository <span aria-hidden="true">↗</span></a>
+      <a class="button button--secondary" href={repositoryGuide.readme.url} target="_blank" rel="noopener noreferrer">Read the Project README <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <div class="container repository-map-section"><RepositoryMap /></div>
+
+  <section class="container laboratory-readme" aria-labelledby="repository-readme-title">
+    <div><p class="eyebrow">Start here</p><h2 id="repository-readme-title">The README explains the whole before the folders.</h2></div>
+    <div>
+      <p>{repositoryGuide.readme.description}</p>
+      <p>Use it to understand the six coordinated responsibilities, their authority boundaries and the current public state before choosing a territory.</p>
+      <p class="fine">External authoritative document · {repositoryGuide.readme.path}</p>
+      <a class="text-link" href={repositoryGuide.readme.url} target="_blank" rel="noopener noreferrer">Read the Project README</a>
+    </div>
+  </section>
+
+  <section class="container laboratory-boundary" aria-labelledby="repository-boundary-title">
+    <div><p class="eyebrow">A visible distinction</p><h2 id="repository-boundary-title">Repository is not Library.</h2></div>
+    <p>The Repository holds living work, including unfinished material. The Library presents selected publications as editorial works. The Experience summarizes and links; it does not replace either source.</p>
+  </section>
+
+  <nav class="container laboratory-exits" aria-label="Continue from the Repository">
+    <a href="/laboratory/"><small>Return to the orientation</small><strong>Laboratory</strong><span aria-hidden="true">→</span></a>
+    <a href="/library/"><small>Read what became public</small><strong>Library</strong><span aria-hidden="true">→</span></a>
+    <a href="/atlas/"><small>Follow curated connections</small><strong>Living Atlas</strong><span aria-hidden="true">→</span></a>
+    <a href="/explore/"><small>Choose another entrance</small><strong>Explore</strong><span aria-hidden="true">→</span></a>
+  </nav>
+</BaseLayout>

@@ -1,0 +1,19 @@
+---
+const path = Astro.url.pathname;
+const rooms = [
+  ["Research process", "/laboratory/process/"],
+  ["Laboratory", "/laboratory/"],
+  ["Repository", "/laboratory/repository/"],
+  ["Current work", "/laboratory/current-work/"],
+] as const;
+
+const isCurrent = (href: string) => href === "/laboratory/"
+  ? path === href
+  : path.startsWith(href);
+---
+
+<nav class="laboratory-nav container" aria-label="Laboratory rooms">
+  {rooms.map(([label, href]) => (
+    <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
+  ))}
+</nav>

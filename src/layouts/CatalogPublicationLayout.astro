@@ -1,0 +1,75 @@
+---
+import { doorById } from "@/data/navigation";
+import { getPublicationExcerpt, type WebsitePublication } from "@/data/catalog";
+import PublicationCover from "@/components/library/PublicationCover.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type Props = { publication: WebsitePublication };
+const { publication } = Astro.props;
+const doors = publication.doorIds.map((id) => doorById.get(id)).filter(Boolean);
+---
+
+<BaseLayout title={`${publication.title} — NEXAH Library`} description={getPublicationExcerpt(publication, 260)}>
+  <article class="catalog-publication">
+    <nav class="container book-breadcrumb" aria-label="Breadcrumb">
+      <a href="/library/">Library</a><span aria-hidden="true">→</span><span aria-current="page">{publication.title}</span>
+    </nav>
+
+    <header class="container catalog-publication__hero">
+      <div class="catalog-publication__cover">
+        <PublicationCover
+          src={publication.cover.src}
+          alt={publication.cover.alt ?? `Cover of ${publication.title}`}
+          width={publication.cover.width}
+          height={publication.cover.height}
+          title={publication.title}
+          kind={publication.form.replaceAll("_", " ")}
+          loading="eager"
+          referrerpolicy="no-referrer"
+        />
+      </div>
+      <div class="catalog-publication__introduction">
+        <p class="eyebrow">Publication record</p>
+        <h1>{publication.title}</h1>
+        {publication.series && <p class="book-hero__subtitle">{publication.series}</p>}
+        <p class="lead">{getPublicationExcerpt(publication, 430)}</p>
+        <dl class="catalog-facts">
+          <div><dt>Form</dt><dd>{publication.form.replaceAll("_", " ")}</dd></div>
+          <div><dt>Publication status</dt><dd>{publication.publicationStatus}</dd></div>
+          <div><dt>Reading Space</dt><dd>Not available here</dd></div>
+          <div><dt>Recorded source pages</dt><dd>{publication.blockCount}</dd></div>
+          <div><dt>Original publication</dt><dd>Available on Are.na</dd></div>
+          <div><dt>Catalog classification</dt><dd>{publication.classificationState}</dd></div>
+        </dl>
+        <a class="button" href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+      </div>
+    </header>
+
+    <div class="container catalog-publication__body">
+      <section>
+        <p class="eyebrow">Why it appears here</p>
+        <h2>Editorial ways into this work</h2>
+        <p>The Catalog records what this publication is. These entry doors only suggest where a reader might begin.</p>
+        <div class="publication-door-links">
+          {doors.map((door) => door && <a href={`/explore/${door.id}/`} data-carry-question><strong>{door.label}</strong><span>{door.question}</span></a>)}
+        </div>
+      </section>
+      <aside class="book-boundary">
+        <span aria-hidden="true">◇</span>
+        <div>
+          <h2>A visible boundary</h2>
+          <p>This is a local publication record, not a Reading Space. No pages are presented here. The original publication remains available on Are.na.</p>
+        </div>
+      </aside>
+    </div>
+
+    <nav class="container publication-continuation" aria-label="Continue exploring">
+      <div><p class="eyebrow">Where next?</p><h2>Continue from this publication.</h2></div>
+      <div>
+        <a class="button" href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+        {doors[0] && <a class="button button--secondary" href={`/explore/${doors[0].id}/`} data-carry-question>Return to {doors[0].label}</a>}
+        <a class="button button--quiet" href="/library/" data-carry-question>See the complete Library</a>
+      </div>
+    </nav>
+  </article>
+</BaseLayout>

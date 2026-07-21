@@ -1,0 +1,20 @@
+---
+import type { WebsitePublication } from "@/data/catalog";
+
+type Props = { publication: WebsitePublication };
+const { publication } = Astro.props;
+---
+
+<li
+  class="catalog-row"
+  data-catalog-record
+  data-search={`${publication.title} ${publication.type} ${publication.form} ${publication.series ?? ""} ${publication.shelves.join(" ")}`.toLocaleLowerCase()}
+  data-type={publication.type}
+>
+  <a href={`/library/${publication.routeSlug}/`} data-carry-question>
+    <span class="catalog-row__type">{publication.type.replaceAll("_", " ")}</span>
+    <strong>{publication.title}</strong>
+    <small>{publication.localBook ? "Reading Space available" : `Publication record · ${publication.blockCount} source pages`}</small>
+    <span class="catalog-row__arrow" aria-hidden="true">→</span>
+  </a>
+</li>

@@ -1,0 +1,16 @@
+---
+import BookCard from "@/components/library/BookCard.astro";
+import { getConnectedEntities, type AtlasRef } from "@/data/atlas";
+import { bookBySlug, type LibraryBook } from "@/data/library";
+
+type Props = { subject: AtlasRef };
+const { subject } = Astro.props;
+const relatedBooks = getConnectedEntities(subject, "book")
+  .map((entity) => bookBySlug.get(entity.id))
+  .filter((book): book is LibraryBook => Boolean(book));
+---
+{relatedBooks.length > 0 && (
+  <div class="book-grid book-grid--related">
+    {relatedBooks.map((book) => <BookCard book={book} />)}
+  </div>
+)}

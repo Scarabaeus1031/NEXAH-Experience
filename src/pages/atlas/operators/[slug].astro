@@ -1,0 +1,20 @@
+---
+import { operators, type EditorialOperator } from "@/data/atlas";
+import AtlasEntityLayout from "@/layouts/AtlasEntityLayout.astro";
+
+export function getStaticPaths() {
+  return operators.map((operator) => ({ params: { slug: operator.id }, props: { operator } }));
+}
+
+type Props = { operator: EditorialOperator };
+const { operator } = Astro.props;
+---
+<AtlasEntityLayout
+  entityRef={`operator:${operator.id}`}
+  kind="operator"
+  title={operator.title}
+  summary={operator.summary}
+  description={operator.description}
+  detailLabel="An editorial movement"
+  detail={operator.gesture}
+/>

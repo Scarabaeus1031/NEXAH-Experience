@@ -1,0 +1,6 @@
+---
+import type { EditorialOperator } from "@/data/atlas";
+type Props = { operator: EditorialOperator };
+const { operator } = Astro.props;
+---
+<a class="atlas-badge atlas-badge--operator" href={`/atlas/operators/${operator.id}/`}><span aria-hidden="true">→</span>{operator.title}</a>

@@ -1,0 +1,40 @@
+---
+import LaboratoryNav from "@/components/laboratory/LaboratoryNav.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const movements = [
+  ["Observe", "A question opens a field. Notes, references and existing forms are gathered without forcing a conclusion."],
+  ["Explore", "Comparisons, diagrams and experiments make relationships visible and keep alternatives open."],
+  ["Review", "Claims, sources and boundaries are checked. What remains uncertain stays named as uncertain."],
+  ["Publish", "A selected work becomes citable and enters the Library. The unfinished research remains in the Repository."],
+] as const;
+---
+
+<BaseLayout title="Research Process — NEXAH Laboratory" description="How NEXAH research moves from an open question to a public publication without hiding uncertainty.">
+  <LaboratoryNav />
+
+  <header class="container laboratory-page-hero">
+    <p class="eyebrow">Research process</p>
+    <h1>How a work becomes public.</h1>
+    <p class="lead">The process is iterative, but its boundaries are simple: observe, explore, review and publish.</p>
+  </header>
+
+  <ol class="container laboratory-process" aria-label="NEXAH research process">
+    {movements.map(([title, description], index) => (
+      <li><span>{String(index + 1).padStart(2, "0")}</span><div><h2>{title}</h2><p>{description}</p></div></li>
+    ))}
+  </ol>
+
+  <section class="container laboratory-boundary" aria-labelledby="process-boundary-title">
+    <div>
+      <p class="eyebrow">Editorial threshold</p>
+      <h2 id="process-boundary-title">Publication is a transition, not the end of research.</h2>
+    </div>
+    <p>The Repository may contain drafts, experiments and unresolved questions. The Library contains public works. Neither status turns an idea into evidence by itself.</p>
+  </section>
+
+  <aside class="container laboratory-continuation">
+    <div><p class="eyebrow">Continue</p><h2>See where the living work is kept.</h2></div>
+    <a class="button button--secondary" href="/laboratory/repository/">Visit the Repository room</a>
+  </aside>
+</BaseLayout>

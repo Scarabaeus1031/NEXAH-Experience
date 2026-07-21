@@ -1,0 +1,6 @@
+---
+import type { AtlasTheme } from "@/data/atlas";
+type Props = { theme: AtlasTheme };
+const { theme } = Astro.props;
+---
+<a class="atlas-badge atlas-badge--theme" href={`/atlas/themes/${theme.id}/`}><span aria-hidden="true">◇</span>{theme.title}</a>

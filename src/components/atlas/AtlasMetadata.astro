@@ -1,0 +1,12 @@
+---
+import { getRelationsFor, type AtlasEntityKind, type AtlasRef } from "@/data/atlas";
+type Props = { entityRef: AtlasRef; kind: AtlasEntityKind };
+const { entityRef, kind } = Astro.props;
+const relationCount = getRelationsFor(entityRef).length;
+---
+<dl class="atlas-metadata">
+  <div><dt>Registry</dt><dd>{kind}</dd></div>
+  <div><dt>Identifier</dt><dd>{entityRef}</dd></div>
+  <div><dt>Relationships</dt><dd>{relationCount} explicit</dd></div>
+  <div><dt>Authority</dt><dd>Editorial</dd></div>
+</dl>

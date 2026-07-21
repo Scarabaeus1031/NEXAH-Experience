@@ -1,0 +1,20 @@
+---
+import { concepts, type Concept } from "@/data/atlas";
+import AtlasEntityLayout from "@/layouts/AtlasEntityLayout.astro";
+
+export function getStaticPaths() {
+  return concepts.map((concept) => ({ params: { slug: concept.id }, props: { concept } }));
+}
+
+type Props = { concept: Concept };
+const { concept } = Astro.props;
+---
+<AtlasEntityLayout
+  entityRef={`concept:${concept.id}`}
+  kind="concept"
+  title={concept.title}
+  summary={concept.summary}
+  description={concept.description}
+  detailLabel="A concept in the editorial landscape"
+  detail={concept.guidingQuestion}
+/>

@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EcosystemMap from "@/components/about/EcosystemMap.astro";
+
+const steps = [
+  ["?", "Ask", "Bring a question that matters to you."],
+  ["⌖", "Orient", "Make the direction explicit."],
+  ["⌘", "Connect", "See evidence, perspectives and relations."],
+  ["◉", "See clearer", "Keep insight and uncertainty distinct."],
+  ["✦", "New questions", "Let a better question remain possible."],
+] as const;
+---
+
+<BaseLayout title="About — NEXAH" description="Why NEXAH exists, whom it serves and how it protects human authority.">
+  <section class="container about-hero">
+    <div>
+      <p class="eyebrow">About NEXAH</p>
+      <h1>We don’t collect answers.<br /><span>We build orientation.</span></h1>
+      <p class="lead">NEXAH helps people explore complexity through better questions, clear maps and meaningful connections.</p>
+      <div class="audiences">
+        <div class="audience"><span aria-hidden="true">⌖</span><div><strong>For the curious</strong><p>Ask better questions and explore new perspectives.</p></div></div>
+        <div class="audience"><span aria-hidden="true">⌘</span><div><strong>For researchers</strong><p>Connect work across fields, ideas and scales.</p></div></div>
+        <div class="audience"><span aria-hidden="true">▤</span><div><strong>For builders</strong><p>Use clear language and bounded evidence to make responsibly.</p></div></div>
+      </div>
+    </div>
+    <div class="portal" role="img" aria-label="A quiet opening toward a distant path"></div>
+  </section>
+
+  <section class="section section--line" aria-labelledby="why-title">
+    <div class="container">
+      <div class="page-hero section--tight"><p class="eyebrow">Why NEXAH exists</p><h2 id="why-title">The world has information.<br />We need orientation.</h2></div>
+      <div class="why-grid">
+        <article class="why-card"><span aria-hidden="true">⌕</span><h3>Search</h3><p>Finds pages, links sources and optimizes for retrieval.</p></article>
+        <article class="why-card"><span aria-hidden="true">▤</span><h3>Encyclopedia</h3><p>Organizes established knowledge and explains what is known.</p></article>
+        <article class="why-card"><span aria-hidden="true">⌖</span><h3>NEXAH</h3><p>Reveals relationships, traces possible paths and keeps limits visible.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section ecosystem-section" id="ecosystem" aria-labelledby="ecosystem-title">
+    <div class="ecosystem-section__intro">
+      <div>
+        <p class="eyebrow">The Orientation Ecosystem</p>
+        <h2 id="ecosystem-title">One place.<br />Distinct responsibilities.</h2>
+      </div>
+      <p>NEXAH connects public experience, published work, ongoing research, curated relationships and deterministic orientation without collapsing their authority.</p>
+    </div>
+    <EcosystemMap />
+    <p class="ecosystem-section__note">This map explains relationships. The Laboratory’s Repository Map separately explains how the source repository is organized.</p>
+  </section>
+
+  <section class="container section" id="method" aria-labelledby="method-title">
+    <div class="page-hero section--tight"><p class="eyebrow">How NEXAH works</p><h2 id="method-title">A deliberate movement</h2></div>
+    <div class="method-steps">
+      {steps.map(([symbol, title, note], index) => <div class="method-step"><span aria-hidden="true">{symbol}</span><strong>{index + 1}. {title}</strong><p>{note}</p></div>)}
+    </div>
+  </section>
+
+  <section class="container section" id="principles" aria-labelledby="principles-title">
+    <div class="principles-panel">
+      <blockquote id="principles-title">Good orientation is designed.<br />Not discovered.</blockquote>
+      <ol>
+        <li>Design follows function</li><li>Structure before surface</li><li>Clarity over complexity</li><li>Reveal, don’t overwhelm</li><li>Evidence before assertion</li><li>Connect, don’t collect</li><li>Respect the unknown</li><li>Build for becoming</li><li>Serve the explorer</li><li>Stay transparent</li><li>Evolve with purpose</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="container section section--line" aria-labelledby="boundaries-title">
+    <div class="section-heading"><div><h2 id="boundaries-title">Authority remains visible</h2><p>NEXAH makes distinctions rather than hiding them.</p></div></div>
+    <div class="boundary-grid">
+      <article class="boundary-card"><strong>The question</strong><p>Belongs to the Human.</p></article>
+      <article class="boundary-card"><strong>The orientation</strong><p>Shows a bounded path, not a command.</p></article>
+      <article class="boundary-card"><strong>The evidence</strong><p>Supports claims without becoming certainty.</p></article>
+      <article class="boundary-card"><strong>The meaning</strong><p>Remains with the Human.</p></article>
+    </div>
+  </section>
+</BaseLayout>

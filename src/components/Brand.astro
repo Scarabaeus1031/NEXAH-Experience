@@ -1,0 +1,12 @@
+---
+type Props = { compact?: boolean };
+const { compact = false } = Astro.props;
+---
+
+<a class:list={["brand", { "brand--compact": compact }]} href="/" aria-label="NEXAH home">
+  <span class="brand__mark" aria-hidden="true"><span>✦</span></span>
+  <span class="brand__words">
+    <strong>NEXAH</strong>
+    <small>Orientation by design</small>
+  </span>
+</a>

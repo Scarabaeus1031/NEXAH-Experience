@@ -1,0 +1,26 @@
+---
+import { repositoryDocumentUrl, repositoryGuide, repositoryTerritories } from "@/data/laboratory";
+
+type Props = { compact?: boolean };
+const { compact = false } = Astro.props;
+const territories = compact ? repositoryTerritories.slice(0, 4) : repositoryTerritories;
+---
+
+<section class:list={["repository-map", { "repository-map--compact": compact }]} aria-labelledby={compact ? "laboratory-map-title" : "repository-map-title"}>
+  <header>
+    <p class="eyebrow">Repository Map</p>
+    <h2 id={compact ? "laboratory-map-title" : "repository-map-title"}>Choose the territory that holds your question.</h2>
+    <p>{repositoryGuide.map.description}</p>
+  </header>
+  <ol>
+    {territories.map((territory, index) => (
+      <li>
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <div><small>{territory.answers}</small><h3>{territory.label}</h3><p>{territory.description}</p></div>
+        <a href={repositoryDocumentUrl(territory.path)} target="_blank" rel="noopener noreferrer" aria-label={`Open ${territory.label} in the Repository`}>↗</a>
+      </li>
+    ))}
+  </ol>
+  {compact && <a class="text-link" href="/laboratory/repository/">Open the complete Repository Map</a>}
+  {!compact && <p class="repository-map__source">{repositoryGuide.sourceNote} <a href={repositoryGuide.map.url} target="_blank" rel="noopener noreferrer">Read the authoritative Repository Map ↗</a></p>}
+</section>

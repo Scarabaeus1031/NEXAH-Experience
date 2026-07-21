@@ -1,0 +1,20 @@
+---
+import { themes, type AtlasTheme } from "@/data/atlas";
+import AtlasEntityLayout from "@/layouts/AtlasEntityLayout.astro";
+
+export function getStaticPaths() {
+  return themes.map((theme) => ({ params: { slug: theme.id }, props: { theme } }));
+}
+
+type Props = { theme: AtlasTheme };
+const { theme } = Astro.props;
+---
+<AtlasEntityLayout
+  entityRef={`theme:${theme.id}`}
+  kind="theme"
+  title={theme.title}
+  summary={theme.summary}
+  description={theme.description}
+  detailLabel="A recurring editorial field"
+  detail="Follow this theme through books, concepts, operators and visual collections."
+/>

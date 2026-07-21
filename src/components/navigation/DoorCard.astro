@@ -1,0 +1,13 @@
+---
+import type { EditorialDoor } from "@/data/navigation";
+
+type Props = { door: EditorialDoor; compact?: boolean };
+const { door, compact = false } = Astro.props;
+---
+
+<a class:list={["door-card", { "door-card--compact": compact }]} href={`/explore/${door.id}/`} data-carry-question>
+  <p>{door.question}</p>
+  <h3>{door.label}</h3>
+  {!compact && <span>{door.description}</span>}
+  <strong>Enter <span aria-hidden="true">→</span></strong>
+</a>

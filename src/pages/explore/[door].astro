@@ -1,0 +1,51 @@
+---
+import CatalogRow from "@/components/library/CatalogRow.astro";
+import PublicationCard from "@/components/library/PublicationCard.astro";
+import { getPublicationsForDoor, publicationByCatalogKey } from "@/data/catalog";
+import { editorialDoors, type EditorialDoor } from "@/data/navigation";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return editorialDoors.map((door) => ({ params: { door: door.id }, props: { door } }));
+}
+
+type Props = { door: EditorialDoor };
+const { door } = Astro.props;
+const publications = getPublicationsForDoor(door.id);
+const featured = door.featuredKeys.map((key) => publicationByCatalogKey.get(key)).filter(Boolean);
+const featuredKeys = new Set(door.featuredKeys);
+const further = publications.filter((publication) => !featuredKeys.has(publication.catalogKey));
+---
+
+<BaseLayout title={`${door.label} — Explore NEXAH`} description={door.description}>
+  <nav class="container book-breadcrumb" aria-label="Breadcrumb"><a href="/explore/">Explore</a><span aria-hidden="true">→</span><span aria-current="page">{door.label}</span></nav>
+
+  <header class="container door-hero">
+    <p class="eyebrow">Editorial entry door</p>
+    <h1>{door.label}</h1>
+    <p class="door-hero__question">{door.question}</p>
+    <p class="lead">{door.description}</p>
+    <p>{door.invitation}</p>
+  </header>
+
+  <section class="container door-beginnings" aria-labelledby="begin-here">
+    <header class="section-heading"><div><p class="eyebrow">Begin here</p><h2 id="begin-here">Three deliberate starting points.</h2></div></header>
+    <div class="publication-feature-grid">
+      {featured.map((publication) => publication && <PublicationCard publication={publication} featured />)}
+    </div>
+  </section>
+
+  {further.length > 0 && (
+    <section class="container door-more">
+      <details>
+        <summary>See all {publications.length} publications through this door</summary>
+        <ul class="catalog-list">{further.map((publication) => <CatalogRow publication={publication} />)}</ul>
+      </details>
+    </section>
+  )}
+
+  <nav class="container publication-continuation" aria-label="Continue exploring">
+    <div><p class="eyebrow">Where next?</p><h2>Choose another door or see everything.</h2></div>
+    <div><a class="button" href="/explore/" data-carry-question>All entry doors</a><a class="button button--secondary" href="/library/" data-carry-question>Complete Library</a></div>
+  </nav>
+</BaseLayout>

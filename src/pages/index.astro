@@ -1,0 +1,66 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entrances = [
+  {
+    number: "01",
+    title: "Visitor Guide",
+    description: "Start here if you are new.",
+    href: "/library/visitors-guide/",
+  },
+  {
+    number: "02",
+    title: "Living Atlas",
+    description: "Explore relationships and maps.",
+    href: "/atlas/",
+  },
+  {
+    number: "03",
+    title: "Library",
+    description: "Browse publications.",
+    href: "/library/",
+  },
+  {
+    number: "04",
+    title: "Laboratory",
+    description: "See how observations become research.",
+    href: "/laboratory/",
+  },
+  {
+    number: "05",
+    title: "Begin Orientation",
+    description: "Enter ORION. Bring one real question.",
+    href: "/threshold/",
+  },
+];
+---
+
+<BaseLayout>
+  <section class="home-hero">
+    <div class="container home-hero__content">
+      <p class="eyebrow arrive">A place for orientation</p>
+      <h1 class="arrive arrive--2">What are you trying to understand?</h1>
+      <p class="lead arrive arrive--2">Choose where you would like to begin.</p>
+    </div>
+    <div class="path-glow" aria-hidden="true"></div>
+  </section>
+
+  <section class="home-entrances section--line" aria-labelledby="home-entrances-title">
+    <div class="container">
+      <header class="home-entrances__header">
+        <p class="eyebrow">A place to begin</p>
+        <h2 id="home-entrances-title">Choose where you would like to begin.</h2>
+      </header>
+      <nav class="home-entrance-grid" aria-label="Ways to begin">
+        {entrances.map((entrance) => (
+          <a class="home-entrance" href={entrance.href}>
+            <span class="home-entrance__number">{entrance.number}</span>
+            <h3>{entrance.title}</h3>
+            <p>{entrance.description}</p>
+            <span class="home-entrance__arrow" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

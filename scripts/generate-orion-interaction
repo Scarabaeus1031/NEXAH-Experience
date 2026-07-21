@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+if [ -n "${ORION_PYTHON:-}" ]; then
+  exec "$ORION_PYTHON" scripts/generate_orion_interaction.py
+fi
+
+for candidate in python3.13 python3.12 python3.11 python3.10 python3; do
+  if command -v "$candidate" >/dev/null 2>&1 && \
+     "$candidate" -c 'import sys; raise SystemExit(sys.version_info < (3, 10))' 2>/dev/null; then
+    exec "$candidate" scripts/generate_orion_interaction.py
+  fi
+done
+
+echo "ORION build integration requires Python 3.10 or newer." >&2
+echo "Set ORION_PYTHON to a compatible Python executable." >&2
+exit 1

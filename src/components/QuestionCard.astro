@@ -1,0 +1,17 @@
+---
+import type { Question } from "@/data/content";
+
+type Props = { question: Question; library?: boolean };
+const { question, library = false } = Astro.props;
+---
+
+<article class:list={["question-card", { "question-card--library": library }]}>
+  <div class:list={["visual-field", `visual-field--${question.visual}`]} aria-hidden="true">
+    <span></span>
+  </div>
+  <div class="question-card__body">
+    <p>{question.question}</p>
+    {library ? <small>{question.relatedWorks} related works</small> : <small>{question.realm}</small>}
+    <a href={`/orientation/?example=${question.slug}`} aria-label={`Open orientation: ${question.question}`}>→</a>
+  </div>
+</article>

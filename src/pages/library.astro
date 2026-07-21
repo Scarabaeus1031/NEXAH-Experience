@@ -1,0 +1,103 @@
+---
+import CatalogRow from "@/components/library/CatalogRow.astro";
+import DoorCard from "@/components/navigation/DoorCard.astro";
+import { publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
+import { editorialDoors } from "@/data/navigation";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const publicationTypes = [...new Set(publications.map((publication) => publication.type))].sort();
+const visitorGuide = publicationByRouteSlug.get("visitors-guide");
+const libraryBook = publicationByRouteSlug.get("librarybook");
+
+if (!visitorGuide || !libraryBook) throw new Error("The Library entrance requires its two recorded publications.");
+---
+
+<BaseLayout title="Library — NEXAH" description="The complete read-only view of the NEXAH Publication Catalog.">
+  <header class="container library-hero">
+    <div>
+      <p class="eyebrow">The Library</p>
+      <h1>What would you like to read?</h1>
+      <p class="lead">All {publications.length} recorded publications remain accessible here.</p>
+    </div>
+    <aside class="library-hero__note">
+      <span aria-hidden="true">✦</span>
+      <p>The Catalog records publications. The website only helps you find a place to start.</p>
+    </aside>
+  </header>
+
+  <section class="container library-entrance" aria-labelledby="library-entrance-title">
+    <header>
+      <p class="eyebrow">A natural first step</p>
+      <h2 id="library-entrance-title">Begin Reading</h2>
+    </header>
+    <ol>
+      <li>
+        <span>01</span>
+        <a href={`/library/${visitorGuide.routeSlug}/`}>
+          <strong>{visitorGuide.localBook?.title ?? visitorGuide.title}</strong>
+          <small>Your first orientation through NEXAH.</small>
+        </a>
+      </li>
+      <li>
+        <span>02</span>
+        <a href={`/library/${libraryBook.routeSlug}/`}>
+          <strong>{libraryBook.title}</strong>
+          <small>An overview of the complete collection.</small>
+        </a>
+      </li>
+      <li>
+        <span>03</span>
+        <a href="#publication-catalog">
+          <strong>Complete Publication Catalog</strong>
+          <small>All {publications.length} recorded publications remain accessible here.</small>
+        </a>
+      </li>
+    </ol>
+  </section>
+
+  <nav class="container library-door-nav" aria-label="Explore through an editorial door">
+    {editorialDoors.map((door) => <DoorCard door={door} compact />)}
+  </nav>
+
+  <section class="container catalog-browser" id="publication-catalog" aria-labelledby="catalog-title" data-catalog-browser>
+    <header class="section-heading">
+      <div><p class="eyebrow">Publication Catalog</p><h2 id="catalog-title">Find a recorded work.</h2></div>
+      <span class="collection-count" data-catalog-count>{publications.length} works</span>
+    </header>
+
+    <div class="catalog-controls">
+      <label><span>Title or recorded metadata</span><input type="search" placeholder="Find a publication…" data-catalog-search /></label>
+      <label><span>Form</span><select data-catalog-type><option value="">All forms</option>{publicationTypes.map((type) => <option value={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
+    </div>
+
+    <p class="catalog-empty" data-catalog-empty hidden>No recorded publication matches these explicit fields.</p>
+    <ul class="catalog-list">{publications.map((publication) => <CatalogRow publication={publication} />)}</ul>
+    <p class="catalog-provenance">Read-only projection · source snapshot {publicationCatalog.source.generatedAt.slice(0, 10)} · no inferred ranking</p>
+  </section>
+
+  <script>
+    const browser = document.querySelector<HTMLElement>("[data-catalog-browser]");
+    const search = browser?.querySelector<HTMLInputElement>("[data-catalog-search]");
+    const type = browser?.querySelector<HTMLSelectElement>("[data-catalog-type]");
+    const records = [...(browser?.querySelectorAll<HTMLElement>("[data-catalog-record]") ?? [])];
+    const count = browser?.querySelector<HTMLElement>("[data-catalog-count]");
+    const empty = browser?.querySelector<HTMLElement>("[data-catalog-empty]");
+
+    const filterCatalog = () => {
+      const query = search?.value.trim().toLocaleLowerCase() ?? "";
+      const selectedType = type?.value ?? "";
+      let visible = 0;
+      records.forEach((record) => {
+        const matchesText = !query || record.dataset.search?.includes(query);
+        const matchesType = !selectedType || record.dataset.type === selectedType;
+        record.hidden = !(matchesText && matchesType);
+        if (!record.hidden) visible += 1;
+      });
+      if (count) count.textContent = `${visible} ${visible === 1 ? "work" : "works"}`;
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    search?.addEventListener("input", filterCatalog);
+    type?.addEventListener("change", filterCatalog);
+  </script>
+</BaseLayout>

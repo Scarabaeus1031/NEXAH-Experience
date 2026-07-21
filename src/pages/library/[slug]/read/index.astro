@@ -1,0 +1,55 @@
+---
+import { bookBySlug } from "@/data/library";
+import { readerPublications } from "@/data/reader";
+import { publicationByRouteSlug } from "@/data/catalog";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return readerPublications.map((reader) => ({
+    params: { slug: reader.bookSlug },
+    props: { reader },
+  }));
+}
+
+const { reader } = Astro.props;
+const book = bookBySlug.get(reader.bookSlug);
+if (!book) throw new Error(`Missing Library metadata for reader ${reader.bookSlug}`);
+const publication = publicationByRouteSlug.get(book.slug);
+if (!publication) throw new Error(`Missing Catalog metadata for reader ${reader.bookSlug}`);
+---
+
+<BaseLayout title={`Read ${book.title} — NEXAH`} description={`Enter the reading space for ${book.title}.`} hideFooter>
+  <article class="reading-entrance">
+    <nav class="container book-breadcrumb" aria-label="Breadcrumb">
+      <a href="/library/" data-carry-question>Library</a><span aria-hidden="true">→</span><a href={`/library/${book.slug}/`} data-carry-question>{book.title}</a><span aria-hidden="true">→</span><span aria-current="page">Reader</span>
+    </nav>
+    <div class="container reading-entrance__room">
+      <div class="reading-entrance__cover">
+        <img src={book.cover} alt={book.coverAlt} width="1024" height="1536" />
+      </div>
+      <header>
+        <p class="eyebrow">Reading space</p>
+        <h1>{book.title}</h1>
+        <p class="lead">{book.subtitle}</p>
+        <p>{reader.pages.length} selected visual pages · {reader.chapters.length} chapters</p>
+        <aside class="reading-selection-note" aria-label="Reading Space status">
+          <strong>Curated Reading Space</strong>
+          <span>{reader.pages.length} selected pages from {publication.blockCount} recorded source pages. The original publication is not replaced.</span>
+          <a href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+        </aside>
+        <div class="journey-actions journey-actions--start">
+          <a class="button" href={`/library/${book.slug}/read/${reader.pages[0].id}/`} data-carry-question>Begin reading</a>
+          <a class="button button--quiet" href={`/library/${book.slug}/`} data-carry-question>About this work</a>
+        </div>
+      </header>
+      <nav class="reading-entrance__chapters" aria-label={`${book.title} table of contents`}>
+        <p class="eyebrow">Chapters</p>
+        <ol>
+          {reader.chapters.map((chapter, index) => (
+            <li><a href={`/library/${book.slug}/read/${chapter.firstPageId}/`} data-carry-question><span>{String(index + 1).padStart(2, "0")}</span>{chapter.title}</a></li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>

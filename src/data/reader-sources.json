@@ -1,0 +1,116 @@
+{
+  "visitors-guide": {
+    "sourceFolder": "NEXAH - THE VISITOR'S GUIDE",
+    "pages": [
+      { "chapter": "Why does NEXAH exist?", "title": "Why does NEXAH exist?", "sourceFile": "01 - WHY DOES NEXAH EXIST?.png" },
+      { "chapter": "What is orientation?", "title": "What is orientation?", "sourceFile": "02 - WHAT IS ORIENTATION?.png" },
+      { "chapter": "How to use this Library", "title": "How to use this Library", "sourceFile": "03- HOW TO USE THIS LIBRARY.png" },
+      { "chapter": "How to experience this Library", "title": "How to experience this Library", "sourceFile": "HOW TO EXPERIENCE THIS LIBRARY.png" },
+      { "chapter": "Room 01 — Core", "title": "Room 01 — Core", "sourceFile": "ROOM 01 _ CORE.png" },
+      { "chapter": "Room 02 — Language", "title": "Room 02 — Language", "sourceFile": "ROOM 02 LANGUAGE.png" },
+      { "chapter": "The Gallery of Perspectives", "title": "The Gallery of Perspectives", "sourceFile": "ROOM 03 + 1 ス THE GALLERY OF PERSPECTIVES.png" },
+      { "chapter": "Practice", "title": "Practice", "sourceFile": "05_PRACTICE.png" },
+      { "chapter": "Journey and Origins", "title": "Journey", "sourceFile": "ROOM 05 _ JOURNEY.png" }
+    ]
+  },
+  "language-book": {
+    "sourceFolder": "THE NEXAH LANGUAGE BOOK Read to See.",
+    "pages": [
+      { "chapter": "Part I — Learning the Language", "title": "Part I — Learning the Language", "sourceFile": "PART I LEARNING THE LANGUAGE.png" },
+      { "chapter": "The Alphabet", "title": "The Alphabet", "sourceFile": "1 THE ALPHABET.png" },
+      { "chapter": "Nouns", "title": "Nouns", "sourceFile": "2 NOUNS.png" },
+      { "chapter": "Verbs", "title": "Verbs", "sourceFile": "3 VERBS.png" },
+      { "chapter": "Adjectives", "title": "Adjectives", "sourceFile": "4 ADJECTIVES.png" },
+      { "chapter": "Articles, Pronouns and Prepositions", "title": "Articles", "sourceFile": "5 ARTICLES.png" },
+      { "chapter": "Context and Cases", "title": "Context", "sourceFile": "3 CONTEXT.png" },
+      { "chapter": "Part II — Seven Lessons", "title": "Part II — Seven Lessons", "sourceFile": "PART II SEVEN LESSONS.png" },
+      { "chapter": "Operator Chains and Composition", "title": "Operator Chains", "sourceFile": "1. OPERATOR CHAINS.png" },
+      { "chapter": "Part III — Becoming Fluent", "title": "Part III — Becoming Fluent", "sourceFile": "PART III BECOMING FLUENT.png" },
+      { "chapter": "Reading the World", "title": "Reading the World", "sourceFile": "4 READING THE WORLD.png" },
+      { "chapter": "Glossary and Afterword", "title": "Afterword", "sourceFile": "AFTERWORD.png" }
+    ]
+  },
+  "wonder-operator": {
+    "sourceFolder": "THE WONDER OPERATOR",
+    "pages": [
+      { "chapter": "Before Words", "title": "Before Words", "sourceFile": "CHAPTER I _ BEFORE WORDS.png" },
+      { "chapter": "The Natural Operator", "title": "The Natural Operator", "sourceFile": "PART I _ THE NATURAL OPERATOR.png" },
+      { "chapter": "The Divided Mind", "title": "The Divided Mind", "sourceFile": "PART II _ THE DIVIDED MIND.png" },
+      { "chapter": "The Economy of Attention", "title": "The Economy of Attention", "sourceFile": "PART III _PLATE_THE ECONOMY OF ATTENTION.png" },
+      { "chapter": "The 404 Loop", "title": "The 404 Loop", "sourceFile": "PART IV_PLATE_THE 404 LOOP.png" },
+      { "chapter": "Anxiety and Regulation", "title": "The Biology of Anxiety", "sourceFile": "PART V _ THE BIOLOGY OF ANXIETY.png" },
+      { "chapter": "The Village", "title": "The Village", "sourceFile": "PART VI _ THE VILLAGE.png" },
+      { "chapter": "The Loss of Play", "title": "Loss of Play", "sourceFile": "07_LOSS OF PLAY.png" },
+      { "chapter": "Remembering", "title": "Remembering", "sourceFile": "PART VIII _ REMEMBERING.png" },
+      { "chapter": "The Art of Expression", "title": "The Language of the Soul", "sourceFile": "PART IX _ ART_THE LANGUAGE OF THE SOUL.png" },
+      { "chapter": "Love", "title": "Love", "sourceFile": "PART XI _ LOVE.png" },
+      { "chapter": "Belonging", "title": "Belonging", "sourceFile": "PART XII _ BELONGING.png" }
+    ]
+  },
+  "operators-handbook": {
+    "sourceFolder": "THE OPERATOR'S HANDBOOK",
+    "pages": [
+      { "chapter": "Arrival", "title": "Arrival", "sourceFile": "ARRIVAL I.png" },
+      { "chapter": "Fold", "title": "Operation 01 — Fold", "sourceFile": "OPERATION 01 _ FOLD.png" },
+      { "chapter": "Shear", "title": "Operation 02 — Shear", "sourceFile": "OPERATION 02 _ SHEAR.png" },
+      { "chapter": "Stretch", "title": "Operation 03 — Stretch", "sourceFile": "OPERATION 03 _ STRETCH.png" },
+      { "chapter": "Projection", "title": "Operation 04 — Projection", "sourceFile": "OPERATION 04 _ PROJECTION.png" },
+      { "chapter": "Triangle → Pyramid", "title": "Operation 05 — Triangle → Pyramid", "sourceFile": "OPERATION 05 _ TRIANGLE -> PYRAMID.png" },
+      { "chapter": "Grid", "title": "Operation 07 — Grid", "sourceFile": "OPERATION 07 _ GRID.png" },
+      { "chapter": "Mirror", "title": "Operation 06 — Mirror", "sourceFile": "OPERATION 06 _ MIRROR.png" },
+      { "chapter": "Observer", "title": "Operation 10 — Observer", "sourceFile": "OPERATION 10 _ OBSERVER.png" },
+      { "chapter": "Landscape", "title": "Operation 23 — The Landscape", "sourceFile": "OPERATION 23 _ THE LANDSCAPE.png" },
+      { "chapter": "The Seven Bridges", "title": "Operator 24 — The Bridge", "sourceFile": "OPERATOR 24 _ THE BRIDGE.png" },
+      { "chapter": "The Whole", "title": "Operation 12 — The Whole", "sourceFile": "OPERATION 12 _ THE WHOLE.png" }
+    ]
+  },
+  "orientation-design": {
+    "sourceFolder": "NEXAH Orientation Design A RESEARCH GUIDE",
+    "pages": [
+      { "chapter": "The NEXAH Research Program", "title": "The NEXAH Research Program", "sourceFile": "02 THE NEXAH RESEARCH PROGRAM.png" },
+      { "chapter": "Research Outputs", "title": "Research Outputs", "sourceFile": "03 RESEARCH OUTPUTS_.png" },
+      { "chapter": "Research Methods", "title": "Research Methods", "sourceFile": "04 RESEARCH METHODS.png" },
+      { "chapter": "Applications", "title": "Applications", "sourceFile": "05 APPLICATIONS.png" },
+      { "chapter": "Research Principles", "title": "Research Principles", "sourceFile": "06 RESEARCH PRINCIPLES.png" },
+      { "chapter": "Research Questions", "title": "Research Questions", "sourceFile": "07 RESEARCH QUESTIONS.png" },
+      { "chapter": "Visual Language", "title": "Visual Language", "sourceFile": "08 VISUAL LANGUAGE.png" },
+      { "chapter": "The NEXAH Library", "title": "The NEXAH Library", "sourceFile": "09 THE NEXAH LIBRARY.png" },
+      { "chapter": "Repository", "title": "Repository", "sourceFile": "10 REPOSITORY.png" },
+      { "chapter": "Contributing", "title": "Contributing", "sourceFile": "11 CONTRIBUTING.png" },
+      { "chapter": "The Future", "title": "The Future", "sourceFile": "12 THE FUTURE.png" }
+    ]
+  },
+  "cartography-laboratory": {
+    "sourceFolder": "NEXAH LABORATORY REPORTS REPORT _BOOK_I_ THE CARTOGRAPHY LABORATORY",
+    "pages": [
+      { "chapter": "Welcome to the Laboratory", "title": "Welcome to the Laboratory", "sourceFile": "00 | WELCOME TO THE LABORATORY.png" },
+      { "chapter": "The Cartography Perspective", "title": "The Cartography Perspective", "sourceFile": "01 THE CARTOGRAPHY PERSPECTIVE.png" },
+      { "chapter": "Repository Overview", "title": "Repository Overview", "sourceFile": "02 REPOSITORY OVERVIEW.png" },
+      { "chapter": "Navigation Guide", "title": "Navigation Guide", "sourceFile": "03 NAVIGATION GUIDE.png" },
+      { "chapter": "Architecture Wing", "title": "Architecture Wing", "sourceFile": "04 ARCHITECTURE WING.png" },
+      { "chapter": "Research Wing", "title": "Research Wing", "sourceFile": "05 PART I| - THE LABORATORY RESEARCH WING.png" },
+      { "chapter": "Validation Laboratory", "title": "Validation Laboratory", "sourceFile": "06 VALIDATION LABORATORY.png" },
+      { "chapter": "The Demonstrator", "title": "The Demonstrator", "sourceFile": "07 PART III - EXPERIMENTAL FACILITIES THE DEMONSTRATOR.png" },
+      { "chapter": "Visual Laboratory", "title": "Visual Laboratory", "sourceFile": "08 VISUAL LABORATORY.png" },
+      { "chapter": "Applications Laboratory", "title": "Applications Laboratory", "sourceFile": "09 PART III - EXPERIMENTAL FACILITIES APPLICATIONS LABORATORY.png" },
+      { "chapter": "Core Discoveries", "title": "Core Discoveries", "sourceFile": "PART IV CORE DISCOVERIES.png" },
+      { "chapter": "Current Status", "title": "Current Status", "sourceFile": "PART V CURRENT STATUS.png" },
+      { "chapter": "Future Directions", "title": "Future Directions", "sourceFile": "17_FUTURE DIRECTIONS.png" }
+    ]
+  },
+  "cartography-perspectives": {
+    "sourceFolder": "NEXAH ATLAS A CARTOGRAPHY OF PERSPECTIVES",
+    "pages": [
+      { "chapter": "A Lens, Not a Final Theory", "title": "A Lens, Not a Final Theory", "sourceFile": "FOREWORD A LENS, NOT A FINAL THEORY.png" },
+      { "chapter": "One Topology — Many Scales", "title": "One Topology — Many Scales", "sourceFile": "ONE TOPOLOGY — MANY SCALES.png" },
+      { "chapter": "The Story of Ether and the Fields", "title": "The Story of Ether and the Fields", "sourceFile": "THE STORY OF ETHER AND THE FIELDS FROM INVISIBLE MEDIUM TO DYNAMIC FIELDS.png" },
+      { "chapter": "The In-Between", "title": "The In-Between", "sourceFile": "THE IN-BETWEEN THE SPACE WHERE REALITY HAPPENS.png" },
+      { "chapter": "The Geometry of Possibilities", "title": "The Geometry of Possibilities", "sourceFile": "THE GEOMETRY OF POSSIBILITIES.png" },
+      { "chapter": "The Universe as a Transport Network", "title": "The Universe as a Transport Network", "sourceFile": "THE UNIVERSE AS A TRANSPORT NETWORK.png" },
+      { "chapter": "The NEXAH Scale Map", "title": "The NEXAH Scale Map", "sourceFile": "THE NEXAH SCALE MAP ONE TOPOLOGY • MANY SCALES • INFINITE MANIFESTATIONS.png" },
+      { "chapter": "The Tube Hypothesis", "title": "The Tube Hypothesis", "sourceFile": "THE TUBE HYPOTHESIS.png" },
+      { "chapter": "The Universal Breather", "title": "The Universal Breather", "sourceFile": "THE UNIVERSAL BREATHER ONE PULSE • MANY FORMS • INFINITE SCALES.png" },
+      { "chapter": "An Open Question", "title": "An Open Question", "sourceFile": "AFTERWORD AN OPEN QUESTION THIS ATLAS DOES NOT CONCLUDE. IT OPENS..png" }
+    ]
+  }
+}

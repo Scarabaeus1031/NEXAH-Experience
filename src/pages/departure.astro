@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Leave with the question — NEXAH" description="A quiet departure from the first NEXAH orientation journey." hideFooter>
+  <section class="container departure-page" aria-labelledby="departure-title">
+    <div class="departure-page__mark" aria-hidden="true">✦</div>
+    <p class="eyebrow">You may leave here</p>
+    <h1 id="departure-title">The question can remain open.</h1>
+    <p class="lead">You followed a visible boundary into observation, attention and wonder. Nothing asks you to resolve it now.</p>
+
+    <div class="departure-page__reflection">
+      <p>The route stopped.</p>
+      <p>The field continued.</p>
+      <p>You decide what stays with you.</p>
+    </div>
+
+    <div class="departure-page__actions">
+      <a class="button" href="/" data-end-session>End session and return home</a>
+      <a class="button button--quiet" href="/library/" data-carry-question>Keep reading</a>
+    </div>
+    <p class="fine">Your question is kept only in this browser tab until you end the session. Leaving is part of the experience.</p>
+  </section>
+</BaseLayout>

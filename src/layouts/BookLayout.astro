@@ -1,0 +1,141 @@
+---
+import ConceptBadge from "@/components/atlas/ConceptBadge.astro";
+import OperatorBadge from "@/components/atlas/OperatorBadge.astro";
+import RelatedPublications from "@/components/atlas/RelatedPublications.astro";
+import RelationshipSection from "@/components/atlas/RelationshipSection.astro";
+import ThemeBadge from "@/components/atlas/ThemeBadge.astro";
+import VisualCollectionCard from "@/components/atlas/VisualCollectionCard.astro";
+import JourneyContinuation from "@/components/journey/JourneyContinuation.astro";
+import EditorialMetadata from "@/components/library/EditorialMetadata.astro";
+import {
+  conceptById,
+  getConnectedEntities,
+  operatorById,
+  themeById,
+  visualById,
+  type AtlasRef,
+  type AtlasTheme,
+  type Concept,
+  type EditorialOperator,
+  type VisualCollection,
+} from "@/data/atlas";
+import type { WebsitePublication } from "@/data/catalog";
+import type { LibraryBook } from "@/data/library";
+import { doorById } from "@/data/navigation";
+import { getFirstOrientationContinuation } from "@/data/journey";
+import { readerByBookSlug } from "@/data/reader";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type Props = {
+  book: LibraryBook;
+  publication: WebsitePublication;
+};
+
+const { book, publication } = Astro.props;
+const bookRef = `book:${book.slug}` as AtlasRef;
+const journeyContinuation = getFirstOrientationContinuation(bookRef);
+const reader = readerByBookSlug.get(book.slug);
+const concepts = getConnectedEntities(bookRef, "concept")
+  .map((entity) => conceptById.get(entity.id))
+  .filter((entity): entity is Concept => Boolean(entity));
+const operators = getConnectedEntities(bookRef, "operator")
+  .map((entity) => operatorById.get(entity.id))
+  .filter((entity): entity is EditorialOperator => Boolean(entity));
+const themes = getConnectedEntities(bookRef, "theme")
+  .map((entity) => themeById.get(entity.id))
+  .filter((entity): entity is AtlasTheme => Boolean(entity));
+const visuals = getConnectedEntities(bookRef, "visual")
+  .map((entity) => visualById.get(entity.id))
+  .filter((entity): entity is VisualCollection => Boolean(entity));
+const doors = publication.doorIds.map((id) => doorById.get(id)).filter(Boolean);
+---
+
+<BaseLayout title={`${book.title} — NEXAH Library`} description={book.description}>
+  <article class="book-detail">
+    <nav class="container book-breadcrumb" aria-label="Breadcrumb">
+      <a href="/library/">Library</a><span aria-hidden="true">→</span><span aria-current="page">{book.title}</span>
+    </nav>
+
+    <header class="container book-hero">
+      <div class="book-hero__cover">
+        <img src={book.cover} alt={book.coverAlt} width="1024" height="1536" />
+      </div>
+      <div class="book-hero__copy">
+        <p class="eyebrow">Publication</p>
+        <h1>{book.title}</h1>
+        <p class="book-hero__subtitle">{book.subtitle}</p>
+        <p class="lead">{book.description}</p>
+        <EditorialMetadata book={book} publication={publication} selectedPageCount={reader?.pages.length ?? 0} />
+        <p class="publication-availability-note">The Reading Space presents a curated selection of recorded visual pages. The original publication remains available separately.</p>
+        <div class="book-primary-actions">
+          {reader && <a class="button book-read-button" href={`/library/${book.slug}/read/`} data-carry-question>Enter Reading Space</a>}
+          <a class="button button--secondary" href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+        </div>
+        <nav class="book-door-links" aria-label="Editorial entry doors">
+          <span>Appears through</span>
+          {doors.map((door) => door && <a href={`/explore/${door.id}/`} data-carry-question>{door.label}</a>)}
+        </nav>
+      </div>
+    </header>
+
+    <div class="container book-body">
+      <section class="book-overview" aria-labelledby="overview-title">
+        <p class="eyebrow">Overview</p>
+        <h2 id="overview-title">Inside this work</h2>
+        {book.overview.map((paragraph) => <p>{paragraph}</p>)}
+      </section>
+
+      <aside class="book-boundary" aria-label="Editorial boundary">
+        <span aria-hidden="true">◇</span>
+        <div>
+          <h2>Editorial work</h2>
+          <p>This publication belongs to the Library. It does not change ORION reports, evidence or deterministic decisions.</p>
+        </div>
+      </aside>
+
+      {journeyContinuation?.currentRef === "book:cartography-laboratory" && (
+        <JourneyContinuation continuation={journeyContinuation} />
+      )}
+
+      <RelationshipSection title="Atlas relationships" description="Every connection below is curated and registered explicitly.">
+        <div class="book-atlas-groups">
+          <div><h3>Concepts</h3><div class="atlas-badge-row">{concepts.map((concept) => <ConceptBadge concept={concept} />)}</div></div>
+          <div><h3>Operators</h3><div class="atlas-badge-row">{operators.map((operator) => <OperatorBadge operator={operator} />)}</div></div>
+          <div><h3>Themes</h3><div class="atlas-badge-row">{themes.map((theme) => <ThemeBadge theme={theme} />)}</div></div>
+        </div>
+      </RelationshipSection>
+
+      <RelationshipSection title="Visual collection" description="Visual material assigned to this publication in the editorial Atlas.">
+        <div class="visual-collection-grid">{visuals.map((visual) => <VisualCollectionCard visual={visual} />)}</div>
+      </RelationshipSection>
+
+      <section class="chapter-section" aria-labelledby="chapters-title">
+        <div class="section-heading">
+          <div><h2 id="chapters-title">Selected contents</h2><p>The structure recorded in the existing publication.</p></div>
+        </div>
+        <ol class="chapter-list">
+          {book.chapters.map((chapter, index) => (
+            <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{reader ? <a href={`/library/${book.slug}/read/${reader.chapters[index]?.firstPageId}/`} data-carry-question>{chapter}</a> : chapter}</strong></li>
+          ))}
+        </ol>
+      </section>
+
+      <RelationshipSection title="Continue through the Library" description="Related editorial works, not inferred evidence.">
+        <RelatedPublications subject={bookRef} />
+      </RelationshipSection>
+
+      {journeyContinuation?.currentRef === "book:wonder-operator" && (
+        <JourneyContinuation continuation={journeyContinuation} />
+      )}
+
+      <nav class="publication-continuation book-continuation" aria-label="Continue from this publication">
+        <div><p class="eyebrow">Where next?</p><h2>Continue from this publication.</h2></div>
+        <div>
+          {reader && <a class="button" href={`/library/${book.slug}/read/`} data-carry-question>Enter Reading Space</a>}
+          <a class="button button--secondary" href={publication.sourceUrl} target="_blank" rel="noreferrer">Open original publication</a>
+          <a class="button button--quiet" href="/library/" data-carry-question>Return to the Library</a>
+        </div>
+      </nav>
+    </div>
+  </article>
+</BaseLayout>

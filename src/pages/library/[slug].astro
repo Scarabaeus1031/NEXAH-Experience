@@ -1,0 +1,19 @@
+---
+import { publications, type WebsitePublication } from "@/data/catalog";
+import BookLayout from "@/layouts/BookLayout.astro";
+import CatalogPublicationLayout from "@/layouts/CatalogPublicationLayout.astro";
+
+export function getStaticPaths() {
+  return publications.map((publication) => ({
+    params: { slug: publication.routeSlug },
+    props: { publication },
+  }));
+}
+
+type Props = { publication: WebsitePublication };
+const { publication } = Astro.props;
+---
+
+{publication.localBook
+  ? <BookLayout book={publication.localBook} publication={publication} />
+  : <CatalogPublicationLayout publication={publication} />}

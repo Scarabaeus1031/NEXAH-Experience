@@ -1,0 +1,26 @@
+---
+import type { JourneyContinuation } from "@/data/journey";
+
+type Props = {
+  continuation: JourneyContinuation;
+};
+
+const { continuation } = Astro.props;
+---
+
+<aside class="journey-continuation" id="first-orientation" aria-labelledby={`journey-${continuation.step}`}>
+  <div class="journey-continuation__marker" aria-label={`First orientation, step ${continuation.step} of ${continuation.total}`}>
+    <span>{String(continuation.step).padStart(2, "0")}</span>
+    <span aria-hidden="true">—</span>
+    <span>{String(continuation.total).padStart(2, "0")}</span>
+  </div>
+  <div class="journey-continuation__copy">
+    <p class="eyebrow">{continuation.eyebrow}</p>
+    <h2 id={`journey-${continuation.step}`}>{continuation.title}</h2>
+    <p>{continuation.description}</p>
+  </div>
+  <div class="journey-continuation__actions">
+    <a class="button" href={continuation.nextHref} data-carry-question>{continuation.nextLabel}</a>
+    <a class="button button--quiet" href="/departure/" data-carry-question>Leave here</a>
+  </div>
+</aside>
