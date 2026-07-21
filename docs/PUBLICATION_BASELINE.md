@@ -37,8 +37,12 @@ On 21 July 2026 the local workspace produced:
 - static build: 195 HTML pages;
 - internal link check: 195 pages with no broken internal links.
 
-This evidence applies to the local working trees used for that check. A public
-baseline still requires immutable Experience and ORION revisions.
+The first local Experience baseline is commit
+`28d099c89a109a58385335652c394242ebea278d`. Its generated ORION source content
+is present in local committed ORION baseline `0a9c031…`; subsequent ORION
+commit `f16adc9…` adds compatibility evidence without changing consumed Python
+sources. A public baseline still requires public immutable repository URLs and
+revisions.
 
 ## Publication blockers
 

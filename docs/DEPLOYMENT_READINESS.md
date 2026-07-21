@@ -19,8 +19,9 @@ A deployment candidate must record:
 - Node.js and pnpm versions; and
 - canonical host.
 
-The current local ORION working tree is not yet a public immutable input. A
-deployment must not replace it with handwritten report data.
+The current local ORION commits are immutable locally but do not yet have a
+public repository identity. A deployment must not replace them with a moving
+branch or handwritten report data.
 
 ## Build and verification
 
