@@ -19,10 +19,10 @@ A deployment candidate must record:
 - Node.js and pnpm versions; and
 - canonical host.
 
-The approved ORION repository identity is `NEXAH-ORION`, but the repository and
-remote do not yet exist publicly. A deployment must consume its eventual
-public immutable revision and must not replace it with a moving branch or
-handwritten report data.
+The approved ORION repository is
+`https://github.com/Scarabaeus1031/NEXAH-ORION`. Publication verification uses
+the immutable revision `2610de440c71f8d5901e22f88239296716efdc5b` and must
+not replace it with a moving branch or handwritten report data.
 
 ## Build and verification
 
@@ -32,11 +32,11 @@ pnpm install --frozen-lockfile
 ORION_REPOSITORY_PATH=/absolute/path/to/nexah-orion pnpm verify
 ```
 
-Verified locally on 21 July 2026:
+Verified locally on 22 July 2026:
 
 - Astro check: zero errors, warnings or hints;
-- tests: 53 passed;
-- static output: 195 HTML pages;
+- tests: 55 passed;
+- static output: 204 HTML pages;
 - internal links: no broken internal links.
 
 ## Expected deployment artifact
@@ -75,5 +75,5 @@ After deployment verify:
 
 ## Remaining gates
 
-Only public remotes, immutable ORION revision, hosting, DNS, TLS, legal hosting
-facts and deployment authorization remain. Licensing is recorded locally.
+Only hosting, DNS, TLS, legal hosting facts and deployment authorization remain.
+Public remotes, immutable ORION input and licensing are recorded.

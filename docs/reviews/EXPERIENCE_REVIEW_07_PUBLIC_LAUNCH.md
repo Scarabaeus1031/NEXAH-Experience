@@ -1,5 +1,9 @@
 # Experience Review 07 — Public Launch & Legal Readiness
 
+> Historical review snapshot from 21 July 2026. Current publication gates and
+> verification results live in `docs/PUBLICATION_BASELINE.md` and
+> `docs/DEPLOYMENT_READINESS.md`.
+
 ## Launch Readiness Report
 
 The public Experience now contains a visible legal path, complete page metadata, crawlable production defaults and a reproducible internal-link check. No Experience room, editorial responsibility or ORION boundary changed.

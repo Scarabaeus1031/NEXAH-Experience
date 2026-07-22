@@ -1,0 +1,47 @@
+name: Verify Experience
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out Experience
+        uses: actions/checkout@v6
+
+      - name: Check out immutable ORION source
+        uses: actions/checkout@v6
+        with:
+          repository: Scarabaeus1031/NEXAH-ORION
+          ref: 2610de440c71f8d5901e22f88239296716efdc5b
+          path: .orion-source
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify static Experience
+        env:
+          ORION_REPOSITORY_PATH: ${{ github.workspace }}/.orion-source
+        run: pnpm verify

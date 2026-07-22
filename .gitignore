@@ -2,6 +2,7 @@ node_modules/
 .pnpm-store/
 dist/
 .astro/
+.orion-source/
 .DS_Store
 *.log
 .env

@@ -1,0 +1,28 @@
+---
+import { atlasImage, atlasSectionHref, type AtlasSection } from "@/data/atlas-of-atlases";
+
+interface Props {
+  section: AtlasSection;
+}
+
+const { section } = Astro.props;
+---
+
+<a class="atlas-volume-card" href={atlasSectionHref(section.slug)}>
+  <figure>
+    <img
+      src={atlasImage(section.plates[0].file)}
+      alt=""
+      width="800"
+      height="1200"
+      loading="lazy"
+      decoding="async"
+    />
+  </figure>
+  <div>
+    <span>Volume {section.number}</span>
+    <h3>{section.shortTitle}</h3>
+    <p>{section.description}</p>
+    <small>{section.plates.length} visual plates <span aria-hidden="true">→</span></small>
+  </div>
+</a>

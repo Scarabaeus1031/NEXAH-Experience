@@ -2,7 +2,7 @@
 
 ## Status
 
-**Publication candidate — locally publication-ready.**
+**Publication candidate — source repository publication-ready.**
 
 The Experience is a static presentation repository. It does not contain the
 ORION runtime, Framework, canonical Library Registry or a backend service.
@@ -30,30 +30,31 @@ authority.
 
 ## Current verified result
 
-On 21 July 2026 the local workspace produced:
+On 22 July 2026 the local workspace produced:
 
 - Astro check: 0 errors, warnings or hints;
-- automated tests: 53 passed;
-- static build: 195 HTML pages;
-- internal link check: 195 pages with no broken internal links.
+- automated tests: 55 passed;
+- static build: 204 HTML pages;
+- internal link check: 204 pages with no broken internal links.
 
-The local Experience baseline before license adoption is commit
-`a1e031cb51978ca1207851cc7f292a4a5c37b115`; the current clean commit also
-contains the approved licensing and repository identity. Its executable alpha
-entered at `28d099c89a109a58385335652c394242ebea278d`. Generated ORION source
-content is present in local committed ORION executable baseline `0a9c031…`;
-later ORION publication commits do not change consumed Python sources. A public
-baseline still requires public immutable repository URLs and revisions.
+The Experience baseline before license adoption is commit
+`a1e031cb51978ca1207851cc7f292a4a5c37b115`; subsequent publication work
+records the approved licensing and repository identity without rewriting that
+history. Its executable alpha entered at
+`28d099c89a109a58385335652c394242ebea278d`. Generated ORION source
+content is consumed from the public ORION publication commit
+`2610de440c71f8d5901e22f88239296716efdc5b`; that publication commit does not
+change the consumed Python sources.
 
 ## Publication gates
 
 - Apache 2.0 for software and CC BY 4.0 for original documentation and visual
   material are recorded in `LICENSE`, `LICENSE-DOCS.md` and `LICENSES.md`;
-- approved repository identity is `NEXAH-Experience`; repository creation and
-  remote configuration require GitHub owner action;
-- ORION public remote and immutable revision are not yet available;
-- automated public CI cannot be finalized until the ORION source location is
-  public and pinned;
+- approved repository identity is `NEXAH-Experience` at
+  `https://github.com/Scarabaeus1031/NEXAH-Experience`;
+- ORION is consumed from the public immutable revision recorded above;
+- public CI checks out that exact ORION revision and runs the complete
+  Experience verification command;
 - canonical host, TLS and redirect behavior remain external Operations work;
 - legal hosting and tax/privacy facts remain owner or hosting input.
 

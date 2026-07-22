@@ -162,11 +162,12 @@ test("the Home page moves from a philosophical question to an explicit choice of
   assert.match(page, /A place for orientation/);
   assert.match(page, /What are you trying to understand\?/);
   assert.match(page, /Choose where you would like to begin\./);
-  for (const number of ["01", "02", "03", "04", "05"]) {
+  for (const number of ["01", "02", "03", "04"]) {
     assert.match(page, new RegExp(`number: "${number}"`));
   }
   assert.match(page, /Visitor Guide/);
-  assert.match(page, /Living Atlas/);
+  assert.match(page, /THE ATLAS OF ATLASES/);
+  assert.match(page, /href="\/atlas-of-atlases\/"/);
   assert.match(page, /Library/);
   assert.match(page, /Laboratory/);
   assert.match(page, /Begin Orientation/);
@@ -174,6 +175,43 @@ test("the Home page moves from a philosophical question to an explicit choice of
   assert.match(page, /href: "\/threshold\/"/);
   assert.equal((page.match(/class="home-entrance"/g) ?? []).length, 1);
   assert.doesNotMatch(page, /<form|<input|<textarea|threshold-examples|LYRA|QuestionCard|message history|chat-message|chat-thread/i);
+});
+
+test("The Atlas of Atlases is a first-class static website route", async () => {
+  const data = await read("src/data/atlas-of-atlases.ts");
+  const landing = await read("src/pages/atlas-of-atlases/index.astro");
+  const section = await read("src/pages/atlas-of-atlases/[section].astro");
+
+  assert.match(landing, /THE ATLAS OF ATLASES/);
+  assert.match(landing, /Six Atlas Volumes/);
+  assert.match(landing, /Canonical Reading Route/);
+  assert.match(section, /getStaticPaths/);
+  assert.match(section, /atlasSections\.map/);
+  assert.match(section, /width="800"/);
+  assert.match(section, /height="1200"/);
+  assert.match(section, /publicationByRouteSlug\.get\("the-atlas-of-atlases"\)/);
+  assert.match(section, /Open Original Publication/);
+  assert.match(section, /target="_blank"/);
+  assert.match(section, /Previous/);
+  assert.match(section, /Next/);
+  assert.equal((data.match(/volume: true/g) ?? []).length, 6);
+  assert.equal((data.match(/plate\("/g) ?? []).length, 59);
+});
+
+test("the Homepage and permanent navigation expose the Atlas without duplicating the Library feature", async () => {
+  const home = await read("src/pages/index.astro");
+  const library = await read("src/pages/library.astro");
+  const header = await read("src/components/SiteHeader.astro");
+  const footer = await read("src/components/SiteFooter.astro");
+
+  assert.ok(home.indexOf("home-atlas-feature") < home.indexOf("home-entrances"));
+  assert.doesNotMatch(library, /library-atlas-feature|library-atlas-volumes/);
+  assert.match(library, /library-human-feature/);
+  assert.match(library, /Five Books · One Journey/);
+  assert.match(header, /\["Atlas of Atlases", "\/atlas-of-atlases\/"\]/);
+  assert.match(footer, /href="\/atlas-of-atlases\/"/);
+  assert.doesNotMatch(header, /\["Living Atlas", "\/atlas\/"\]/);
+  assert.match(await read("src/pages/atlas.astro"), /BaseLayout/);
 });
 
 test("the permanent navigation lets Home own the beginning", async () => {
@@ -281,14 +319,22 @@ test("Library presentation remains independent from ORION and LYRA", async () =>
   assert.match(sources[1], /getStaticPaths/);
 });
 
-test("the Library places two recorded reading entrances before its complete Catalog", async () => {
+test("the Library places a human reading journey and recorded reading spaces before its complete Catalog", async () => {
   const page = await read("src/pages/library.astro");
   assert.match(page, /What would you like to read\?/);
+  assert.match(page, /Featured · A human place to begin/);
+  assert.match(page, /volume-iii-clear-mind/);
+  assert.match(page, /Five Books · One Journey/);
+  assert.match(page, /the-inner-child-_-a-perspective/);
+  assert.match(page, /beyond-information/);
+  assert.match(page, /new-release-odyssey-2040/);
   assert.match(page, /publicationByRouteSlug\.get\("visitors-guide"\)/);
   assert.match(page, /publicationByRouteSlug\.get\("librarybook"\)/);
   assert.match(page, /Your first orientation through NEXAH\./);
   assert.match(page, /An overview of the complete collection\./);
-  assert.match(page, /Complete Publication Catalog/);
+  assert.match(page, /Publication Catalog/);
+  assert.ok(page.indexOf('class="container library-human-feature"') < page.indexOf('class="container library-human-journey"'));
+  assert.ok(page.indexOf('class="container library-human-journey"') < page.indexOf('class="container library-entrance"'));
   assert.ok(page.indexOf('class="container library-entrance"') < page.indexOf('id="publication-catalog"'));
 });
 
@@ -660,9 +706,11 @@ test("public launch metadata and legal navigation remain complete and inspectabl
   assert.match(imprint, /Thomas Hofmann/);
   assert.match(imprint, /HRB 87166/);
   assert.match(imprint, /contact@nexah\.de/);
-  assert.match(imprint, /\[Vor Veröffentlichung bestätigen:/);
+  assert.doesNotMatch(imprint, /Umsatzsteuer-Identifikationsnummer|Wirtschafts-Identifikationsnummer/);
   assert.match(contact, /mailto:contact@nexah\.de/);
   assert.match(privacy, /Server-Logs/);
+  assert.match(privacy, /Ansprechpartner für Datenschutz: Thomas Hofmann/);
+  assert.doesNotMatch(privacy, /Hostinganbieter, Serverstandort/);
   assert.match(privacy, /Sitzungsspeicher/);
   assert.match(privacy, /images\.are\.na/);
   assert.match(privacy, /keine Webanalyse/);

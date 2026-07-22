@@ -1,0 +1,70 @@
+---
+import AtlasVolumeCard from "@/components/atlas-of-atlases/AtlasVolumeCard.astro";
+import {
+  atlasCover,
+  atlasSectionHref,
+  atlasSections,
+  atlasVolumes,
+} from "@/data/atlas-of-atlases";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const entrance = atlasSections[0];
+const appendix = atlasSections.at(-1)!;
+---
+
+<BaseLayout
+  title="The Atlas of Atlases — NEXAH"
+  description="The visual entrance hall of the NEXAH Library and its six worlds of orientation."
+>
+  <header class="container atlas-of-atlases-hero">
+    <figure class="atlas-of-atlases-hero__cover">
+      <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" />
+    </figure>
+    <div>
+      <p class="eyebrow">The visual entrance hall</p>
+      <h1>THE ATLAS OF ATLASES</h1>
+      <p class="lead">A visual introduction to the six worlds of orientation.</p>
+      <p>Begin with the visual grammar of the Library, then move through six atlas fields in their canonical sequence.</p>
+      <a class="button" href={atlasSectionHref(entrance.slug)}>Enter the Atlas <span aria-hidden="true">→</span></a>
+    </div>
+  </header>
+
+  <section class="container atlas-volume-section" aria-labelledby="atlas-volumes-title">
+    <header class="section-heading">
+      <div>
+        <p class="eyebrow">Six Atlas Volumes</p>
+        <h2 id="atlas-volumes-title">Six fields. One orientation.</h2>
+      </div>
+      <p>The route is editorial and explicit. Nothing is ranked or inferred.</p>
+    </header>
+    <div class="atlas-volume-grid">
+      {atlasVolumes.map((section) => <AtlasVolumeCard section={section} />)}
+    </div>
+  </section>
+
+  <nav class="container atlas-canonical-route" aria-label="Canonical Atlas sequence">
+    <p class="eyebrow">Canonical Reading Route</p>
+    <ol>
+      {atlasSections.map((section) => (
+        <li>
+          <a href={atlasSectionHref(section.slug)}>
+            <span>{section.number}</span>
+            <strong>{section.shortTitle}</strong>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+
+  <section class="container atlas-of-atlases-exits section--line" aria-labelledby="atlas-exits-title">
+    <div>
+      <p class="eyebrow">Continue</p>
+      <h2 id="atlas-exits-title">The Atlas opens into the Library.</h2>
+    </div>
+    <div>
+      <a class="button" href={atlasSectionHref(appendix.slug)}>Open the Library Appendix</a>
+      <a class="button button--secondary" href="/library/">Continue to the Library</a>
+      <a class="button button--quiet" href="/atlas/">Explore the Living Atlas</a>
+    </div>
+  </section>
+</BaseLayout>

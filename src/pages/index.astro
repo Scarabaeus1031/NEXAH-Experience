@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { atlasCover } from "@/data/atlas-of-atlases";
 
 const entrances = [
   {
@@ -10,24 +11,18 @@ const entrances = [
   },
   {
     number: "02",
-    title: "Living Atlas",
-    description: "Explore relationships and maps.",
-    href: "/atlas/",
-  },
-  {
-    number: "03",
     title: "Library",
     description: "Browse publications.",
     href: "/library/",
   },
   {
-    number: "04",
+    number: "03",
     title: "Laboratory",
     description: "See how observations become research.",
     href: "/laboratory/",
   },
   {
-    number: "05",
+    number: "04",
     title: "Begin Orientation",
     description: "Enter ORION. Bring one real question.",
     href: "/threshold/",
@@ -43,6 +38,21 @@ const entrances = [
       <p class="lead arrive arrive--2">Choose where you would like to begin.</p>
     </div>
     <div class="path-glow" aria-hidden="true"></div>
+  </section>
+
+  <section class="home-atlas-feature section--line" aria-labelledby="home-atlas-title">
+    <div class="container home-atlas-feature__inner">
+      <figure>
+        <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" loading="eager" />
+      </figure>
+      <div>
+        <p class="eyebrow">The visual entrance hall</p>
+        <h2 id="home-atlas-title">THE ATLAS OF ATLASES</h2>
+        <p class="lead">A visual introduction to the six worlds of orientation.</p>
+        <p>Enter the Library through its canonical visual sequence.</p>
+        <a class="button" href="/atlas-of-atlases/">Enter the Atlas <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
   </section>
 
   <section class="home-entrances section--line" aria-labelledby="home-entrances-title">

@@ -2,8 +2,8 @@
 
 The first public, local-first NEXAH experience.
 
-**Publication status:** locally prepared candidate; no public release or
-production deployment has been declared.
+**Publication status:** public source repository prepared; no versioned public
+release or production deployment has been declared.
 
 This is an independent application repository. It does not belong to ORION and
 does not redefine the frozen ORION v1 Architecture Baseline.
@@ -84,13 +84,16 @@ dependency.
   remain an Operations launch item.
 - Canonical Framework and Governance:
   [`Scarabaeus1031/NEXAH`](https://github.com/Scarabaeus1031/NEXAH)
+- Deterministic orientation source:
+  [`Scarabaeus1031/NEXAH-ORION`](https://github.com/Scarabaeus1031/NEXAH-ORION)
+- Public Experience source:
+  [`Scarabaeus1031/NEXAH-Experience`](https://github.com/Scarabaeus1031/NEXAH-Experience)
 - Contribution boundary: [`CONTRIBUTING.md`](CONTRIBUTING.md)
 - Security reporting: [`SECURITY.md`](SECURITY.md)
 - Community conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
-The approved public repository identity is `NEXAH-Experience`. Repository
-creation, remote configuration and publication remain GitHub owner actions;
-this local repository has not been renamed.
+The approved public repository identity is `NEXAH-Experience`. Production
+deployment and release declaration remain separate owner actions.
 
 ## Licensing
 

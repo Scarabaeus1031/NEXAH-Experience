@@ -1,7 +1,9 @@
 ---
 import CatalogRow from "@/components/library/CatalogRow.astro";
+import EditorialPublicationCard from "@/components/library/EditorialPublicationCard.astro";
+import PublicationCover from "@/components/library/PublicationCover.astro";
 import DoorCard from "@/components/navigation/DoorCard.astro";
-import { publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
+import { getPublicationExcerpt, publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
 import { editorialDoors } from "@/data/navigation";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -10,6 +12,32 @@ const visitorGuide = publicationByRouteSlug.get("visitors-guide");
 const libraryBook = publicationByRouteSlug.get("librarybook");
 
 if (!visitorGuide || !libraryBook) throw new Error("The Library entrance requires its two recorded publications.");
+
+const requirePublication = (slug: string) => {
+  const publication = publicationByRouteSlug.get(slug);
+  if (!publication) throw new Error(`The curated Library selection requires ${slug}.`);
+  return publication;
+};
+
+const clearMind = requirePublication("volume-iii-clear-mind");
+const clearMindCover = clearMind.localBook?.cover ?? clearMind.cover.src;
+const clearMindCoverAlt = clearMind.localBook?.coverAlt ?? clearMind.cover.alt ?? `Cover of ${clearMind.title}`;
+const clearMindWidth = clearMind.localBook ? 1024 : clearMind.cover.width;
+const clearMindHeight = clearMind.localBook ? 1536 : clearMind.cover.height;
+
+const humanJourney = [
+  { publication: requirePublication("vol-i-be-kind-be-awefull-belong"), caption: "A journey through wonder." },
+  { publication: requirePublication("vol-ii-pathfinders"), caption: "Find your path." },
+  { publication: clearMind, caption: "See clearly." },
+  { publication: requirePublication("vol-iv-threads-of-you"), caption: "Every thread connects." },
+  { publication: requirePublication("volume-v-many-maps-one-world"), caption: "One journey. One humanity." },
+] as const;
+
+const alternativeEntrances = [
+  { publication: requirePublication("the-inner-child-_-a-perspective"), caption: "Begin with wonder and the courage to remain curious." },
+  { publication: requirePublication("beyond-information"), caption: "Explore what remains when information alone is not enough." },
+  { publication: requirePublication("new-release-odyssey-2040-many-maps-one-world-a-story-about-perspective-a-call-to-participate"), caption: "Look toward the future as something we shape together." },
+] as const;
 ---
 
 <BaseLayout title="Library — NEXAH" description="The complete read-only view of the NEXAH Publication Catalog.">
@@ -25,10 +53,55 @@ if (!visitorGuide || !libraryBook) throw new Error("The Library entrance require
     </aside>
   </header>
 
+  <section class="container library-human-feature" aria-labelledby="library-clear-mind-title">
+    <a class="library-human-feature__cover" href={`/library/${clearMind.routeSlug}/`} aria-label="Open Clear Mind" data-carry-question>
+      <PublicationCover
+        src={clearMindCover}
+        alt={clearMindCoverAlt}
+        width={clearMindWidth}
+        height={clearMindHeight}
+        title="Clear Mind"
+        kind={clearMind.form.replaceAll("_", " ")}
+        loading="eager"
+        referrerpolicy="no-referrer"
+      />
+    </a>
+    <div>
+      <p class="eyebrow">Featured · A human place to begin</p>
+      <h2 id="library-clear-mind-title">Clear Mind</h2>
+      <p class="lead">Finding meaning in a complex world.</p>
+      <p>{getPublicationExcerpt(clearMind, 190)}</p>
+      <a class="button" href={`/library/${clearMind.routeSlug}/`} data-carry-question>Begin with Clear Mind <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="container library-human-journey" aria-labelledby="library-human-journey-title">
+    <header class="section-heading">
+      <div><p class="eyebrow">Five Books · One Journey</p><h2 id="library-human-journey-title">Many paths. One world.</h2></div>
+      <p>Begin anywhere. Continue in your own order.</p>
+    </header>
+    <div class="library-human-journey__grid">
+      {humanJourney.map(({ publication, caption }, index) => (
+        <EditorialPublicationCard publication={publication} caption={caption} position={`Volume ${String(index + 1).padStart(2, "0")}`} eager={index < 2} />
+      ))}
+    </div>
+  </section>
+
+  <section class="container library-alternative-entrances" aria-labelledby="library-alternatives-title">
+    <header class="section-heading">
+      <div><p class="eyebrow">Other Ways to Enter</p><h2 id="library-alternatives-title">Choose another perspective.</h2></div>
+    </header>
+    <div class="library-alternative-entrances__grid">
+      {alternativeEntrances.map(({ publication, caption }) => (
+        <EditorialPublicationCard publication={publication} caption={caption} />
+      ))}
+    </div>
+  </section>
+
   <section class="container library-entrance" aria-labelledby="library-entrance-title">
     <header>
-      <p class="eyebrow">A natural first step</p>
-      <h2 id="library-entrance-title">Begin Reading</h2>
+      <p class="eyebrow">Reading Spaces</p>
+      <h2 id="library-entrance-title">Begin with NEXAH.</h2>
     </header>
     <ol>
       <li>
@@ -43,13 +116,6 @@ if (!visitorGuide || !libraryBook) throw new Error("The Library entrance require
         <a href={`/library/${libraryBook.routeSlug}/`}>
           <strong>{libraryBook.title}</strong>
           <small>An overview of the complete collection.</small>
-        </a>
-      </li>
-      <li>
-        <span>03</span>
-        <a href="#publication-catalog">
-          <strong>Complete Publication Catalog</strong>
-          <small>All {publications.length} recorded publications remain accessible here.</small>
         </a>
       </li>
     </ol>

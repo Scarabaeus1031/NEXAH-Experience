@@ -1,0 +1,40 @@
+---
+import PublicationCover from "@/components/library/PublicationCover.astro";
+import type { WebsitePublication } from "@/data/catalog";
+
+type Props = {
+  publication: WebsitePublication;
+  caption: string;
+  position?: string;
+  eager?: boolean;
+};
+
+const { publication, caption, position, eager = false } = Astro.props;
+const href = `/library/${publication.routeSlug}/`;
+const cover = publication.localBook?.cover ?? publication.cover.src;
+const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+const width = publication.localBook ? 1024 : publication.cover.width;
+const height = publication.localBook ? 1536 : publication.cover.height;
+const title = publication.title.replace(/^VOLUME [IVX]+ — /, "");
+---
+
+<article class="editorial-publication-card">
+  <a class="editorial-publication-card__cover" href={href} aria-label={`Open ${publication.title}`} data-carry-question>
+    <PublicationCover
+      src={cover}
+      alt={coverAlt}
+      width={width}
+      height={height}
+      title={title}
+      kind={publication.form.replaceAll("_", " ")}
+      loading={eager ? "eager" : "lazy"}
+      referrerpolicy="no-referrer"
+    />
+  </a>
+  <div>
+    {position && <small>{position}</small>}
+    <h3><a href={href} data-carry-question>{title}</a></h3>
+    <p>{caption}</p>
+    <a class="text-link" href={href} data-carry-question>Enter this work</a>
+  </div>
+</article>

@@ -1,0 +1,82 @@
+---
+import {
+  atlasImage,
+  atlasSectionHref,
+  atlasSections,
+  type AtlasSection,
+} from "@/data/atlas-of-atlases";
+import { publicationByRouteSlug } from "@/data/catalog";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+export function getStaticPaths() {
+  return atlasSections.map((section) => ({ params: { section: section.slug }, props: { section } }));
+}
+
+interface Props {
+  section: AtlasSection;
+}
+
+const { section } = Astro.props;
+const sectionIndex = atlasSections.findIndex((candidate) => candidate.slug === section.slug);
+const previous = sectionIndex > 0 ? atlasSections[sectionIndex - 1] : undefined;
+const next = sectionIndex < atlasSections.length - 1 ? atlasSections[sectionIndex + 1] : undefined;
+const originalPublication = publicationByRouteSlug.get("the-atlas-of-atlases");
+
+if (!originalPublication) throw new Error("The Atlas of Atlases requires its recorded original publication.");
+---
+
+<BaseLayout title={`${section.title} — The Atlas of Atlases`} description={section.description}>
+  <header class="container atlas-section-hero">
+    <a href="/atlas-of-atlases/" class="atlas-back-link">← The Atlas of Atlases</a>
+    <p class="eyebrow">{section.volume ? `Volume ${section.number}` : section.title}</p>
+    <h1>{section.title}</h1>
+    <p class="lead">{section.description}</p>
+    <p class="fine">{section.plates.length} plates · canonical editorial sequence</p>
+  </header>
+
+  <main class="container atlas-plate-sequence" aria-label={`${section.title} plates`}>
+    {section.plates.map((plate, index) => (
+      <figure class="atlas-plate" id={`plate-${index + 1}`}>
+        <img
+          src={atlasImage(plate.file)}
+          alt={`${section.title}: ${plate.title}`}
+          width="800"
+          height="1200"
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+        <figcaption>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <strong>{plate.title}</strong>
+        </figcaption>
+      </figure>
+    ))}
+  </main>
+
+  <aside class="container atlas-original-publication" aria-label="Original Atlas publication">
+    <div>
+      <p class="eyebrow">Full-size source</p>
+      <p>The website presents the canonical sequence. Open the original publication to view the complete Atlas at full size.</p>
+    </div>
+    <a class="button button--secondary" href={originalPublication.sourceUrl} target="_blank" rel="noopener noreferrer">
+      Open Original Publication <span aria-hidden="true">↗</span>
+    </a>
+  </aside>
+
+  <nav class="container atlas-section-navigation" aria-label="Move through The Atlas of Atlases">
+    {previous ? (
+      <a href={atlasSectionHref(previous.slug)} class="atlas-section-navigation__previous">
+        <span aria-hidden="true">←</span><small>Previous</small><strong>{previous.shortTitle}</strong>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a href={atlasSectionHref(next.slug)} class="atlas-section-navigation__next">
+        <small>Next</small><strong>{next.shortTitle}</strong><span aria-hidden="true">→</span>
+      </a>
+    ) : (
+      <a href="/library/" class="atlas-section-navigation__next">
+        <small>Continue</small><strong>Library</strong><span aria-hidden="true">→</span>
+      </a>
+    )}
+  </nav>
+</BaseLayout>

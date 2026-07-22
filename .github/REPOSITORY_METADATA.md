@@ -14,4 +14,5 @@ Approved values for the public repository settings:
 - **Community files:** `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `SECURITY.md`
   issue templates and the pull-request template are prepared.
 
-These values do not create the repository, configure a remote or modify GitHub.
+These values describe the public repository. Homepage activation and primary
+pinning remain owner actions after production deployment.
