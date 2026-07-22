@@ -12,10 +12,10 @@ export type EditorialDoor = {
 export const editorialDoors = [
   {
     id: "foundations",
-    label: "Foundations",
-    question: "What is NEXAH built on?",
-    description: "Foundational maps for orientation, design, theory and architecture.",
-    invitation: "Begin with the field, then follow its methods and structures.",
+    label: "Orientation Science",
+    question: "How can orientation become a discipline?",
+    description: "Research foundations for mapping how humans and systems find direction within complexity.",
+    invitation: "Begin with the prospectus, then follow its methods and structures.",
     featuredKeys: ["arena:5416617", "arena:5415690", "arena:5309625"],
   },
   {

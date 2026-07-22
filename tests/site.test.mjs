@@ -207,7 +207,7 @@ test("the Homepage and permanent navigation expose the Atlas without duplicating
   assert.ok(home.indexOf("home-atlas-feature") < home.indexOf("home-entrances"));
   assert.doesNotMatch(library, /library-atlas-feature|library-atlas-volumes/);
   assert.match(library, /library-human-feature/);
-  assert.match(library, /Five Books · One Journey/);
+  assert.match(library, /Five Books · One Human Journey/);
   assert.match(header, /\["Atlas of Atlases", "\/atlas-of-atlases\/"\]/);
   assert.match(footer, /href="\/atlas-of-atlases\/"/);
   assert.doesNotMatch(header, /\["Living Atlas", "\/atlas\/"\]/);
@@ -324,7 +324,7 @@ test("the Library places a human reading journey and recorded reading spaces bef
   assert.match(page, /What would you like to read\?/);
   assert.match(page, /Featured · A human place to begin/);
   assert.match(page, /volume-iii-clear-mind/);
-  assert.match(page, /Five Books · One Journey/);
+  assert.match(page, /Five Books · One Human Journey/);
   assert.match(page, /the-inner-child-_-a-perspective/);
   assert.match(page, /beyond-information/);
   assert.match(page, /new-release-odyssey-2040/);
