@@ -200,11 +200,14 @@ test("The Atlas of Atlases is a first-class static website route", async () => {
 
 test("the Homepage and permanent navigation expose the Atlas without duplicating the Library feature", async () => {
   const home = await read("src/pages/index.astro");
+  const scienceEntry = await read("src/components/navigation/OrientationScienceEntry.astro");
   const library = await read("src/pages/library.astro");
   const header = await read("src/components/SiteHeader.astro");
   const footer = await read("src/components/SiteFooter.astro");
 
   assert.ok(home.indexOf("home-atlas-feature") < home.indexOf("home-entrances"));
+  assert.match(home, /OrientationScienceEntry context="home"/);
+  assert.match(scienceEntry, /context === "home" \? sciencePublications\.slice\(0, 1\)/);
   assert.doesNotMatch(library, /library-atlas-feature|library-atlas-volumes/);
   assert.match(library, /library-human-feature/);
   assert.match(library, /Five Books · One Human Journey/);
@@ -390,7 +393,8 @@ test("Explore and Library preserve orientation instead of creating a second cata
   assert.match(home, /href: "\/library\/visitors-guide\/"/);
   assert.match(home, /href: "\/threshold\/"/);
   assert.doesNotMatch(home, /Six ways to begin/);
-  assert.match(explore, /editorialDoors\.map/);
+  assert.match(explore, /remainingDoors\.map/);
+  assert.match(explore, /OrientationScienceEntry/);
   assert.match(explore, /editorial doors, not categories/i);
   assert.match(door, /getStaticPaths/);
   assert.match(door, /Three deliberate starting points/);

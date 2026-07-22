@@ -1,7 +1,10 @@
 ---
 import DoorCard from "@/components/navigation/DoorCard.astro";
+import OrientationScienceEntry from "@/components/navigation/OrientationScienceEntry.astro";
 import { editorialDoors, guidedBeginnings } from "@/data/navigation";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const remainingDoors = editorialDoors.filter((door) => door.id !== "foundations");
 ---
 
 <BaseLayout title="Explore Orientation Cartography — NEXAH" description="Six editorial doors into the fields, maps and publications of NEXAH orientation cartography.">
@@ -11,8 +14,12 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
     <p class="lead">These are editorial doors, not categories. Each reveals a different field of relationships.</p>
   </header>
 
+  <section class="container explore-science" aria-label="Orientation Science entrance">
+    <OrientationScienceEntry />
+  </section>
+
   <section class="container door-grid" aria-label="Editorial entry doors">
-    {editorialDoors.map((door) => <DoorCard door={door} />)}
+    {remainingDoors.map((door) => <DoorCard door={door} />)}
   </section>
 
   <section class="container guided-beginnings" aria-labelledby="guided-title">

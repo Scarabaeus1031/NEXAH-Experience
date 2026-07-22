@@ -1,0 +1,48 @@
+---
+import PublicationCover from "@/components/library/PublicationCover.astro";
+import { publicationByCatalogKey } from "@/data/catalog";
+import { editorialDoors } from "@/data/navigation";
+
+type Props = {
+  context?: "home" | "explore";
+};
+
+const { context = "explore" } = Astro.props;
+const science = editorialDoors.find((door) => door.id === "foundations");
+const sciencePublications = science?.featuredKeys
+  .map((key) => publicationByCatalogKey.get(key))
+  .filter((publication) => publication !== undefined) ?? [];
+const publications = context === "home" ? sciencePublications.slice(0, 1) : sciencePublications;
+---
+
+<article class:list={["orientation-science-entry", `orientation-science-entry--${context}`]}>
+  <div class="orientation-science-entry__covers" aria-label={context === "home" ? "Orientation Science" : "Three foundational Orientation Science works"}>
+    {publications.map((publication) => {
+      const cover = publication.localBook?.cover ?? publication.cover.src;
+      const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+      const width = publication.localBook ? 1024 : publication.cover.width;
+      const height = publication.localBook ? 1536 : publication.cover.height;
+      return (
+        <a href={`/library/${publication.routeSlug}/`} data-carry-question title={publication.title}>
+          <PublicationCover
+            src={cover}
+            alt={coverAlt}
+            width={width}
+            height={height}
+            title={publication.title}
+            kind={publication.form.replaceAll("_", " ")}
+            loading={context === "home" ? "eager" : "lazy"}
+            referrerpolicy="no-referrer"
+          />
+        </a>
+      );
+    })}
+  </div>
+  <div class="orientation-science-entry__copy">
+    <p class="eyebrow">The scientific entrance</p>
+    <h2>Orientation Science</h2>
+    <p class="lead">How can orientation become a discipline?</p>
+    <p>Research foundations for mapping how humans and systems find direction within complexity.</p>
+    <a class="button" href="/explore/foundations/" data-carry-question>Explore <span aria-hidden="true">→</span></a>
+  </div>
+</article>

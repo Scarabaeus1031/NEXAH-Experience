@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { atlasCover } from "@/data/atlas-of-atlases";
+import OrientationScienceEntry from "@/components/navigation/OrientationScienceEntry.astro";
 
 const entrances = [
   {
@@ -40,17 +41,26 @@ const entrances = [
     <div class="path-glow" aria-hidden="true"></div>
   </section>
 
-  <section class="home-atlas-feature section--line" aria-labelledby="home-atlas-title">
-    <div class="container home-atlas-feature__inner">
-      <figure>
-        <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" loading="eager" />
-      </figure>
-      <div>
-        <p class="eyebrow">The visual entrance hall</p>
-        <h2 id="home-atlas-title">THE ATLAS OF ATLASES</h2>
-        <p class="lead">A visual map of six fields of orientation.</p>
-        <p>See how NEXAH maps relationships, scales and perspectives within complexity.</p>
-        <a class="button" href="/atlas-of-atlases/">Enter the Atlas <span aria-hidden="true">→</span></a>
+  <section class="home-orientation-entrances section--line" aria-labelledby="home-orientation-entrances-title">
+    <div class="container">
+      <header class="home-orientation-entrances__header">
+        <p class="eyebrow">Two ways into the field</p>
+        <h2 id="home-orientation-entrances-title">Begin with the map or with the discipline.</h2>
+      </header>
+      <div class="home-orientation-entrances__grid">
+        <article class="home-atlas-feature" aria-labelledby="home-atlas-title">
+          <figure>
+            <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" loading="eager" />
+          </figure>
+          <div>
+            <p class="eyebrow">The visual entrance</p>
+            <h2 id="home-atlas-title">THE ATLAS OF ATLASES</h2>
+            <p class="lead">A visual map of six fields of orientation.</p>
+            <p>See relationships, scales and perspectives before entering the wider Library.</p>
+            <a class="button" href="/atlas-of-atlases/">Enter the Atlas <span aria-hidden="true">→</span></a>
+          </div>
+        </article>
+        <OrientationScienceEntry context="home" />
       </div>
     </div>
   </section>
