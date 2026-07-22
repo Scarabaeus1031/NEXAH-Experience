@@ -1,9 +1,10 @@
 # NEXAH Experience
 
-The first public, local-first NEXAH experience.
+The public NEXAH orientation experience at [nexah.de](https://nexah.de).
 
-**Publication status:** public source repository prepared; no versioned public
-release or production deployment has been declared.
+**Publication status:** the static Experience is publicly deployed. The
+repository remains an alpha baseline; no stable versioned release has been
+declared.
 
 This is an independent application repository. It does not belong to ORION and
 does not redefine the frozen ORION v1 Architecture Baseline.
@@ -19,14 +20,14 @@ Atlas relationships or Human interpretation.
 
 - Home, Explore, Laboratory, editorial Library, About and simplified Atlas
 - one complete build-time ORION Orientation Journey
-- seven existing NEXAH publications with reusable static detail pages
-- seven calm reading spaces containing 79 recorded publication pages
+- 61 recorded NEXAH publications with reusable static detail pages
+- seven curated reading spaces containing 79 recorded publication pages
 - a Living Atlas of concepts, editorial operators, themes and explicit relationships
 - one continuous path from the ORION boundary through the Library and Living Atlas to a quiet departure
 - one real visitor question held transparently for the duration of a browser-tab session
 - responsive desktop and mobile layouts
 - accessibility and reduced-motion support
-- no backend, provider, API, account, CMS, persistence or deployment
+- no backend, provider, API, account, CMS, persistence or hidden runtime service
 
 ## Local workflow
 
@@ -80,8 +81,7 @@ dependency.
 
 ## Public references
 
-- Public Experience: [nexah.de](https://nexah.de) — domain and TLS verification
-  remain an Operations launch item.
+- Public Experience: [nexah.de](https://nexah.de)
 - Canonical Framework and Governance:
   [`Scarabaeus1031/NEXAH`](https://github.com/Scarabaeus1031/NEXAH)
 - Deterministic orientation source:
@@ -93,7 +93,8 @@ dependency.
 - Community conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
 The approved public repository identity is `NEXAH-Experience`. Production
-deployment and release declaration remain separate owner actions.
+deployment is live; a stable release declaration remains a separate owner
+action.
 
 ## Licensing
 
