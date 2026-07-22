@@ -179,7 +179,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .ornament::before, .ornament::after { width: 3.5rem; height: 1px; background: var(--line-strong); content: ""; }
 
 /* Home */
-.home-hero { position: relative; min-height: 35rem; overflow: hidden; padding-block: var(--space-7); }
+.home-hero { position: relative; min-height: 31rem; overflow: hidden; padding-block: var(--space-6); }
 .home-hero::before, .home-hero::after {
   position: absolute;
   right: -8%;
@@ -199,7 +199,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .home-hero h1 { max-width: 16ch; margin-inline: auto; color: var(--night); }
 .home-hero .lead { max-width: 39rem; margin: 0 auto; }
 .home-orientation-entrances { padding-block: var(--space-6); }
-.home-orientation-entrances__header { display: grid; grid-template-columns: 1fr 2fr; align-items: end; gap: var(--space-5); margin-bottom: var(--space-5); }
+.home-orientation-entrances__header { display: grid; grid-template-columns: 1fr 2fr; align-items: end; gap: var(--space-5); margin-bottom: var(--space-4); }
 .home-orientation-entrances__header .eyebrow, .home-orientation-entrances__header h2 { margin: 0; }
 .home-orientation-entrances__header h2 { font-size: var(--step-2); }
 .home-orientation-entrances__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-block: 1px solid var(--line); }
@@ -668,16 +668,18 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .book-grid--related { grid-template-columns: repeat(2, minmax(0, 18rem)); }
 
 /* About */
-.about-hero { display: grid; grid-template-columns: 1fr .8fr; min-height: 39rem; align-items: center; gap: var(--space-7); padding-block: var(--space-6); }
+.about-hero { display: grid; grid-template-columns: 1fr .8fr; min-height: 34rem; align-items: center; gap: var(--space-6); padding-block: var(--space-5); }
 .about-hero h1 { font-size: var(--step-3); }
 .about-hero h1 span { color: var(--gold); }
 .portal { position: relative; width: min(100%, 25rem); aspect-ratio: .72; margin-inline: auto; border: 1.1rem solid rgba(226,217,200,.8); border-bottom: 0; border-radius: 50% 50% 0 0; background: linear-gradient(#dce7e8, #faf4df 52%, #d8ccb5); box-shadow: var(--shadow-soft); overflow: hidden; }
 .portal::before { position: absolute; right: 0; bottom: -7%; left: 0; height: 60%; background: linear-gradient(145deg, transparent 44%, rgba(255,255,255,.9) 45% 48%, transparent 49%), linear-gradient(35deg, #66717a, #b3ad9d 48%, #69767d 49%, #d2c8b0); content: ""; }
-.audiences { display: grid; gap: 1rem; margin-top: var(--space-5); }
+.audiences { display: grid; gap: 1rem; margin-top: var(--space-4); }
 .audience { display: grid; grid-template-columns: 2.5rem 1fr; gap: .8rem; }
 .audience > span { display: grid; width: 2.2rem; aspect-ratio: 1; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; color: var(--gold); }
 .audience strong { display: block; font-size: .82rem; }
 .audience p { margin: .15rem 0 0; color: var(--ink-soft); font-size: .78rem; }
+.about-why { padding-block: var(--space-5) var(--space-6); }
+.about-why .page-hero { padding-block: 0 var(--space-4); }
 .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .why-card { padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-md); background: rgba(255,255,255,.3); }
 .why-card:last-child { border-color: var(--gold-soft); }
@@ -1111,7 +1113,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
   .site-header { padding-block: .8rem; }
   .brand__mark { width: 2rem; }
   .brand__words strong { font-size: 1rem; }
-  .home-hero { min-height: 30rem; padding-block: var(--space-6); }
+  .home-hero { min-height: 27rem; padding-block: var(--space-5); }
   .home-hero h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
   .home-hero .lead { font-size: 1rem; }
   .home-orientation-entrances { padding-block: var(--space-5); }
@@ -1237,6 +1239,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
   .chapter-list li:nth-child(odd), .chapter-list li:nth-child(even) { padding-inline: .5rem; border-right: 0; }
   .book-grid--related { grid-template-columns: 1fr; }
   .about-hero { grid-template-columns: 1fr; min-height: auto; padding-top: var(--space-5); }
+  .about-why { padding-block: var(--space-5); }
   .portal { width: min(75%, 18rem); }
   .why-grid { grid-template-columns: 1fr; }
   .ecosystem-section__intro, .ecosystem-map__rooms { grid-template-columns: 1fr; }

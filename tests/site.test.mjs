@@ -157,10 +157,11 @@ test("the orientation journey renders the generated adapter without runtime tran
   await assert.rejects(read("src/data/orientation.ts"));
 });
 
-test("the Home page moves from a philosophical question to an explicit choice of place", async () => {
+test("the Home page connects orientation in complexity to an explicit choice of place", async () => {
   const page = await read("src/pages/index.astro");
   assert.match(page, /A place for orientation/);
-  assert.match(page, /What are you trying to understand\?/);
+  assert.match(page, /How do we find our way through complexity\?/);
+  assert.match(page, /We need orientation — and better maps\./);
   assert.match(page, /Choose where you would like to begin\./);
   for (const number of ["01", "02", "03", "04"]) {
     assert.match(page, new RegExp(`number: "${number}"`));
