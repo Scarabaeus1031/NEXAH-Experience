@@ -1,5 +1,9 @@
 # NEXAH Experience
 
+[![Verify Experience](https://github.com/Scarabaeus1031/NEXAH-Experience/actions/workflows/verify.yml/badge.svg)](https://github.com/Scarabaeus1031/NEXAH-Experience/actions/workflows/verify.yml)
+[![Live Experience](https://img.shields.io/badge/live-nexah.de-0b2745)](https://nexah.de)
+[![Code License: Apache 2.0](https://img.shields.io/badge/code-Apache--2.0-b48738)](LICENSE)
+
 The public NEXAH orientation experience at [nexah.de](https://nexah.de).
 
 **Publication status:** the static Experience is publicly deployed. The
