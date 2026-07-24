@@ -21,7 +21,7 @@ A deployment candidate must record:
 
 The approved ORION repository is
 `https://github.com/Scarabaeus1031/NEXAH-ORION`. Publication verification uses
-the immutable revision `2610de440c71f8d5901e22f88239296716efdc5b` and must
+the immutable revision `d34fbb2f99334534f4db89465a29f8bdb16d14d3` and must
 not replace it with a moving branch or handwritten report data.
 
 ## Build and verification

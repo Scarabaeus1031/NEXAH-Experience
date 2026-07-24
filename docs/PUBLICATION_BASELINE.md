@@ -43,7 +43,7 @@ records the approved licensing and repository identity without rewriting that
 history. Its executable alpha entered at
 `28d099c89a109a58385335652c394242ebea278d`. Generated ORION source
 content is consumed from the public ORION publication commit
-`2610de440c71f8d5901e22f88239296716efdc5b`; that publication commit does not
+`d34fbb2f99334534f4db89465a29f8bdb16d14d3`; that publication commit does not
 change the consumed Python sources.
 
 ## Publication gates
