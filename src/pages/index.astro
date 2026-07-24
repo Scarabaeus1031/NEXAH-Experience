@@ -2,13 +2,14 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { atlasCover } from "@/data/atlas-of-atlases";
 import OrientationScienceEntry from "@/components/navigation/OrientationScienceEntry.astro";
+import EcosystemMap from "@/components/about/EcosystemMap.astro";
 
 const entrances = [
   {
     number: "01",
     title: "Visitor Guide",
     description: "Start here if you are new.",
-    href: "/library/visitors-guide/",
+    href: "/visitor-guide/",
   },
   {
     number: "02",
@@ -25,8 +26,8 @@ const entrances = [
   {
     number: "04",
     title: "Begin Orientation",
-    description: "Enter ORION. Bring one real question.",
-    href: "/threshold/",
+    description: "Bring one real question to the reference Workspace.",
+    href: "https://nexahedron.com",
   },
 ];
 ---
@@ -34,18 +35,22 @@ const entrances = [
 <BaseLayout>
   <section class="home-hero">
     <div class="container home-hero__content">
-      <p class="eyebrow arrive">A place for orientation cartography</p>
-      <h1 class="arrive arrive--2">How do we find our way through complexity?</h1>
-      <p class="lead arrive arrive--2">The world has information. We need orientation — and better maps.</p>
+      <p class="eyebrow arrive">NEXAH — The Orientation Ecosystem</p>
+      <h1 class="arrive arrive--2">Designing Human Orientation in Complex Systems.</h1>
+      <p class="lead arrive arrive--2">NEXAH connects research, tools, maps, publications and applications while keeping provenance, limits and Human judgment visible.</p>
+      <div class="home-hero__actions arrive arrive--3">
+        <a class="button" href="#public-entrances">Begin with the books <span aria-hidden="true">↓</span></a>
+        <a class="text-link" href="/visitor-guide/">Open the Visitor Guide</a>
+      </div>
     </div>
     <div class="path-glow" aria-hidden="true"></div>
   </section>
 
-  <section class="home-orientation-entrances section--line" aria-labelledby="home-orientation-entrances-title">
+  <section id="public-entrances" class="home-orientation-entrances section--line" aria-labelledby="home-orientation-entrances-title">
     <div class="container">
       <header class="home-orientation-entrances__header">
-        <p class="eyebrow">Two ways into the field</p>
-        <h2 id="home-orientation-entrances-title">Begin with the map or with the discipline.</h2>
+        <p class="eyebrow">Two ways into the ecosystem</p>
+        <h2 id="home-orientation-entrances-title">Begin with a research project or a research programme.</h2>
       </header>
       <div class="home-orientation-entrances__grid">
         <article class="home-atlas-feature" aria-labelledby="home-atlas-title">
@@ -55,8 +60,8 @@ const entrances = [
           <div>
             <p class="eyebrow">The visual entrance</p>
             <h2 id="home-atlas-title">THE ATLAS OF ATLASES</h2>
-            <p class="lead">A visual map of six fields of orientation.</p>
-            <p>See relationships, scales and perspectives before entering the wider Library.</p>
+            <p class="lead">A conceptual map of relationships between knowledge systems, representations and reference spaces.</p>
+            <p>Enter one core research project within the wider NEXAH ecosystem.</p>
             <a class="button" href="/atlas-of-atlases/">Enter the Atlas <span aria-hidden="true">→</span></a>
           </div>
         </article>
@@ -80,6 +85,29 @@ const entrances = [
             <span class="home-entrance__arrow" aria-hidden="true">→</span>
           </a>
         ))}
+      </nav>
+    </div>
+  </section>
+
+  <section class="container section ecosystem-section" aria-labelledby="home-ecosystem-title">
+    <div class="ecosystem-section__intro">
+      <div><p class="eyebrow">You are at the public home</p><h2 id="home-ecosystem-title">Know where you are and where to continue.</h2></div>
+      <p>Each public place owns one part of the ecosystem. The Visitor Guide contains the canonical Version 1 map.</p>
+    </div>
+    <EcosystemMap />
+    <p class="ecosystem-section__note"><a href="/visitor-guide/">Open the full Visitor Guide</a> to choose a path by intention.</p>
+  </section>
+
+  <section class="home-deeper section--line" aria-labelledby="home-deeper-title">
+    <div class="container home-deeper__inner">
+      <header>
+        <p class="eyebrow">Continue into the work</p>
+        <h2 id="home-deeper-title">Read, observe, or inspect the research.</h2>
+      </header>
+      <nav aria-label="Deeper routes">
+        <a href="/library/"><span>Library</span><small>Books, maps and publications</small><b aria-hidden="true">→</b></a>
+        <a href="/laboratory/"><span>Laboratory</span><small>How observations become research</small><b aria-hidden="true">→</b></a>
+        <a href="https://github.com/Scarabaeus1031/NEXAH" target="_blank" rel="noopener noreferrer"><span>Research &amp; Framework</span><small>The scientific record and implementation</small><b aria-hidden="true">↗</b></a>
       </nav>
     </div>
   </section>

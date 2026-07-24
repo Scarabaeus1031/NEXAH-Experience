@@ -1,13 +1,22 @@
-# NEXAH Experience
+# NEXAH Experience — Public Home
 
 [![Verify Experience](https://github.com/Scarabaeus1031/NEXAH-Experience/actions/workflows/verify.yml/badge.svg)](https://github.com/Scarabaeus1031/NEXAH-Experience/actions/workflows/verify.yml)
 [![Live Experience](https://img.shields.io/badge/live-nexah.de-0b2745)](https://nexah.de)
 [![Code License: Apache 2.0](https://img.shields.io/badge/code-Apache--2.0-b48738)](LICENSE)
 
-The public NEXAH orientation experience at [nexah.de](https://nexah.de).
+This repository owns the public and intellectual home of the NEXAH Orientation Ecosystem at [nexah.de](https://nexah.de).
 
-**Publication status:** the static Experience is publicly deployed. The
-repository remains an alpha baseline; no stable versioned release has been
+**NEXAH — The Orientation Ecosystem**
+
+**Designing Human Orientation in Complex Systems.**
+
+**Start here:** [Visitor Guide](https://nexah.de/visitor-guide/) · [Try NEXAHEDRON](https://nexahedron.com) · [Research & Framework](https://github.com/Scarabaeus1031/NEXAH)
+
+It does not own the scientific framework, ORION’s certified deterministic Core, the NEXAHEDRON reference Workspace or Human interpretation. Those responsibilities remain with their named ecosystem chapters.
+
+**Publication status:** `nexah.de` is publicly deployed. This repository
+revision remains a Version 1 release candidate until its exact commit is
+verified, published and deployed; no stable versioned release has been
 declared.
 
 This is an independent application repository. It does not belong to ORION and
@@ -20,7 +29,12 @@ repository owns public presentation, navigation and temporary interaction
 state, but not Framework semantics, ORION reports, Library identity, Living
 Atlas relationships or Human interpretation.
 
-## Current Alpha scope
+## Historical Alpha implementation record
+
+The following capabilities describe the pre-certification static Experience
+implementation. They remain available for traceability, but they do not
+redefine the certified ORION Version 1 baseline and do not establish LYRA,
+Runtime or Gateway as certified Core responsibilities.
 
 - Home, Explore, Laboratory, editorial Library, About and simplified Atlas
 - one complete build-time ORION Orientation Journey
@@ -96,9 +110,9 @@ dependency.
 - Security reporting: [`SECURITY.md`](SECURITY.md)
 - Community conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
-The approved public repository identity is `NEXAH-Experience`. Production
-deployment is live; a stable release declaration remains a separate owner
-action.
+The approved public repository identity is `NEXAH-Experience`. The public site
+is live; deployment of this exact release-candidate revision and a stable
+release declaration remain owner actions.
 
 ## Licensing
 

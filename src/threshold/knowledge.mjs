@@ -4,9 +4,9 @@ export const approvedExplanations = Object.freeze([
   {
     id: "explain.nexah",
     acceptedPhrases: ["what is nexah", "explain nexah", "tell me about nexah"],
-    title: "NEXAH is an orientation space.",
+    title: "NEXAH is the Orientation Ecosystem.",
     explanation:
-      "NEXAH is a research and publication project for making complex fields more legible through explicit representations, paths and boundaries. It does not replace human interpretation or present its publications as validated evidence.",
+      "NEXAH connects research, tools, maps, publications and applications for designing Human orientation in complex systems. It keeps representations, provenance and boundaries visible without replacing Human interpretation.",
     continuations: [
       { kind: "guided", id: "new-to-nexah" },
       { kind: "door", id: "foundations" },

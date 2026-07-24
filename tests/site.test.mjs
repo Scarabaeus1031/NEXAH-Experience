@@ -9,63 +9,69 @@ const read = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 const execute = promisify(execFile);
 
 test("the public experience exposes the complete first orientation routes", async () => {
-  for (const route of ["index", "library", "about", "atlas", "orientation", "departure", "contact", "privacy", "imprint"]) {
+  for (const route of ["index", "visitor-guide", "library", "about", "atlas", "orientation", "departure", "contact", "accessibility", "privacy", "imprint"]) {
     const page = await read(`src/pages/${route}.astro`);
     assert.ok(page.includes("BaseLayout"), `${route} must use the shared experience layout`);
   }
 });
 
-test("the About ecosystem map explains current relationships without becoming a Repository Map", async () => {
+test("the public ecosystem map assigns the four current Version 1 responsibilities", async () => {
   const about = await read("src/pages/about.astro");
   const map = await read("src/components/about/EcosystemMap.astro");
   const review = await read("docs/reviews/ECOSYSTEM_MAP_INTEGRATION.md");
 
   assert.match(about, /EcosystemMap/);
   assert.match(about, /The Orientation Ecosystem/);
-  assert.match(map, /Experience/);
   for (const concept of [
-    "Library",
-    "Laboratory",
-    "Living Atlas",
-    "Publication Catalog",
-    "Reading Spaces",
-    "Original Publications",
-    "Project README",
-    "Repository Map",
-    "Repository",
+    "nexah.de",
+    "NEXAH Repository",
     "ORION",
+    "NEXAHEDRON",
+    "Public and intellectual home",
+    "Research and framework",
+    "Certified deterministic core",
+    "Human-facing reference implementation",
   ]) assert.match(map, new RegExp(concept));
-  assert.match(map, /Future direction/);
-  assert.match(map, /not part of the current Experience/);
-  assert.match(map, /Informational only/);
-  assert.doesNotMatch(map, /github\.com|RESEARCH\/|ARCHITECTURE\/|fetch\s*\(/);
+  assert.match(map, /You are here/);
+  assert.match(map, /Shared foundations/);
+  assert.doesNotMatch(map, /Future Applications|SDK|fetch\s*\(/);
   assert.match(review, /orientation surface rather than a static illustration/);
   assert.match(review, /Repository Map continues to answer a different question/);
 });
 
-test("every current Ecosystem destination is navigable and the future remains inactive", async () => {
+test("the public identity keeps NEXAH above its programmes, disciplines, projects and collections", async () => {
+  const layout = await read("src/layouts/BaseLayout.astro");
+  const home = await read("src/pages/index.astro");
+  const about = await read("src/pages/about.astro");
+  const threshold = await read("src/threshold/knowledge.mjs");
+
+  for (const source of [layout, home, about, threshold]) {
+    assert.match(source, /Orientation Ecosystem/);
+  }
+  assert.match(home, /Designing Human Orientation in Complex Systems\./);
+  assert.match(about, /Orientation Science is the overarching research programme/);
+  assert.match(about, /Orientation Cartography and Orientation Design are its research and applied disciplines/);
+  assert.match(about, /Atlas of Atlases, Living Atlas, Human Orientation Atlas, Laboratory and Library/);
+  assert.doesNotMatch(about, /NEXAH is orientation cartography/i);
+  assert.doesNotMatch(layout, /NEXAH — Orientation Cartography/);
+  assert.doesNotMatch(threshold, /NEXAH is an orientation space/);
+});
+
+test("every current public ecosystem destination is explicit and navigable", async () => {
   const map = await read("src/components/about/EcosystemMap.astro");
-  const library = await read("src/pages/library.astro");
   const repositoryData = await read("src/data/laboratory/repository-map.ts");
 
   for (const destination of [
-    'href="/"',
-    'href: "/library/"',
-    'href: "/laboratory/"',
-    'href: "/atlas/"',
-    'href: "/library/#publication-catalog"',
-    'href: "/library/visitors-guide/read/"',
-    'href: "/laboratory/repository/"',
-    'href="/orientation/"',
+    'href: "/"',
+    'href: "https://github.com/Scarabaeus1031/NEXAH"',
+    'href: "https://github.com/Scarabaeus1031/NEXAH-ORION"',
+    'href: "https://nexahedron.com"',
   ]) assert.match(map, new RegExp(destination.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
 
-  assert.match(map, /featuredLaboratoryPublication\.routeSlug/);
-  assert.match(map, /repositoryGuide\.readme\.url/);
-  assert.match(map, /repositoryGuide\.repositoryUrl/);
-  assert.match(map, /target=\{destination\.external \? "_blank"/);
+  assert.match(map, /target=\{chapter\.external \? "_blank"/);
+  assert.match(map, /ecosystem-chapter--current/);
   assert.match(repositoryData, /https:\/\/github\.com\/Scarabaeus1031\/NEXAH/);
-  assert.match(library, /id="publication-catalog"/);
-  assert.doesNotMatch(map, /href=.*Orientation Studio/);
+  assert.doesNotMatch(map, /Future direction|Orientation Studio/);
 });
 
 test("the Laboratory is a shallow editorial bridge to the Repository", async () => {
@@ -159,9 +165,10 @@ test("the orientation journey renders the generated adapter without runtime tran
 
 test("the Home page connects orientation in complexity to an explicit choice of place", async () => {
   const page = await read("src/pages/index.astro");
-  assert.match(page, /A place for orientation/);
-  assert.match(page, /How do we find our way through complexity\?/);
-  assert.match(page, /We need orientation — and better maps\./);
+  assert.match(page, /NEXAH — The Orientation Ecosystem/);
+  assert.match(page, /Designing Human Orientation in Complex Systems\./);
+  assert.match(page, /You are at the public home/);
+  assert.match(page, /Know where you are and where to continue\./);
   assert.match(page, /Choose where you would like to begin\./);
   for (const number of ["01", "02", "03", "04"]) {
     assert.match(page, new RegExp(`number: "${number}"`));
@@ -172,8 +179,8 @@ test("the Home page connects orientation in complexity to an explicit choice of 
   assert.match(page, /Library/);
   assert.match(page, /Laboratory/);
   assert.match(page, /Begin Orientation/);
-  assert.match(page, /Enter ORION\. Bring one real question\./);
-  assert.match(page, /href: "\/threshold\/"/);
+  assert.match(page, /Bring one real question to the reference Workspace\./);
+  assert.match(page, /href: "https:\/\/nexahedron\.com"/);
   assert.equal((page.match(/class="home-entrance"/g) ?? []).length, 1);
   assert.doesNotMatch(page, /<form|<input|<textarea|threshold-examples|LYRA|QuestionCard|message history|chat-message|chat-thread/i);
 });
@@ -391,8 +398,11 @@ test("Explore and Library preserve orientation instead of creating a second cata
   const publication = await read("src/pages/library/[slug].astro");
 
   assert.match(home, /class="home-entrance-grid"/);
-  assert.match(home, /href: "\/library\/visitors-guide\/"/);
-  assert.match(home, /href: "\/threshold\/"/);
+  assert.match(home, /href: "\/visitor-guide\/"/);
+  assert.match(home, /href: "https:\/\/nexahedron\.com"/);
+  assert.ok(home.indexOf('id="public-entrances"') < home.indexOf('class="home-entrances section--line"'));
+  assert.ok(home.indexOf('class="home-entrances section--line"') < home.indexOf('class="container section ecosystem-section"'));
+  assert.match(home, /Continue into the work/);
   assert.doesNotMatch(home, /Six ways to begin/);
   assert.match(explore, /remainingDoors\.map/);
   assert.match(explore, /OrientationScienceEntry/);

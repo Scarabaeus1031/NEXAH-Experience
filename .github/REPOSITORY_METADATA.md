@@ -3,8 +3,8 @@
 Approved values for the public repository settings:
 
 - **Name:** `NEXAH-Experience`
-- **Description:** The static public NEXAH Experience: Library, Living Atlas,
-  Laboratory, Reader, and a bounded orientation journey.
+- **Description:** The static public home of NEXAH — The Orientation Ecosystem:
+  Visitor Guide, Library, Atlas, Laboratory, and bounded orientation journeys.
 - **Homepage:** `https://nexah.de` — apply only after canonical host and TLS
   verification.
 - **Topics:** `nexah`, `astro`, `digital-library`, `living-atlas`,

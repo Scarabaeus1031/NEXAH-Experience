@@ -8,7 +8,7 @@ export const categories = [
   {
     id: "orientation",
     label: "Orientation",
-    description: "Introductions and guides for entering the NEXAH orientation space.",
+    description: "Introductions and guides for entering the NEXAH Orientation Ecosystem.",
   },
   {
     id: "language",

@@ -1,154 +1,89 @@
 ---
-import { featuredLaboratoryPublication, repositoryGuide } from "@/data/laboratory";
+type Chapter = {
+  chapter: string;
+  symbol: string;
+  name: string;
+  role: string;
+  owns: string;
+  next: string;
+  href: string;
+  current?: boolean;
+  external?: boolean;
+};
 
-const publicRooms = [
+const chapters: readonly Chapter[] = [
   {
-    symbol: "▤",
-    name: "Library",
-    description: "Published works, held in the Publication Catalog and opened through local Reading Spaces.",
-    invitation: "Open Library",
-    href: "/library/",
-    tone: "library",
+    chapter: "Place 01",
+    symbol: "◎",
+    name: "nexah.de",
+    role: "Public and intellectual home",
+    owns: "The public introduction, Library, Atlas and routes into the ecosystem.",
+    next: "Begin here",
+    href: "/",
+    current: true,
   },
   {
-    symbol: "⌁",
-    name: "Laboratory",
-    description: "A public orientation to the research process and the living Repository.",
-    invitation: "Enter Laboratory",
-    href: "/laboratory/",
-    tone: "laboratory",
-  },
-  {
-    symbol: "⌘",
-    name: "Living Atlas",
-    description: "Explicitly curated relationships between publications, concepts, operators and themes.",
-    invitation: "Explore relationships",
-    href: "/atlas/",
-    tone: "atlas",
-  },
-] as const;
-
-const publicationPath = [
-  {
-    name: "Publication Catalog",
-    description: "records what exists",
-    invitation: "Browse the Catalog",
-    href: "/library/#publication-catalog",
-  },
-  {
-    name: "Reading Spaces",
-    description: "offer local selections",
-    invitation: "Enter a Reading Space",
-    href: "/library/visitors-guide/read/",
-  },
-  {
-    name: "Original Publications",
-    description: "remain the source",
-    invitation: "See source provenance",
-    href: `/library/${featuredLaboratoryPublication.routeSlug}/`,
-  },
-] as const;
-
-const researchPath = [
-  {
-    name: "Project README",
-    description: "introduces the project",
-    invitation: "Read the README",
-    href: repositoryGuide.readme.url,
+    chapter: "Place 02",
+    symbol: "⌕",
+    name: "NEXAH Repository",
+    role: "Research and framework",
+    owns: "The scientific record, Orientation Language, framework, experiments and governance.",
+    next: "Open the research",
+    href: "https://github.com/Scarabaeus1031/NEXAH",
     external: true,
   },
   {
-    name: "Repository Map",
-    description: "orients the source",
-    invitation: "Open the Repository Map",
-    href: "/laboratory/repository/",
-    external: false,
-  },
-  {
-    name: "Repository",
-    description: "holds the living work",
-    invitation: "Browse the Repository",
-    href: repositoryGuide.repositoryUrl,
+    chapter: "Place 03",
+    symbol: "◇",
+    name: "ORION",
+    role: "Certified deterministic core",
+    owns: "Immutable structural orientation artifacts and their certified responsibility boundaries.",
+    next: "Inspect the core",
+    href: "https://github.com/Scarabaeus1031/NEXAH-ORION",
     external: true,
   },
-] as const;
+  {
+    chapter: "Place 04",
+    symbol: "⬡",
+    name: "NEXAHEDRON",
+    role: "Human-facing reference implementation",
+    owns: "One Workspace for Encounter, Reflection, Rest and a Human-owned Orientation Record.",
+    next: "Try one session",
+    href: "https://nexahedron.com",
+    external: true,
+  },
+];
 ---
 
-<div class="ecosystem-map" aria-label="The current NEXAH ecosystem and its relationships">
-  <a class="ecosystem-map__entry ecosystem-destination" href="/">
-    <p class="ecosystem-map__label">Public entry</p>
-    <strong>Experience</strong>
-    <span>A quiet place to begin, read and continue.</span>
-    <small class="ecosystem-destination__invitation">Return home <span aria-hidden="true">→</span></small>
-  </a>
-
-  <div class="ecosystem-map__connector" aria-hidden="true"><span></span></div>
-
-  <div class="ecosystem-map__rooms" aria-label="Public rooms">
-    {publicRooms.map((room) => (
-      <a class={`ecosystem-room ecosystem-room--${room.tone} ecosystem-destination`} href={room.href}>
-        <span class="ecosystem-room__symbol" aria-hidden="true">{room.symbol}</span>
-        <span>
-          <small>Public room</small>
-          <strong>{room.name}</strong>
-          <span>{room.description}</span>
-          <small class="ecosystem-destination__invitation">{room.invitation} <span aria-hidden="true">→</span></small>
+<div class="ecosystem-map ecosystem-map--public" aria-label="NEXAH Version 1 public ecosystem map">
+  <header class="ecosystem-map__public-header">
+    <p class="ecosystem-map__label">You are here</p>
+    <strong>NEXAH — The Orientation Ecosystem</strong>
+    <span>One ecosystem. Distinct roles. One coherent journey.</span>
+  </header>
+  <div class="ecosystem-map__chapters">
+    {chapters.map((chapter) => (
+      <a
+        class:list={["ecosystem-chapter", { "ecosystem-chapter--current": chapter.current }]}
+        href={chapter.href}
+        target={chapter.external ? "_blank" : undefined}
+        rel={chapter.external ? "noopener noreferrer" : undefined}
+      >
+        <span class="ecosystem-chapter__heading">
+          <span class="ecosystem-chapter__symbol" aria-hidden="true">{chapter.symbol}</span>
+          <small>{chapter.chapter}</small>
         </span>
+        <small>{chapter.role}</small>
+        <strong>{chapter.name}</strong>
+        <p>{chapter.owns}</p>
+        <span class="ecosystem-destination__invitation">{chapter.next} <span aria-hidden="true">{chapter.external ? "↗" : "→"}</span></span>
       </a>
     ))}
   </div>
-
-  <div class="ecosystem-map__relationships">
-    <section class="ecosystem-path ecosystem-path--knowledge" aria-labelledby="knowledge-path-title">
-      <p class="ecosystem-map__label" id="knowledge-path-title">Publication path</p>
-      <ol>
-        {publicationPath.map((destination) => (
-          <li>
-            <a class="ecosystem-path__destination" href={destination.href}>
-              <strong>{destination.name}</strong>
-              <span>{destination.description}</span>
-              <small class="ecosystem-destination__invitation">{destination.invitation} <span aria-hidden="true">→</span></small>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="ecosystem-path ecosystem-path--research" aria-labelledby="research-path-title">
-      <p class="ecosystem-map__label" id="research-path-title">Research path</p>
-      <ol>
-        {researchPath.map((destination) => (
-          <li>
-            <a
-              class="ecosystem-path__destination"
-              href={destination.href}
-              target={destination.external ? "_blank" : undefined}
-              rel={destination.external ? "noopener noreferrer" : undefined}
-            >
-              <strong>{destination.name}</strong>
-              <span>{destination.description}</span>
-              <small class="ecosystem-destination__invitation">{destination.invitation} <span aria-hidden="true">{destination.external ? "↗" : "→"}</span></small>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-  </div>
-
-  <a class="ecosystem-map__orientation ecosystem-destination" href="/orientation/">
-    <span class="ecosystem-map__orientation-mark" aria-hidden="true">◎</span>
-    <div>
-      <p class="ecosystem-map__label">Deterministic orientation</p>
-      <strong>ORION</strong>
-      <span>Provides bounded routes and evidence without owning publications, research or meaning.</span>
-      <small class="ecosystem-destination__invitation">Open orientation <span aria-hidden="true">→</span></small>
-    </div>
-  </a>
-
-  <aside class="ecosystem-map__future" aria-label="Future direction, informational only">
-    <p class="ecosystem-map__label">Future direction</p>
-    <strong>Orientation Studio</strong>
-    <span>Planned · not part of the current Experience.</span>
-    <small>Informational only</small>
-  </aside>
+  <footer class="ecosystem-map__foundations">
+    <strong>Shared foundations</strong>
+    <a href="https://github.com/Scarabaeus1031/NEXAH/blob/main/ORIENTATION_LANGUAGE/README.md">Orientation Language 1.0</a>
+    <a href="https://github.com/Scarabaeus1031/NEXAH/blob/main/GOVERNANCE/">Governance</a>
+    <a href="https://github.com/Scarabaeus1031/NEXAH">Canonical research</a>
+  </footer>
 </div>

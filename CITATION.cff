@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use the NEXAH public Experience, cite the exact deployed revision."
+title: "NEXAH Experience: Public and Intellectual Home"
+type: software
+authors:
+  - family-names: "Hofmann"
+    given-names: "Thomas"
+version: "0.1.0-alpha.0"
+license: "Apache-2.0"
+repository-code: "https://github.com/Scarabaeus1031/NEXAH-Experience"
+url: "https://nexah.de"
+keywords:
+  - orientation
+  - public experience
+  - editorial systems
+  - provenance
