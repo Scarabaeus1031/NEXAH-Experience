@@ -2,7 +2,15 @@
 
 ## Status
 
-**Locally reproducible; external publication and deployment remain pending.**
+**Public deployment observed; exact deployed artifact reconciliation pending.**
+
+On 1 August 2026, [`https://nexah.de/`](https://nexah.de/) and the public
+[`Laboratory`](https://nexah.de/laboratory/) returned live content over HTTPS.
+This verifies reachability and visible presentation only. The deployed source
+revision, artifact manifest and rollback identity remain unverified.
+
+> Original pre-deployment status, 22 July 2026: **Locally reproducible;
+> external publication and deployment remain pending.**
 
 NEXAH Experience is a static Astro site. The browser contains no Python
 runtime, ORION service, provider call, account system, persistence layer or
