@@ -1102,6 +1102,9 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .orientation-dimensions p { margin: 0; color: var(--ink-soft); font-size: .76rem; }
 .orientation-definition__boundary { margin: var(--space-4) 0 0; color: var(--ink-soft); text-align: center; }
 .about-science-section { padding-block: var(--space-7); }
+.about-scientific-baseline-note { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .75rem 1.5rem; margin: var(--space-5) 0 0; padding-top: var(--space-3); border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .75rem; }
+.about-scientific-baseline-note a { color: var(--ink); font-size: .65rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.about-scientific-baseline-note a:hover, .about-scientific-baseline-note a:focus-visible { color: var(--gold); }
 .orientation-science-entry--about {
   grid-template-columns: minmax(13rem, 16rem) minmax(0, 1fr);
   gap: var(--space-7);
@@ -1784,6 +1787,30 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .laboratory-page-hero--repository { padding-bottom: var(--space-7); }
 .laboratory-page-hero--repository .button { margin-top: var(--space-4); }
 .laboratory-map-section, .repository-map-section { padding-block: var(--space-7); border-bottom: 1px solid var(--line); }
+.scientific-baselines { padding-block: var(--space-7); border-bottom: 1px solid var(--line); }
+.scientific-baselines__header { max-width: 48rem; margin-bottom: var(--space-5); }
+.scientific-baselines__header h2 { max-width: 22ch; margin-bottom: var(--space-3); font-size: var(--step-2); }
+.scientific-baselines__header > p:last-child { color: var(--ink-soft); }
+.scientific-baseline-record { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: var(--space-5); align-items: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-lg); background: rgba(255,255,255,.2); }
+.scientific-baseline-record__marker { width: 12rem; margin: 0; }
+.scientific-baseline-record__marker img { display: block; width: 100%; height: auto; border: 1px solid rgba(185,143,70,.45); border-radius: var(--radius-sm); box-shadow: var(--shadow-soft); }
+.scientific-baseline-record__marker figcaption { margin-top: .55rem; color: var(--ink-faint); font-size: .58rem; letter-spacing: .1em; text-align: center; text-transform: uppercase; }
+.scientific-baseline-record__body { min-width: 0; }
+.scientific-baseline-record__body > header { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.scientific-baseline-record__body h3 { margin: .3rem 0 0; font-family: var(--serif); font-size: var(--step-2); font-weight: 400; }
+.scientific-baseline-record__body > header > span { flex: none; padding: .45rem .65rem; border: 1px solid var(--gold-soft); border-radius: 999px; color: var(--gold); font-size: .58rem; font-weight: 700; letter-spacing: .08em; }
+.scientific-baseline-record__metadata { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: var(--space-4) 0 0; border-top: 1px solid var(--line); }
+.scientific-baseline-record__metadata > div { min-width: 0; padding: .9rem 0; border-bottom: 1px solid var(--line); }
+.scientific-baseline-record__metadata > div:nth-child(odd) { padding-right: var(--space-4); }
+.scientific-baseline-record__metadata dt { color: var(--ink-faint); font-size: .58rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.scientific-baseline-record__metadata dd { margin: .3rem 0 0; overflow-wrap: anywhere; color: var(--ink-soft); font-size: .72rem; }
+.scientific-baseline-record__metadata a { color: inherit; }
+.scientific-baseline-record__boundary { margin-top: var(--space-4); padding: var(--space-3) var(--space-4); border-left: 2px solid var(--gold-soft); background: rgba(255,250,238,.45); }
+.scientific-baseline-record__boundary p { max-width: 44rem; margin: .35rem 0; color: var(--ink-soft); font-size: .76rem; }
+.scientific-baseline-record__boundary .eyebrow { margin-bottom: .6rem; color: var(--gold); font-size: .58rem; }
+.scientific-baseline-record__links { display: flex; flex-wrap: wrap; gap: .7rem 1.2rem; margin-top: var(--space-4); }
+.scientific-baseline-record__links a { color: var(--ink); font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.scientific-baseline-record__links a:hover, .scientific-baseline-record__links a:focus-visible { color: var(--gold); }
 .repository-map > header { max-width: 48rem; margin-bottom: var(--space-6); }
 .repository-map > header > p:last-child { color: var(--ink-soft); }
 .repository-map ol { display: grid; grid-template-columns: 1fr 1fr; gap: 0 var(--space-6); margin: 0; padding: 0; border-top: 1px solid var(--line); list-style: none; }
@@ -2120,6 +2147,13 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
   .laboratory-access-grid article + article { border-top: 1px solid var(--line); border-left: 0; }
   .repository-map ol { grid-template-columns: 1fr; }
   .laboratory-map-section, .repository-map-section { padding-block: var(--space-6); }
+  .scientific-baselines { padding-block: var(--space-6); }
+  .scientific-baseline-record { grid-template-columns: 8rem minmax(0, 1fr); gap: var(--space-3); padding: var(--space-3); }
+  .scientific-baseline-record__marker { width: 8rem; }
+  .scientific-baseline-record__body > header { display: grid; }
+  .scientific-baseline-record__body > header > span { justify-self: start; }
+  .scientific-baseline-record__metadata { grid-template-columns: 1fr; }
+  .scientific-baseline-record__metadata > div:nth-child(odd) { padding-right: 0; }
   .repository-map > header { margin-bottom: var(--space-5); }
   .laboratory-readme { padding-block: var(--space-6); }
   .laboratory-distinction { padding-block: var(--space-6); }

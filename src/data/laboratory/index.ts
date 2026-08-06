@@ -22,6 +22,38 @@ export const laboratoryPublications: readonly WebsitePublication[] = Object.free
 
 export const featuredLaboratoryPublication = laboratoryPublications[0];
 
+const scienceLabRepositoryUrl = "https://github.com/Scarabaeus1031/NEXAH-Science-Lab";
+
+export const scientificBaselines = Object.freeze([
+  Object.freeze({
+    id: "nexah-science-lab-rc1",
+    title: "NEXAH Science Lab — RC1",
+    description: "First public scientific baseline",
+    date: "07 August 2026",
+    version: "v1.0.0-rc1",
+    commit: "635dbe6d677170cd855db7e82b522565fac7ebca",
+    repository: "Scarabaeus1031/NEXAH-Science-Lab",
+    visual: Object.freeze({
+      src: "/images/laboratory/nexah-science-lab-rc1.png",
+      alt: "NEXAH Science Lab RC1 documentation marker",
+      width: 1254,
+      height: 1254,
+    }),
+    boundary: Object.freeze([
+      "A versioned scientific baseline.",
+      "It documents the framework, its constitutional foundation, and the research environment.",
+      "It is not a proof of a theory, does not promote evidence, and does not automatically elevate scientific claims.",
+    ]),
+    links: Object.freeze({
+      repository: scienceLabRepositoryUrl,
+      tag: `${scienceLabRepositoryUrl}/tree/v1.0.0-rc1`,
+      readme: `${scienceLabRepositoryUrl}/blob/v1.0.0-rc1/README.md`,
+      constitution: `${scienceLabRepositoryUrl}/blob/v1.0.0-rc1/NEXAH_CONSTITUTION/SCIENTIFIC_CONSTITUTION.md`,
+      commit: `${scienceLabRepositoryUrl}/commit/635dbe6d677170cd855db7e82b522565fac7ebca`,
+    }),
+  }),
+]);
+
 const laboratoryPublicationAccess = [
   {
     role: "Research Foundation",

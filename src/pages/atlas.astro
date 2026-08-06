@@ -2,9 +2,8 @@
 import ConceptBadge from "@/components/atlas/ConceptBadge.astro";
 import OperatorBadge from "@/components/atlas/OperatorBadge.astro";
 import ThemeBadge from "@/components/atlas/ThemeBadge.astro";
-import VisualCollectionCard from "@/components/atlas/VisualCollectionCard.astro";
-import { atlasRef, concepts, getConnectedEntities, operators, themes, visualCollections } from "@/data/atlas";
-import { bookBySlug, books } from "@/data/library";
+import { concepts, operators, themes } from "@/data/atlas";
+import { bookBySlug } from "@/data/library";
 import { readerByBookSlug } from "@/data/reader";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
@@ -39,14 +38,6 @@ const startingWorks = startHereOptions.map((option) => {
 
 const wonderBook = requireBook("wonder-operator");
 const languageBook = requireBook("language-book");
-
-const visualEntrances = visualCollections.map((visual) => {
-  const connectedBooks = getConnectedEntities(atlasRef("visual", visual.id), "book");
-  if (connectedBooks.length !== 1 || !connectedBooks[0].href) {
-    throw new Error(`Visual collection must resolve to one registered work: ${visual.id}`);
-  }
-  return { visual, href: connectedBooks[0].href };
-});
 ---
 
 <BaseLayout title="Start Here — The Living Atlas — NEXAH" description="Choose a concrete first NEXAH work, then explore its curated relationships to concepts, operators, themes and visual collections.">
@@ -70,9 +61,9 @@ const visualEntrances = visualCollections.map((visual) => {
         {startingWorks.map(({ intention, invitation, book, readerAvailable }, index) => (
           <article class="start-here-card">
             <div class="start-here-card__cover-wrap">
-              <a class="start-here-card__cover" href={`/library/${book.slug}/read/`} aria-label={`Begin reading ${book.title}`}>
+              <div class="start-here-card__cover">
                 <img src={book.cover} alt={book.coverAlt} width="1024" height="1536" loading="eager" />
-              </a>
+              </div>
               {book.slug === "visitors-guide" && (
                 <a class="start-here-card__film-badge" href="/visitor-guide/#film-title">
                   Film · 2:48 <span aria-hidden="true">▶</span>
@@ -82,7 +73,7 @@ const visualEntrances = visualCollections.map((visual) => {
             <div class="start-here-card__copy">
               <span>{String(index + 1).padStart(2, "0")}</span>
               <p class="eyebrow">{intention}</p>
-              <h3><a href={`/library/${book.slug}/`}>{book.title}</a></h3>
+              <h3>{book.title}</h3>
               <p>{invitation}</p>
               <div class="start-here-card__actions">
                 {readerAvailable && <a class="button" href={`/library/${book.slug}/read/`}>Begin reading <span aria-hidden="true">→</span></a>}
@@ -117,61 +108,53 @@ const visualEntrances = visualCollections.map((visual) => {
       <p>Each step above is a registered editorial relationship. No similarity engine constructed this route.</p>
     </section>
 
-    <section class="atlas-registry atlas-registry--guided atlas-registry--concepts" id="concepts" aria-labelledby="concepts-title">
-      <header class="atlas-registry__intro">
-        <span class="atlas-registry__number" aria-hidden="true">01</span>
-        <div><p class="eyebrow">Explore ideas</p><h2 id="concepts-title">Concepts</h2><p>Choose an idea to see where it appears across the publication landscape.</p></div>
-        <span class="collection-count">{concepts.length} paths</span>
-      </header>
-      <div class="atlas-entry-grid">
-        {concepts.map((concept) => (
-          <article class="atlas-entry-card atlas-entry-card--concept">
-            <ConceptBadge concept={concept} />
-            <p>{concept.summary}</p>
-          </article>
-        ))}
-      </div>
-    </section>
+    <details class="atlas-exploration-disclosure">
+      <summary>
+        <span><small>Continue into the Living Atlas</small><strong>Explore concepts, operators and themes</strong></span>
+        <b aria-hidden="true">+</b>
+      </summary>
+      <div class="atlas-exploration-disclosure__content">
+        <section class="atlas-registry atlas-registry--guided atlas-registry--concepts" id="concepts" aria-labelledby="concepts-title">
+          <header class="atlas-registry__intro">
+            <span class="atlas-registry__number" aria-hidden="true">01</span>
+            <div><p class="eyebrow">Explore ideas</p><h2 id="concepts-title">Concepts</h2><p>Choose an idea to see where it appears across the publication landscape.</p></div>
+            <span class="collection-count">{concepts.length} paths</span>
+          </header>
+          <div class="atlas-entry-grid">
+            {concepts.map((concept) => (
+              <article class="atlas-entry-card atlas-entry-card--concept">
+                <ConceptBadge concept={concept} />
+                <p>{concept.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-    <section class="atlas-registry atlas-registry--guided atlas-registry--operators" id="operators" aria-labelledby="operators-title">
-      <header class="atlas-registry__intro">
-        <span class="atlas-registry__number" aria-hidden="true">02</span>
-        <div><p class="eyebrow">Choose a gesture</p><h2 id="operators-title">Editorial operators</h2><p>Ways of looking and moving through the Atlas: observe, connect, navigate, transform or reflect.</p></div>
-        <span class="collection-count">{operators.length} gestures</span>
-      </header>
-      <div class="atlas-entry-grid atlas-entry-grid--operators">
-        {operators.map((operator) => (
-          <article class="atlas-entry-card atlas-entry-card--operator">
-            <OperatorBadge operator={operator} />
-            <p>{operator.summary}</p>
-            <small>{operator.gesture}</small>
-          </article>
-        ))}
-      </div>
-    </section>
+        <section class="atlas-registry atlas-registry--guided atlas-registry--operators" id="operators" aria-labelledby="operators-title">
+          <header class="atlas-registry__intro">
+            <span class="atlas-registry__number" aria-hidden="true">02</span>
+            <div><p class="eyebrow">Choose a gesture</p><h2 id="operators-title">Editorial operators</h2><p>Ways of looking and moving through the Atlas: observe, connect, navigate, transform or reflect.</p></div>
+            <span class="collection-count">{operators.length} gestures</span>
+          </header>
+          <div class="atlas-entry-grid atlas-entry-grid--operators">
+            {operators.map((operator) => (
+              <article class="atlas-entry-card atlas-entry-card--operator">
+                <OperatorBadge operator={operator} />
+                <p>{operator.summary}</p>
+                <small>{operator.gesture}</small>
+              </article>
+            ))}
+          </div>
+        </section>
 
-    <section class="atlas-registry atlas-registry--invitation" id="visuals" aria-labelledby="visuals-title">
-      <div class="section-heading"><div><p class="eyebrow">Enter through a collection</p><h2 id="visuals-title">Visual collections</h2><p>Existing visual material assigned through explicit registry relations.</p></div><span class="collection-count">{visualCollections.length} collections</span></div>
-      <div class="visual-collection-grid visual-collection-grid--atlas">
-        {visualEntrances.map(({ visual, href }) => <VisualCollectionCard visual={visual} href={href} />)}
+        <section class="atlas-registry" id="themes" aria-labelledby="themes-title">
+          <div class="section-heading"><div><h2 id="themes-title">Themes</h2><p>Recurring editorial fields that connect works without classifying evidence.</p></div><span class="collection-count">{themes.length} entries</span></div>
+          <div class="theme-cloud">
+            {themes.map((theme) => <ThemeBadge theme={theme} />)}
+          </div>
+        </section>
       </div>
-    </section>
-
-    <section class="atlas-registry" id="themes" aria-labelledby="themes-title">
-      <div class="section-heading"><div><h2 id="themes-title">Themes</h2><p>Recurring editorial fields that connect works without classifying evidence.</p></div><span class="collection-count">{themes.length} entries</span></div>
-      <div class="theme-cloud">
-        {themes.map((theme) => <ThemeBadge theme={theme} />)}
-      </div>
-    </section>
-
-    <section class="atlas-registry" id="publications" aria-labelledby="atlas-books-title">
-      <div class="section-heading"><div><h2 id="atlas-books-title">Publications in the landscape</h2><p>The Library owns the works. The Atlas owns only their declared relationships.</p></div></div>
-      <ol class="atlas-publication-list">
-        {books.map((book, index) => (
-          <li><span>{String(index + 1).padStart(2, "0")}</span><a href={`/library/${book.slug}/`}>{book.title}</a><small>{book.subtitle}</small></li>
-        ))}
-      </ol>
-    </section>
+    </details>
 
     <aside class="atlas-authority">
       <p class="eyebrow">What the Atlas does not do</p>
@@ -180,3 +163,27 @@ const visualEntrances = visualCollections.map((visual) => {
     </aside>
   </div>
 </BaseLayout>
+
+<style>
+  .atlas-exploration-disclosure {
+    padding-block: var(--space-5);
+    border-block: 1px solid var(--line);
+  }
+
+  .atlas-exploration-disclosure > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .atlas-exploration-disclosure > summary::-webkit-details-marker { display: none; }
+  .atlas-exploration-disclosure > summary span { display: grid; gap: 0.35rem; }
+  .atlas-exploration-disclosure > summary small { color: var(--gold); font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .atlas-exploration-disclosure > summary strong { font-family: var(--serif); font-size: var(--step-2); font-weight: 400; }
+  .atlas-exploration-disclosure > summary b { color: var(--gold); font-family: var(--serif); font-size: var(--step-2); font-weight: 400; transition: transform 160ms ease; }
+  .atlas-exploration-disclosure[open] > summary b { transform: rotate(45deg); }
+  .atlas-exploration-disclosure__content { display: grid; gap: var(--space-6); padding-top: var(--space-6); }
+</style>

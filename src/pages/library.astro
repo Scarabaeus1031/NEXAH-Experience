@@ -2,16 +2,13 @@
 import CatalogRow from "@/components/library/CatalogRow.astro";
 import EditorialPublicationCard from "@/components/library/EditorialPublicationCard.astro";
 import PublicationCover from "@/components/library/PublicationCover.astro";
-import DoorCard from "@/components/navigation/DoorCard.astro";
 import { getPublicationExcerpt, publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
-import { editorialDoors } from "@/data/navigation";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const publicationTypes = [...new Set(publications.map((publication) => publication.type))].sort();
 const visitorGuide = publicationByRouteSlug.get("visitors-guide");
-const libraryBook = publicationByRouteSlug.get("librarybook");
 
-if (!visitorGuide || !libraryBook) throw new Error("The Library entrance requires its two recorded publications.");
+if (!visitorGuide) throw new Error("The Library entrance requires The Visitor's Guide.");
 
 const requirePublication = (slug: string) => {
   const publication = publicationByRouteSlug.get(slug);
@@ -20,10 +17,11 @@ const requirePublication = (slug: string) => {
 };
 
 const clearMind = requirePublication("volume-iii-clear-mind");
-const clearMindCover = clearMind.localBook?.cover ?? clearMind.cover.src;
-const clearMindCoverAlt = clearMind.localBook?.coverAlt ?? clearMind.cover.alt ?? `Cover of ${clearMind.title}`;
-const clearMindWidth = clearMind.localBook ? 1024 : clearMind.cover.width;
-const clearMindHeight = clearMind.localBook ? 1536 : clearMind.cover.height;
+const primaryReading = visitorGuide;
+const primaryCover = primaryReading.localBook?.cover ?? primaryReading.cover.src;
+const primaryCoverAlt = primaryReading.localBook?.coverAlt ?? primaryReading.cover.alt ?? `Cover of ${primaryReading.title}`;
+const primaryWidth = primaryReading.localBook ? 1024 : primaryReading.cover.width;
+const primaryHeight = primaryReading.localBook ? 1536 : primaryReading.cover.height;
 
 const humanJourney = [
   { publication: requirePublication("vol-i-be-kind-be-awefull-belong"), caption: "A journey through wonder." },
@@ -33,11 +31,6 @@ const humanJourney = [
   { publication: requirePublication("volume-v-many-maps-one-world"), caption: "One journey. One humanity." },
 ] as const;
 
-const alternativeEntrances = [
-  { publication: requirePublication("the-inner-child-_-a-perspective"), caption: "Begin with wonder and the courage to remain curious." },
-  { publication: requirePublication("beyond-information"), caption: "Explore what remains when information alone is not enough." },
-  { publication: requirePublication("new-release-odyssey-2040-many-maps-one-world-a-story-about-perspective-a-call-to-participate"), caption: "Look toward the future as something we shape together." },
-] as const;
 ---
 
 <BaseLayout title="Library — NEXAH" description="The curated NEXAH collection of books, essays, visual atlases and educational material about Human orientation.">
@@ -53,92 +46,69 @@ const alternativeEntrances = [
     </aside>
   </header>
 
-  <section class="container library-human-feature" aria-labelledby="library-clear-mind-title">
-    <a class="library-human-feature__cover" href={`/library/${clearMind.routeSlug}/`} aria-label="Open Clear Mind" data-carry-question>
+  <section class="container library-human-feature" aria-labelledby="library-primary-reading-title">
+    <div class="library-human-feature__cover">
       <PublicationCover
-        src={clearMindCover}
-        alt={clearMindCoverAlt}
-        width={clearMindWidth}
-        height={clearMindHeight}
-        title="Clear Mind"
-        kind={clearMind.form.replaceAll("_", " ")}
+        src={primaryCover}
+        alt={primaryCoverAlt}
+        width={primaryWidth}
+        height={primaryHeight}
+        title={primaryReading.localBook?.title ?? primaryReading.title}
+        kind={primaryReading.form.replaceAll("_", " ")}
         loading="eager"
         referrerpolicy="no-referrer"
       />
-    </a>
+    </div>
     <div>
-      <p class="eyebrow">Featured · A human place to begin</p>
-      <h2 id="library-clear-mind-title">Clear Mind</h2>
-      <p class="lead">Finding meaning in a complex world.</p>
-      <p>{getPublicationExcerpt(clearMind, 190)}</p>
-      <a class="button" href={`/library/${clearMind.routeSlug}/`} data-carry-question>Begin with Clear Mind <span aria-hidden="true">→</span></a>
+      <p class="eyebrow">Start here · Primary reading</p>
+      <h2 id="library-primary-reading-title">{primaryReading.localBook?.title ?? primaryReading.title}</h2>
+      <p class="lead">Your first orientation through NEXAH.</p>
+      <p>{getPublicationExcerpt(primaryReading, 150)}</p>
+      <div class="library-primary-actions">
+        <a class="button" href={`/library/${primaryReading.routeSlug}/read/`} data-carry-question>Begin reading <span aria-hidden="true">→</span></a>
+        <a class="text-link" href={`/library/${primaryReading.routeSlug}/`} data-carry-question>View publication record</a>
+      </div>
     </div>
   </section>
 
-  <section class="container library-human-journey" aria-labelledby="library-human-journey-title">
-    <header class="section-heading">
-      <div><p class="eyebrow">Five Books · One Human Journey</p><h2 id="library-human-journey-title">Orientation in life, society and the world.</h2></div>
-      <p>Begin anywhere. Each book opens a different human path.</p>
-    </header>
-    <div class="library-human-journey__grid">
-      {humanJourney.map(({ publication, caption }, index) => (
-        <EditorialPublicationCard publication={publication} caption={caption} position={`Volume ${String(index + 1).padStart(2, "0")}`} eager={index < 2} />
-      ))}
-    </div>
-  </section>
-
-  <section class="container library-alternative-entrances" aria-labelledby="library-alternatives-title">
-    <header class="section-heading">
-      <div><p class="eyebrow">Other Ways to Enter</p><h2 id="library-alternatives-title">Choose another perspective.</h2></div>
-    </header>
-    <div class="library-alternative-entrances__grid">
-      {alternativeEntrances.map(({ publication, caption }) => (
-        <EditorialPublicationCard publication={publication} caption={caption} />
-      ))}
-    </div>
-  </section>
-
-  <section class="container library-entrance" aria-labelledby="library-entrance-title">
-    <header>
-      <p class="eyebrow">Reading Spaces</p>
-      <h2 id="library-entrance-title">Begin with NEXAH.</h2>
-    </header>
-    <ol>
-      <li>
-        <span>01</span>
-        <a href={`/library/${visitorGuide.routeSlug}/`}>
-          <strong>{visitorGuide.localBook?.title ?? visitorGuide.title}</strong>
-          <small>Your first orientation through NEXAH.</small>
-        </a>
-      </li>
-      <li>
-        <span>02</span>
-        <a href={`/library/${libraryBook.routeSlug}/`}>
-          <strong>{libraryBook.title}</strong>
-          <small>An overview of the complete collection.</small>
-        </a>
-      </li>
-    </ol>
-  </section>
-
-  <nav class="container library-door-nav" aria-label="Explore through an editorial door">
-    {editorialDoors.map((door) => <DoorCard door={door} compact />)}
-  </nav>
+  <details class="container library-disclosure library-disclosure--journey">
+    <summary>
+      <span><small>Curated reading path</small><strong>Explore the five-book Human Journey</strong></span>
+      <b aria-hidden="true">+</b>
+    </summary>
+    <section class="library-human-journey" aria-labelledby="library-human-journey-title">
+      <header class="section-heading">
+        <div><p class="eyebrow">Five Books · One Human Journey</p><h2 id="library-human-journey-title">Orientation in life, society and the world.</h2></div>
+        <p>Begin anywhere. Each book opens a different human path.</p>
+      </header>
+      <div class="library-human-journey__grid">
+        {humanJourney.map(({ publication, caption }, index) => (
+          <EditorialPublicationCard publication={publication} caption={caption} position={`Volume ${String(index + 1).padStart(2, "0")}`} eager={index < 2} />
+        ))}
+      </div>
+    </section>
+  </details>
 
   <section class="container catalog-browser" id="publication-catalog" aria-labelledby="catalog-title" data-catalog-browser>
     <header class="section-heading">
-      <div><p class="eyebrow">Publication Catalog</p><h2 id="catalog-title">Find a recorded work.</h2></div>
-      <span class="collection-count" data-catalog-count>{publications.length} works</span>
+      <div><p class="eyebrow">Complete record</p><h2 id="catalog-title">The full Library remains available.</h2><p>Open the catalogue when you want to search or browse every recorded publication.</p></div>
     </header>
+    <details class="library-disclosure library-disclosure--catalog">
+      <summary>
+        <span><small>Publication Catalog</small><strong>Browse all {publications.length} recorded works</strong></span>
+        <b aria-hidden="true">+</b>
+      </summary>
+      <div class="library-disclosure__content">
+        <div class="catalog-controls">
+          <label><span>Title or recorded metadata</span><input type="search" placeholder="Find a publication…" data-catalog-search /></label>
+          <label><span>Form</span><select data-catalog-type><option value="">All forms</option>{publicationTypes.map((type) => <option value={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
+        </div>
 
-    <div class="catalog-controls">
-      <label><span>Title or recorded metadata</span><input type="search" placeholder="Find a publication…" data-catalog-search /></label>
-      <label><span>Form</span><select data-catalog-type><option value="">All forms</option>{publicationTypes.map((type) => <option value={type}>{type.replaceAll("_", " ")}</option>)}</select></label>
-    </div>
-
-    <p class="catalog-empty" data-catalog-empty hidden>No recorded publication matches these explicit fields.</p>
-    <ul class="catalog-list">{publications.map((publication) => <CatalogRow publication={publication} />)}</ul>
-    <p class="catalog-provenance">Read-only projection · source snapshot {publicationCatalog.source.generatedAt.slice(0, 10)} · no inferred ranking</p>
+        <p class="catalog-empty" data-catalog-empty hidden>No recorded publication matches these explicit fields.</p>
+        <ul class="catalog-list">{publications.map((publication) => <CatalogRow publication={publication} />)}</ul>
+        <p class="catalog-provenance">Read-only projection · source snapshot {publicationCatalog.source.generatedAt.slice(0, 10)} · no inferred ranking</p>
+      </div>
+    </details>
   </section>
 
   <script>
@@ -167,3 +137,46 @@ const alternativeEntrances = [
     type?.addEventListener("change", filterCatalog);
   </script>
 </BaseLayout>
+
+<style>
+  .library-primary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-3);
+  }
+
+  .library-disclosure {
+    padding-block: var(--space-5);
+    border-block: 1px solid var(--line);
+  }
+
+  .library-disclosure + .catalog-browser { border-top: 0; }
+
+  .library-disclosure > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .library-disclosure > summary::-webkit-details-marker { display: none; }
+  .library-disclosure > summary span { display: grid; gap: 0.35rem; }
+  .library-disclosure > summary small { color: var(--gold); font-size: 0.64rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+  .library-disclosure > summary strong { font-family: var(--serif); font-size: var(--step-2); font-weight: 400; }
+  .library-disclosure > summary b { color: var(--gold); font-family: var(--serif); font-size: var(--step-2); font-weight: 400; transition: transform 160ms ease; }
+  .library-disclosure[open] > summary b { transform: rotate(45deg); }
+  .library-human-journey,
+  .library-disclosure__content { padding-top: var(--space-6); }
+
+  .catalog-browser > .section-heading { margin-bottom: var(--space-4); }
+  .catalog-browser > .section-heading p { max-width: 42rem; }
+
+  @media (max-width: 760px) {
+    .library-primary-actions { align-items: stretch; }
+    .library-primary-actions .button { width: 100%; }
+  }
+</style>

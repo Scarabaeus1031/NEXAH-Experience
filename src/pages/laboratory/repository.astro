@@ -1,8 +1,10 @@
 ---
 import LaboratoryNav from "@/components/laboratory/LaboratoryNav.astro";
 import RepositoryMap from "@/components/laboratory/RepositoryMap.astro";
-import { repositoryGuide } from "@/data/laboratory";
+import { repositoryGuide, scientificBaselines } from "@/data/laboratory";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const rc1 = scientificBaselines[0];
 ---
 
 <BaseLayout title="Repository — NEXAH Laboratory" description="The NEXAH Repository is the living, inspectable source behind the public Experience.">
@@ -19,6 +21,56 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
   </header>
 
   <div class="container repository-map-section"><RepositoryMap /></div>
+
+  <section id="scientific-baselines" class="container scientific-baselines" aria-labelledby="scientific-baselines-title">
+    <header class="scientific-baselines__header">
+      <p class="eyebrow">Scientific Baselines</p>
+      <h2 id="scientific-baselines-title">Versioned records of the research environment.</h2>
+      <p>Scientific baselines preserve a citable repository state. They remain distinct from the general NEXAH Repository and do not change the status of the work they contain.</p>
+    </header>
+
+    <article class="scientific-baseline-record" aria-labelledby={`${rc1.id}-title`}>
+      <figure class="scientific-baseline-record__marker">
+        <img
+          src={rc1.visual.src}
+          alt={rc1.visual.alt}
+          width={rc1.visual.width}
+          height={rc1.visual.height}
+          loading="lazy"
+        />
+        <figcaption>Documentation marker</figcaption>
+      </figure>
+
+      <div class="scientific-baseline-record__body">
+        <header>
+          <div>
+            <p class="eyebrow">{rc1.description}</p>
+            <h3 id={`${rc1.id}-title`}>{rc1.title}</h3>
+          </div>
+          <span>{rc1.version}</span>
+        </header>
+
+        <dl class="scientific-baseline-record__metadata">
+          <div><dt>Date</dt><dd>{rc1.date}</dd></div>
+          <div><dt>Version</dt><dd>{rc1.version}</dd></div>
+          <div><dt>Commit</dt><dd><a href={rc1.links.commit} target="_blank" rel="noopener noreferrer">{rc1.commit}</a></dd></div>
+          <div><dt>Repository</dt><dd>{rc1.repository}</dd></div>
+        </dl>
+
+        <div class="scientific-baseline-record__boundary">
+          <p class="eyebrow">Boundary</p>
+          {rc1.boundary.map((statement) => <p>{statement}</p>)}
+        </div>
+
+        <nav class="scientific-baseline-record__links" aria-label="NEXAH Science Lab RC1 documents">
+          <a href={rc1.links.repository} target="_blank" rel="noopener noreferrer">GitHub Repository <span aria-hidden="true">↗</span></a>
+          <a href={rc1.links.tag} target="_blank" rel="noopener noreferrer">Release Tag <span aria-hidden="true">↗</span></a>
+          <a href={rc1.links.readme} target="_blank" rel="noopener noreferrer">Root README <span aria-hidden="true">↗</span></a>
+          <a href={rc1.links.constitution} target="_blank" rel="noopener noreferrer">Scientific Constitution <span aria-hidden="true">↗</span></a>
+        </nav>
+      </div>
+    </article>
+  </section>
 
   <section class="container laboratory-readme" aria-labelledby="repository-readme-title">
     <div><p class="eyebrow">Start here</p><h2 id="repository-readme-title">The README explains the whole before the folders.</h2></div>

@@ -1,55 +1,40 @@
 ---
-import OrientationScienceEntry from "@/components/navigation/OrientationScienceEntry.astro";
-import { repositoryDocumentUrl } from "@/data/laboratory";
-import { researchArchitectureView } from "@/data/research-architecture";
+import { scientificBaselines } from "@/data/laboratory";
+import PublicationCover from "@/components/library/PublicationCover.astro";
+import { publicationByRouteSlug } from "@/data/catalog";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
+const baseline = scientificBaselines[0];
+
 const orientationDimensions = [
-  ["Position", "Where are we?", "Locate the observer, situation and present conditions."],
-  ["Perspective", "Which representation are we using?", "Name the map, model, image, story or disciplinary frame in view."],
-  ["Relation", "What does it reveal, omit and connect?", "Keep evidence, limits, differences and relationships visible."],
-  ["Possible direction", "Which paths remain available?", "See alternatives without turning them into a recommendation."],
+  ["Position", "Where are we?"],
+  ["Perspective", "Which representation are we using?"],
+  ["Relation", "What does it reveal and omit?"],
+  ["Possible direction", "Which paths remain available?"],
 ] as const;
 
-const movement = [
-  ["Observe", "Attend to what is present before naming it."],
-  ["Represent", "Make a bounded view explicit."],
-  ["Map", "Place relations, limits and possible transitions in view."],
-  ["Compare", "Hold representations together without conflating them."],
-  ["Reflect", "Examine tension, uncertainty and what remains outside the frame."],
-  ["Orient", "Understand the situated field and the paths that remain possible."],
-] as const;
-
-const principles = [
-  "Reality is richer than any single representation.",
-  "Every map reveals and omits.",
-  "Difference must remain visible.",
-  "Evidence and interpretation remain distinct.",
-  "Orientation supports judgment; it does not replace it.",
-  "Where evidence ends, the claim must end.",
-] as const;
-
-const invitedPractices = [
-  "Researchers",
-  "Designers",
-  "Engineers",
-  "Artists",
-  "Librarians and educators",
-  "System thinkers",
-  "Curious readers",
-] as const;
+const researchRecord = [
+  ["orientation-atlas-vol-i", "Volume I", "Research landscape"],
+  ["orientation-design-vol-ii", "Volume II", "Research practice"],
+  ["orientation-theory-vol-iii", "Volume III", "Conceptual foundations"],
+  ["the-architecture-of-orientation-vol-iv", "Volume IV", "Connected architecture"],
+].map(([slug, volume, role]) => ({
+  volume,
+  role,
+  publication: publicationByRouteSlug.get(slug),
+})).filter((entry) => entry.publication !== undefined);
 ---
 
 <BaseLayout
   title="About NEXAH — Developing Orientation as a Discipline"
-  description="NEXAH is developing Orientation as a discipline for navigating complex systems while preserving evidence, difference and Human judgment."
+  description="NEXAH is an independent research and design laboratory developing Orientation as a discipline for navigating complex systems."
 >
   <header class="container about-position-hero">
     <div class="about-position-hero__copy">
       <p class="eyebrow">About NEXAH</p>
       <h1>Developing Orientation as a discipline.</h1>
-      <p class="lead">Orientation is the central subject of NEXAH. The laboratory investigates how people and systems can recognize position, perspective and possible next paths within complex situations.</p>
-      <p>NEXAH develops ways to hold different representations in relation without collapsing them into a single explanation. It creates conditions for understanding before action—not an automatic answer or decision.</p>
+      <p class="lead">NEXAH is an independent research and design laboratory studying how people and systems find position, perspective and possible direction within complex situations.</p>
+      <p>It develops ways to compare bounded representations without collapsing their differences, overstating their evidence or replacing Human judgment.</p>
     </div>
     <aside class="about-position-thesis" aria-label="The position of NEXAH">
       <div class="about-position-thesis__landscape" aria-hidden="true"></div>
@@ -69,8 +54,8 @@ const invitedPractices = [
         </header>
         <div class="about-representation-field">
           <div>
-            <p class="lead">Disciplines, models, maps, images and stories reveal different structures. Each is made from a position, for a purpose, with particular evidence—and each leaves something outside its frame.</p>
-            <p>No single representation contains the whole. Moving responsibly between different descriptions of a situation is therefore a research and design problem in its own right.</p>
+            <p class="lead">Models, maps, images and stories reveal different structures. Each has a purpose, an evidential basis and a boundary.</p>
+            <p>No single representation contains the whole. Moving responsibly between descriptions is therefore a scientific and design problem in its own right.</p>
           </div>
           <ul aria-label="Examples of bounded representations">
             <li><span>01</span><strong>A model</strong><small>selects variables</small></li>
@@ -85,116 +70,90 @@ const invitedPractices = [
     <section class="container section orientation-definition" aria-labelledby="orientation-definition-title">
       <header class="about-section-heading about-section-heading--split">
         <div><p class="eyebrow">What Orientation Means</p><h2 id="orientation-definition-title">A situated capacity—not a final result.</h2></div>
-        <p>Orientation remains relational: it emerges between an observer, a bounded representation, a purpose, a context and the alternatives held in view.</p>
+        <p>Orientation arises between an observer, a representation, a purpose, a context and the alternatives held in view.</p>
       </header>
       <blockquote>Orientation is the situated capacity to understand where we are, which representation we are using, what it reveals and omits, how it relates to other representations, and which paths remain possible.</blockquote>
-      <div class="orientation-dimensions">
-        {orientationDimensions.map(([name, question, note], index) => (
+      <div class="orientation-dimensions orientation-dimensions--concise">
+        {orientationDimensions.map(([name, question], index) => (
           <article>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h3>{name}</h3>
             <strong>{question}</strong>
-            <p>{note}</p>
           </article>
         ))}
       </div>
-      <p class="orientation-definition__boundary">Orientation is neither an automatic decision nor a guarantee of what should happen next.</p>
+      <p class="orientation-definition__boundary">Orientation supports understanding. It does not decide, recommend or authorize action.</p>
     </section>
 
-    <section class="container section about-science-section" aria-label="Orientation Science">
-      <OrientationScienceEntry context="about" />
-    </section>
-
-    <section class="about-movement-section section--line" aria-labelledby="movement-title">
-      <div class="container">
-        <header class="about-section-heading about-section-heading--split">
-          <div><p class="eyebrow">The NEXAH Movement</p><h2 id="movement-title">Observe. Represent. Map. Compare. Reflect. Orient.</h2></div>
-          <div class="about-section-heading__aside">
-            <p>This movement creates conditions for Human orientation. It does not perform understanding, replace judgment or authorize action.</p>
-            <a class="editorial-path-link" href="/laboratory/process/">
-              <span>Follow the research process</span>
-              <b aria-hidden="true">→</b>
-            </a>
-          </div>
-        </header>
-        <ol class="orientation-movement">
-          {movement.map(([name, note], index) => (
-            <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{name}</strong><p>{note}</p></li>
-          ))}
-        </ol>
-      </div>
-    </section>
-
-    <section class="container section" aria-labelledby="manifesto-principles-title">
-      <div class="manifesto-principles">
-        <header>
-          <p class="eyebrow">Manifesto Principles</p>
-          <h2 id="manifesto-principles-title">One field. Many representations. Open transitions.</h2>
-          <a
-            class="editorial-path-link manifesto-principles__link"
-            href={repositoryDocumentUrl("MANIFESTO.md")}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span>Read the complete Manifesto</span>
-            <b aria-hidden="true">↗</b>
-          </a>
-        </header>
-        <ol>
-          {principles.map((principle, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{principle}</strong></li>)}
-        </ol>
-      </div>
-    </section>
-
-    <section
-      class="about-practice-section about-architecture-teaser section--line"
-      aria-labelledby="practice-title"
-      data-source-section={researchArchitectureView.publicEntrances.about.sourceSection}
-    >
+    <section class="about-practice-section section--line" aria-labelledby="scientific-foundation-title">
       <div class="container">
         <header class="about-section-heading about-section-heading--split">
           <div>
-            <p class="eyebrow">{researchArchitectureView.publicEntrances.about.eyebrow}</p>
-            <h2 id="practice-title">{researchArchitectureView.publicEntrances.about.headline}</h2>
+            <p class="eyebrow">Scientific foundation</p>
+            <h2 id="scientific-foundation-title">A versioned foundation—not a final theory.</h2>
           </div>
-          <p>{researchArchitectureView.publicEntrances.about.text}</p>
+          <p>The Scientific Constitution defines the enduring methodological direction. The first NEXAH Science Lab baseline preserves that foundation together with the research environment and its explicit claim boundaries.</p>
         </header>
-        <ul aria-label="Six coordinated responsibilities">
-          {researchArchitectureView.orientationSpace.responsibilities.map((responsibility) => (
-            <li>{responsibility.name}</li>
-          ))}
-        </ul>
-        <a class="editorial-path-link" href={researchArchitectureView.publicEntrances.about.href}>
-          <span>{researchArchitectureView.publicEntrances.about.linkLabel}</span>
-          <b aria-hidden="true">→</b>
-        </a>
+        <nav class="about-foundation-links" aria-label="Scientific foundation documents">
+          <a class="editorial-path-link" href="/laboratory/repository/#scientific-baselines"><span>View the scientific baseline</span><b aria-hidden="true">→</b></a>
+          <a class="editorial-path-link" href={baseline.links.constitution} target="_blank" rel="noopener noreferrer"><span>Read the Scientific Constitution</span><b aria-hidden="true">↗</b></a>
+          <a class="editorial-path-link" href="/explore/foundations/"><span>Explore Orientation Science</span><b aria-hidden="true">→</b></a>
+        </nav>
       </div>
     </section>
 
-    <section class="container section about-authority" aria-labelledby="human-authority-title">
-      <header class="about-section-heading">
-        <p class="eyebrow">Human Authority and Boundaries</p>
-        <h2 id="human-authority-title">Navigability is not truth.</h2>
-      </header>
-      <div class="about-authority__statement" aria-label="The NEXAH authority boundary">
-        <span>representation</span><b aria-hidden="true">→</b><span>orientation</span><b aria-hidden="true">≠</b><span>recommendation</span><b aria-hidden="true">≠</b><span>authorization</span><b aria-hidden="true">≠</b><span>execution</span>
-      </div>
-      <div class="about-authority__copy">
-        <p>NEXAH can organize evidence, connect representations, trace relationships and explain why a path was presented. It does not produce universal truth, infer authority from fluency or decide which uncertainty may be ignored.</p>
-        <p>Meaning, judgment and responsibility remain with the Human. Where evidence ends, the claim must end.</p>
+    <section class="about-research-record section--line" aria-labelledby="research-record-title">
+      <div class="container">
+        <div class="orientation-series orientation-series--record">
+          <header class="orientation-series__heading">
+            <div>
+              <p class="eyebrow">Research Record</p>
+              <h2 id="research-record-title">A developing field, documented across connected volumes.</h2>
+            </div>
+            <p>Four connected volumes record the programme’s continuity.</p>
+          </header>
+          <ol class="orientation-series__grid" aria-label="The four-volume Orientation Architecture series">
+            {researchRecord.map((entry) => {
+              const publication = entry.publication!;
+              const cover = publication.localBook?.cover ?? publication.cover.src;
+              const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+              const width = publication.localBook ? 1024 : publication.cover.width;
+              const height = publication.localBook ? 1536 : publication.cover.height;
+              return (
+                <li>
+                  <a class="orientation-series__cover" href={`/library/${publication.routeSlug}/`} aria-label={`Open ${publication.title}`}>
+                    <PublicationCover
+                      src={cover}
+                      alt={coverAlt}
+                      width={width}
+                      height={height}
+                      title={publication.title}
+                      kind={publication.form.replaceAll("_", " ")}
+                      loading="lazy"
+                      referrerpolicy="no-referrer"
+                    />
+                  </a>
+                  <div class="orientation-series__copy">
+                    <span>{entry.volume}</span>
+                    <h3>{publication.title.replace(/\s+—\s+VOLUME\s+[IVX]+$/i, "")}</h3>
+                    <strong>{entry.role}</strong>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+          <a class="text-link orientation-series__entry" href="/library/">View the complete publication record</a>
+        </div>
       </div>
     </section>
 
     <section class="about-invitation section--line" aria-labelledby="open-invitation-title">
       <div class="container about-invitation__inner">
         <div>
-          <p class="eyebrow">Founder and Open Invitation</p>
-          <h2 id="open-invitation-title">An independent laboratory, open to other ways of seeing.</h2>
+          <p class="eyebrow">Institution and open invitation</p>
+          <h2 id="open-invitation-title">Independent, inspectable and open to challenge.</h2>
           <p>NEXAH was initiated by Thomas K. R. Hofmann as an independent research and design laboratory.</p>
-          <p>Researchers, designers, engineers, artists, librarians and educators, system thinkers and curious readers are invited to inspect the work, challenge its categories, identify counterexamples and propose better maps.</p>
-          <div class="invited-practices" aria-label="People invited to take part">
-            {invitedPractices.map((practice) => <span>{practice}</span>)}
-          </div>
+          <p>Researchers, designers, engineers, artists, educators and curious readers are invited to inspect the work, identify counterexamples and propose better maps.</p>
         </div>
         <aside>
           <blockquote>We are not looking for agreement.<br />We are looking for better orientation.</blockquote>
@@ -217,7 +176,6 @@ const invitedPractices = [
     justify-content: space-between;
     gap: 1.5rem;
     width: min(100%, 25rem);
-    margin-top: 1.25rem;
     padding: 0.85rem 0 0.65rem;
     border-top: 1px solid var(--gold);
     color: var(--ink);
@@ -253,23 +211,41 @@ const invitedPractices = [
     outline-offset: 0.35rem;
   }
 
-  .about-architecture-teaser ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.65rem;
-    margin: 0 0 var(--space-5);
-    padding: 0;
-    list-style: none;
+  .about-foundation-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-5);
   }
 
-  .about-architecture-teaser li {
-    padding: 0.55rem 0.8rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(255, 250, 238, 0.52);
-    color: var(--ink-soft);
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
+  .about-foundation-links .editorial-path-link {
+    width: 100%;
+  }
+
+  .orientation-series--record {
+    margin-top: 0;
+  }
+
+  .orientation-series--record .orientation-series__heading h2 {
+    max-width: 22ch;
+    margin: 0;
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .orientation-series--record .orientation-series__copy h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: var(--step-0);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  @media (max-width: 760px) {
+    .about-foundation-links { grid-template-columns: 1fr; }
+    .orientation-series--record .orientation-series__heading h2 { font-size: var(--step-1); }
+    .orientation-series--record .orientation-series__copy h3 { font-size: .95rem; }
   }
 </style>
