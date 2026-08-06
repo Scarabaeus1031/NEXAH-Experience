@@ -1,0 +1,693 @@
+---
+import { researchArchitectureView as view } from "@/data/research-architecture";
+
+type Props = {
+  headingLevel?: "h1" | "h2";
+};
+
+const { headingLevel = "h2" } = Astro.props;
+const Heading = headingLevel;
+const [umbrellaQuestion, railsQuestion] = view.questions;
+const topResponsibilities = view.orientationSpace.responsibilities.slice(0, 3);
+const bottomResponsibilities = view.orientationSpace.responsibilities.slice(3);
+---
+
+<section
+  id="research-architecture"
+  class="research-architecture"
+  aria-labelledby="research-architecture-title"
+  data-source-commit={view.adoptedCommitSha}
+>
+  <div class="container research-architecture__inner">
+    <header
+      class="research-architecture__introduction"
+      data-source-section={view.introduction.sourceSection}
+    >
+      <p class="eyebrow">{view.introduction.eyebrow}</p>
+      <Heading id="research-architecture-title">
+        {view.introduction.headlineLines.map((line) => <span>{line}</span>)}
+      </Heading>
+      <p>{view.introduction.text}</p>
+    </header>
+
+    <div class="research-architecture__questions">
+      <article
+        class="architecture-question"
+        data-source-section={umbrellaQuestion.sourceSection}
+      >
+        <div class="architecture-question__heading">
+          <p class="eyebrow">{umbrellaQuestion.eyebrow}</p>
+          <span>{umbrellaQuestion.status}</span>
+        </div>
+        <blockquote>{umbrellaQuestion.question}</blockquote>
+      </article>
+
+      <article
+        class="architecture-question architecture-question--horizon"
+        data-source-section={railsQuestion.sourceSection}
+      >
+        <div class="architecture-question__heading">
+          <p class="eyebrow">{railsQuestion.eyebrow}</p>
+          <span>{railsQuestion.status}</span>
+        </div>
+        <blockquote>{railsQuestion.question}</blockquote>
+      </article>
+    </div>
+
+    <section
+      class="orientation-space"
+      aria-labelledby="orientation-space-title"
+      aria-describedby="orientation-space-context"
+      data-source-section={view.orientationSpace.sourceSection}
+    >
+      <p id="orientation-space-context" class="sr-only">
+        {view.orientationSpace.visualContext}
+      </p>
+
+      <div class="orientation-space__field">
+        {topResponsibilities.map((responsibility) => (
+          <article
+            class="orientation-responsibility"
+            data-source-section={responsibility.sourceSection}
+          >
+            <h3>{responsibility.name}</h3>
+            <p>{responsibility.role}</p>
+          </article>
+        ))}
+
+        <div class="orientation-space__center">
+          <p class="eyebrow" id="orientation-space-title">
+            {view.orientationSpace.eyebrow}
+          </p>
+          <ul>
+            {view.orientationSpace.concepts.map((concept) => <li>{concept}</li>)}
+          </ul>
+        </div>
+
+        {bottomResponsibilities.map((responsibility) => (
+          <article
+            class="orientation-responsibility"
+            data-source-section={responsibility.sourceSection}
+          >
+            <h3>{responsibility.name}</h3>
+            <p>{responsibility.role}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section
+      class="human-axis"
+      aria-labelledby="human-axis-title"
+      data-source-section={view.humanAxis.sourceSection}
+    >
+      <header>
+        <p class="eyebrow" id="human-axis-title">{view.humanAxis.eyebrow}</p>
+        <strong>{view.humanAxis.anchor}</strong>
+      </header>
+      <ol>
+        {view.humanAxis.steps.map((step) => <li>{step}</li>)}
+      </ol>
+    </section>
+
+    <section class="architecture-places" aria-labelledby="architecture-places-title">
+      <header>
+        <p class="eyebrow" id="architecture-places-title">{view.places.eyebrow}</p>
+        <p>{view.places.introduction}</p>
+      </header>
+      <div>
+        {view.places.entries.map((place) => (
+          <article data-source-section={place.sourceSection}>
+            <h3>{place.name}</h3>
+            <p>{place.role}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="architecture-legends" aria-label={view.legendBoundary}>
+      <div class="architecture-legends__axes">
+        {view.legends.map((legend) => (
+          <article data-source-section={legend.sourceSection}>
+            <h3>{legend.heading}</h3>
+            <ul>
+              {legend.values.map((value) => <li>{value}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+      <strong>{view.legendBoundary}</strong>
+    </section>
+
+    <footer class="architecture-provenance">
+      <div>
+        <p class="eyebrow">{view.provenance.eyebrow}</p>
+        <p>{view.provenance.statement}</p>
+        <code>{view.adoptedCommitSha}</code>
+      </div>
+      <a
+        class="text-link text-link--external"
+        href={view.sourceUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {view.provenance.linkLabel}
+      </a>
+    </footer>
+  </div>
+</section>
+
+<style>
+  .research-architecture {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-7);
+    border-block: 1px solid var(--line);
+    background:
+      radial-gradient(circle at 50% 37%, rgba(217, 190, 132, 0.16), transparent 28rem),
+      radial-gradient(circle at 14% 68%, rgba(154, 181, 198, 0.13), transparent 25rem),
+      rgba(255, 252, 244, 0.32);
+  }
+
+  .research-architecture__inner {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .research-architecture__introduction {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(18rem, 1.2fr);
+    align-items: end;
+    gap: var(--space-6);
+  }
+
+  .research-architecture__introduction .eyebrow {
+    grid-column: 1 / -1;
+    margin-bottom: calc(var(--space-6) * -1 + var(--space-3));
+  }
+
+  .research-architecture__introduction :is(h1, h2) {
+    margin: 0;
+    color: var(--night);
+    font-size: var(--step-3);
+  }
+
+  .research-architecture__introduction :is(h1, h2) span {
+    display: block;
+  }
+
+  .research-architecture__introduction > p:last-child {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--step-1);
+    line-height: 1.55;
+  }
+
+  .research-architecture__questions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .architecture-question {
+    min-width: 0;
+    padding: var(--space-5);
+    border: 1px solid var(--gold-soft);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 250, 238, 0.72);
+  }
+
+  .architecture-question--horizon {
+    border: 1px dashed rgba(94, 128, 149, 0.62);
+    background: rgba(222, 235, 239, 0.34);
+  }
+
+  .architecture-question__heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .architecture-question__heading .eyebrow {
+    margin: 0;
+  }
+
+  .architecture-question__heading > span {
+    flex: none;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    color: var(--sage);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .architecture-question--horizon .architecture-question__heading > span {
+    color: #55798f;
+  }
+
+  .architecture-question blockquote {
+    margin: var(--space-5) 0 0;
+    color: var(--night);
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    line-height: 1.38;
+  }
+
+  .orientation-space__field {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius-lg) + 0.4rem);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .orientation-responsibility,
+  .orientation-space__center {
+    min-width: 0;
+    padding: var(--space-4);
+  }
+
+  .orientation-responsibility {
+    min-height: 11rem;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .orientation-responsibility + .orientation-responsibility {
+    border-left: 1px solid var(--line);
+  }
+
+  .orientation-responsibility h3,
+  .architecture-places h3 {
+    margin-bottom: var(--space-3);
+    color: var(--night);
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+  }
+
+  .orientation-responsibility p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+  }
+
+  .orientation-space__center {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(12rem, 0.65fr) minmax(0, 1.35fr);
+    align-items: center;
+    gap: var(--space-5);
+    border-block: 1px solid var(--line);
+    background:
+      radial-gradient(circle at 18% 50%, rgba(217, 190, 132, 0.2), transparent 15rem),
+      rgba(247, 244, 237, 0.82);
+  }
+
+  .orientation-space__center .eyebrow {
+    margin: 0;
+    color: var(--night);
+    font-family: var(--serif);
+    font-size: var(--step-2);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-transform: none;
+  }
+
+  .orientation-space__center ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .orientation-space__center li {
+    padding: 0.5rem 0.72rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: rgba(255, 252, 244, 0.64);
+    color: var(--ink-soft);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .human-axis {
+    display: grid;
+    grid-template-columns: minmax(15rem, 0.72fr) minmax(0, 1.28fr);
+    gap: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--gold-soft);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 249, 231, 0.52);
+  }
+
+  .human-axis header .eyebrow {
+    margin-bottom: var(--space-3);
+  }
+
+  .human-axis header strong {
+    display: block;
+    max-width: 28rem;
+    color: var(--night);
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .human-axis ol {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .human-axis li {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 7rem;
+    place-items: center;
+    padding: var(--space-3);
+    border-block: 1px solid var(--line);
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  .human-axis li + li {
+    border-left: 1px solid var(--line);
+  }
+
+  .human-axis li + li::before {
+    position: absolute;
+    top: 50%;
+    left: -0.45rem;
+    width: 0.9rem;
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--gold);
+    content: "↓";
+    font-weight: 400;
+    line-height: 0.9rem;
+    text-align: center;
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  .architecture-places {
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--line);
+  }
+
+  .architecture-places > header {
+    display: grid;
+    grid-template-columns: 0.65fr 1.35fr;
+    align-items: end;
+    gap: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+
+  .architecture-places > header .eyebrow,
+  .architecture-places > header p {
+    margin: 0;
+  }
+
+  .architecture-places > header p:last-child {
+    max-width: 42rem;
+    color: var(--ink-soft);
+  }
+
+  .architecture-places > div {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    background: rgba(235, 241, 242, 0.3);
+  }
+
+  .architecture-places article {
+    min-width: 0;
+    min-height: 12rem;
+    padding: var(--space-4);
+  }
+
+  .architecture-places article + article {
+    border-left: 1px solid var(--line);
+  }
+
+  .architecture-places article p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+  }
+
+  .architecture-legends {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .architecture-legends__axes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .architecture-legends article {
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  .architecture-legends h3 {
+    margin-bottom: var(--space-4);
+    color: var(--night);
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+  }
+
+  .architecture-legends ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .architecture-legends li {
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink-soft);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+  }
+
+  .architecture-legends > strong {
+    color: var(--gold);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .architecture-provenance {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+
+  .architecture-provenance .eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  .architecture-provenance p:not(.eyebrow) {
+    margin-bottom: var(--space-2);
+    color: var(--ink-soft);
+  }
+
+  .architecture-provenance code {
+    color: var(--ink-faint);
+    font-size: 0.64rem;
+    overflow-wrap: anywhere;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 900px) {
+    .research-architecture__introduction,
+    .human-axis,
+    .architecture-places > header {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .research-architecture__introduction .eyebrow {
+      margin-bottom: 0;
+    }
+
+    .architecture-question blockquote {
+      font-size: var(--step-1);
+    }
+
+    .human-axis ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .human-axis li:nth-child(3) {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .human-axis li:nth-child(4) {
+      border-top: 1px solid var(--line);
+    }
+
+    .human-axis li:nth-child(3)::before {
+      top: -0.45rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .architecture-places > div {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .architecture-places article:nth-child(3) {
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .architecture-places article:nth-child(4) {
+      border-top: 1px solid var(--line);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .research-architecture {
+      padding-block: var(--space-6);
+    }
+
+    .research-architecture__inner {
+      gap: var(--space-6);
+    }
+
+    .research-architecture__introduction :is(h1, h2) {
+      font-size: var(--step-2);
+    }
+
+    .research-architecture__questions,
+    .architecture-legends__axes,
+    .orientation-space__field,
+    .architecture-places > div {
+      grid-template-columns: 1fr;
+    }
+
+    .architecture-question {
+      padding: var(--space-4);
+    }
+
+    .architecture-question__heading {
+      display: grid;
+    }
+
+    .architecture-question__heading > span {
+      width: fit-content;
+    }
+
+    .orientation-responsibility,
+    .architecture-places article {
+      min-height: auto;
+    }
+
+    .orientation-responsibility + .orientation-responsibility,
+    .architecture-places article + article {
+      border-top: 1px solid var(--line);
+      border-left: 0;
+    }
+
+    .orientation-space__center {
+      grid-column: auto;
+      grid-template-columns: 1fr;
+      border-block: 1px solid var(--line);
+    }
+
+    .orientation-space__center .eyebrow {
+      font-size: var(--step-1);
+    }
+
+    .human-axis {
+      padding: var(--space-4);
+    }
+
+    .human-axis ol {
+      grid-template-columns: 1fr;
+    }
+
+    .human-axis li {
+      min-height: 5.5rem;
+      border: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .human-axis li + li {
+      border-left: 0;
+    }
+
+    .human-axis li + li::before,
+    .human-axis li:nth-child(3)::before {
+      top: -0.45rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .architecture-places article:nth-child(3),
+    .architecture-places article:nth-child(4) {
+      border-left: 0;
+    }
+
+    .architecture-provenance {
+      display: grid;
+      align-items: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .research-architecture *,
+    .research-architecture *::before,
+    .research-architecture *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

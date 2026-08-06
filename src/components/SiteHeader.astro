@@ -3,15 +3,18 @@ import Brand from "./Brand.astro";
 
 const path = Astro.url.pathname;
 const links = [
-  ["Home", "/"],
-  ["Visitor Guide", "/visitor-guide/"],
-  ["Laboratory", "/laboratory/"],
+  ["Start Here", "/atlas/"],
   ["Library", "/library/"],
+  ["Laboratory", "/laboratory/"],
   ["Atlas of Atlases", "/atlas-of-atlases/"],
   ["About", "/about/"],
 ] as const;
 
-const isCurrent = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+const isCurrent = (href: string) => {
+  if (href === "/") return path === "/";
+  if (href === "/atlas/") return path.startsWith("/atlas/") || path.startsWith("/visitor-guide/");
+  return path.startsWith(href);
+};
 ---
 
 <header class="site-header">

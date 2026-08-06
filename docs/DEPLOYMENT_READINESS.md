@@ -56,6 +56,31 @@ dependencies, caches, environment files, credentials and private material.
 Before upload, record an artifact inventory containing total file count, total
 size and a SHA-256 manifest. Generate it only from the final immutable candidate.
 
+## OVH publication workflow
+
+The production host is the OVH Web Hosting plan
+`nexahdy.cluster129.hosting.ovh.net`. Both `nexah.de` and `www.nexah.de` serve
+the `www` directory. The deployment credential belongs only to the `nexahdy`
+FTP/SFTP user and is stored in the local macOS Keychain under the service name
+`NEXAH OVH SFTP`; it is never stored in this repository.
+
+After a successful `pnpm verify`, publish the current `dist/` artifact with:
+
+```sh
+pnpm deploy:ovh
+```
+
+The nominal 100 MB OVH plan does not provide enough usable space for two copies
+of this site. Before changing production, the deployment therefore downloads a
+complete timestamped copy of the current `www` release to the sibling directory
+`NEXAH deployment backups`. It then removes abandoned remote staging
+directories and synchronizes the verified artifact to `www`. Individual files
+are uploaded via temporary names, and interrupted transfers can be resumed by
+running the command again. Transfers are deliberately sequential because the
+shared SFTP host does not reliably create nested directories concurrently.
+The script refuses artifacts above the hosting threshold. Run the production
+smoke test immediately after synchronization.
+
 ## External configuration
 
 The hosting owner must provide:

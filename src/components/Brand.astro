@@ -1,12 +1,13 @@
 ---
 type Props = { compact?: boolean };
 const { compact = false } = Astro.props;
+const isHome = Astro.url.pathname === "/";
 ---
 
-<a class:list={["brand", { "brand--compact": compact }]} href="/" aria-label="NEXAH home">
+<a class:list={["brand", { "brand--compact": compact }]} href="/" aria-label="NEXAH home" aria-current={isHome ? "page" : undefined}>
   <span class="brand__mark" aria-hidden="true"><span>✦</span></span>
   <span class="brand__words">
     <strong>NEXAH</strong>
-    <small>Designing Human Orientation</small>
+    <small>{compact ? "Designing Human Orientation" : "Home · Designing Human Orientation"}</small>
   </span>
 </a>

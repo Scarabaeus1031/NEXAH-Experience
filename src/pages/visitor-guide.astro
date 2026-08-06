@@ -3,23 +3,85 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import EcosystemMap from "@/components/about/EcosystemMap.astro";
 ---
 
-<BaseLayout title="Visitor Guide — NEXAH" description="Understand the NEXAH ecosystem, choose a path and know what each public place owns.">
-  <header class="container page-hero">
+<BaseLayout title="Visitor Guide — NEXAH" description="Enter NEXAH through image, sound and a public map of its distinct responsibilities.">
+  <header class="container page-hero visitor-guide-hero">
     <p class="eyebrow">Visitor Guide</p>
-    <h1>Find your place in NEXAH.</h1>
-    <p class="lead">NEXAH is the Orientation Ecosystem. Its public places and internal initiatives have distinct responsibilities; this guide shows where you are and where to continue.</p>
+    <h1>Welcome.<br />There is no correct path.<br />Only your next step.</h1>
+    <p class="lead">Enter slowly. Begin with image and sound, then use the public map to understand where you are and where you may continue.</p>
   </header>
-  <section class="container section section--line" aria-labelledby="map-title">
+
+  <section class="container visitor-prelude" aria-label="How to enter">
+    <article>
+      <span aria-hidden="true">01</span>
+      <div><p class="eyebrow">Enter</p><h2>Begin anywhere.</h2><p>Bring one real question. The Library does not prescribe a correct path.</p></div>
+    </article>
+    <article>
+      <span aria-hidden="true">02</span>
+      <div><p class="eyebrow">Explore</p><h2>Follow curiosity.</h2><p>Let images open space. Let sound guide attention.</p></div>
+    </article>
+    <article>
+      <span aria-hidden="true">03</span>
+      <div><p class="eyebrow">Connect</p><h2>Notice relationships.</h2><p>Representations may meet without collapsing their differences.</p></div>
+    </article>
+  </section>
+
+  <section class="visitor-film" aria-labelledby="film-title">
+    <div class="container visitor-film__inner">
+      <header class="visitor-film__header">
+        <div>
+          <p class="eyebrow">A visual threshold</p>
+          <h2 id="film-title">Framework of Legibility</h2>
+          <p class="visitor-film__subtitle">A museum of orientation.</p>
+        </div>
+        <div class="visitor-film__invitation">
+          <p>This is not a documentary.<br />It is an initiation.</p>
+          <small>A journey in sound and vision · 2:48<br />Headphones recommended</small>
+        </div>
+      </header>
+      <div class="visitor-film__frame">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="/media/framework-of-legibility-poster.jpg"
+          aria-describedby="film-description"
+        >
+          <source src="/media/framework-of-legibility.mp4" type="video/mp4" />
+          Your browser does not support embedded video. <a href="/media/framework-of-legibility.mp4">Open the film directly.</a>
+        </video>
+      </div>
+      <div class="visitor-film__footer">
+        <div class="visitor-film__footer-copy">
+          <p id="film-description">The film moves through rooms, maps, light and shadow. It makes structure visible without prescribing where to go next.</p>
+          <p class="visitor-film__credit">
+            <span>Music by</span>
+            <a
+              class="visitor-film__credit-link"
+              href="https://open.spotify.com/artist/0Fgm1un1KLYrqJRIBWKfBt?si=7u_sy9Y5S1-yQ6bplDH52Q"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Prod.Jupiter <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        </div>
+        <a class="visitor-film__map-link" href="#map-title">Continue to the public map <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container section visitor-map-section" aria-labelledby="map-title">
     <div class="section-heading">
-      <div><p class="eyebrow">The public ecosystem map</p><h2 id="map-title">Four places. Four responsibilities.</h2></div>
-      <p>This is the canonical Version 1 map. It contains only public responsibilities that exist today.</p>
+      <div><p class="eyebrow">Now see how the places relate</p><h2 id="map-title">Four places. Four responsibilities.</h2></div>
+      <p>NEXAH is the Orientation Ecosystem. This canonical Version 1 map contains only public responsibilities that exist today.</p>
     </div>
     <EcosystemMap />
   </section>
   <section class="container section" aria-labelledby="paths-title">
-    <div class="section-heading"><div><p class="eyebrow">Choose by intention</p><h2 id="paths-title">What would you like to do?</h2></div></div>
+    <div class="section-heading"><div><p class="eyebrow">Continue from the map</p><h2 id="paths-title">Choose a public place.</h2></div></div>
     <div class="boundary-grid">
-      <article class="boundary-card"><strong>I want to understand.</strong><p>Read the <a href="/library/visitors-guide/">illustrated Visitor Guide</a>, then try one session in NEXAHEDRON.</p></article>
+      <article class="boundary-card"><strong>I want a personal beginning.</strong><p>Go to <a href="/atlas/">Start Here</a> and choose an existing work by intention or interest.</p></article>
+      <article class="boundary-card"><strong>I want to understand.</strong><p>Read the publication <a href="/library/visitors-guide/">The Visitor’s Guide</a>, then try one session in NEXAHEDRON.</p></article>
       <article class="boundary-card"><strong>I want to research.</strong><p>Enter the <a href="/laboratory/">Laboratory</a> or continue to the NEXAH Research &amp; Framework Repository.</p></article>
       <article class="boundary-card"><strong>I want to inspect the core.</strong><p>Read the certified baseline in the ORION repository. ORION does not own Human meaning or decisions.</p></article>
       <article class="boundary-card"><strong>I want to experience it.</strong><p>Open <a href="https://nexahedron.com">NEXAHEDRON</a> with one real question. You may stop at Rest without invoking ORION.</p></article>

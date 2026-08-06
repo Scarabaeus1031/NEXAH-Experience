@@ -19,6 +19,7 @@
     "precheck": "npm run generate:orion",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "check:links": "node scripts/check-built-links.mjs",
+    "deploy:ovh": "./scripts/deploy-ovh",
     "test": "node --test tests/*.test.mjs",
     "verify": "npm run generate:orion && ASTRO_TELEMETRY_DISABLED=1 astro check && node --test tests/*.test.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-built-links.mjs"
   },

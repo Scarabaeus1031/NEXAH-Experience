@@ -1,10 +1,10 @@
 ---
 import PublicationCover from "@/components/library/PublicationCover.astro";
-import { publicationByCatalogKey } from "@/data/catalog";
+import { publicationByCatalogKey, publicationByRouteSlug } from "@/data/catalog";
 import { editorialDoors } from "@/data/navigation";
 
 type Props = {
-  context?: "home" | "explore";
+  context?: "home" | "explore" | "about";
 };
 
 const { context = "explore" } = Astro.props;
@@ -12,37 +12,123 @@ const science = editorialDoors.find((door) => door.id === "foundations");
 const sciencePublications = science?.featuredKeys
   .map((key) => publicationByCatalogKey.get(key))
   .filter((publication) => publication !== undefined) ?? [];
-const publications = context === "home" ? sciencePublications.slice(0, 1) : sciencePublications;
+const publications = context === "explore" ? sciencePublications : sciencePublications.slice(0, 1);
+const primaryPublication = publications[0];
+const orientationSeries = [
+  {
+    slug: "orientation-atlas-vol-i",
+    volume: "Volume I",
+    role: "The landscape",
+    note: "Maps the research territory and the fields held in relation.",
+  },
+  {
+    slug: "orientation-design-vol-ii",
+    volume: "Volume II",
+    role: "The practice",
+    note: "Introduces methods for working with orientation in complex systems.",
+  },
+  {
+    slug: "orientation-theory-vol-iii",
+    volume: "Volume III",
+    role: "The foundations",
+    note: "Asks how finite observers navigate complexity through maps, scales and time.",
+  },
+  {
+    slug: "the-architecture-of-orientation-vol-iv",
+    volume: "Volume IV",
+    role: "The architecture",
+    note: "Brings the research landscape and its connected practices into view.",
+  },
+].map((entry) => ({
+  ...entry,
+  publication: publicationByRouteSlug.get(entry.slug),
+})).filter((entry) => entry.publication !== undefined);
 ---
 
-<article class:list={["orientation-science-entry", `orientation-science-entry--${context}`]}>
-  <div class="orientation-science-entry__covers" aria-label={context === "home" ? "Orientation Science" : "Three foundational Orientation Science works"}>
-    {publications.map((publication) => {
-      const cover = publication.localBook?.cover ?? publication.cover.src;
-      const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
-      const width = publication.localBook ? 1024 : publication.cover.width;
-      const height = publication.localBook ? 1536 : publication.cover.height;
-      return (
-        <a href={`/library/${publication.routeSlug}/`} data-carry-question title={publication.title}>
-          <PublicationCover
-            src={cover}
-            alt={coverAlt}
-            width={width}
-            height={height}
-            title={publication.title}
-            kind={publication.form.replaceAll("_", " ")}
-            loading={context === "home" ? "eager" : "lazy"}
-            referrerpolicy="no-referrer"
-          />
-        </a>
-      );
-    })}
-  </div>
-  <div class="orientation-science-entry__copy">
-    <p class="eyebrow">The scientific entrance</p>
-    <h2>Orientation Science</h2>
-    <p class="lead">How can orientation become a discipline?</p>
-    <p>Research foundations for mapping how humans and systems find direction within complexity.</p>
-    <a class="button" href="/explore/foundations/" data-carry-question>Explore <span aria-hidden="true">→</span></a>
-  </div>
-</article>
+<>
+  <article class:list={["orientation-science-entry", `orientation-science-entry--${context}`]}>
+    <div class="orientation-science-entry__covers" aria-label={context === "explore" ? "Three foundational Orientation Science works" : "Orientation Science"}>
+      {publications.map((publication) => {
+        const aboutCover = context === "about" && publication.routeSlug === "orientation-science"
+          ? "/images/library/orientation-science.jpg"
+          : null;
+        const cover = aboutCover ?? publication.localBook?.cover ?? publication.cover.src;
+        const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+        const width = aboutCover ? 800 : publication.localBook ? 1024 : publication.cover.width;
+        const height = aboutCover ? 1200 : publication.localBook ? 1536 : publication.cover.height;
+        return (
+          <a href={`/library/${publication.routeSlug}/`} data-carry-question title={publication.title}>
+            <PublicationCover
+              src={cover}
+              alt={coverAlt}
+              width={width}
+              height={height}
+              title={publication.title}
+              kind={publication.form.replaceAll("_", " ")}
+              loading={context === "home" ? "eager" : "lazy"}
+              referrerpolicy="no-referrer"
+            />
+          </a>
+        );
+      })}
+    </div>
+    <div class="orientation-science-entry__copy">
+      <p class="eyebrow">The scientific entrance</p>
+      <h2>Orientation Science</h2>
+      <p class="lead">How can orientation become a discipline?</p>
+      <p>Research foundations for mapping how humans and systems find direction within complexity.</p>
+      {context === "about" && primaryPublication ? (
+        <div class="orientation-science-entry__actions">
+          <a class="button" href={`/library/${primaryPublication.routeSlug}/`} data-carry-question>Read the prospectus <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="/explore/foundations/" data-carry-question>Explore the foundations</a>
+        </div>
+      ) : (
+        <a class="button" href="/explore/foundations/" data-carry-question>Explore <span aria-hidden="true">→</span></a>
+      )}
+    </div>
+  </article>
+
+  {context === "about" && orientationSeries.length > 0 && (
+    <section class="orientation-series" aria-labelledby="orientation-series-title">
+      <header class="orientation-series__heading">
+        <div>
+          <p class="eyebrow">The Orientation Architecture series</p>
+          <h3 id="orientation-series-title">One developing field. Four connected volumes.</h3>
+        </div>
+        <p>The sequence moves from landscape to practice, theory and architecture. Each volume is a bounded entrance into the work—not a claim that the discipline is complete.</p>
+      </header>
+      <ol class="orientation-series__grid">
+        {orientationSeries.map((entry) => {
+          const publication = entry.publication!;
+          const cover = publication.localBook?.cover ?? publication.cover.src;
+          const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
+          const width = publication.localBook ? 1024 : publication.cover.width;
+          const height = publication.localBook ? 1536 : publication.cover.height;
+          return (
+            <li>
+              <a class="orientation-series__cover" href={`/library/${publication.routeSlug}/`} data-carry-question aria-label={`Open ${publication.title}`}>
+                <PublicationCover
+                  src={cover}
+                  alt={coverAlt}
+                  width={width}
+                  height={height}
+                  title={publication.title}
+                  kind={publication.form.replaceAll("_", " ")}
+                  loading="lazy"
+                  referrerpolicy="no-referrer"
+                />
+              </a>
+              <div class="orientation-series__copy">
+                <span>{entry.volume}</span>
+                <h4><a href={`/library/${publication.routeSlug}/`} data-carry-question>{publication.title.replace(/\s+—\s+VOLUME\s+[IVX]+$/i, "")}</a></h4>
+                <strong>{entry.role}</strong>
+                <p>{entry.note}</p>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+      <a class="text-link orientation-series__entry" href="/library/orientation-atlas-vol-i/" data-carry-question>Begin with Volume I</a>
+    </section>
+  )}
+</>

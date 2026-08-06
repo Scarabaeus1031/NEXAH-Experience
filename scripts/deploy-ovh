@@ -1,0 +1,69 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="${0:A:h}"
+readonly REPOSITORY_ROOT="${SCRIPT_DIR:h}"
+readonly DIST_DIR="${REPOSITORY_ROOT}/dist"
+readonly BACKUP_ROOT="${REPOSITORY_ROOT:h}/NEXAH deployment backups"
+readonly OVH_HOST="ftp.cluster129.hosting.ovh.net"
+readonly OVH_USER="nexahdy"
+readonly KEYCHAIN_SERVICE="NEXAH OVH SFTP"
+readonly MAX_ARTIFACT_KB=80000
+
+if ! command -v lftp >/dev/null 2>&1; then
+  print -u2 "lftp is required. Install it with: brew install lftp"
+  exit 1
+fi
+
+if [[ ! -f "${DIST_DIR}/index.html" ]]; then
+  print -u2 "No deployable dist/index.html found. Run the verified build first."
+  exit 1
+fi
+
+artifact_size_kb="$(du -sk "${DIST_DIR}" | awk '{print $1}')"
+artifact_files="$(find "${DIST_DIR}" -type f | wc -l | tr -d ' ')"
+if (( artifact_size_kb > MAX_ARTIFACT_KB )); then
+  print -u2 "The artifact is ${artifact_size_kb} KB; the OVH limit is ${MAX_ARTIFACT_KB} KB."
+  exit 1
+fi
+
+deployment_password="$(
+  security find-generic-password \
+    -a "${OVH_USER}" \
+    -s "${KEYCHAIN_SERVICE}" \
+    -w
+)"
+
+run_lftp() {
+  local commands="$1"
+  printf '%s\n' \
+    "set cmd:fail-exit yes" \
+    "set net:max-retries 2" \
+    "set net:timeout 25" \
+    "set sftp:auto-confirm yes" \
+    "open -u ${OVH_USER},${deployment_password} sftp://${OVH_HOST}:22" \
+    "${commands}" \
+    "bye" |
+    lftp
+}
+
+backup_timestamp="$(date '+%Y-%m-%d_%H-%M-%S')"
+backup_dir="${BACKUP_ROOT}/${backup_timestamp}"
+mkdir -p "${backup_dir}"
+
+print "Backing up the live release to ${backup_dir}…"
+
+run_lftp "mirror --continue --no-perms --parallel=1 www \"${backup_dir}\""
+
+print "Synchronizing ${artifact_files} files (${artifact_size_kb} KB) to OVH…"
+
+run_lftp "set cmd:fail-exit no
+rm -rf www_previous
+rm -rf www_next
+set cmd:fail-exit yes
+set xfer:use-temp-file yes
+mirror --reverse --delete --continue --no-empty-dirs --no-perms --parallel=1 --verbose=1 \"${DIST_DIR}\" www"
+
+unset deployment_password
+print "NEXAH deployed. The previous release is archived at ${backup_dir}."

@@ -1,33 +1,87 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
 import { atlasCover } from "@/data/atlas-of-atlases";
-import OrientationScienceEntry from "@/components/navigation/OrientationScienceEntry.astro";
-import EcosystemMap from "@/components/about/EcosystemMap.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { publications } from "@/data/catalog";
+import { repositoryDocumentUrl } from "@/data/laboratory";
+
+const projections = [
+  {
+    id: "mercator",
+    name: "Mercator",
+    ilau: [
+      { key: "I", label: "Information preserved", items: ["Local angles", "Small-scale shapes"] },
+      { key: "L", label: "Information lost", items: ["True area", "True distance at large scale"] },
+      { key: "A", label: "Artifacts introduced", items: ["Areas inflate toward the poles", "Greenland appears oversized"] },
+      { key: "U", label: "Outside declared scope", items: ["Not suitable for area comparison"] },
+    ],
+  },
+  {
+    id: "equal-earth",
+    name: "Equal Earth",
+    ilau: [
+      { key: "I", label: "Information preserved", items: ["Relative area", "Overall continental shapes"] },
+      { key: "L", label: "Information lost", items: ["True angles", "True distances"] },
+      { key: "A", label: "Artifacts introduced", items: ["Shapes stretch slightly east–west near the edges"] },
+      { key: "U", label: "Outside declared scope", items: ["Direction", "Local measurements"] },
+    ],
+  },
+  {
+    id: "azimuthal-equidistant",
+    name: "Azimuthal Equidistant",
+    ilau: [
+      { key: "I", label: "Information preserved", items: ["Distance from the chosen center", "Direction from the center"] },
+      { key: "L", label: "Information lost", items: ["True area away from the center", "True shape away from the center"] },
+      { key: "A", label: "Artifacts introduced", items: ["Area distortion increases away from the center"] },
+      { key: "U", label: "Outside declared scope", items: ["No single center serves every whole-world task"] },
+    ],
+  },
+] as const;
 
 const entrances = [
   {
     number: "01",
-    title: "Visitor Guide",
-    description: "Start here if you are new.",
-    href: "/visitor-guide/",
+    title: "See the field",
+    description: "Enter the Atlas of Atlases through its six visual fields.",
+    href: "/atlas-of-atlases/",
   },
   {
     number: "02",
-    title: "Library",
-    description: "Browse publications.",
-    href: "/library/",
+    title: "Find a work",
+    description: "Choose a concrete first work through the Living Atlas.",
+    href: "/atlas/",
   },
   {
     number: "03",
-    title: "Laboratory",
-    description: "See how observations become research.",
+    title: "Inspect the research",
+    description: "Follow publications, evidence, methods and explicit boundaries.",
     href: "/laboratory/",
   },
+];
+
+const evidence = [
   {
-    number: "04",
-    title: "Begin Orientation",
-    description: "Bring one real question to the reference Workspace.",
-    href: "https://nexahedron.com",
+    value: publications.length.toString(),
+    title: "Publications",
+    description: "A living body of books, atlases, visual essays and field reports.",
+    href: "/library/",
+    action: "Explore the Library",
+    external: false,
+  },
+  {
+    value: "Orientation Language 1.0",
+    title: "Published semantics",
+    description: "Published semantics for bounded representations, relations and transitions.",
+    href: repositoryDocumentUrl("ORIENTATION_LANGUAGE/README.md"),
+    action: "Read the specification",
+    external: true,
+  },
+  {
+    value: "Research & Applications",
+    title: "Work in practice",
+    description: "Inspectable experiments, methods, evidence and explicit limits.",
+    href: "/laboratory/",
+    action: "Inspect the Laboratory",
+    external: false,
   },
 ];
 ---
@@ -35,46 +89,102 @@ const entrances = [
 <BaseLayout>
   <section class="home-hero">
     <div class="container home-hero__content">
-      <p class="eyebrow arrive">NEXAH — The Orientation Ecosystem</p>
-      <h1 class="arrive arrive--2">Designing Human Orientation in Complex Systems.</h1>
-      <p class="lead arrive arrive--2">NEXAH connects research, tools, maps, publications and applications while keeping provenance, limits and Human judgment visible.</p>
+      <p class="eyebrow arrive">NEXAH · Designing Human Orientation in Complex Systems.</p>
+      <h1 class="arrive arrive--2">
+        <span>One world.</span>
+        <span>Many ways of seeing.</span>
+        <span>Orientation begins between them.</span>
+      </h1>
+      <p class="lead arrive arrive--2">NEXAH develops Orientation as a discipline for navigating complex systems by making bounded representations, their purposes, evidence, limits and relations comparable—without collapsing their differences.</p>
       <div class="home-hero__actions arrive arrive--3">
-        <a class="button" href="#public-entrances">Begin with the books <span aria-hidden="true">↓</span></a>
-        <a class="text-link" href="/visitor-guide/">Open the Visitor Guide</a>
+        <a class="button" href="/atlas/">Find your way in <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="/about/">Understand NEXAH</a>
       </div>
     </div>
-    <div class="path-glow" aria-hidden="true"></div>
+    <div class="home-hero__relations" aria-hidden="true">
+      <span class="home-hero__relation-trace home-hero__relation-trace--one"></span>
+      <span class="home-hero__relation-trace home-hero__relation-trace--two"></span>
+      <span class="home-hero__relation-trace home-hero__relation-trace--three"></span>
+      <span class="home-hero__relation-trace home-hero__relation-trace--four"></span>
+      <span class="home-hero__comparison-point"></span>
+    </div>
+    <div class="home-hero__landscape" aria-hidden="true"></div>
   </section>
 
-  <section id="public-entrances" class="home-orientation-entrances section--line" aria-labelledby="home-orientation-entrances-title">
+  <section class="home-projection-example section--line" aria-labelledby="home-projection-title">
+    <div class="home-projection-field" aria-hidden="true">
+      <div class="home-projection-world">
+        <span class="home-projection-world__axis"></span>
+        <span class="home-projection-world__mass home-projection-world__mass--one"></span>
+        <span class="home-projection-world__mass home-projection-world__mass--two"></span>
+        <span class="home-projection-world__mass home-projection-world__mass--three"></span>
+        <span class="home-projection-world__register"></span>
+        <div class="home-projection-object" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </div>
+      <div class="home-projection-beams">
+        <span class="home-projection-beam home-projection-beam--mercator"></span>
+        <span class="home-projection-beam home-projection-beam--equal-earth"></span>
+        <span class="home-projection-beam home-projection-beam--azimuthal-equidistant"></span>
+      </div>
+    </div>
     <div class="container">
-      <header class="home-orientation-entrances__header">
-        <p class="eyebrow">Two ways into the ecosystem</p>
-        <h2 id="home-orientation-entrances-title">Begin with a research project or a research programme.</h2>
+      <header class="home-projection-example__header">
+        <p class="eyebrow">A concrete example</p>
+        <div>
+          <h2 id="home-projection-title">One world. Different maps.</h2>
+          <p>Every representation preserves some information, loses other information, introduces representation-specific artifacts, and leaves some questions outside its declared scope.</p>
+        </div>
       </header>
-      <div class="home-orientation-entrances__grid">
-        <article class="home-atlas-feature" aria-labelledby="home-atlas-title">
-          <figure>
-            <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" loading="eager" />
-          </figure>
-          <div>
-            <p class="eyebrow">The visual entrance</p>
-            <h2 id="home-atlas-title">THE ATLAS OF ATLASES</h2>
-            <p class="lead">A conceptual map of relationships between knowledge systems, representations and reference spaces.</p>
-            <p>Enter one core research project within the wider NEXAH ecosystem.</p>
-            <a class="button" href="/atlas-of-atlases/">Enter the Atlas <span aria-hidden="true">→</span></a>
-          </div>
-        </article>
-        <OrientationScienceEntry context="home" />
+
+      <div class="home-projection-grid" aria-label="Three map projections compared">
+        {projections.map((projection) => (
+          <article class={`home-projection-card home-projection-card--${projection.id}`} tabindex="0">
+            <div class={`home-projection-card__mark home-projection-card__mark--${projection.id}`} aria-hidden="true">
+              <span></span><span></span><span></span>
+              <div class="home-projection-record">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+            <h3>{projection.name}</h3>
+            <dl>
+              {projection.ilau.map((facet) => (
+                <div
+                  class={`home-projection-facet home-projection-facet--${facet.key.toLowerCase()}`}
+                  role="group"
+                  tabindex="0"
+                  aria-labelledby={`${projection.id}-${facet.key.toLowerCase()}-label`}
+                  aria-describedby={`${projection.id}-${facet.key.toLowerCase()}-details`}
+                >
+                  <dt id={`${projection.id}-${facet.key.toLowerCase()}-label`}><span class="home-projection-facet__key">{facet.key}</span>{facet.label}</dt>
+                  <dd id={`${projection.id}-${facet.key.toLowerCase()}-details`}>
+                    <ul>
+                      {facet.items.map((item) => <li>{item}</li>)}
+                    </ul>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </article>
+        ))}
+      </div>
+
+      <div class="home-projection-example__meaning">
+        <p class="home-projection-example__thesis">No map is the whole world. Orientation begins by making these differences explicit instead of collapsing them.</p>
+        <div>
+          <p>Every representation is built for a purpose. Comparing what it preserves, loses, introduces and leaves outside its declared scope makes that purpose—and its limits—visible.</p>
+          <p class="home-projection-example__boundary">Comparison is not identity. Orientation supports Human judgment; it does not replace it.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="home-entrances section--line" aria-labelledby="home-entrances-title">
+  <section id="public-entrances" class="home-entrances section--line" aria-labelledby="home-entrances-title">
     <div class="container">
       <header class="home-entrances__header">
-        <p class="eyebrow">A place to begin</p>
-        <h2 id="home-entrances-title">Choose where you would like to begin.</h2>
+        <p class="eyebrow">Three doors</p>
+        <h2 id="home-entrances-title">Begin with what draws you in.</h2>
       </header>
       <nav class="home-entrance-grid" aria-label="Ways to begin">
         {entrances.map((entrance) => (
@@ -89,26 +199,74 @@ const entrances = [
     </div>
   </section>
 
-  <section class="container section ecosystem-section" aria-labelledby="home-ecosystem-title">
-    <div class="ecosystem-section__intro">
-      <div><p class="eyebrow">You are at the public home</p><h2 id="home-ecosystem-title">Know where you are and where to continue.</h2></div>
-      <p>Each public place owns one part of the ecosystem. The Visitor Guide contains the canonical Version 1 map.</p>
+  <section class="home-atlas-depth section--line" aria-labelledby="home-atlas-depth-title">
+    <div class="container home-atlas-depth__inner">
+      <figure>
+        <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" loading="lazy" />
+      </figure>
+      <div>
+        <p class="eyebrow">The visual study</p>
+        <h2 id="home-atlas-depth-title">The Atlas of Atlases</h2>
+        <p class="lead">The Atlas of Atlases is a core NEXAH research project and its principal visual study of orientation between maps.</p>
+        <p>Across six visual fields, it places different cartographic and knowledge languages in relation and asks how representations select, preserve and connect structures. It invites comparison; recurring forms are not treated as physically or mathematically identical.</p>
+        <a class="button" href="/atlas-of-atlases/">Explore the Atlas of Atlases <span aria-hidden="true">→</span></a>
+      </div>
     </div>
-    <EcosystemMap />
-    <p class="ecosystem-section__note"><a href="/visitor-guide/">Open the full Visitor Guide</a> to choose a path by intention.</p>
   </section>
 
-  <section class="home-deeper section--line" aria-labelledby="home-deeper-title">
-    <div class="container home-deeper__inner">
-      <header>
-        <p class="eyebrow">Continue into the work</p>
-        <h2 id="home-deeper-title">Read, observe, or inspect the research.</h2>
+  <section class="home-evidence section--line" aria-labelledby="home-evidence-title">
+    <div class="container">
+      <header class="home-evidence__header">
+        <div>
+          <p class="eyebrow">Evidence that the work exists</p>
+          <h2 id="home-evidence-title">An idea made inspectable.</h2>
+        </div>
+        <p>NEXAH is not only an idea. A substantial, inspectable body of work already exists.</p>
       </header>
-      <nav aria-label="Deeper routes">
-        <a href="/library/"><span>Library</span><small>Books, maps and publications</small><b aria-hidden="true">→</b></a>
-        <a href="/laboratory/"><span>Laboratory</span><small>How observations become research</small><b aria-hidden="true">→</b></a>
-        <a href="https://github.com/Scarabaeus1031/NEXAH" target="_blank" rel="noopener noreferrer"><span>Research &amp; Framework</span><small>The scientific record and implementation</small><b aria-hidden="true">↗</b></a>
-      </nav>
+      <div class="home-evidence-grid">
+        {evidence.map((item) => (
+          <article class="home-evidence-card">
+            <p class="home-evidence-card__value">{item.value}</p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+            <a
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+            >
+              {item.action} <span aria-hidden="true">{item.external ? "↗" : "→"}</span>
+            </a>
+          </article>
+        ))}
+      </div>
+      <p class="home-evidence__architecture">
+        <a href="/visitor-guide/#map-title">Understand how NEXAH is organized · Ecosystem Map <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+
+  <section class="home-invitation section--line" aria-labelledby="home-invitation-title">
+    <div class="container home-invitation__inner">
+      <header>
+        <p class="eyebrow">Your question can be the beginning</p>
+        <h2 id="home-invitation-title">
+          <span>Bring a question.</span>
+          <span>Follow a map.</span>
+          <span>Find another way of seeing.</span>
+        </h2>
+      </header>
+      <div class="home-invitation__copy">
+        <p>NEXAH does not promise a final answer. It works to make the field, the available paths and the boundaries of knowledge more visible.</p>
+        <nav class="home-invitation__actions" aria-label="Continue exploring NEXAH">
+          <a class="button" href="/atlas/">Start Here <span aria-hidden="true">→</span></a>
+          <a class="button button--quiet" href="/library/">Explore the Library</a>
+          <a class="text-link" href="/about/">About NEXAH</a>
+        </nav>
+        <a class="home-experiment-link" href="https://nexahedron.com" target="_blank" rel="noopener noreferrer">
+          <small>Experimental access</small>
+          <span>Try one Human-facing session in NEXAHEDRON <b aria-hidden="true">↗</b></span>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
