@@ -24,9 +24,9 @@
     "verify": "npm run generate:orion && ASTRO_TELEMETRY_DISABLED=1 astro check && node --test tests/*.test.mjs && ASTRO_TELEMETRY_DISABLED=1 astro build && node scripts/check-built-links.mjs"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.10",
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "^7.1.1",
+    "astro": "^7.2.0",
     "typescript": "^6.0.3"
   }
 }
