@@ -9,6 +9,14 @@ On 1 August 2026, [`https://nexah.de/`](https://nexah.de/) and the public
 This verifies reachability and visible presentation only. The deployed source
 revision, artifact manifest and rollback identity remain unverified.
 
+On 13 August 2026, a read-only recheck confirmed that
+[`https://nexah.de/`](https://nexah.de/), the public
+[`Visitor Guide`](https://nexah.de/visitor-guide/) and
+[`https://nexahedron.com/`](https://nexahedron.com/) remained reachable. The
+visible pages did not expose a 40-character source commit SHA. This confirms
+public availability only: the deployed source revision, artifact manifest and
+rollback identity remain **unknown**.
+
 > Original pre-deployment status, 22 July 2026: **Locally reproducible;
 > external publication and deployment remain pending.**
 
