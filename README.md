@@ -14,10 +14,12 @@ This repository owns the public and intellectual home of the NEXAH Orientation E
 
 It does not own the scientific framework, ORION’s certified deterministic Core, the NEXAHEDRON reference Workspace or Human interpretation. Those responsibilities remain with their named ecosystem chapters.
 
-**Publication status:** `nexah.de` is publicly deployed. This repository
-revision remains a Version 1 release candidate until its exact commit is
-verified, published and deployed; no stable versioned release has been
-declared.
+**Publication status:** `nexah.de` is publicly deployed and exposes the
+Version 1 public identity, Visitor Guide, Library, Living Atlas, Laboratory and
+ecosystem map represented in this source tree. The exact production commit has
+not yet been rebound to this README through a dated deployment receipt, so the
+repository remains a Version 1 release candidate and no stable versioned
+Experience release is declared here.
 
 This is an independent application repository. It does not belong to ORION and
 does not redefine the frozen ORION v1 Architecture Baseline.
@@ -111,8 +113,8 @@ dependency.
 - Community conduct: [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md)
 
 The approved public repository identity is `NEXAH-Experience`. The public site
-is live; deployment of this exact release-candidate revision and a stable
-release declaration remain owner actions.
+is live. Binding the exact deployed commit through a dated production receipt,
+and any later stable release declaration, remain separate Owner actions.
 
 ## Licensing
 
