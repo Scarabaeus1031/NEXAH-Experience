@@ -12,6 +12,17 @@ This repository owns the public and intellectual home of the NEXAH Orientation E
 
 **Start here:** [Visitor Guide](https://nexah.de/visitor-guide/) · [Try NEXAHEDRON](https://nexahedron.com) · [Research & Framework](https://github.com/Scarabaeus1031/NEXAH)
 
+## Three perspectives
+
+| Enter through… | Continue with… |
+|---|---|
+| **Human** — orientation, interpretation and responsible choice | [Visitor Guide](https://nexah.de/visitor-guide/) and [NEXAHEDRON](https://nexahedron.com) |
+| **Science** — questions, evidence, results and limits | [NEXAH Science Lab](https://github.com/Scarabaeus1031/NEXAH-Science-Lab) |
+| **Builder** — language, contracts, implementations and applications | [NEXAH Research & Framework](https://github.com/Scarabaeus1031/NEXAH) |
+
+These are complementary entrances into one ecosystem, not competing
+definitions of NEXAH.
+
 It does not own the scientific framework, ORION’s certified deterministic Core, the NEXAHEDRON reference Workspace or Human interpretation. Those responsibilities remain with their named ecosystem chapters.
 
 **Publication status:** `nexah.de` is publicly deployed and exposes the
