@@ -1,0 +1,71 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const movements = [
+  ["01", "Source", "Name the thing, record or situation that is being viewed."],
+  ["02", "Aperture", "Declare the position, question and boundary that select the view."],
+  ["03", "Difference", "Keep what is preserved, lost, introduced and unavailable distinct."],
+  ["04", "Return", "Bring the comparison back to Human judgment instead of automating meaning."],
+] as const;
+---
+
+<BaseLayout
+  title="How NEXAH Works — From Representation to Human Return"
+  description="A concise public bridge from source and aperture through explicit difference to Human Return."
+>
+  <header class="method-hero container">
+    <div>
+      <p class="eyebrow">NEXAH · Public method bridge</p>
+      <h1>From representation<br />to Human Return.</h1>
+    </div>
+    <p class="lead">NEXAH does not ask one view to become the whole world. It makes the source, the chosen aperture and the resulting differences inspectable—then returns the decision to the Human.</p>
+  </header>
+
+  <section class="method-sequence container" aria-labelledby="method-sequence-title">
+    <header>
+      <p class="eyebrow">One bounded movement</p>
+      <h2 id="method-sequence-title">See how the view was made.</h2>
+    </header>
+    <ol>
+      {movements.map(([number, title, description]) => (
+        <li>
+          <span>{number}</span>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="method-boundary container">
+    <div>
+      <p class="eyebrow">The boundary</p>
+      <h2>Comparison is not identity.</h2>
+    </div>
+    <div>
+      <p>A useful representation can be exact within its declared task and still remain incomplete outside it. Similar images do not establish a common object, mechanism or scientific claim.</p>
+      <p><strong>NEXAH supports orientation.</strong> It does not replace evidence, specialist authority or Human responsibility.</p>
+      <nav aria-label="Continue from the public method bridge">
+        <a class="button" href="/laboratory/roedelheim-observatory/">Enter the Rödelheim Observatory</a>
+        <a class="text-link" href="/about/">About NEXAH →</a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .method-hero,.method-boundary{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,10vw,10rem)}
+  .method-hero h1{margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(3.6rem,8vw,9rem);font-weight:500;letter-spacing:-.055em;line-height:.86}
+  .method-hero .lead{align-self:end;max-width:38rem}
+  .method-sequence{padding-block:clamp(4rem,8vw,8rem);border-block:1px solid var(--color-line)}
+  .method-sequence h2,.method-boundary h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(2.6rem,5vw,5.6rem);font-weight:500;line-height:.94}
+  .method-sequence ol{display:grid;grid-template-columns:repeat(4,1fr);margin:3.5rem 0 0;padding:0;list-style:none}
+  .method-sequence li{min-height:18rem;padding:1.25rem;border:1px solid var(--color-line);border-right:0}
+  .method-sequence li:last-child{border-right:1px solid var(--color-line)}
+  .method-sequence span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
+  .method-sequence h3{margin:5rem 0 .8rem;font-family:var(--font-display);font-size:2rem}
+  .method-sequence p,.method-boundary p{line-height:1.65}
+  .method-boundary nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
+  @media(max-width:800px){.method-hero,.method-boundary{grid-template-columns:1fr}.method-sequence ol{grid-template-columns:1fr 1fr}.method-sequence li:nth-child(2){border-right:1px solid var(--color-line)}.method-sequence h3{margin-top:3rem}}
+  @media(max-width:520px){.method-sequence ol{grid-template-columns:1fr}.method-sequence li{border-right:1px solid var(--color-line);border-bottom:0}.method-sequence li:last-child{border-bottom:1px solid var(--color-line)}}
+</style>
