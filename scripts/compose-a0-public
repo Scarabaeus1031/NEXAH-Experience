@@ -1,0 +1,31 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+readonly SCRIPT_DIR="${0:A:h}"
+readonly REPOSITORY_ROOT="${SCRIPT_DIR:h}"
+readonly DIST_DIR="${REPOSITORY_ROOT}/dist"
+readonly A0_EXPORT_DIR="${1:-}"
+
+if [[ -z "${A0_EXPORT_DIR}" ]]; then
+  print -u2 "Usage: scripts/compose-a0-public /absolute/path/to/verified-a0-export"
+  exit 1
+fi
+
+if [[ ! -f "${DIST_DIR}/index.html" ]]; then
+  print -u2 "Experience dist is missing. Run npm run build first."
+  exit 1
+fi
+
+if [[ ! -f "${A0_EXPORT_DIR}/index.html" || ! -f "${A0_EXPORT_DIR}/.a0-public-export.json" ]]; then
+  print -u2 "The supplied directory is not a verified A0 public export."
+  exit 1
+fi
+
+# Experience owns Library, Legal and general secondary routes. The verified A0
+# export owns the root/Science projection. Overlay keeps both without copying
+# secondary-route source into the A0 repository.
+cp -R "${A0_EXPORT_DIR}/." "${DIST_DIR}/"
+
+print "Composed Experience secondary routes with the verified A0 root projection."
+print "Artifact: ${DIST_DIR}"
