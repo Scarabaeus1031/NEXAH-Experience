@@ -21,6 +21,15 @@ if [[ ! -f "${DIST_DIR}/index.html" ]]; then
   exit 1
 fi
 
+if [[ -f "${DIST_DIR}/.a0-public-export.json" ]]; then
+  if [[ -z "${NEXAH_A0_TEST_SCRIPT:-}" || ! -f "${NEXAH_A0_TEST_SCRIPT}" ]]; then
+    print -u2 "A0 public export detected. Set NEXAH_A0_TEST_SCRIPT to the tracked a0-public-export-tests.cjs before deployment."
+    exit 1
+  fi
+  print "Verifying the exact A0 public artifact before upload…"
+  node "${NEXAH_A0_TEST_SCRIPT}" "${DIST_DIR}"
+fi
+
 artifact_size_kb="$(du -sk "${DIST_DIR}" | awk '{print $1}')"
 artifact_files="$(find "${DIST_DIR}" -type f | wc -l | tr -d ' ')"
 if (( artifact_size_kb > MAX_ARTIFACT_KB )); then
