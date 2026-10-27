@@ -1,0 +1,608 @@
+{
+  "schemaVersion": "0.1",
+  "intakeDate": "2026-10-09",
+  "source": {
+    "platform": "Are.na",
+    "channelId": 5528929,
+    "slug": "the-rodelhaeim-observatory",
+    "title": "THE RØDELHÆIM OBSERVATORY",
+    "canonicalUrl": "https://www.are.na/nexah-scarabaeus1031/the-rodelhaeim-observatory",
+    "recordedLength": 73,
+    "channelPositionDirection": "ascending",
+    "publicReadingDirection": "descending",
+    "htmlScreenshotAppendix": {
+      "readingIndexStart": 62,
+      "readingIndexEnd": 73,
+      "arenaPositionStart": 12,
+      "arenaPositionEnd": 1,
+      "blockCount": 12,
+      "note": "Screenshots of existing HTML instruments; interface records, not additional standalone visual chapters."
+    }
+  },
+  "blocks": [
+    {
+      "readingIndex": 1,
+      "arenaPosition": 73,
+      "blockId": 49236566,
+      "class": "Image",
+      "title": "RÖDELHEIM OBSERVATORY",
+      "canonicalUrl": "https://www.are.na/block/49236566"
+    },
+    {
+      "readingIndex": 2,
+      "arenaPosition": 72,
+      "blockId": 49236492,
+      "class": "Image",
+      "title": "FOREWORD",
+      "canonicalUrl": "https://www.are.na/block/49236492"
+    },
+    {
+      "readingIndex": 3,
+      "arenaPosition": 71,
+      "blockId": 49237302,
+      "class": "Image",
+      "title": "9da6eb71-2182-459b-aa12-74e54f352dd6",
+      "canonicalUrl": "https://www.are.na/block/49237302"
+    },
+    {
+      "readingIndex": 4,
+      "arenaPosition": 70,
+      "blockId": 49233216,
+      "class": "Image",
+      "title": "Rödlehiem Observatory: Local Horizon Map",
+      "canonicalUrl": "https://www.are.na/block/49233216"
+    },
+    {
+      "readingIndex": 5,
+      "arenaPosition": 69,
+      "blockId": 49233214,
+      "class": "Image",
+      "title": "Rödelheim Observatory solar horizon grid",
+      "canonicalUrl": "https://www.are.na/block/49233214"
+    },
+    {
+      "readingIndex": 6,
+      "arenaPosition": 68,
+      "blockId": 49233217,
+      "class": "Image",
+      "title": "Rödelheim Observatory lunar standstill grid",
+      "canonicalUrl": "https://www.are.na/block/49233217"
+    },
+    {
+      "readingIndex": 7,
+      "arenaPosition": 67,
+      "blockId": 49233223,
+      "class": "Image",
+      "title": "Two clocks, One Horizon",
+      "canonicalUrl": "https://www.are.na/block/49233223"
+    },
+    {
+      "readingIndex": 8,
+      "arenaPosition": 66,
+      "blockId": 49233215,
+      "class": "Image",
+      "title": "Two Maps, One Horizon",
+      "canonicalUrl": "https://www.are.na/block/49233215"
+    },
+    {
+      "readingIndex": 9,
+      "arenaPosition": 65,
+      "blockId": 49233222,
+      "class": "Image",
+      "title": "Lunar plates: time as geometry",
+      "canonicalUrl": "https://www.are.na/block/49233222"
+    },
+    {
+      "readingIndex": 10,
+      "arenaPosition": 64,
+      "blockId": 49233218,
+      "class": "Image",
+      "title": "Three celestial wheels under one sky",
+      "canonicalUrl": "https://www.are.na/block/49233218"
+    },
+    {
+      "readingIndex": 11,
+      "arenaPosition": 63,
+      "blockId": 49233220,
+      "class": "Image",
+      "title": "Venus's Fivefold Return Wheel",
+      "canonicalUrl": "https://www.are.na/block/49233220"
+    },
+    {
+      "readingIndex": 12,
+      "arenaPosition": 62,
+      "blockId": 49233213,
+      "class": "Image",
+      "title": "09_ROEDELHEIM_JUPITER_MOON_RHYTHM_SCORE",
+      "canonicalUrl": "https://www.are.na/block/49233213"
+    },
+    {
+      "readingIndex": 13,
+      "arenaPosition": 61,
+      "blockId": 49233224,
+      "class": "Image",
+      "title": "5 nested motions of the celestial gyroscope",
+      "canonicalUrl": "https://www.are.na/block/49233224"
+    },
+    {
+      "readingIndex": 14,
+      "arenaPosition": 60,
+      "blockId": 49233226,
+      "class": "Image",
+      "title": "Corrected lunar-ecliptic node alignment",
+      "canonicalUrl": "https://www.are.na/block/49233226"
+    },
+    {
+      "readingIndex": 15,
+      "arenaPosition": 59,
+      "blockId": 49233234,
+      "class": "Image",
+      "title": "Five views of one celestial gyroscope",
+      "canonicalUrl": "https://www.are.na/block/49233234"
+    },
+    {
+      "readingIndex": 16,
+      "arenaPosition": 58,
+      "blockId": 49233231,
+      "class": "Image",
+      "title": "5 nested clocks over Rödelheim",
+      "canonicalUrl": "https://www.are.na/block/49233231"
+    },
+    {
+      "readingIndex": 17,
+      "arenaPosition": 57,
+      "blockId": 49233227,
+      "class": "Image",
+      "title": "5 Rhythms, One present sky",
+      "canonicalUrl": "https://www.are.na/block/49233227"
+    },
+    {
+      "readingIndex": 18,
+      "arenaPosition": 56,
+      "blockId": 49233225,
+      "class": "Image",
+      "title": "Solar System Orientation Atlas",
+      "canonicalUrl": "https://www.are.na/block/49233225"
+    },
+    {
+      "readingIndex": 19,
+      "arenaPosition": 55,
+      "blockId": 49233228,
+      "class": "Image",
+      "title": "Outer Pearl Continuum: Orbital Cartography",
+      "canonicalUrl": "https://www.are.na/block/49233228"
+    },
+    {
+      "readingIndex": 20,
+      "arenaPosition": 54,
+      "blockId": 49236493,
+      "class": "Image",
+      "title": "FROM ATLAS TO INSTRUMENT",
+      "canonicalUrl": "https://www.are.na/block/49236493"
+    },
+    {
+      "readingIndex": 21,
+      "arenaPosition": 53,
+      "blockId": 49237395,
+      "class": "Image",
+      "title": "INDEX II",
+      "canonicalUrl": "https://www.are.na/block/49237395"
+    },
+    {
+      "readingIndex": 22,
+      "arenaPosition": 52,
+      "blockId": 49233235,
+      "class": "Image",
+      "title": "Rödelheim stellar reference layer",
+      "canonicalUrl": "https://www.are.na/block/49233235"
+    },
+    {
+      "readingIndex": 23,
+      "arenaPosition": 51,
+      "blockId": 49238216,
+      "class": "Image",
+      "title": "Antique sky atlas: Polaris beyond zenith",
+      "canonicalUrl": "https://www.are.na/block/49238216"
+    },
+    {
+      "readingIndex": 24,
+      "arenaPosition": 50,
+      "blockId": 49237727,
+      "class": "Image",
+      "title": "The Polaris precession machine",
+      "canonicalUrl": "https://www.are.na/block/49237727"
+    },
+    {
+      "readingIndex": 25,
+      "arenaPosition": 49,
+      "blockId": 49233229,
+      "class": "Image",
+      "title": "Precession and the Changing Celestial Pole",
+      "canonicalUrl": "https://www.are.na/block/49233229"
+    },
+    {
+      "readingIndex": 26,
+      "arenaPosition": 48,
+      "blockId": 49237725,
+      "class": "Image",
+      "title": "Axial precession machine: 5+1 motion grammar",
+      "canonicalUrl": "https://www.are.na/block/49237725"
+    },
+    {
+      "readingIndex": 27,
+      "arenaPosition": 47,
+      "blockId": 49233233,
+      "class": "Image",
+      "title": "Earth axis and lunar time",
+      "canonicalUrl": "https://www.are.na/block/49233233"
+    },
+    {
+      "readingIndex": 28,
+      "arenaPosition": 46,
+      "blockId": 49233232,
+      "class": "Image",
+      "title": "From bound matter to visible pattern",
+      "canonicalUrl": "https://www.are.na/block/49233232"
+    },
+    {
+      "readingIndex": 29,
+      "arenaPosition": 45,
+      "blockId": 49233212,
+      "class": "Image",
+      "title": "EVERYTHING, ORIENTED",
+      "canonicalUrl": "https://www.are.na/block/49233212"
+    },
+    {
+      "readingIndex": 30,
+      "arenaPosition": 44,
+      "blockId": 49233190,
+      "class": "Image",
+      "title": "The Lunar Phase Hinge",
+      "canonicalUrl": "https://www.are.na/block/49233190"
+    },
+    {
+      "readingIndex": 31,
+      "arenaPosition": 43,
+      "blockId": 49238417,
+      "class": "Image",
+      "title": "The Phase Hinge: Corrected lunar orbit",
+      "canonicalUrl": "https://www.are.na/block/49238417"
+    },
+    {
+      "readingIndex": 32,
+      "arenaPosition": 42,
+      "blockId": 49238580,
+      "class": "Image",
+      "title": "The Traced gyroscope: four retained paths",
+      "canonicalUrl": "https://www.are.na/block/49238580"
+    },
+    {
+      "readingIndex": 33,
+      "arenaPosition": 41,
+      "blockId": 49238552,
+      "class": "Image",
+      "title": "The Traced Gyroscope State Schemas",
+      "canonicalUrl": "https://www.are.na/block/49238552"
+    },
+    {
+      "readingIndex": 34,
+      "arenaPosition": 40,
+      "blockId": 49233186,
+      "class": "Image",
+      "title": "The appearance curtain: Moonlight becomes local color",
+      "canonicalUrl": "https://www.are.na/block/49233186"
+    },
+    {
+      "readingIndex": 35,
+      "arenaPosition": 39,
+      "blockId": 49233207,
+      "class": "Image",
+      "title": "Three light fields, one local axis",
+      "canonicalUrl": "https://www.are.na/block/49233207"
+    },
+    {
+      "readingIndex": 36,
+      "arenaPosition": 38,
+      "blockId": 49233183,
+      "class": "Image",
+      "title": "THREE SHADOWS",
+      "canonicalUrl": "https://www.are.na/block/49233183"
+    },
+    {
+      "readingIndex": 37,
+      "arenaPosition": 37,
+      "blockId": 49233184,
+      "class": "Image",
+      "title": "The lunar figure eight",
+      "canonicalUrl": "https://www.are.na/block/49233184"
+    },
+    {
+      "readingIndex": 38,
+      "arenaPosition": 36,
+      "blockId": 49238758,
+      "class": "Image",
+      "title": "Orbital Comparison: Different Reference Frames",
+      "canonicalUrl": "https://www.are.na/block/49238758"
+    },
+    {
+      "readingIndex": 39,
+      "arenaPosition": 35,
+      "blockId": 49233188,
+      "class": "Image",
+      "title": "THE OUTER HINGE",
+      "canonicalUrl": "https://www.are.na/block/49233188"
+    },
+    {
+      "readingIndex": 40,
+      "arenaPosition": 34,
+      "blockId": 49233192,
+      "class": "Image",
+      "title": "PLANETARY THREAD LOOM",
+      "canonicalUrl": "https://www.are.na/block/49233192"
+    },
+    {
+      "readingIndex": 41,
+      "arenaPosition": 33,
+      "blockId": 49233210,
+      "class": "Image",
+      "title": "THE MOVING BLACK CUT",
+      "canonicalUrl": "https://www.are.na/block/49233210"
+    },
+    {
+      "readingIndex": 42,
+      "arenaPosition": 32,
+      "blockId": 49233208,
+      "class": "Image",
+      "title": "5 meanings of one celestial line",
+      "canonicalUrl": "https://www.are.na/block/49233208"
+    },
+    {
+      "readingIndex": 43,
+      "arenaPosition": 31,
+      "blockId": 49238916,
+      "class": "Image",
+      "title": "Retained lunar trace through masked interval",
+      "canonicalUrl": "https://www.are.na/block/49238916"
+    },
+    {
+      "readingIndex": 44,
+      "arenaPosition": 30,
+      "blockId": 49233175,
+      "class": "Image",
+      "title": "Rödelheim Observatory: The final passage",
+      "canonicalUrl": "https://www.are.na/block/49233175"
+    },
+    {
+      "readingIndex": 45,
+      "arenaPosition": 29,
+      "blockId": 49233178,
+      "class": "Image",
+      "title": "RECORD - PLAY",
+      "canonicalUrl": "https://www.are.na/block/49233178"
+    },
+    {
+      "readingIndex": 46,
+      "arenaPosition": 28,
+      "blockId": 49233177,
+      "class": "Image",
+      "title": "THE CELESTIAL SCORE",
+      "canonicalUrl": "https://www.are.na/block/49233177"
+    },
+    {
+      "readingIndex": 47,
+      "arenaPosition": 27,
+      "blockId": 49233176,
+      "class": "Image",
+      "title": "Rödelheim Observatory: From Symbol to instrument",
+      "canonicalUrl": "https://www.are.na/block/49233176"
+    },
+    {
+      "readingIndex": 48,
+      "arenaPosition": 26,
+      "blockId": 49233185,
+      "class": "Image",
+      "title": "THE BLACK CUT",
+      "canonicalUrl": "https://www.are.na/block/49233185"
+    },
+    {
+      "readingIndex": 49,
+      "arenaPosition": 25,
+      "blockId": 49233209,
+      "class": "Image",
+      "title": "THE COMPLEMENTARY CUT",
+      "canonicalUrl": "https://www.are.na/block/49233209"
+    },
+    {
+      "readingIndex": 50,
+      "arenaPosition": 24,
+      "blockId": 49233174,
+      "class": "Image",
+      "title": "The Thread Loom Projection Test",
+      "canonicalUrl": "https://www.are.na/block/49233174"
+    },
+    {
+      "readingIndex": 51,
+      "arenaPosition": 23,
+      "blockId": 49233173,
+      "class": "Image",
+      "title": "from visual grammar to testable instrument",
+      "canonicalUrl": "https://www.are.na/block/49233173"
+    },
+    {
+      "readingIndex": 52,
+      "arenaPosition": 22,
+      "blockId": 49239771,
+      "class": "Image",
+      "title": "From field to map: the observer cut",
+      "canonicalUrl": "https://www.are.na/block/49239771"
+    },
+    {
+      "readingIndex": 53,
+      "arenaPosition": 21,
+      "blockId": 49233191,
+      "class": "Image",
+      "title": "THE CRITICAL LINE",
+      "canonicalUrl": "https://www.are.na/block/49233191"
+    },
+    {
+      "readingIndex": 54,
+      "arenaPosition": 20,
+      "blockId": 49240064,
+      "class": "Image",
+      "title": "image",
+      "canonicalUrl": "https://www.are.na/block/49240064"
+    },
+    {
+      "readingIndex": 55,
+      "arenaPosition": 19,
+      "blockId": 49240357,
+      "class": "Image",
+      "title": "image",
+      "canonicalUrl": "https://www.are.na/block/49240357"
+    },
+    {
+      "readingIndex": 56,
+      "arenaPosition": 18,
+      "blockId": 49240558,
+      "class": "Image",
+      "title": "image",
+      "canonicalUrl": "https://www.are.na/block/49240558"
+    },
+    {
+      "readingIndex": 57,
+      "arenaPosition": 17,
+      "blockId": 49241669,
+      "class": "Image",
+      "title": "image",
+      "canonicalUrl": "https://www.are.na/block/49241669"
+    },
+    {
+      "readingIndex": 58,
+      "arenaPosition": 16,
+      "blockId": 49242615,
+      "class": "Image",
+      "title": "THE FIVE MOTIONS + ONE",
+      "canonicalUrl": "https://www.are.na/block/49242615"
+    },
+    {
+      "readingIndex": 59,
+      "arenaPosition": 15,
+      "blockId": 49242631,
+      "class": "Image",
+      "title": "from Aperture to Pearl",
+      "canonicalUrl": "https://www.are.na/block/49242631"
+    },
+    {
+      "readingIndex": 60,
+      "arenaPosition": 14,
+      "blockId": 49244120,
+      "class": "Image",
+      "title": "image",
+      "canonicalUrl": "https://www.are.na/block/49244120"
+    },
+    {
+      "readingIndex": 61,
+      "arenaPosition": 13,
+      "blockId": 49242788,
+      "class": "Image",
+      "title": "Blue Pearl, Quiet Moon, Eternal World",
+      "canonicalUrl": "https://www.are.na/block/49242788"
+    },
+    {
+      "readingIndex": 62,
+      "arenaPosition": 12,
+      "blockId": 49233197,
+      "class": "Image",
+      "title": "LAB Rhythm Score",
+      "canonicalUrl": "https://www.are.na/block/49233197"
+    },
+    {
+      "readingIndex": 63,
+      "arenaPosition": 11,
+      "blockId": 49233198,
+      "class": "Image",
+      "title": "LAB normalized phase score",
+      "canonicalUrl": "https://www.are.na/block/49233198"
+    },
+    {
+      "readingIndex": 64,
+      "arenaPosition": 10,
+      "blockId": 49233199,
+      "class": "Image",
+      "title": "LAB 5 Rhythms",
+      "canonicalUrl": "https://www.are.na/block/49233199"
+    },
+    {
+      "readingIndex": 65,
+      "arenaPosition": 9,
+      "blockId": 49233219,
+      "class": "Image",
+      "title": "LAB FULL GYRO",
+      "canonicalUrl": "https://www.are.na/block/49233219"
+    },
+    {
+      "readingIndex": 66,
+      "arenaPosition": 8,
+      "blockId": 49233194,
+      "class": "Image",
+      "title": "LAB Full gyro",
+      "canonicalUrl": "https://www.are.na/block/49233194"
+    },
+    {
+      "readingIndex": 67,
+      "arenaPosition": 7,
+      "blockId": 49233195,
+      "class": "Image",
+      "title": "Lab 25.772y",
+      "canonicalUrl": "https://www.are.na/block/49233195"
+    },
+    {
+      "readingIndex": 68,
+      "arenaPosition": 6,
+      "blockId": 49233196,
+      "class": "Image",
+      "title": "Lab 5 Views",
+      "canonicalUrl": "https://www.are.na/block/49233196"
+    },
+    {
+      "readingIndex": 69,
+      "arenaPosition": 5,
+      "blockId": 49233171,
+      "class": "Image",
+      "title": "THREAD LOOM - LAB 04",
+      "canonicalUrl": "https://www.are.na/block/49233171"
+    },
+    {
+      "readingIndex": 70,
+      "arenaPosition": 4,
+      "blockId": 49233206,
+      "class": "Image",
+      "title": "LAB 0.2 THE DOUBLE CUT",
+      "canonicalUrl": "https://www.are.na/block/49233206"
+    },
+    {
+      "readingIndex": 71,
+      "arenaPosition": 3,
+      "blockId": 49233204,
+      "class": "Image",
+      "title": "LAB 0.2 THE DOUBLE CUT",
+      "canonicalUrl": "https://www.are.na/block/49233204"
+    },
+    {
+      "readingIndex": 72,
+      "arenaPosition": 2,
+      "blockId": 49233203,
+      "class": "Image",
+      "title": "LAB 0.2 THE DOUBLE CUT",
+      "canonicalUrl": "https://www.are.na/block/49233203"
+    },
+    {
+      "readingIndex": 73,
+      "arenaPosition": 1,
+      "blockId": 49233202,
+      "class": "Image",
+      "title": "LAB 0.2 THE DOUBLE CUT",
+      "canonicalUrl": "https://www.are.na/block/49233202"
+    }
+  ]
+}

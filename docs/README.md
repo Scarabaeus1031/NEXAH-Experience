@@ -23,10 +23,11 @@ but it cannot amend a higher level.
 | [Living Atlas](LIVING_ATLAS.md) | Sprint 04 registries, explicit relations and Atlas authority |
 | [First Orientation Journey](FIRST_ORIENTATION_JOURNEY.md) | Sprint 05 sequence, reading rhythm and exit strategy |
 | [Orientation Interface](ORIENTATION_INTERFACE.md) | Sprint 06 question lifecycle, clarification and transparency boundary |
-| [Reading Space](READING_SPACE.md) | Sprint 07 page flow, source provenance and Reader authority boundary |
+| [Reading Space](READING_SPACE.md) | Sprint 07 page flow, source provenance and Reader authority boundary; [Field Geometry → A0 / NSN source return](READING_SPACE.md#field-geometry-balance-return) |
 | [Navigation Catalog](NAVIGATION_CATALOG.md) | catalog projection, editorial doors, routes and authority boundary |
 | [Orientation Threshold](ORIENTATION_THRESHOLD.md) | deterministic explanations, lookup, routing and unsupported boundary |
 | [NEXAH Laboratory](LABORATORY.md) | minimal public bridge to the living Repository and research process |
+| [Rödelheim Observatory Intake](intake/ROEDELHEIM_OBSERVATORY_INTAKE_2026-10-09.md) | source-bound editorial intake for the ordered Are.na publication, local visual bundle and candidate guided book |
 | [Ecosystem Map Integration](reviews/ECOSYSTEM_MAP_INTEGRATION.md) | About-page relationship map, placement and authority review |
 | [Experience Review 01](reviews/EXPERIENCE_REVIEW_01.md) | room-by-room review of the rendered Sprint 07 experience |
 | [Experience Consistency Review](reviews/EXPERIENCE_CONSISTENCY_REVIEW.md) | rendered review of publication states, Readers, sources, navigation, terminology and mobile continuity |

@@ -92,3 +92,46 @@ exist. ORION remains entirely outside this path.
 
 There is no runtime, API, CMS, search, semantic recommendation, account,
 persistent reading history or inferred relationship in Sprint 07.
+
+<a id="field-geometry-balance-return"></a>
+
+## Field Geometry of Balance — A0 and NSN return
+
+Date: 2026-10-19. Status: local source-bound concept bridge; not a new public
+Library record, Reader import, scientific result or deployment.
+
+The local source collection contains 17 original plates under
+`THE FIELD GEOMETRY BALANCE`. The checked Experience snapshot still has 61
+catalog records and seven curated Readers; it has no exact title match for
+this book. This return preserves that missing-admission boundary rather than
+borrowing the identity of Geometria Nova or another existing publication.
+
+The plates explain one connected reading:
+
+Relation → Potential → Rotation/Torsion → G (Geometry/Grotte) → H (Habitable
+Interior) → Transport → Persistence → Topology → Navigation.
+
+Leo and Lilith name active/outward and receptive/inward perspectives in the
+source vocabulary. J names a junction; repeated L forms are captioned as
+line/direction and surface/form. G and H distinguish the formed boundary from
+the interior it enables. This is a visual-conceptual explanation, not an
+executed derivation or a universal physical law. Source equations and hermetic
+text remain artwork content.
+
+The A0 bridge places the source plates beside the existing Joint wheel and
+Grey/Pink window. It explicitly does not identify Leo/Lilith with numeric A/B,
+Janus with Bench-J, L with ILAU Lost or Roman 50, or book G/H with Grey Heart.
+The 111/1111 seam mapping remains open. These distinctions explain how several
+views can be related without silently merging their objects.
+
+Local workspace return path (cross-repository links; not public website URLs):
+
+- [Read the three plates, all-17 index and typed crosswalk](../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_NUMBERMAGICK_GRID_RESEARCH.html#field-geometry-book).
+- [A0 Science Desk return](../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_RESEARCH_DESK.html#field-geometry-book-return-20261019).
+- [NSN: existing A0 evidence-lineage lens](../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/SCIENCE_LAB/NAVIGATION/APP/index.html#a0-orientation-evidence).
+- [Native source and catalog-check receipt](../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/results/a0-field-geometry-book-source-return-2026-10-19.json).
+
+Reuse: MOD:NUMBER_VIEW_SUITE. No new canonical ID or graph relation. Experience
+owns this explanatory return; A0 owns its local instrument boundaries; the
+source book retains its content authority. No catalog/Reader data, public
+routes, production deployment or publication status changed.
