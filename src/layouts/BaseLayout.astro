@@ -10,6 +10,8 @@ type Props = {
   title?: string;
   description?: string;
   hideFooter?: boolean;
+  hideSessionQuestion?: boolean;
+  hideEcosystemRail?: boolean;
   lang?: "en" | "de";
 };
 
@@ -17,6 +19,8 @@ const {
   title = "NEXAH — The Orientation Ecosystem",
   description = "NEXAH is the Orientation Ecosystem for designing Human orientation in complex systems through research, tools, maps, publications and applications.",
   hideFooter = false,
+  hideSessionQuestion = false,
+  hideEcosystemRail = false,
   lang = "en",
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
@@ -29,7 +33,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#f6f2e9" />
+    <meta name="theme-color" content="#07131e" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta property="og:type" content="website" />
@@ -45,8 +49,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader />
-    <main id="main"><SessionQuestion /><slot /></main>
+    <SiteHeader hideEcosystemRail={hideEcosystemRail} />
+    <main id="main">{!hideSessionQuestion && <SessionQuestion />}<slot /></main>
     {!hideFooter && <SiteFooter />}
   </body>
 </html>

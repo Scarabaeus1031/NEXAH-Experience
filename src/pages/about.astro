@@ -1,10 +1,5 @@
 ---
-import { scientificBaselines } from "@/data/laboratory";
-import PublicationCover from "@/components/library/PublicationCover.astro";
-import { publicationByRouteSlug } from "@/data/catalog";
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const baseline = scientificBaselines[0];
 
 const orientationDimensions = [
   ["Position", "Where are we?"],
@@ -13,35 +8,51 @@ const orientationDimensions = [
   ["Possible direction", "Which paths remain available?"],
 ] as const;
 
-const researchRecord = [
-  ["orientation-atlas-vol-i", "Volume I", "Research landscape"],
-  ["orientation-design-vol-ii", "Volume II", "Research practice"],
-  ["orientation-theory-vol-iii", "Volume III", "Conceptual foundations"],
-  ["the-architecture-of-orientation-vol-iv", "Volume IV", "Connected architecture"],
-].map(([slug, volume, role]) => ({
-  volume,
-  role,
-  publication: publicationByRouteSlug.get(slug),
-})).filter((entry) => entry.publication !== undefined);
+const layers = [
+  {
+    number: "01",
+    eyebrow: "Human & culture",
+    title: "Experience before system.",
+    description: "Books and visual journeys about attention, clarity, belonging and the lived need for orientation.",
+    href: "/explore/journeys/",
+    action: "Enter through Human experience",
+  },
+  {
+    number: "02",
+    eyebrow: "Design & instruments",
+    title: "Make the frame inspectable.",
+    description: "Languages, records and interfaces that expose selection, relation, change and unresolved difference.",
+    href: "/library/visitors-guide/",
+    action: "Learn how the work is organized",
+  },
+  {
+    number: "03",
+    eyebrow: "Research & laboratory",
+    title: "Test only what can be bounded.",
+    description: "Methods, experiments and claim reviews kept separate from metaphor, intuition and Human meaning.",
+    href: "/laboratory/",
+    action: "Inspect the Laboratory",
+  },
+] as const;
 ---
 
 <BaseLayout
-  title="About NEXAH — Developing Orientation as a Discipline"
-  description="NEXAH is an independent research and design laboratory developing Orientation as a discipline for navigating complex systems."
+  title="About NEXAH — A Human Project for Orientation"
+  description="NEXAH is a Human, cultural and design project for remaining oriented amid abundant information, powerful systems and changing representations."
 >
   <header class="container about-position-hero">
     <div class="about-position-hero__copy">
       <p class="eyebrow">About NEXAH</p>
-      <h1>Developing Orientation as a discipline.</h1>
-      <p class="lead">NEXAH is an independent research and design laboratory studying how people and systems find position, perspective and possible direction within complex situations.</p>
-      <p>It develops ways to compare bounded representations without collapsing their differences, overstating their evidence or replacing Human judgment.</p>
+      <h1>Designing Orientation for Human life.</h1>
+      <p class="lead">We live with more information, more representations and more machine-made answers than any person can fully oversee. NEXAH asks how people can remain aware, capable and responsible within that abundance.</p>
+      <p>It makes selection, perspective, change and uncertainty more visible—so that useful systems can serve Human life without silently becoming its authority.</p>
     </div>
     <aside class="about-position-thesis" aria-label="The position of NEXAH">
       <div class="about-position-thesis__landscape" aria-hidden="true"></div>
       <span class="about-position-thesis__mark" aria-hidden="true">⌖</span>
-      <p class="eyebrow">The position</p>
-      <strong>Orientation is the discipline in development.</strong>
-      <span>NEXAH is the laboratory developing it.</span>
+      <p class="eyebrow">The mission</p>
+      <strong>Capability should serve life.</strong>
+      <span>Meaning, judgment and responsibility remain with the Human.</span>
     </aside>
   </header>
 
@@ -50,16 +61,16 @@ const researchRecord = [
       <div class="container">
         <header class="about-section-heading">
           <p class="eyebrow">Why Orientation</p>
-          <h2 id="why-orientation-title">The world does not lack information.<br />It lacks orientation between representations.</h2>
+          <h2 id="why-orientation-title">The world does not lack information.<br />It lacks orientation.</h2>
         </header>
         <div class="about-representation-field">
           <div>
-            <p class="lead">Models, maps, images and stories reveal different structures. Each has a purpose, an evidential basis and a boundary.</p>
-            <p>No single representation contains the whole. Moving responsibly between descriptions is therefore a scientific and design problem in its own right.</p>
+            <p class="lead">Artificial intelligence, media and institutions are powerful and useful. But every answer they provide is made through a selection: sources, variables, frames, categories and sequences.</p>
+            <p>When those choices disappear from view, a partial representation can begin to feel like the whole. Orientation restores the missing relation between what we see, how it was formed and what remains outside.</p>
           </div>
           <ul aria-label="Examples of bounded representations">
-            <li><span>01</span><strong>A model</strong><small>selects variables</small></li>
-            <li><span>02</span><strong>A map</strong><small>selects relations</small></li>
+            <li><span>01</span><strong>An answer</strong><small>selects sources</small></li>
+            <li><span>02</span><strong>A model</strong><small>selects variables</small></li>
             <li><span>03</span><strong>An image</strong><small>selects a frame</small></li>
             <li><span>04</span><strong>A story</strong><small>selects a sequence</small></li>
           </ul>
@@ -85,80 +96,58 @@ const researchRecord = [
       <p class="orientation-definition__boundary">Orientation supports understanding. It does not decide, recommend or authorize action.</p>
     </section>
 
-    <section class="about-practice-section section--line" aria-labelledby="scientific-foundation-title">
+    <section id="orientation-practice" class="about-practice-section section--line" aria-labelledby="orientation-practice-title">
       <div class="container">
         <header class="about-section-heading about-section-heading--split">
           <div>
-            <p class="eyebrow">Scientific foundation</p>
-            <h2 id="scientific-foundation-title">A versioned foundation—not a final theory.</h2>
+            <p class="eyebrow">How NEXAH works</p>
+            <h2 id="orientation-practice-title">A Human practice before it becomes a system.</h2>
           </div>
-          <p>The Scientific Constitution defines the enduring methodological direction. The first NEXAH Science Lab baseline preserves that foundation together with the research environment and its explicit claim boundaries.</p>
+          <p>NEXAH begins with ordinary acts of attention and makes them explicit enough to inspect together.</p>
         </header>
-        <nav class="about-foundation-links" aria-label="Scientific foundation documents">
-          <a class="editorial-path-link" href="/laboratory/repository/#scientific-baselines"><span>View the scientific baseline</span><b aria-hidden="true">→</b></a>
-          <a class="editorial-path-link" href={baseline.links.constitution} target="_blank" rel="noopener noreferrer"><span>Read the Scientific Constitution</span><b aria-hidden="true">↗</b></a>
-          <a class="editorial-path-link" href="/explore/foundations/"><span>Explore Orientation Science</span><b aria-hidden="true">→</b></a>
-        </nav>
+        <p class="about-practice-line" aria-label="The NEXAH orientation practice">
+          <span>Observe</span><i>→</i><span>Select</span><i>→</i><span>Cut</span><i>→</i><span>Record</span><i>→</i><span>Compare</span><i>→</i><span>Return</span>
+        </p>
+        <p class="about-practice-boundary"><strong>Return</strong> means bringing a result back to context, memory, revision and Human judgment. It closes a test cycle; it does not close the world.</p>
       </div>
     </section>
 
-    <section class="about-research-record section--line" aria-labelledby="research-record-title">
+    <section class="about-layers section--line" aria-labelledby="about-layers-title">
       <div class="container">
-        <div class="orientation-series orientation-series--record">
-          <header class="orientation-series__heading">
-            <div>
-              <p class="eyebrow">Research Record</p>
-              <h2 id="research-record-title">A developing field, documented across connected volumes.</h2>
-            </div>
-            <p>Four connected volumes record the programme’s continuity.</p>
-          </header>
-          <ol class="orientation-series__grid" aria-label="The four-volume Orientation Architecture series">
-            {researchRecord.map((entry) => {
-              const publication = entry.publication!;
-              const cover = publication.localBook?.cover ?? publication.cover.src;
-              const coverAlt = publication.localBook?.coverAlt ?? publication.cover.alt ?? `Cover of ${publication.title}`;
-              const width = publication.localBook ? 1024 : publication.cover.width;
-              const height = publication.localBook ? 1536 : publication.cover.height;
-              return (
-                <li>
-                  <a class="orientation-series__cover" href={`/library/${publication.routeSlug}/`} aria-label={`Open ${publication.title}`}>
-                    <PublicationCover
-                      src={cover}
-                      alt={coverAlt}
-                      width={width}
-                      height={height}
-                      title={publication.title}
-                      kind={publication.form.replaceAll("_", " ")}
-                      loading="lazy"
-                      referrerpolicy="no-referrer"
-                    />
-                  </a>
-                  <div class="orientation-series__copy">
-                    <span>{entry.volume}</span>
-                    <h3>{publication.title.replace(/\s+—\s+VOLUME\s+[IVX]+$/i, "")}</h3>
-                    <strong>{entry.role}</strong>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-          <a class="text-link orientation-series__entry" href="/library/">View the complete publication record</a>
-        </div>
+        <header class="about-section-heading about-section-heading--split">
+          <div>
+            <p class="eyebrow">One mission, three layers</p>
+            <h2 id="about-layers-title">Not every work makes the same kind of claim.</h2>
+          </div>
+          <p>Human experience, design instruments and scientific tests belong together, but they must remain distinguishable. That separation is part of the integrity of NEXAH.</p>
+        </header>
+        <ol class="about-layer-grid">
+          {layers.map((layer) => (
+            <li>
+              <a href={layer.href}>
+                <span>{layer.number} · {layer.eyebrow}</span>
+                <h3>{layer.title}</h3>
+                <p>{layer.description}</p>
+                <strong>{layer.action} <b aria-hidden="true">→</b></strong>
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
     <section class="about-invitation section--line" aria-labelledby="open-invitation-title">
       <div class="container about-invitation__inner">
         <div>
-          <p class="eyebrow">Institution and open invitation</p>
-          <h2 id="open-invitation-title">Independent, inspectable and open to challenge.</h2>
-          <p>NEXAH was initiated by Thomas K. R. Hofmann as an independent research and design laboratory.</p>
-          <p>Researchers, designers, engineers, artists, educators and curious readers are invited to inspect the work, identify counterexamples and propose better maps.</p>
+          <p class="eyebrow">A work larger than one person</p>
+          <h2 id="open-invitation-title">Independent, Human and open to challenge.</h2>
+          <p>NEXAH was initiated by Thomas K. R. Hofmann as a Human, cultural and design project for Orientation. The Science Lab tests selected questions where evidence and boundaries can be made explicit.</p>
+          <p>Readers, designers, artists, educators, engineers and researchers are invited to experience the work, challenge it and help develop better ways of remaining oriented.</p>
         </div>
         <aside>
-          <blockquote>We are not looking for agreement.<br />We are looking for better orientation.</blockquote>
+          <blockquote>Capability should serve life.<br />Orientation keeps the Human in the relation.</blockquote>
           <nav aria-label="Continue from About">
-            <a class="button" href="/atlas/">Start Here <span aria-hidden="true">→</span></a>
+            <a class="button" href="/explore/journeys/">Begin with experience <span aria-hidden="true">→</span></a>
             <a class="button button--secondary" href="/library/">Explore the Library</a>
             <a class="button button--secondary" href="/laboratory/">Inspect the Research</a>
             <a class="text-link" href="/contact/">Contact · Join the conversation</a>
@@ -170,82 +159,104 @@ const researchRecord = [
 </BaseLayout>
 
 <style>
-  .editorial-path-link {
-    display: flex;
+  .about-practice-line {
+    display: grid;
+    grid-template-columns: repeat(11, auto);
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
-    width: min(100%, 25rem);
-    padding: 0.85rem 0 0.65rem;
-    border-top: 1px solid var(--gold);
+    gap: var(--space-3);
+    margin: var(--space-6) 0 var(--space-4);
+    padding: var(--space-5);
+    border-block: 1px solid var(--rule);
+  }
+
+  .about-practice-line span {
+    font-family: var(--serif);
+    font-size: var(--step-1);
+  }
+
+  .about-practice-line i {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  .about-practice-boundary {
+    max-width: 52rem;
+    margin-left: auto;
+    padding-bottom: var(--space-6);
+  }
+
+  .about-layer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: var(--space-6) 0 0;
+    padding: 0 0 var(--space-7);
+    list-style: none;
+  }
+
+  .about-layer-grid li {
+    display: flex;
+  }
+
+  .about-layer-grid a {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 21rem;
+    padding: var(--space-5);
+    border: 1px solid var(--rule);
     color: var(--ink);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.09em;
-    line-height: 1.4;
     text-decoration: none;
+  }
+
+  .about-layer-grid li + li a {
+    border-left: 0;
+  }
+
+  .about-layer-grid span,
+  .about-layer-grid strong {
+    color: var(--gold);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
-  .editorial-path-link b {
-    flex: 0 0 auto;
-    color: var(--gold);
-    font-size: 1.05rem;
-    line-height: 1;
-    transition: transform 160ms ease;
-  }
-
-  .editorial-path-link:hover,
-  .editorial-path-link:focus-visible {
-    border-top-color: var(--ink);
-    color: var(--gold);
-  }
-
-  .editorial-path-link:hover b,
-  .editorial-path-link:focus-visible b {
-    transform: translateX(0.25rem);
-  }
-
-  .editorial-path-link:focus-visible {
-    outline: 2px solid var(--gold);
-    outline-offset: 0.35rem;
-  }
-
-  .about-foundation-links {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-4);
-    margin-top: var(--space-5);
-  }
-
-  .about-foundation-links .editorial-path-link {
-    width: 100%;
-  }
-
-  .orientation-series--record {
-    margin-top: 0;
-  }
-
-  .orientation-series--record .orientation-series__heading h2 {
-    max-width: 22ch;
-    margin: 0;
+  .about-layer-grid h3 {
+    margin: var(--space-5) 0 var(--space-3);
     font-family: var(--serif);
     font-size: var(--step-2);
     font-weight: 400;
-    line-height: 1.15;
+    line-height: 1.1;
   }
 
-  .orientation-series--record .orientation-series__copy h3 {
-    margin: 0;
-    font-family: var(--serif);
-    font-size: var(--step-0);
-    font-weight: 400;
-    line-height: 1.15;
+  .about-layer-grid strong {
+    margin-top: auto;
+    padding-top: var(--space-5);
   }
 
-  @media (max-width: 760px) {
-    .about-foundation-links { grid-template-columns: 1fr; }
-    .orientation-series--record .orientation-series__heading h2 { font-size: var(--step-1); }
-    .orientation-series--record .orientation-series__copy h3 { font-size: .95rem; }
+  .about-layer-grid b {
+    display: inline-block;
+    transition: transform 160ms ease;
+  }
+
+  .about-layer-grid a:hover b,
+  .about-layer-grid a:focus-visible b {
+    transform: translateX(0.25rem);
+  }
+
+  @media (max-width: 800px) {
+    .about-practice-line {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+
+    .about-practice-line i {
+      transform: rotate(90deg);
+    }
+
+    .about-layer-grid { grid-template-columns: 1fr; }
+    .about-layer-grid a { min-height: 15rem; }
+    .about-layer-grid li + li a { border-top: 0; border-left: 1px solid var(--rule); }
   }
 </style>

@@ -1,13 +1,19 @@
 ---
 import Brand from "./Brand.astro";
 
+type Props = {
+  hideEcosystemRail?: boolean;
+};
+
+const { hideEcosystemRail = false } = Astro.props;
+
 const path = Astro.url.pathname;
 const links = [
-  ["Start Here", "/atlas/"],
-  ["Library", "/library/"],
-  ["Laboratory", "/laboratory/"],
-  ["Atlas of Atlases", "/atlas-of-atlases/"],
-  ["About", "/about/"],
+  { label: "Start Here", href: "/atlas/", external: false },
+  { label: "Library", href: "/library/", external: false },
+  { label: "Laboratory", href: "/laboratory/", external: false },
+  { label: "Atlas of Atlases", href: "/atlas-of-atlases/", external: false },
+  { label: "About", href: "/about/", external: false },
 ] as const;
 
 const isCurrent = (href: string) => {
@@ -18,18 +24,39 @@ const isCurrent = (href: string) => {
 ---
 
 <header class="site-header">
+  {!hideEcosystemRail && (
+    <nav class="ecosystem-rail" aria-label="NEXAH ecosystem">
+      <div class="container ecosystem-rail__inner">
+        <span>NEXAH · PUBLIC ORIENTATION FIELD</span>
+        <a href="/" aria-current="page">NEXAH</a>
+        <a href="/a0/">METHOD</a>
+        <a href="https://nexahedron.com" target="_blank" rel="noopener noreferrer">NEXAHEDRON <span aria-hidden="true">↗</span></a>
+        <a href="https://www.scarabaeus1033.net" target="_blank" rel="noopener noreferrer">SCARABÆUS 1033 <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  )}
   <div class="site-header__inner container">
     <Brand />
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {links.map(([label, href]) => (
-        <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
+      {links.map(({ label, href, external }) => (
+        <a
+          href={href}
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          aria-current={!external && isCurrent(href) ? "page" : undefined}
+        >{label}{external ? <span aria-hidden="true"> ↗</span> : null}</a>
       ))}
     </nav>
     <details class="mobile-nav">
       <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
       <nav aria-label="Mobile navigation">
-        {links.map(([label, href]) => (
-          <a href={href} aria-current={isCurrent(href) ? "page" : undefined}>{label}</a>
+        {links.map(({ label, href, external }) => (
+          <a
+            href={href}
+            target={external ? "_blank" : undefined}
+            rel={external ? "noopener noreferrer" : undefined}
+            aria-current={!external && isCurrent(href) ? "page" : undefined}
+          >{label}{external ? <span aria-hidden="true"> ↗</span> : null}</a>
         ))}
       </nav>
     </details>
