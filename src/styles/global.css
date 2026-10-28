@@ -790,12 +790,70 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 
 
 /* Library */
-.library-hero { display: grid; grid-template-columns: 1.25fr .75fr; align-items: end; gap: var(--space-7); padding-block: var(--space-7) var(--space-6); }
-.library-hero h1 { margin-bottom: var(--space-3); font-size: var(--step-4); }
+.ecosystem-section-hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--gold);
+  background:
+    radial-gradient(circle at 85% 20%, rgba(43, 139, 160, .24), transparent 26rem),
+    linear-gradient(135deg, #061923 0%, #082733 66%, #10243e 100%);
+  color: #dce8ed;
+}
+.ecosystem-section-hero::after {
+  position: absolute;
+  right: 4vw;
+  bottom: -9rem;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid rgba(85, 216, 238, .25);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 5rem rgba(10, 38, 53, .22), inset 0 0 0 9rem rgba(10, 38, 53, .18);
+  content: "";
+  pointer-events: none;
+}
+.ecosystem-section-hero > .container { position: relative; z-index: 1; }
+.ecosystem-section-hero h1,
+.ecosystem-section-hero h2 { color: #f1f8fa; }
+.ecosystem-section-hero .lead,
+.ecosystem-section-hero p { color: #c3d2da; }
+.ecosystem-section-hero .eyebrow { color: var(--gold); }
+.ecosystem-section-hero .button {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #07131e;
+}
+.ecosystem-section-hero .button:hover,
+.ecosystem-section-hero .button:focus-visible { background: #f2c65c; }
+
+.library-hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(22rem, .85fr); align-items: end; gap: clamp(3rem, 7vw, 7.5rem); padding-block: var(--space-7) var(--space-6); }
+.ecosystem-section-hero .library-hero {
+  min-height: clamp(26rem, 58vh, 34rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 4.5vw, 4.5rem);
+}
+.library-hero h1 {
+  max-width: 13ch;
+  margin: .8rem 0 1.35rem;
+  font-size: clamp(2.8rem, 4.35vw, 4.5rem);
+  font-weight: 400;
+  line-height: .98;
+  letter-spacing: -.035em;
+}
 .library-hero .lead { max-width: 39rem; margin-bottom: 0; }
-.library-hero__note { display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: var(--space-4); border-left: 1px solid var(--gold-soft); }
+.library-hero__note {
+  display: grid;
+  grid-template-columns: 1.1rem minmax(0, 1fr);
+  align-content: start;
+  gap: .9rem 1.15rem;
+  max-width: 34rem;
+  padding: .4rem 0 .4rem 1.5rem;
+  border-left: 1px solid var(--gold-soft);
+}
 .library-hero__note span { color: var(--gold); }
-.library-hero__note p { margin: 0; color: var(--ink-soft); font-family: var(--serif); font-size: var(--step-1); line-height: 1.45; }
+.library-hero__note p { margin: 0; color: var(--ink-soft); font-family: var(--serif); font-size: clamp(1rem, 1.35vw, 1.23rem); line-height: 1.5; }
+.library-hero__note small { grid-column: 2; max-width: 31rem; line-height: 1.55; }
+.ecosystem-section-hero .library-hero__note p { color: #dce8ed; }
+.ecosystem-section-hero .library-hero__note small { color: #91a8b4; }
 .library-human-feature { display: grid; grid-template-columns: 11rem 1fr; align-items: center; gap: var(--space-5); padding-block: var(--space-5); border-block: 1px solid var(--line); }
 .library-human-feature__cover { display: grid; width: 11rem; max-height: 22rem; overflow: hidden; aspect-ratio: 2 / 3; place-items: center; border: 1px solid var(--line); background: rgba(255,255,255,.45); box-shadow: var(--shadow-soft); }
 .library-human-feature__cover img { width: 100%; height: 100%; object-fit: contain; }
@@ -840,6 +898,9 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
 .atlas-of-atlases-hero h1 { max-width: 16ch; margin-bottom: var(--space-3); color: var(--night); font-size: var(--step-2); }
 .atlas-of-atlases-hero p:not(.eyebrow) { max-width: 38rem; }
 .atlas-of-atlases-hero .button { margin-top: var(--space-3); }
+.ecosystem-section-hero .atlas-of-atlases-hero { min-height: 34rem; border: 0; }
+.ecosystem-section-hero .atlas-of-atlases-hero h1 { color: #f1f8fa; font-size: var(--step-4); }
+.ecosystem-section-hero .atlas-of-atlases-hero__cover img { border-color: rgba(85, 216, 238, .32); box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .34); }
 .atlas-volume-section { padding-block: var(--space-7); border-top: 1px solid var(--line); }
 .atlas-volume-section .section-heading > p { max-width: 28rem; color: var(--ink-soft); }
 .atlas-volume-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); }
@@ -2067,6 +2128,7 @@ h3 { margin-bottom: var(--space-2); font-size: var(--step-1); font-weight: 600; 
   .visitor-film__footer { display: grid; gap: var(--space-3); }
   .visitor-film__footer a { line-height: 1.5; }
   .library-hero { grid-template-columns: 1fr; gap: var(--space-4); padding-block: var(--space-5); }
+  .ecosystem-section-hero .library-hero { min-height: 0; padding-block: var(--space-6); }
   .library-hero h1 { font-size: var(--step-3); }
   .library-hero__note { padding: var(--space-3) 0 var(--space-3) var(--space-3); }
   .library-human-feature, .library-human-journey, .library-alternative-entrances { padding-block: var(--space-6); }

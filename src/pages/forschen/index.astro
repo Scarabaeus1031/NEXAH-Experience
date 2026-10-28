@@ -1,0 +1,103 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const researchRoutes = [
+  {
+    code: "01 · Position",
+    title: "Forschungsstand",
+    description: "Was trägt, welche Grenzen gelten und welches wissenschaftliche Gate als Nächstes offen ist.",
+    href: "/A0_SCIENTIFIC_POSITION_REPORT.html",
+  },
+  {
+    code: "02 · Evidence",
+    title: "Ergebnisse & Papers",
+    description: "Formale, negative, methodische und instrumentelle Resultate mit getrennten Evidenzklassen.",
+    href: "/A0_SCIENCE.html#contributions",
+  },
+  {
+    code: "03 · Field",
+    title: "Mathfield",
+    description: "Träger, Schnitte, Operatoren, mathematische Fugen und ihre Gültigkeitsgrenzen.",
+    href: "/A0_MATHEMATICAL_JOINTS.html",
+  },
+  {
+    code: "04 · Review",
+    title: "Offene Fragen",
+    description: "Ungeklärte Fragen, externe Prüfung und der öffentliche Rückkanal bleiben sichtbar.",
+    href: "/NEXAH_C_CONNECT.html#scientific-review",
+  },
+] as const;
+---
+
+<BaseLayout
+  title="Forschen — NEXAH Science"
+  description="Der öffentliche Einstieg in Forschungsstand, Ergebnisse, Mathfield, Methode und offene Review-Fragen von NEXAH Science."
+  hideSessionQuestion={true}
+  lang="de"
+>
+  <section class="research-entry">
+    <div class="container research-entry__hero">
+      <div>
+        <p class="eyebrow">NEXAH Science · öffentlicher Forschungsraum</p>
+        <h1>Was trägt – und was bleibt offen?</h1>
+        <p class="lead">NEXAH Science trennt Forschungsstand, Ergebnisse, mathematische Felder und offene Prüfgrenzen. Die wissenschaftliche Bedeutung und der Evidenzstatus bleiben beim Science Desk und Science Lab.</p>
+      </div>
+      <aside>
+        <strong>Source-bound</strong>
+        <p>Diese Seite ordnet vorhandene, freigegebene Quellen. Sie erzeugt keine zweite Forschungsautorität und verändert keinen Labstatus.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="research-routes section--line" aria-labelledby="research-routes-title">
+    <div class="container">
+      <header>
+        <p class="eyebrow">Vier Zugänge</p>
+        <h2 id="research-routes-title">Beginnen Sie mit Ihrer Frage.</h2>
+      </header>
+      <nav aria-label="NEXAH Science Forschungsbereiche">
+        {researchRoutes.map((route) => (
+          <a href={route.href}>
+            <span>{route.code}</span>
+            <h3>{route.title}</h3>
+            <p>{route.description}</p>
+            <b aria-hidden="true">→</b>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .research-entry { padding-block: clamp(5rem, 9vw, 9rem); background: #071d26; color: #edf4f2; }
+  .research-entry__hero { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(18rem, .55fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .research-entry .eyebrow { color: #f1bd3d; }
+  .research-entry h1 { max-width: 10ch; margin: 1rem 0 1.5rem; color: #edf4f2; font-size: clamp(3.5rem, 8vw, 8rem); line-height: .9; }
+  .research-entry .lead { max-width: 50rem; color: #c8d6d9; }
+  .research-entry aside { padding: 1.5rem 0 1.5rem 1.5rem; border-left: 1px solid #f1bd3d; }
+  .research-entry aside strong { color: #f1bd3d; font: 800 .68rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+  .research-entry aside p { color: #b8c9cd; }
+  .research-routes { padding-block: var(--space-7); }
+  .research-routes header { display: grid; grid-template-columns: .6fr 1.4fr; gap: var(--space-5); align-items: end; margin-bottom: var(--space-5); }
+  .research-routes h2 { margin: 0; font-size: var(--step-3); }
+  .research-routes nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); }
+  .research-routes nav a { position: relative; min-height: 22rem; padding: var(--space-4); border-right: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+  .research-routes nav a:last-child { border-right: 0; }
+  .research-routes nav span { color: var(--gold); font: 800 .66rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .research-routes nav h3 { margin: 3rem 0 1rem; font-family: var(--serif); font-size: var(--step-2); font-weight: 400; }
+  .research-routes nav p { color: var(--muted); }
+  .research-routes nav b { position: absolute; right: 1.5rem; bottom: 1.25rem; color: var(--gold); }
+  @media (max-width: 900px) {
+    .research-entry__hero, .research-routes header { grid-template-columns: 1fr; }
+    .research-routes nav { grid-template-columns: repeat(2, 1fr); }
+    .research-routes nav a:nth-child(2) { border-right: 0; }
+    .research-routes nav a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  }
+  @media (max-width: 600px) {
+    .research-entry h1 { font-size: clamp(3.1rem, 17vw, 5rem); }
+    .research-routes nav { grid-template-columns: 1fr; }
+    .research-routes nav a { min-height: 16rem; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .research-routes nav a:last-child { border-bottom: 0; }
+  }
+</style>

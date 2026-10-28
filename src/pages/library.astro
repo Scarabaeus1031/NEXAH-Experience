@@ -3,6 +3,7 @@ import CatalogRow from "@/components/library/CatalogRow.astro";
 import EditorialPublicationCard from "@/components/library/EditorialPublicationCard.astro";
 import PublicationCover from "@/components/library/PublicationCover.astro";
 import { getPublicationExcerpt, publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
+import { books as readerBooks } from "@/data/library/books";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const publicationTypes = [...new Set(publications.map((publication) => publication.type))].sort();
@@ -31,20 +32,75 @@ const humanJourney = [
   { publication: requirePublication("volume-v-many-maps-one-world"), caption: "One journey. One humanity." },
 ] as const;
 
+const orientationArchitecture = publications.filter((publication) => publication.series === "Orientation Architecture");
+const fieldAtlases = publications.filter((publication) => publication.series === "Field Atlas Series");
+const orientationScience = requirePublication("orientation-science");
+
 ---
 
-<BaseLayout title="Library — NEXAH" description="The curated NEXAH collection of books, essays, visual atlases and educational material about Human orientation.">
-  <header class="container library-hero">
-    <div>
-      <p class="eyebrow">The Library</p>
-      <h1>What would you like to read?</h1>
-      <p class="lead">All {publications.length} recorded publications remain accessible here.</p>
+<BaseLayout
+  title="Library — NEXAH"
+  description="The curated NEXAH collection of books, essays, visual atlases and educational material about Human orientation."
+  headerVariant="science"
+>
+  <section class="ecosystem-section-hero ecosystem-section-hero--library">
+    <header class="container library-hero">
+      <div>
+        <p class="eyebrow">About NEXAH · Library</p>
+        <h1>What would you like to read?</h1>
+        <p class="lead">All {publications.length} recorded publications remain accessible here.</p>
+      </div>
+      <aside class="library-hero__note">
+        <span aria-hidden="true">✦</span>
+        <p>Every recorded work explores orientation: how people find clarity, direction and relation in life, society and the world.</p>
+        <small>Draft labels, internal instruments and visual similarities do not become publications automatically.</small>
+      </aside>
+    </header>
+  </section>
+
+  <section class="container orientation-shelf" id="orientation-books" aria-labelledby="orientation-shelf-title">
+    <header class="orientation-shelf__header">
+      <div>
+        <p class="eyebrow">Orientation Library · Selected paths</p>
+        <h2 id="orientation-shelf-title">Books for understanding orientation.</h2>
+      </div>
+      <p>Ordered by existing series and reading perspective. The grouping creates no new category or publication identity.</p>
+    </header>
+    <div class="orientation-shelf__grid">
+      <section>
+        <small>Foundation · Recorded series</small>
+        <h3>Orientation Architecture</h3>
+        <p>Four volumes move from the map of the field through design and theory to the architecture of the whole.</p>
+        <ol>
+          {orientationArchitecture.map((publication, index) => (
+            <li><a href={`/library/${publication.routeSlug}/`} data-carry-question><span>{String(index + 1).padStart(2, "0")}</span>{publication.title}</a></li>
+          ))}
+        </ol>
+      </section>
+      <section>
+        <small>Science View · Research paths</small>
+        <h3>Orientation as a research question</h3>
+        <p>The prospectus frames the programme; the Field Atlases follow transition, agency and morphology across bounded cases.</p>
+        <ol>
+          <li><a href={`/library/${orientationScience.routeSlug}/`} data-carry-question><span>00</span>{orientationScience.title}</a></li>
+          {fieldAtlases.map((publication, index) => (
+            <li><a href={`/library/${publication.routeSlug}/`} data-carry-question><span>{String(index + 1).padStart(2, "0")}</span>{publication.title}</a></li>
+          ))}
+        </ol>
+      </section>
+      <section>
+        <small>Human View · Curated journey</small>
+        <h3>Orientation in lived experience</h3>
+        <p>Five books approach wonder, pathfinding, clarity, relation and a shared world through a Human reading path.</p>
+        <ol>
+          {humanJourney.map(({ publication }, index) => (
+            <li><a href={`/library/${publication.routeSlug}/`} data-carry-question><span>{String(index + 1).padStart(2, "0")}</span>{publication.title}</a></li>
+          ))}
+        </ol>
+        <a class="orientation-shelf__continue" href="#human-journey">Open the curated Human Journey <span aria-hidden="true">↓</span></a>
+      </section>
     </div>
-    <aside class="library-hero__note">
-      <span aria-hidden="true">✦</span>
-      <p>Every work explores orientation: how people find clarity, direction and relation in life, society and the world.</p>
-    </aside>
-  </header>
+  </section>
 
   <section class="container library-human-feature" aria-labelledby="library-primary-reading-title">
     <div class="library-human-feature__cover">
@@ -71,7 +127,60 @@ const humanJourney = [
     </div>
   </section>
 
-  <details class="container library-disclosure library-disclosure--journey">
+  <section class="container library-readers" id="reader-rooms" aria-labelledby="library-readers-title">
+    <header class="library-readers__header">
+      <div>
+        <p class="eyebrow">Seven Reader Rooms · 79 selected pages</p>
+        <h2 id="library-readers-title">Enter the work as a reading space.</h2>
+      </div>
+      <p>Seven existing publications have a calm, page-by-page Reader. These are selected views into recorded works — not additional publications.</p>
+    </header>
+    <ol class="library-readers__grid">
+      {readerBooks.map((book, index) => (
+        <li>
+          <a href={`/library/${book.slug}/read/`} data-carry-question>
+            <small>{String(index + 1).padStart(2, "0")} · Reading Space</small>
+            <h3>{book.title}</h3>
+            <p>{book.subtitle}</p>
+            <strong>Begin reading <span aria-hidden="true">→</span></strong>
+          </a>
+          <a class="library-readers__record" href={`/library/${book.slug}/`} data-carry-question>Publication record</a>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="container library-connected" aria-labelledby="library-connected-title">
+    <header class="library-connected__header">
+      <div>
+        <p class="eyebrow">Connected public fields</p>
+        <h2 id="library-connected-title">Continue beyond the catalogue.</h2>
+      </div>
+      <p>Three external spaces extend the reading field. They remain clearly separate from the 61 recorded Library works.</p>
+    </header>
+    <nav class="library-connected__grid" aria-label="Connected NEXAH reading fields">
+      <a href="https://www.are.na/nexah-scarabaeus1031" target="_blank" rel="noopener noreferrer">
+        <small>References & constellations</small>
+        <h3>Are.na</h3>
+        <p>Visual references, source fragments and evolving thematic collections.</p>
+        <strong>Open the public channels <span aria-hidden="true">↗</span></strong>
+      </a>
+      <a href="https://nexah.substack.com/" target="_blank" rel="noopener noreferrer">
+        <small>Essays & dispatches</small>
+        <h3>NEXAH on Substack</h3>
+        <p>Longer-form writing, public notes and updates from the evolving work.</p>
+        <strong>Read the publication stream <span aria-hidden="true">↗</span></strong>
+      </a>
+      <a href="https://www.behance.net/Scarabaeus1033" target="_blank" rel="noopener noreferrer">
+        <small>Visual works & projects</small>
+        <h3>THOOTH · Scarabæus1033</h3>
+        <p>Selected visual projects across art, geometry, cosmology and the NEXAH Codex.</p>
+        <strong>Explore on Behance <span aria-hidden="true">↗</span></strong>
+      </a>
+    </nav>
+  </section>
+
+  <details class="container library-disclosure library-disclosure--journey" id="human-journey">
     <summary>
       <span><small>Curated reading path</small><strong>Explore the five-book Human Journey</strong></span>
       <b aria-hidden="true">+</b>
@@ -139,6 +248,256 @@ const humanJourney = [
 </BaseLayout>
 
 <style>
+  .orientation-shelf {
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .orientation-shelf__header {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(18rem, 1.1fr);
+    gap: var(--space-6);
+    align-items: end;
+    margin-bottom: var(--space-5);
+  }
+
+  .orientation-shelf__header h2 {
+    max-width: 18ch;
+    margin: .7rem 0 0;
+    font-size: var(--step-3);
+    line-height: 1.04;
+  }
+
+  .orientation-shelf__header > p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .orientation-shelf__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .orientation-shelf__grid > section {
+    min-width: 0;
+    padding: var(--space-4);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .orientation-shelf__grid small {
+    color: var(--gold);
+    font: 800 .62rem/1.3 var(--mono);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .orientation-shelf__grid h3 {
+    min-height: 2.4em;
+    margin: 1.35rem 0 .6rem;
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+  }
+
+  .orientation-shelf__grid > section > p {
+    min-height: 5.2em;
+    color: var(--ink-soft);
+  }
+
+  .orientation-shelf__grid ol { margin: var(--space-4) 0 0; padding: 0; list-style: none; }
+
+  .orientation-shelf__grid li a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: .6rem;
+    padding: .72rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font: 750 .62rem/1.45 var(--mono);
+    letter-spacing: .025em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .orientation-shelf__grid li a:hover,
+  .orientation-shelf__grid li a:focus-visible { color: var(--gold); }
+  .orientation-shelf__grid li a span { color: var(--gold); }
+
+  .orientation-shelf__continue {
+    display: inline-block;
+    margin-top: var(--space-4);
+    color: var(--gold);
+    font: 800 .62rem/1.4 var(--mono);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .library-readers {
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .library-readers__header {
+    display: grid;
+    grid-template-columns: minmax(0, .9fr) minmax(18rem, 1.1fr);
+    gap: var(--space-6);
+    align-items: end;
+    margin-bottom: var(--space-5);
+  }
+
+  .library-readers__header h2 {
+    max-width: 18ch;
+    margin: .7rem 0 0;
+    font-size: var(--step-3);
+    line-height: 1.04;
+  }
+
+  .library-readers__header > p {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .library-readers__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .library-readers__grid > li {
+    position: relative;
+    min-width: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .library-readers__grid > li:last-child { grid-column: 1 / -1; }
+
+  .library-readers__grid > li > a:first-child {
+    display: grid;
+    min-height: 13rem;
+    align-content: start;
+    padding: var(--space-4) var(--space-4) 3.7rem;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .library-readers__grid > li > a:first-child:hover,
+  .library-readers__grid > li > a:first-child:focus-visible { background: rgba(231, 183, 72, .08); }
+
+  .library-readers__grid small {
+    color: var(--gold);
+    font: 800 .62rem/1.3 var(--mono);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .library-readers__grid h3 {
+    margin: 1.5rem 0 .45rem;
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+  }
+
+  .library-readers__grid p { max-width: 38rem; margin: 0; color: var(--ink-soft); }
+
+  .library-readers__grid strong {
+    margin-top: var(--space-4);
+    color: var(--gold);
+    font: 800 .64rem/1.4 var(--mono);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
+  .library-readers__record {
+    position: absolute;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    color: var(--ink-soft);
+    font: 700 .58rem/1.3 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  .library-connected {
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .library-connected__header {
+    display: grid;
+    grid-template-columns: minmax(0, .85fr) minmax(18rem, 1.15fr);
+    gap: var(--space-6);
+    align-items: end;
+    margin-bottom: var(--space-5);
+  }
+
+  .library-connected__header h2 {
+    max-width: 17ch;
+    margin: .7rem 0 0;
+    font-size: var(--step-3);
+    line-height: 1.04;
+  }
+
+  .library-connected__header > p {
+    max-width: 40rem;
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .library-connected__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid var(--line);
+  }
+
+  .library-connected__grid > a {
+    display: flex;
+    min-height: 17rem;
+    flex-direction: column;
+    padding: var(--space-4);
+    border-right: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .library-connected__grid > a:last-child { border-right: 0; }
+  .library-connected__grid > a:hover,
+  .library-connected__grid > a:focus-visible { background: rgba(231, 183, 72, .08); }
+
+  .library-connected__grid small {
+    color: var(--gold);
+    font: 800 .62rem/1.3 var(--mono);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+
+  .library-connected__grid h3 {
+    margin: 2rem 0 .75rem;
+    font-family: var(--serif);
+    font-size: var(--step-1);
+    font-weight: 400;
+  }
+
+  .library-connected__grid p { color: var(--ink-soft); }
+
+  .library-connected__grid strong {
+    margin-top: auto;
+    padding-top: var(--space-4);
+    color: var(--gold);
+    font: 800 .64rem/1.4 var(--mono);
+    letter-spacing: .07em;
+    text-transform: uppercase;
+  }
+
   .library-primary-actions {
     display: flex;
     flex-wrap: wrap;
@@ -171,6 +530,20 @@ const humanJourney = [
   .library-disclosure[open] > summary b { transform: rotate(45deg); }
   .library-human-journey,
   .library-disclosure__content { padding-top: var(--space-6); }
+
+  @media (max-width: 800px) {
+    .orientation-shelf__header { grid-template-columns: 1fr; gap: var(--space-3); }
+    .orientation-shelf__grid { grid-template-columns: 1fr; }
+    .orientation-shelf__grid h3,
+    .orientation-shelf__grid > section > p { min-height: auto; }
+    .library-readers__header { grid-template-columns: 1fr; gap: var(--space-3); }
+    .library-readers__grid { grid-template-columns: 1fr; }
+    .library-readers__grid > li:last-child { grid-column: auto; }
+    .library-connected__header { grid-template-columns: 1fr; gap: var(--space-3); }
+    .library-connected__grid { grid-template-columns: 1fr; }
+    .library-connected__grid > a { min-height: 13rem; border-right: 0; border-bottom: 1px solid var(--line); }
+    .library-connected__grid > a:last-child { border-bottom: 0; }
+  }
 
   .catalog-browser > .section-heading { margin-bottom: var(--space-4); }
   .catalog-browser > .section-heading p { max-width: 42rem; }

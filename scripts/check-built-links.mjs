@@ -59,7 +59,15 @@ for (const file of htmlFiles) {
   }
 }
 
-for (const required of ["robots.txt", "favicon.png", "sitemap-index.xml"]) {
+for (const required of [
+  "robots.txt",
+  "favicon.png",
+  "sitemap-index.xml",
+  "llms.txt",
+  "ai/nexah.md",
+  "ai/ecosystem.json",
+  "ai/ecosystem.schema.json",
+]) {
   if (!await exists(join(root, required))) failures.push(`missing build artifact: /${required}`);
 }
 

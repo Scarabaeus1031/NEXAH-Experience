@@ -15,19 +15,22 @@ const appendix = atlasSections.at(-1)!;
 <BaseLayout
   title="The Atlas of Atlases — NEXAH"
   description="A core NEXAH research project mapping relationships between knowledge systems, models, representations and reference spaces."
+  headerVariant="science"
 >
-  <header class="container atlas-of-atlases-hero">
-    <figure class="atlas-of-atlases-hero__cover">
-      <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" />
-    </figure>
-    <div>
-      <p class="eyebrow">The visual entrance hall</p>
-      <h1>THE ATLAS OF ATLASES</h1>
-      <p class="lead">A conceptual framework for relationships between maps and knowledge systems.</p>
-      <p>Move through six orientation fields to compare representations, reference spaces, scales and relations.</p>
-      <a class="button" href={atlasSectionHref(entrance.slug)}>Enter the Atlas <span aria-hidden="true">→</span></a>
-    </div>
-  </header>
+  <section class="ecosystem-section-hero ecosystem-section-hero--atlas">
+    <header class="container atlas-of-atlases-hero">
+      <figure class="atlas-of-atlases-hero__cover">
+        <img src={atlasCover} alt="Cover of The Atlas of Atlases" width="800" height="1200" />
+      </figure>
+      <div>
+        <p class="eyebrow">About NEXAH · Atlas of Atlases</p>
+        <h1>THE ATLAS OF ATLASES</h1>
+        <p class="lead">A conceptual framework for relationships between maps and knowledge systems.</p>
+        <p>Move through six orientation fields to compare representations, reference spaces, scales and relations.</p>
+        <a class="button" href={atlasSectionHref(entrance.slug)}>Enter the Atlas <span aria-hidden="true">→</span></a>
+      </div>
+    </header>
+  </section>
 
   <section class="container atlas-volume-section" aria-labelledby="atlas-volumes-title">
     <header class="section-heading">

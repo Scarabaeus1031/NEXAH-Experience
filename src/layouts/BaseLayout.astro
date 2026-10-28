@@ -1,7 +1,9 @@
 ---
 import SiteFooter from "@/components/SiteFooter.astro";
 import SiteHeader from "@/components/SiteHeader.astro";
+import SciencePublicHeader from "@/components/SciencePublicHeader.astro";
 import SessionQuestion from "@/components/journey/SessionQuestion.astro";
+import { nexahIdentity, nexahStructuredData } from "@/data/nexah-identity";
 import "@/styles/tokens.css";
 import "@/styles/global.css";
 import "@/styles/motion.css";
@@ -12,18 +14,21 @@ type Props = {
   hideFooter?: boolean;
   hideSessionQuestion?: boolean;
   hideEcosystemRail?: boolean;
+  headerVariant?: "default" | "science";
   lang?: "en" | "de";
 };
 
 const {
   title = "NEXAH — The Orientation Ecosystem",
-  description = "NEXAH is the Orientation Ecosystem for designing Human orientation in complex systems through research, tools, maps, publications and applications.",
+  description = nexahIdentity.definition,
   hideFooter = false,
   hideSessionQuestion = false,
   hideEcosystemRail = false,
+  headerVariant = "science",
   lang = "en",
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const structuredData = JSON.stringify(nexahStructuredData());
 ---
 
 <!doctype html>
@@ -35,6 +40,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#07131e" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="describedby" href="/llms.txt" />
+    <link rel="alternate" type="text/markdown" href="/ai/nexah.md" title="NEXAH AI-readable overview" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="NEXAH" />
@@ -45,11 +52,40 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <script is:inline type="application/ld+json" set:html={structuredData}></script>
+    <script is:inline>
+      // Local NEXAH work is always reviewed inside the persistent A0 Owner frame.
+      // Public nexah.de routes remain ordinary standalone website routes.
+      (() => {
+        if (window.self !== window.top) return;
+        if (!["127.0.0.1", "localhost"].includes(location.hostname)) return;
+        if (!["4321", "4322", "4325", "4326"].includes(location.port)) return;
+        const ownerFrame = new URL("http://127.0.0.1:8766/30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/index.html");
+        ownerFrame.searchParams.set("projection", "nexah-science");
+        ownerFrame.searchParams.set("nexah-origin", location.origin);
+        ownerFrame.searchParams.set("nexah-path", `${location.pathname}${location.search}${location.hash}`);
+        location.replace(ownerFrame.href);
+      })();
+    </script>
+    <script is:inline>
+      // Keep the A0 Owner frame bound to the exact public route currently
+      // visible in its staging projection. This is a no-op on nexah.de.
+      (() => {
+        if (window.self === window.top) return;
+        const notifyOwnerFrame = () => window.parent.postMessage({
+          type: "nexah:owner-route",
+          path: `${location.pathname}${location.search}${location.hash}`,
+        }, "*");
+        addEventListener("pageshow", notifyOwnerFrame);
+        addEventListener("hashchange", notifyOwnerFrame);
+        notifyOwnerFrame();
+      })();
+    </script>
     <title>{title}</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <SiteHeader hideEcosystemRail={hideEcosystemRail} />
+    {headerVariant === "science" ? <SciencePublicHeader /> : <SiteHeader hideEcosystemRail={hideEcosystemRail} />}
     <main id="main">{!hideSessionQuestion && <SessionQuestion />}<slot /></main>
     {!hideFooter && <SiteFooter />}
   </body>

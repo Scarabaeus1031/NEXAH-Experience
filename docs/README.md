@@ -25,6 +25,7 @@ but it cannot amend a higher level.
 | [Orientation Interface](ORIENTATION_INTERFACE.md) | Sprint 06 question lifecycle, clarification and transparency boundary |
 | [Reading Space](READING_SPACE.md) | Sprint 07 page flow, source provenance and Reader authority boundary; [Field Geometry → A0 / NSN source return](READING_SPACE.md#field-geometry-balance-return) |
 | [Navigation Catalog](NAVIGATION_CATALOG.md) | catalog projection, editorial doors, routes and authority boundary |
+| [NEXAH.de Public Content Map](NEXAH_PUBLIC_CONTENT_MAP_2026-10-28.md) | current public-route inventory, A0 allowlist boundary, duplicate risks and four-route transition plan |
 | [Orientation Threshold](ORIENTATION_THRESHOLD.md) | deterministic explanations, lookup, routing and unsupported boundary |
 | [NEXAH Laboratory](LABORATORY.md) | minimal public bridge to the living Repository and research process |
 | [Rödelheim Observatory Intake](intake/ROEDELHEIM_OBSERVATORY_INTAKE_2026-10-09.md) | source-bound editorial intake for the ordered Are.na publication, local visual bundle and candidate guided book |
@@ -32,6 +33,7 @@ but it cannot amend a higher level.
 | [Experience Review 01](reviews/EXPERIENCE_REVIEW_01.md) | room-by-room review of the rendered Sprint 07 experience |
 | [Experience Consistency Review](reviews/EXPERIENCE_CONSISTENCY_REVIEW.md) | rendered review of publication states, Readers, sources, navigation, terminology and mobile continuity |
 | [Website Catalog Architecture Review](reviews/WEBSITE_CATALOG_ARCHITECTURE_REVIEW.md) | proposed catalog-driven website architecture, entry doors and migration plan |
+| [NEXAH.de Draft Migration Ledger](DRAFT_MIGRATION_LEDGER_2026-10-28.md) | classification of the temporary Human Book draft against About, Human View, Science, Builder and Library |
 
 The First User Journey in the ORION workshop is preserved as the historical
 source for Product Sprint 01. The maintained Experience documents in this

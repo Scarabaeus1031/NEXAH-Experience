@@ -1,11 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { nexahIdentity } from "@/data/nexah-identity";
 
-const movements = [
-  ["01", "Source", "Name the thing, record or situation that is being viewed."],
-  ["02", "Aperture", "Declare the position, question and boundary that select the view."],
-  ["03", "Difference", "Keep what is preserved, lost, introduced and unavailable distinct."],
-  ["04", "Return", "Bring the comparison back to Human judgment instead of automating meaning."],
+const instrumentTerms = [
+  ["Representation", "A bounded view made from a source through declared selections."],
+  ["Instrument", "The interface, model or procedure that produces or changes a view."],
+  ["State", "What is currently selected or changed inside one instrument."],
+  ["Return", "The explicit move back to context, alternatives and Human judgment."],
 ] as const;
 ---
 
@@ -27,14 +28,28 @@ const movements = [
       <h2 id="method-sequence-title">See how the view was made.</h2>
     </header>
     <ol>
-      {movements.map(([number, title, description]) => (
+      {nexahIdentity.orientationSequence.map((movement, index) => (
         <li>
-          <span>{number}</span>
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <h3>{movement.name}</h3>
+          <strong>{movement.question}</strong>
+          <p>{movement.description}</p>
         </li>
       ))}
     </ol>
+  </section>
+
+  <section class="instrument-boundary container" aria-labelledby="instrument-boundary-title">
+    <header>
+      <p class="eyebrow">Several views · distinct sources</p>
+      <h2 id="instrument-boundary-title">A guided route is not one shared simulation.</h2>
+      <p class="lead">{nexahIdentity.instrumentBoundary}</p>
+    </header>
+    <dl>
+      {instrumentTerms.map(([term, definition]) => (
+        <div><dt>{term}</dt><dd>{definition}</dd></div>
+      ))}
+    </dl>
   </section>
 
   <section class="method-boundary container">
@@ -43,7 +58,7 @@ const movements = [
       <h2>Comparison is not identity.</h2>
     </div>
     <div>
-      <p>A useful representation can be exact within its declared task and still remain incomplete outside it. Similar images do not establish a common object, mechanism or scientific claim.</p>
+      <p>A useful representation can be exact within its declared task and still remain incomplete outside it. Similar images do not establish a common object, mechanism or scientific claim. A state selected in one instrument is not evidence that another instrument contains or continues that same state.</p>
       <p><strong>NEXAH supports orientation.</strong> It does not replace evidence, specialist authority or Human responsibility.</p>
       <nav aria-label="Continue from the public method bridge">
         <a class="button" href="/laboratory/roedelheim-observatory/">Enter the Rödelheim Observatory</a>
@@ -59,13 +74,21 @@ const movements = [
   .method-hero .lead{align-self:end;max-width:38rem}
   .method-sequence{padding-block:clamp(4rem,8vw,8rem);border-block:1px solid var(--color-line)}
   .method-sequence h2,.method-boundary h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(2.6rem,5vw,5.6rem);font-weight:500;line-height:.94}
-  .method-sequence ol{display:grid;grid-template-columns:repeat(4,1fr);margin:3.5rem 0 0;padding:0;list-style:none}
+  .method-sequence ol{display:grid;grid-template-columns:repeat(5,1fr);margin:3.5rem 0 0;padding:0;list-style:none}
   .method-sequence li{min-height:18rem;padding:1.25rem;border:1px solid var(--color-line);border-right:0}
   .method-sequence li:last-child{border-right:1px solid var(--color-line)}
   .method-sequence span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
   .method-sequence h3{margin:5rem 0 .8rem;font-family:var(--font-display);font-size:2rem}
+  .method-sequence strong{display:block;min-height:3.5rem;font-size:.82rem;line-height:1.45}
   .method-sequence p,.method-boundary p{line-height:1.65}
+  .instrument-boundary{display:grid;grid-template-columns:minmax(0,1fr) minmax(20rem,.9fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(4rem,8vw,8rem);border-bottom:1px solid var(--color-line)}
+  .instrument-boundary h2{max-width:14ch;margin:.4rem 0 1.5rem;font-family:var(--font-display);font-size:clamp(2.6rem,5vw,5.6rem);font-weight:500;line-height:.94}
+  .instrument-boundary dl{margin:0}
+  .instrument-boundary dl div{display:grid;grid-template-columns:8rem 1fr;gap:1.5rem;padding:1.2rem 0;border-bottom:1px solid var(--color-line)}
+  .instrument-boundary dt{font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .instrument-boundary dd{margin:0;line-height:1.6}
   .method-boundary nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
-  @media(max-width:800px){.method-hero,.method-boundary{grid-template-columns:1fr}.method-sequence ol{grid-template-columns:1fr 1fr}.method-sequence li:nth-child(2){border-right:1px solid var(--color-line)}.method-sequence h3{margin-top:3rem}}
+  @media(max-width:900px){.method-sequence ol{grid-template-columns:repeat(2,1fr)}.method-sequence li:nth-child(even){border-right:1px solid var(--color-line)}.method-sequence li:last-child{border-right:1px solid var(--color-line)}}
+  @media(max-width:800px){.method-hero,.method-boundary,.instrument-boundary{grid-template-columns:1fr}.method-sequence h3{margin-top:3rem}}
   @media(max-width:520px){.method-sequence ol{grid-template-columns:1fr}.method-sequence li{border-right:1px solid var(--color-line);border-bottom:0}.method-sequence li:last-child{border-bottom:1px solid var(--color-line)}}
 </style>

@@ -8,7 +8,9 @@ This repository owns the public and intellectual home of the NEXAH Orientation E
 
 **NEXAH — The Orientation Ecosystem**
 
-**Designing Human Orientation in Complex Systems.**
+NEXAH is an **evidence-bound orientation ecosystem** for making relationships,
+limits and possible transitions between bounded representations inspectable and
+navigable while keeping meaning, judgment and responsibility Human.
 
 **Start here:** [Visitor Guide](https://nexah.de/visitor-guide/) · [Try NEXAHEDRON](https://nexahedron.com) · [Research & Framework](https://github.com/Scarabaeus1031/NEXAH)
 
@@ -22,6 +24,13 @@ This repository owns the public and intellectual home of the NEXAH Orientation E
 
 These are complementary entrances into one ecosystem, not competing
 definitions of NEXAH.
+
+The maintained public identity is also available in machine-readable form:
+[llms.txt](https://nexah.de/llms.txt),
+[Markdown](https://nexah.de/ai/nexah.md) and
+[ecosystem JSON](https://nexah.de/ai/ecosystem.json). These are discovery views;
+the named repositories remain authoritative for framework, evidence, execution
+and implementation claims.
 
 It does not own the scientific framework, ORION’s certified deterministic Core, the NEXAHEDRON reference Workspace or Human interpretation. Those responsibilities remain with their named ecosystem chapters.
 
