@@ -84,7 +84,7 @@ const structuredData = JSON.stringify(nexahStructuredData());
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">Zum Inhalt</a>
     {headerVariant === "science" ? <SciencePublicHeader /> : <SiteHeader hideEcosystemRail={hideEcosystemRail} />}
     <main id="main">{!hideSessionQuestion && <SessionQuestion />}<slot /></main>
     {!hideFooter && <SiteFooter />}

@@ -50,7 +50,12 @@
         </div>
       </details>
     </div>`;
+  const skip = document.createElement("a");
+  skip.className = "a0-public-bridge-skip";
+  skip.href = "#a0-public-content";
+  skip.textContent = "Zum Inhalt";
   document.body.prepend(shell);
+  document.body.prepend(skip);
 
   const notifyOwnerFrame = () => {
     if (window.parent === window) return;

@@ -90,7 +90,7 @@ test("the public identity keeps NEXAH above its programmes, disciplines, project
   assert.match(home, /Was ist NEXAH\?/);
   assert.match(home, /Quelle, Auswahl, Veränderung, Evidenz, Unsicherheit/);
   assert.match(about, /A convincing representation is not the whole situation/);
-  assert.match(about, /Meaning, judgment and responsibility remain with the Human/);
+  assert.match(about, /Bedeutung, Urteil und Verantwortung bleiben beim Menschen/);
   assert.match(architecture, /Six responsibilities\. No shared authority\./);
   assert.match(about, /Human View, Science and Builder remain distinct/);
   assert.doesNotMatch(about, /NEXAH is orientation cartography/i);
@@ -101,13 +101,14 @@ test("the public identity keeps NEXAH above its programmes, disciplines, project
 
 test("About introduces the Human mission before design and research", async () => {
   const about = await read("src/pages/about.astro");
+  const aboutGerman = await read("src/data/about-copy.de.ts");
   const identity = await read("src/data/nexah-identity.ts");
   const ecosystemEndpoint = await read("src/pages/ai/ecosystem.json.ts");
   const ecosystemSchema = await read("src/pages/ai/ecosystem.schema.json.ts");
 
   assert.match(about, /The world does not lack information/);
   assert.match(about, /It lacks orientation/);
-  assert.match(about, /Orientation is the situated capacity to understand where we are/);
+  assert.match(about, /Orientierung ist die situierte Fähigkeit zu verstehen/);
   for (const dimension of ["Position", "Perspective", "Relation", "Possible direction"]) {
     assert.match(about, new RegExp(`"${dimension}"`));
   }
@@ -115,21 +116,24 @@ test("About introduces the Human mission before design and research", async () =
     assert.match(about, new RegExp(`>${term}<`));
   }
   assert.match(about, /nexahIdentity\.publicViews/);
+  assert.match(about, /aboutCopyDe\.publicViews/);
   assert.match(identity, /id: "human-view"/);
   assert.match(identity, /id: "science-view"/);
   assert.match(identity, /id: "builder-view"/);
   assert.match(identity, /href: "\/laboratory\/"/);
   assert.match(identity, /href: "\/how-nexah-works\/"/);
-  assert.match(about, /NEXAH helps people avoid mistaking a convincing representation for the whole situation/);
-  assert.match(about, /A Human-governed orientation ecosystem across culture, science, design and technology/);
+  assert.match(about, /NEXAH hilft Menschen, eine überzeugende Darstellung nicht mit der ganzen Situation zu verwechseln/);
+  assert.match(about, /Ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie/);
   assert.match(about, /Built to be inspected, challenged and revised/);
-  assert.match(about, /Initiated by Thomas K\. R\. Hofmann · developed as an independent, Human-governed project/);
+  assert.match(about, /Initiiert von Thomas K\. R\. Hofmann · entwickelt als unabhängiges, Human-governed Projekt/);
   assert.match(about, /Capability should serve life/);
   assert.match(about, /The complete ecosystem/);
   assert.match(about, /Canonical sources/);
   assert.match(about, /For AI and search systems/);
   assert.match(about, /nexahIdentity\.hierarchy/);
   assert.match(about, /nexahIdentity\.authoritySources/);
+  assert.match(aboutGerman, /NEXAH ist ein evidenzgebundenes Orientierungssystem/);
+  assert.match(aboutGerman, /Die Human View erzeugt keine wissenschaftliche/);
   assert.match(identity, /NEXAH is an evidence-bound orientation ecosystem/);
   assert.match(identity, /NEXAH Science Lab/);
   assert.match(identity, /A0 is not identical with NEXAH or NEXAH Science/);
@@ -229,7 +233,7 @@ test("the Laboratory boundary and navigation are explicit", async () => {
   assert.match(footer, /href="\/laboratory\/"/);
   assert.ok(navigation.indexOf('["Research process", "/laboratory/process/"]') < navigation.indexOf('["Laboratory", "/laboratory/"]'));
   assert.match(landing, /NEXAH Science · Public research status/);
-  assert.match(landing, /Structure Freeze · 0 active/);
+  assert.doesNotMatch(landing, /Structure Freeze|0 active/);
   assert.match(landing, /SCC-003/);
   assert.match(document, /The Laboratory summarizes, contextualizes and links/);
   assert.match(document, /Repository remains authoritative/);
@@ -408,6 +412,9 @@ test("A0 is presented as a source-bound NEXAH page without duplicating its sourc
     assert.match(bridgeScript, new RegExp(label.replace("&", "&")));
   }
   assert.match(bridgeStyles, /> \.top,\s*\.a0-public-composed > \.a0-public-top \{ display: none !important; \}/);
+  assert.match(bridgeStyles, /\.a0-public-bridge-skip/);
+  assert.match(bridgeStyles, /\.a0-public-bridge__primary \{ display: none; \}/);
+  assert.match(bridgeScript, /skip\.textContent = "Zum Inhalt"/);
   assert.match(bridgeStyles, /\.hero h1/);
 });
 

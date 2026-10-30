@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { aboutCopyDe } from "@/data/about-copy.de";
 import { nexahIdentity } from "@/data/nexah-identity";
 
 const orientationDimensions = [
@@ -13,37 +14,38 @@ const orientationDimensions = [
 
 <BaseLayout
   title="About NEXAH — A Human Project for Orientation"
-  description="NEXAH is a Human, cultural and design project for remaining oriented amid abundant information, powerful systems and changing representations."
+  description="NEXAH ist ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie."
   headerVariant="science"
   hideSessionQuestion={true}
+  lang="de"
 >
   <section class="about-science-hero">
   <header class="container about-position-hero">
     <div class="about-position-hero__copy">
       <p class="eyebrow">About NEXAH</p>
       <h1>A convincing representation is not the whole situation.</h1>
-      <p class="lead">NEXAH helps people avoid mistaking a convincing representation for the whole situation.</p>
-      <dl class="about-position-definition" aria-label="NEXAH in three clear statements">
+      <p class="lead">NEXAH hilft Menschen, eine überzeugende Darstellung nicht mit der ganzen Situation zu verwechseln.</p>
+      <dl class="about-position-definition" aria-label="NEXAH in drei klaren Aussagen">
         <div>
           <dt>What it is</dt>
-          <dd>A Human-governed orientation ecosystem across culture, science, design and technology.</dd>
+          <dd>Ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie.</dd>
         </div>
         <div>
           <dt>What it makes visible</dt>
-          <dd>Source, frame, transformation, evidence, uncertainty and what remains outside the view.</dd>
+          <dd>Quelle, Rahmen, Veränderung, Evidenz, Unsicherheit und das, was außerhalb der Ansicht bleibt.</dd>
         </div>
         <div>
           <dt>Its boundary</dt>
-          <dd>NEXAH supports understanding. It does not decide, recommend or replace Human judgment.</dd>
+          <dd>NEXAH unterstützt Verstehen. Es entscheidet nicht, empfiehlt nicht und ersetzt kein menschliches Urteil.</dd>
         </div>
       </dl>
     </div>
-    <aside class="about-position-thesis" aria-label="The position of NEXAH">
+    <aside class="about-position-thesis" aria-label="Die Position von NEXAH">
       <div class="about-position-thesis__landscape" aria-hidden="true"></div>
       <span class="about-position-thesis__mark" aria-hidden="true">⌖</span>
       <p class="eyebrow">The mission</p>
       <strong>Capability should serve life.</strong>
-      <span>Meaning, judgment and responsibility remain with the Human.</span>
+      <span>Bedeutung, Urteil und Verantwortung bleiben beim Menschen.</span>
     </aside>
   </header>
   </section>
@@ -56,8 +58,8 @@ const orientationDimensions = [
           <h2 id="ecosystem-identity-title">One NEXAH.<br />Distinct responsibilities.</h2>
         </div>
         <div>
-          <p class="lead">{nexahIdentity.definition}</p>
-          <p>{nexahIdentity.purpose}</p>
+          <p class="lead">{aboutCopyDe.definition}</p>
+          <p>{aboutCopyDe.purpose}</p>
         </div>
       </header>
 
@@ -66,8 +68,8 @@ const orientationDimensions = [
           <li>
             <span>{String(index + 1).padStart(2, "0")}</span>
             <h3>{entry.name}</h3>
-            <p>{entry.role}</p>
-            <small>{entry.boundary}</small>
+            <p>{aboutCopyDe.hierarchy[index].role}</p>
+            <small>{aboutCopyDe.hierarchy[index].boundary}</small>
           </li>
         ))}
       </ol>
@@ -77,15 +79,15 @@ const orientationDimensions = [
           <p class="eyebrow">Canonical sources</p>
           <h3>Follow each claim to the source that owns it.</h3>
         </div>
-        <p>The public site explains and routes. The linked repositories retain their named framework, evidence, execution and implementation authority.</p>
+        <p>Die öffentliche Seite erklärt und weist Wege. Die verlinkten Repositories behalten ihre benannte Framework-, Evidenz-, Ausführungs- und Implementierungsautorität.</p>
       </div>
       <div class="about-authority-grid">
-        {nexahIdentity.authoritySources.map((source) => (
+        {nexahIdentity.authoritySources.map((source, index) => (
           <a href={source.href} target={source.href.startsWith("http") ? "_blank" : undefined} rel={source.href.startsWith("http") ? "noopener noreferrer" : undefined}>
             <span>{source.role}</span>
             <h3>{source.name}</h3>
-            <p>{source.authority}</p>
-            <small>{source.boundary}</small>
+            <p>{aboutCopyDe.authoritySources[index].authority}</p>
+            <small>{aboutCopyDe.authoritySources[index].boundary}</small>
             <strong>Open source <b aria-hidden="true">↗</b></strong>
           </a>
         ))}
@@ -95,7 +97,7 @@ const orientationDimensions = [
         <div>
           <p class="eyebrow">For AI and search systems</p>
           <h3>The same identity, in machine-readable views.</h3>
-          <p>These files are generated from the same maintained identity source as this page. They guide discovery without replacing the original repositories.</p>
+          <p>Diese Dateien entstehen aus derselben gepflegten Identitätsquelle wie diese Seite. Sie unterstützen die Auffindbarkeit, ohne die ursprünglichen Repositories zu ersetzen.</p>
         </div>
         <nav aria-label="Machine-readable NEXAH files">
           <a href="/llms.txt">llms.txt</a>
@@ -115,8 +117,8 @@ const orientationDimensions = [
         </header>
         <div class="about-representation-field">
           <div>
-            <p class="lead">Artificial intelligence, media and institutions are powerful and useful. But every answer they provide is made through a selection: sources, variables, frames, categories and sequences.</p>
-            <p>When those choices disappear from view, a partial representation can begin to feel like the whole. Orientation restores the missing relation between what we see, how it was formed and what remains outside.</p>
+            <p class="lead">Künstliche Intelligenz, Medien und Institutionen sind mächtig und nützlich. Doch jede ihrer Antworten entsteht durch eine Auswahl: Quellen, Variablen, Rahmen, Kategorien und Reihenfolgen.</p>
+            <p>Wenn diese Entscheidungen unsichtbar werden, kann eine partielle Darstellung wie das Ganze erscheinen. Orientierung stellt die fehlende Beziehung zwischen dem Sichtbaren, seiner Entstehung und dem außerhalb der Ansicht Liegenden wieder her.</p>
           </div>
           <ul aria-label="Examples of bounded representations">
             <li><span>01</span><strong>An answer</strong><small>selects sources</small></li>
@@ -131,9 +133,9 @@ const orientationDimensions = [
     <section class="container section orientation-definition" aria-labelledby="orientation-definition-title">
       <header class="about-section-heading about-section-heading--split">
         <div><p class="eyebrow">What Orientation Means</p><h2 id="orientation-definition-title">A situated capacity—not a final result.</h2></div>
-        <p>Orientation arises between an observer, a representation, a purpose, a context and the alternatives held in view.</p>
+        <p>Orientierung entsteht zwischen einem Beobachter, einer Darstellung, einem Zweck, einem Kontext und den mitgedachten Alternativen.</p>
       </header>
-      <blockquote>Orientation is the situated capacity to understand where we are, which representation we are using, what it reveals and omits, how it relates to other representations, and which paths remain possible.</blockquote>
+      <blockquote>Orientierung ist die situierte Fähigkeit zu verstehen, wo wir sind, welche Darstellung wir verwenden, was sie zeigt und auslässt, wie sie sich zu anderen Darstellungen verhält und welche Wege möglich bleiben.</blockquote>
       <div class="orientation-dimensions orientation-dimensions--concise">
         {orientationDimensions.map(([name, question], index) => (
           <article>
@@ -143,7 +145,7 @@ const orientationDimensions = [
           </article>
         ))}
       </div>
-      <p class="orientation-definition__boundary">Orientation supports understanding. It does not decide, recommend or authorize action.</p>
+      <p class="orientation-definition__boundary">Orientierung unterstützt Verstehen. Sie entscheidet nicht, empfiehlt nicht und autorisiert keine Handlung.</p>
     </section>
 
     <section id="orientation-practice" class="about-practice-section section--line" aria-labelledby="orientation-practice-title">
@@ -153,12 +155,12 @@ const orientationDimensions = [
             <p class="eyebrow">How NEXAH works</p>
             <h2 id="orientation-practice-title">A Human practice before it becomes a system.</h2>
           </div>
-          <p>NEXAH begins with ordinary acts of attention and makes them explicit enough to inspect together.</p>
+          <p>NEXAH beginnt mit alltäglichen Akten der Aufmerksamkeit und macht sie deutlich genug, um sie gemeinsam prüfen zu können.</p>
         </header>
         <p class="about-practice-line" aria-label="The NEXAH orientation practice">
           <span>Observe</span><i>→</i><span>Select</span><i>→</i><span>Cut</span><i>→</i><span>Record</span><i>→</i><span>Compare</span><i>→</i><span>Return</span>
         </p>
-        <p class="about-practice-boundary"><strong>Return</strong> means bringing a result back to context, memory, revision and Human judgment. It closes a test cycle; it does not close the world.</p>
+        <p class="about-practice-boundary"><strong>Return</strong> bedeutet, ein Ergebnis in Kontext, Erinnerung, Revision und menschliches Urteil zurückzuführen. Er schließt einen Prüfzyklus, nicht die Welt.</p>
       </div>
     </section>
 
@@ -169,7 +171,7 @@ const orientationDimensions = [
             <p class="eyebrow">One mission · three views</p>
             <h2 id="about-layers-title">Human View, Science and Builder remain distinct.</h2>
           </div>
-          <p>Human experience, design instruments and scientific tests belong together, but they must remain distinguishable. That separation is part of the integrity of NEXAH.</p>
+          <p>Menschliche Erfahrung, Designinstrumente und wissenschaftliche Tests gehören zusammen, müssen aber unterscheidbar bleiben. Diese Trennung ist Teil der Integrität von NEXAH.</p>
         </header>
         <ol class="about-layer-grid">
           {nexahIdentity.publicViews.map((view, index) => (
@@ -177,8 +179,8 @@ const orientationDimensions = [
               <a href={view.href} target={view.external ? "_blank" : undefined} rel={view.external ? "noopener noreferrer" : undefined}>
                 <span>{String(index + 1).padStart(2, "0")} · {view.name}</span>
                 <h3>{view.title}</h3>
-                <p>{view.role}</p>
-                <small>{view.boundary}</small>
+                <p>{aboutCopyDe.publicViews[index].role}</p>
+                <small>{aboutCopyDe.publicViews[index].boundary}</small>
                 <strong>{view.action} <b aria-hidden="true">{view.external ? "↗" : "→"}</b></strong>
               </a>
             </li>
@@ -192,8 +194,8 @@ const orientationDimensions = [
         <div>
           <p class="eyebrow">Human-governed · open to review</p>
           <h2 id="open-invitation-title">Built to be inspected, challenged and revised.</h2>
-          <p>NEXAH brings cultural, scientific, design and technical work into one orientation practice while keeping their different responsibilities and standards of evidence visible.</p>
-          <p>Readers, designers, artists, educators, engineers and researchers are invited to experience the work, challenge it and help develop better ways of remaining oriented.</p>
+          <p>NEXAH führt kulturelle, wissenschaftliche, gestalterische und technische Arbeit in einer Orientierungspraxis zusammen und hält dabei ihre unterschiedlichen Verantwortlichkeiten und Evidenzstandards sichtbar.</p>
+          <p>Leserinnen und Leser, Designer, Künstlerinnen, Lehrende, Ingenieure und Forschende sind eingeladen, die Arbeit zu erleben, zu hinterfragen und bessere Wege zu entwickeln, orientiert zu bleiben.</p>
         </div>
         <aside>
           <blockquote>Capability should serve life.<br />Orientation keeps the Human in the relation.</blockquote>
@@ -205,7 +207,7 @@ const orientationDimensions = [
           </nav>
         </aside>
       </div>
-      <p class="container about-provenance">Initiated by Thomas K. R. Hofmann · developed as an independent, Human-governed project.</p>
+      <p class="container about-provenance">Initiiert von Thomas K. R. Hofmann · entwickelt als unabhängiges, Human-governed Projekt.</p>
     </section>
   </div>
 </BaseLayout>
