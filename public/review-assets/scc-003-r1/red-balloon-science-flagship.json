@@ -248,6 +248,28 @@
       "material_panel_claim": false,
       "dynamical_law_claim": false
     },
+    "hele_noble_gas_coda": {
+      "classification": "OWNER_LANGUAGE_CODA",
+      "freeze_state": "OWNER_VIEW_FROZEN_LOCAL_STAGING",
+      "chemistry_facts": {
+        "helium": {"symbol": "He", "atomic_number": 2, "group": "noble gas"},
+        "neon": {"symbol": "Ne", "atomic_number": 10, "group": "noble gas"}
+      },
+      "owner_reading_cues": ["HELE", "HELulIiriUM", "AEON to NEON", "EKKO", "Alpha to Omega"],
+      "narrative_return": "Alpha opens the reading; Omega closes it; EKKO names the narrative return",
+      "separate_provenance": ["historical HE=9 label", "A0_NEON_TRAP_DOOR", "NBV_NEON"],
+      "chemical_transformation_claim": false,
+      "element_genealogy_claim": false,
+      "periodic_table_operator_claim": false,
+      "cosmology_or_mechanism_claim": false,
+      "authority_transfer_claim": false,
+      "new_operator": false,
+      "new_identity": false,
+      "new_relation": false,
+      "new_study": false,
+      "new_finding": false,
+      "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+    },
     "owner_score_labels": ["XiX", "BigTube", "BOOM", "OP-TIK"],
     "new_operator": false,
     "new_identity": false,

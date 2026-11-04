@@ -433,6 +433,14 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /0 · 25 · 50 · 75 · 100% normalized frame position/);
   assert.match(study, /HE \/ LE.*local Owner station labels · semantics held/s);
   assert.match(study, /does not identify C with carbon, define a periodic-table carrier or import the historical/);
+  assert.match(study, /HELE\.<br \/>A light balloon returns\./);
+  assert.match(study, /He<\/span><strong>2<\/strong><small>HELIUM · NOBLE GAS/);
+  assert.match(study, /Ne<\/span><strong>10<\/strong><small>NEON · NOBLE GAS/);
+  assert.match(study, /AEON → NEON/);
+  assert.match(study, /Alpha opens the reading; Omega closes it/);
+  assert.match(study, /OWNER VIEW FROZEN · LOCAL STAGING · DOCUMENTARY PROJECTION ONLY/);
+  assert.match(study, /no chemical transformation, element genealogy, periodic-table operator, cosmology or mechanism/);
+  assert.match(study, /A0_NEON_TRAP_DOOR.*NBV_NEON.*no evidence or authority transfers/s);
   assert.match(study, /29 R\|BBS · Brustbein \/ Kinn owner gloss · provisional/);
   assert.match(study, /P1…P10/);
   assert.match(study, /DIRAC BELT = DOUBLE-COVER CUE ONLY/);
