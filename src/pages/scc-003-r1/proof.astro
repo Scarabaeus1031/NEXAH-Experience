@@ -1,0 +1,421 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b6454377679996f2";
+---
+
+<BaseLayout
+  title="SCC-003 Proof Capsule — Independent finite reconstruction"
+  description="A transparent browser reconstruction of the bounded SCC-003 finite claims."
+  canonicalOrigin="https://review.nexah.de"
+  robots="noindex, nofollow"
+  hideSessionQuestion={true}
+  lang="en"
+>
+  <article class="proof-page">
+    <header class="proof-hero">
+      <div class="container proof-hero__inner">
+        <a class="proof-back" href="/scc-003-r1/">← SCC-003-R1 review room</a>
+        <p class="proof-kicker">Machine-checkable finite reconstruction · proof capsule 1.0</p>
+        <h1>Reconstruct<br /><em>before you trust.</em></h1>
+        <p class="proof-deck">This page independently rebuilds the five depth-six Pascal carriers, applies the published seam relation and checks the bounded SCC-003 claims in your browser. It imports neither the Python generator nor its exported result tables.</p>
+        <div class="proof-runline">
+          <button class="button proof-run" type="button" data-proof-run>Run proof check</button>
+          <p class="proof-state" data-proof-state aria-live="polite"><span></span> Ready · not yet executed</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="proof-triptych" aria-labelledby="proof-triptych-title">
+      <div class="container">
+        <div class="proof-triptych__heading">
+          <div>
+            <p class="proof-kicker">01 · Three-stage reconstruction</p>
+            <h2 id="proof-triptych-title">Five carriers.<br />One closure.<br />One quotient.</h2>
+          </div>
+          <p>This triptych explains the construction path. It is generated from the same depth-six, five-face specification as the verifier; the exact quotient graph follows below.</p>
+        </div>
+
+        <div class="triptych-grid">
+          <figure class="triptych-panel">
+            <div class="triptych-panel__number">I</div>
+            <svg viewBox="0 0 360 230" role="img" aria-labelledby="triptych-source-title triptych-source-desc">
+              <title id="triptych-source-title">Five separate Pascal carriers</title>
+              <desc id="triptych-source-desc">Five depth-six triangular Pascal carriers, each containing 28 raw positions.</desc>
+              <g data-triptych-source></g>
+            </svg>
+            <figcaption><span>Source</span><strong>5 × 28 raw positions</strong><p>Five separate depth-six Pascal carriers. Nothing has been identified yet.</p></figcaption>
+          </figure>
+
+          <figure class="triptych-panel triptych-panel--bind">
+            <div class="triptych-panel__number">II</div>
+            <svg viewBox="0 0 360 230" role="img" aria-labelledby="triptych-bind-title triptych-bind-desc">
+              <title id="triptych-bind-title">Cyclic seam closure</title>
+              <desc id="triptych-bind-desc">The five carriers share the apex and adjacent seams; the final seam closes six remaining boundary positions.</desc>
+              <g data-triptych-bind></g>
+            </svg>
+            <figcaption><span>Bind</span><strong>112 → 106</strong><p>Shared apex and adjacent seams form the open chain. The last seam closes six boundary positions.</p></figcaption>
+          </figure>
+
+          <figure class="triptych-panel triptych-panel--quotient">
+            <div class="triptych-panel__number">III</div>
+            <svg viewBox="0 0 360 230" role="img" aria-labelledby="triptych-quotient-title triptych-quotient-desc">
+              <title id="triptych-quotient-title">Closed SCC-003 quotient</title>
+              <desc id="triptych-quotient-desc">The reconstructed connected quotient with 106 vertices and 180 directed recurrence edges.</desc>
+              <g data-triptych-quotient-edges></g>
+              <g data-triptych-quotient-nodes></g>
+            </svg>
+            <figcaption><span>Quotient</span><strong>106 vertices · 180 edges</strong><p>The closed typed graph. Its exact D5 symmetry is checked rather than inferred from the drawing.</p></figcaption>
+          </figure>
+        </div>
+
+        <p class="triptych-note">Reading aid only · the incidence data and executable checks remain the proof object.</p>
+      </div>
+    </section>
+
+    <section class="proof-witness" aria-labelledby="proof-witness-title">
+      <div class="container proof-witness__grid">
+        <div class="proof-witness__copy">
+          <p class="proof-kicker">02 · Constructive witness</p>
+          <h2 id="proof-witness-title">106 vertices.<br />No illustrative substitute.</h2>
+          <p>The diagram below is generated from the reconstructed quotient itself. Every point is one quotient class; every line is one of the 180 unique directed recurrence edges.</p>
+          <dl class="proof-metrics">
+            <div><dt>Open sequence</dt><dd data-metric="open">—</dd></div>
+            <div><dt>Closed quotient</dt><dd data-metric="nodes">—</dd></div>
+            <div><dt>Directed edges</dt><dd data-metric="edges">—</dd></div>
+            <div><dt>Typed group</dt><dd data-metric="group">—</dd></div>
+          </dl>
+        </div>
+        <figure class="proof-graph-frame">
+          <svg data-proof-graph viewBox="0 0 720 720" role="img" aria-labelledby="proof-graph-title proof-graph-desc">
+            <title id="proof-graph-title">Reconstructed SCC-003 quotient graph</title>
+            <desc id="proof-graph-desc">The 106 quotient vertices and 180 recurrence edges arranged by their five retained Pascal-face addresses.</desc>
+            <circle cx="360" cy="360" r="304" class="proof-graph-ring"></circle>
+            <g data-proof-edges></g>
+            <g data-proof-nodes></g>
+          </svg>
+          <figcaption>Generated only after the reconstruction passes. Layout is explanatory; the typed graph and incidence data are the proof object.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="proof-checks" aria-labelledby="proof-checks-title">
+      <div class="container proof-checks__grid">
+        <div>
+          <p class="proof-kicker">03 · Executable checks</p>
+          <h2 id="proof-checks-title">Finite statements,<br />visible failures.</h2>
+          <p>If any check fails, the capsule reports <strong>FAIL</strong> and withholds the D5 conclusion. A green interface is never substituted for the actual check list.</p>
+        </div>
+        <ol class="proof-check-list" data-proof-checks>
+          <li><span>Waiting</span><p>Run the reconstruction to expose each result.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="proof-exactness" aria-labelledby="proof-exactness-title">
+      <div class="container">
+        <p class="proof-kicker">04 · Why “exactly D5”</p>
+        <h2 id="proof-exactness-title">An upper bound.<br />A trivial kernel.<br />Ten witnessed lifts.</h2>
+        <div class="lemma-grid">
+          <article><span>Upper bound</span><h3>Face-cycle action</h3><p>Every typed automorphism acts on the retained five-face adjacency cycle. The verifier enumerates all 120 face permutations and finds exactly ten cycle automorphisms.</p></article>
+          <article><span>Kernel</span><h3>No hidden motion</h3><p>Fixing every face and both of its seams fixes level and side-distance coordinates. The identity face action therefore lifts only to the identity on all 106 quotient classes.</p></article>
+          <article><span>Lower bound</span><h3>All ten exist</h3><p>The verifier constructs five rotations and five reflections, checks their action on every weight and directed edge, and verifies r⁵=e, m²=e and mrm=r⁻¹.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-boundary" aria-labelledby="proof-boundary-title">
+      <div class="container proof-boundary__grid">
+        <div><p class="proof-kicker">05 · Proof boundary</p><h2 id="proof-boundary-title">What this establishes.</h2></div>
+        <div>
+          <p class="proof-boundary__yes">The published finite specification reconstructs a connected 106-vertex quotient with 180 directed recurrence edges, preserved facewise Pascal recurrence and typed automorphism group exactly D5.</p>
+          <p>It does not establish worldwide novelty, priority, significance, physical meaning, publication readiness or independent human review. Those remain human and literature-review questions.</p>
+          <div class="proof-links">
+            <a href="/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs">Read verifier source</a>
+            <a href="/review-assets/scc-003-r1/proof/scc003-proof-certificate.json">Read certificate</a>
+            <a href="/review-assets/scc-003-r1/SCC-003-R1_REPRODUCIBLE_PACKET.zip">Download full packet</a>
+            <a href="/scc-003-r1/generation-study/">Open Science Flagship notebook</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="proof-footer">
+      <div class="container proof-footer__grid">
+        <div><span>Identity</span><code>SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST</code></div>
+        <div><span>Source manifest</span><code>{manifestHash}</code></div>
+        <div><span>State</span><code>LOCAL OWNER STAGING / NOT PUBLISHED</code></div>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>
+
+<script type="module" is:inline>
+  import { verifySCC003 } from "/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs";
+
+  const state = document.querySelector("[data-proof-state]");
+  const runButton = document.querySelector("[data-proof-run]");
+  const checkList = document.querySelector("[data-proof-checks]");
+  const edgesLayer = document.querySelector("[data-proof-edges]");
+  const nodesLayer = document.querySelector("[data-proof-nodes]");
+  const triptychSource = document.querySelector("[data-triptych-source]");
+  const triptychBind = document.querySelector("[data-triptych-bind]");
+  const triptychQuotientEdges = document.querySelector("[data-triptych-quotient-edges]");
+  const triptychQuotientNodes = document.querySelector("[data-triptych-quotient-nodes]");
+  const namespace = "http://www.w3.org/2000/svg";
+
+  function pointFor(node, center = 360, step = 47) {
+    if (node.id === "A") return [center, center];
+    const parts = node.id.split("_");
+    if (parts[0] === "S") {
+      const n = Number(parts[1]);
+      const seam = Number(parts[2]);
+      const angle = -Math.PI / 2 + seam * Math.PI * 2 / 5;
+      return [center + Math.cos(angle) * n * step, center + Math.sin(angle) * n * step];
+    }
+    const face = Number(parts[1]);
+    const n = Number(parts[2]);
+    const k = Number(parts[3]);
+    const left = -Math.PI / 2 + (face - 1) * Math.PI * 2 / 5;
+    const angle = left + (k / n) * Math.PI * 2 / 5;
+    return [center + Math.cos(angle) * n * step, center + Math.sin(angle) * n * step];
+  }
+
+  function svgElement(name, attributes = {}) {
+    const element = document.createElementNS(namespace, name);
+    Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+    return element;
+  }
+
+  function drawTriptychSource() {
+    const origins = [[72, 68], [180, 55], [288, 68], [126, 166], [234, 166]];
+    for (const [face, [cx, cy]] of origins.entries()) {
+      const points = [];
+      for (let n = 0; n <= 6; n += 1) {
+        for (let k = 0; k <= n; k += 1) {
+          points.push({ n, k, x: cx + (k - n / 2) * 9, y: cy - 29 + n * 9 });
+        }
+      }
+      const byAddress = new Map(points.map((point) => [`${point.n}:${point.k}`, point]));
+      for (const point of points.filter(({ n }) => n < 6)) {
+        for (const child of [point.k, point.k + 1]) {
+          const target = byAddress.get(`${point.n + 1}:${child}`);
+          triptychSource.append(svgElement("line", { x1: point.x, y1: point.y, x2: target.x, y2: target.y, class: "triptych-line" }));
+        }
+      }
+      for (const point of points) triptychSource.append(svgElement("circle", { cx: point.x, cy: point.y, r: 1.6, class: "triptych-node" }));
+      const label = svgElement("text", { x: cx, y: cy + 42, class: "triptych-face-label", "text-anchor": "middle" });
+      label.textContent = `F${face + 1}`;
+      triptychSource.append(label);
+    }
+  }
+
+  function drawTriptychBind() {
+    const center = [180, 112];
+    const radius = 87;
+    const vertices = Array.from({ length: 5 }, (_, index) => {
+      const angle = -Math.PI / 2 + index * Math.PI * 2 / 5;
+      return [center[0] + Math.cos(angle) * radius, center[1] + Math.sin(angle) * radius];
+    });
+    for (let face = 0; face < 5; face += 1) {
+      const left = vertices[face];
+      const right = vertices[(face + 1) % 5];
+      triptychBind.append(svgElement("polygon", { points: `${center.join(",")} ${left.join(",")} ${right.join(",")}`, class: "triptych-face" }));
+      const labelX = center[0] + ((left[0] + right[0]) / 2 - center[0]) * .68;
+      const labelY = center[1] + ((left[1] + right[1]) / 2 - center[1]) * .68;
+      const label = svgElement("text", { x: labelX, y: labelY + 3, class: "triptych-face-label", "text-anchor": "middle" });
+      label.textContent = `F${face + 1}`;
+      triptychBind.append(label);
+    }
+    vertices.forEach(([x, y], index) => {
+      triptychBind.append(svgElement("line", { x1: center[0], y1: center[1], x2: x, y2: y, class: index === 0 ? "triptych-seam triptych-seam--closure" : "triptych-seam" }));
+    });
+    for (let index = 0; index < 5; index += 1) {
+      const [x1, y1] = vertices[index];
+      const [x2, y2] = vertices[(index + 1) % 5];
+      triptychBind.append(svgElement("line", { x1, y1, x2, y2, class: "triptych-base" }));
+    }
+    const [closureX, closureY] = vertices[0];
+    for (let n = 1; n <= 6; n += 1) {
+      const t = n / 6;
+      triptychBind.append(svgElement("circle", { cx: center[0] + (closureX - center[0]) * t, cy: center[1] + (closureY - center[1]) * t, r: 3.1, class: "triptych-closure-node" }));
+    }
+    triptychBind.append(svgElement("circle", { cx: center[0], cy: center[1], r: 5, class: "triptych-apex" }));
+  }
+
+  function renderTriptychQuotient(witness) {
+    triptychQuotientEdges.replaceChildren();
+    triptychQuotientNodes.replaceChildren();
+    const points = witness.nodes.map((node) => {
+      const [x, y] = pointFor(node, 0, 13.5);
+      return [180 + x, 115 + y];
+    });
+    witness.edges.forEach(([source, target]) => {
+      triptychQuotientEdges.append(svgElement("line", { x1: points[source][0], y1: points[source][1], x2: points[target][0], y2: points[target][1] }));
+    });
+    witness.nodes.forEach((node, index) => {
+      triptychQuotientNodes.append(svgElement("circle", { cx: points[index][0], cy: points[index][1], r: node.id === "A" ? 3.8 : 1.7, "data-kind": node.id[0] }));
+    });
+  }
+
+  function renderGraph(witness) {
+    edgesLayer.replaceChildren();
+    nodesLayer.replaceChildren();
+    const points = witness.nodes.map(pointFor);
+    witness.edges.forEach(([source, target]) => {
+      const line = document.createElementNS(namespace, "line");
+      line.setAttribute("x1", points[source][0]); line.setAttribute("y1", points[source][1]);
+      line.setAttribute("x2", points[target][0]); line.setAttribute("y2", points[target][1]);
+      edgesLayer.append(line);
+    });
+    witness.nodes.forEach((node, index) => {
+      const circle = document.createElementNS(namespace, "circle");
+      circle.setAttribute("cx", points[index][0]); circle.setAttribute("cy", points[index][1]);
+      circle.setAttribute("r", node.id === "A" ? "6" : "3");
+      circle.dataset.kind = node.id[0];
+      const title = document.createElementNS(namespace, "title");
+      title.textContent = `${node.id} · weight ${node.weight}`;
+      circle.append(title); nodesLayer.append(circle);
+    });
+  }
+
+  function label(name) {
+    return name.replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+  }
+
+  async function runProof() {
+    runButton.disabled = true;
+    state.className = "proof-state proof-state--running";
+    state.innerHTML = "<span></span> Reconstructing from specification…";
+    try {
+      const certificate = await fetch("/review-assets/scc-003-r1/proof/scc003-proof-certificate.json").then((response) => response.json());
+      const result = verifySCC003(certificate);
+      checkList.replaceChildren(...Object.entries(result.checks).map(([name, pass]) => {
+        const item = document.createElement("li");
+        item.className = pass ? "proof-check--pass" : "proof-check--fail";
+        item.innerHTML = `<span>${pass ? "PASS" : "FAIL"}</span><p>${label(name)}</p>`;
+        return item;
+      }));
+      document.querySelector('[data-metric="open"]').textContent = result.summary.open_nodes.join(" → ");
+      document.querySelector('[data-metric="nodes"]').textContent = String(result.summary.closed_nodes);
+      document.querySelector('[data-metric="edges"]').textContent = String(result.summary.directed_edges);
+      document.querySelector('[data-metric="group"]').textContent = `${result.summary.typed_automorphism_group} · order ${result.summary.typed_automorphism_group_order}`;
+      if (result.status === "PASS") {
+        renderGraph(result.witness);
+        renderTriptychQuotient(result.witness);
+      }
+      state.className = result.status === "PASS" ? "proof-state proof-state--pass" : "proof-state proof-state--fail";
+      state.innerHTML = `<span></span> ${result.status} · ${Object.keys(result.checks).length} finite checks · ${result.failures.length} failures`;
+    } catch (error) {
+      state.className = "proof-state proof-state--fail";
+      state.innerHTML = "<span></span> ERROR · certificate or verifier could not be loaded";
+    } finally {
+      runButton.disabled = false;
+    }
+  }
+
+  runButton.addEventListener("click", runProof);
+  drawTriptychSource();
+  drawTriptychBind();
+  runProof();
+</script>
+
+<style>
+  .proof-page { background: #f3efe6; color: #101b24; }
+  .proof-hero { padding: clamp(5rem, 9vw, 9rem) 0 clamp(4rem, 8vw, 8rem); background: #07131e; color: #edf4f2; }
+  .proof-hero__inner { max-width: 77rem; }
+  .proof-back { display: inline-block; margin-bottom: 4rem; color: #8ea7b1; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+  .proof-kicker { margin: 0 0 1.2rem; color: #e8b747; font: 800 .65rem/1.25 var(--mono, ui-monospace, monospace); letter-spacing: .15em; text-transform: uppercase; }
+  .proof-hero h1, .proof-triptych h2, .proof-witness h2, .proof-checks h2, .proof-exactness h2, .proof-boundary h2 { margin: 0; font-size: clamp(3.4rem, 7vw, 7rem); line-height: .9; letter-spacing: -.055em; }
+  .proof-hero h1 { max-width: 12ch; color: #f7f2e6; }
+  .proof-hero h1 em { color: #e8b747; font-weight: 400; }
+  .proof-deck { max-width: 54rem; margin: 2rem 0; color: #acc0c8; font: 1.2rem/1.7 var(--sans); }
+  .proof-runline { display: flex; flex-wrap: wrap; gap: 1.3rem; align-items: center; }
+  .proof-run { border: 1px solid #e8b747; border-radius: 0; background: #e8b747; color: #07131e; }
+  .proof-run:disabled { cursor: wait; opacity: .6; }
+  .proof-state { margin: 0; color: #a8bac2; font: 700 .68rem/1.4 var(--mono, ui-monospace, monospace); letter-spacing: .05em; text-transform: uppercase; }
+  .proof-state span { display: inline-block; width: .62rem; height: .62rem; margin-right: .45rem; border-radius: 50%; background: #778b94; }
+  .proof-state--running span { background: #e8b747; }
+  .proof-state--pass { color: #b9e8ca; } .proof-state--pass span { background: #57d28a; box-shadow: 0 0 0 .25rem rgba(87,210,138,.12); }
+  .proof-state--fail { color: #ffb3aa; } .proof-state--fail span { background: #ff6f61; }
+
+  .proof-triptych, .proof-witness, .proof-checks, .proof-exactness, .proof-boundary { padding-block: clamp(5rem, 9vw, 9rem); border-bottom: 1px solid #b9b2a6; }
+  .proof-triptych__heading { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(18rem, .8fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; margin-bottom: 4rem; }
+  .proof-triptych__heading h2 { max-width: 11ch; }
+  .proof-triptych__heading > p { max-width: 34rem; margin: 0 0 .4rem; color: #53616a; line-height: 1.7; }
+  .triptych-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #9f988d; border-left: 1px solid #9f988d; }
+  .triptych-panel { position: relative; margin: 0; border-right: 1px solid #9f988d; border-bottom: 1px solid #9f988d; background: #f7f3ea; }
+  .triptych-panel__number { position: absolute; z-index: 1; top: 1rem; left: 1.15rem; color: #a57e27; font: 800 .62rem/1 var(--mono); letter-spacing: .12em; }
+  .triptych-panel svg { display: block; width: 100%; border-bottom: 1px solid #c4bdb1; background: #0b1c29; }
+  .triptych-panel figcaption { min-height: 12.5rem; padding: 1.5rem; }
+  .triptych-panel figcaption span { display: block; margin-bottom: .7rem; color: #a57e27; font: 800 .58rem/1 var(--mono); letter-spacing: .11em; text-transform: uppercase; }
+  .triptych-panel figcaption strong { display: block; font: 400 1.5rem/1.15 var(--serif); }
+  .triptych-panel figcaption p { margin: 1rem 0 0; color: #5a666d; font-size: .84rem; line-height: 1.55; }
+  .triptych-note { margin: 1rem 0 0; color: #747d80; font: 700 .59rem/1.5 var(--mono); letter-spacing: .08em; text-align: right; text-transform: uppercase; }
+  :global(.triptych-line) { stroke: #668a99; stroke-opacity: .46; stroke-width: .65; }
+  :global(.triptych-node) { fill: #dce8e7; }
+  :global(.triptych-face-label) { fill: #8ea6af; font: 700 8px/1 var(--mono); letter-spacing: .08em; }
+  :global(.triptych-face) { fill: rgba(69, 120, 140, .1); stroke: #496d7c; stroke-width: .8; }
+  :global(.triptych-seam) { stroke: #d6e2e1; stroke-opacity: .7; stroke-width: 1.2; }
+  :global(.triptych-seam--closure) { stroke: #e8b747; stroke-width: 2; stroke-dasharray: 4 4; }
+  :global(.triptych-base) { stroke: #385664; stroke-width: 1; }
+  :global(.triptych-closure-node) { fill: #e8b747; stroke: #0b1c29; stroke-width: 1; }
+  :global(.triptych-apex) { fill: #ff7366; stroke: #0b1c29; stroke-width: 1; }
+  :global([data-triptych-quotient-edges] line) { stroke: #668a99; stroke-opacity: .42; stroke-width: .65; }
+  :global([data-triptych-quotient-nodes] circle) { fill: #dce8e7; }
+  :global([data-triptych-quotient-nodes] circle[data-kind="S"]) { fill: #e8b747; }
+  :global([data-triptych-quotient-nodes] circle[data-kind="A"]) { fill: #ff7366; }
+  .proof-witness__grid, .proof-checks__grid, .proof-boundary__grid { display: grid; grid-template-columns: minmax(18rem, .72fr) minmax(0, 1.28fr); gap: clamp(3rem, 8vw, 8rem); align-items: center; }
+  .proof-witness__copy > p:not(.proof-kicker), .proof-checks__grid > div > p:not(.proof-kicker), .proof-boundary__grid p { color: #53616a; line-height: 1.7; }
+  .proof-metrics { display: grid; grid-template-columns: 1fr 1fr; margin-top: 2.5rem; border-top: 1px solid #aaa398; border-left: 1px solid #aaa398; }
+  .proof-metrics div { min-height: 7.5rem; padding: 1.2rem; border-right: 1px solid #aaa398; border-bottom: 1px solid #aaa398; }
+  .proof-metrics dt { color: #a57e27; font: 800 .58rem/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+  .proof-metrics dd { margin: 1.1rem 0 0; font-family: var(--serif); font-size: 1.25rem; }
+  .proof-graph-frame { margin: 0; }
+  .proof-graph-frame svg { width: 100%; border: 1px solid #9e978c; background: #0b1c29; }
+  .proof-graph-ring { fill: none; stroke: #27404d; }
+  :global([data-proof-edges] line) { stroke: #5a8292; stroke-opacity: .42; stroke-width: 1; }
+  :global([data-proof-nodes] circle) { fill: #dbe8e7; stroke: #0b1c29; stroke-width: .8; }
+  :global([data-proof-nodes] circle[data-kind="S"]) { fill: #e8b747; }
+  :global([data-proof-nodes] circle[data-kind="A"]) { fill: #ff7366; }
+  .proof-graph-frame figcaption { color: #68757c; font-size: .7rem; line-height: 1.55; }
+
+  .proof-checks { background: #0b1c29; color: #edf4f2; }
+  .proof-checks h2 { color: #edf4f2; }
+  .proof-checks__grid > div > p:not(.proof-kicker) { color: #9fb3bc; }
+  .proof-check-list { margin: 0; padding: 0; border-top: 1px solid #304957; list-style: none; }
+  .proof-check-list li { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid #304957; }
+  .proof-check-list span { color: #e8b747; font: 800 .61rem/1.5 var(--mono); letter-spacing: .09em; }
+  .proof-check-list p { margin: 0; color: #bbcad0; font-size: .82rem; }
+  :global(.proof-check--pass span) { color: #6edf9b; } :global(.proof-check--fail span) { color: #ff7d70; }
+
+  .proof-exactness h2 { max-width: 12ch; margin-bottom: 4rem; }
+  .lemma-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #aaa398; border-left: 1px solid #aaa398; }
+  .lemma-grid article { min-height: 19rem; padding: 2rem; border-right: 1px solid #aaa398; border-bottom: 1px solid #aaa398; }
+  .lemma-grid span { color: #a57e27; font: 800 .61rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+  .lemma-grid h3 { margin: 4rem 0 1rem; font-family: var(--serif); font-size: 1.7rem; font-weight: 400; }
+  .lemma-grid p { color: #59666e; }
+
+  .proof-boundary__yes { padding-left: 1.4rem; border-left: 3px solid #e8b747; color: #1d303a !important; font-family: var(--serif); font-size: 1.45rem; }
+  .proof-links { display: flex; flex-wrap: wrap; gap: 1rem 1.8rem; margin-top: 2rem; }
+  .proof-links a { color: #8b681d; font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .proof-footer { padding-block: 2.5rem; border-top: 4px solid #e8b747; background: #061018; color: #91a5af; }
+  .proof-footer__grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 2rem; }
+  .proof-footer span { display: block; margin-bottom: .5rem; color: #e8b747; font: 800 .55rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .proof-footer code { overflow-wrap: anywhere; color: #91a5af; font-size: .65rem; }
+
+  @media (max-width: 900px) {
+    .proof-triptych__heading { grid-template-columns: 1fr; }
+    .triptych-grid { grid-template-columns: 1fr; }
+    .triptych-panel figcaption { min-height: auto; }
+    .proof-witness__grid, .proof-checks__grid, .proof-boundary__grid { grid-template-columns: 1fr; }
+    .lemma-grid { grid-template-columns: 1fr; }
+    .lemma-grid article { min-height: auto; }
+    .proof-footer__grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) {
+    .proof-metrics { grid-template-columns: 1fr; }
+    .proof-runline { align-items: stretch; flex-direction: column; }
+    .proof-run { width: 100%; }
+  }
+</style>

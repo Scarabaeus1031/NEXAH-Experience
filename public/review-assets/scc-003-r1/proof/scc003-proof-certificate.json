@@ -1,0 +1,29 @@
+{
+  "schema": "nexah.scc-003-proof-capsule/1.0.0",
+  "identity": "SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST",
+  "source_packet": "SCC003-ERP-2026-10-13",
+  "source_manifest_sha256": "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b6454377679996f2",
+  "parameters": {
+    "depth": 6,
+    "faces": 5
+  },
+  "expected": {
+    "raw_face_positions": 140,
+    "open_nodes": [28, 49, 70, 91, 112],
+    "closed_nodes": 106,
+    "closure_identifications": 6,
+    "directed_edges": 180,
+    "face_edge_incidences": 210,
+    "connected_components": 1,
+    "typed_automorphism_group": "D5",
+    "typed_automorphism_group_order": 10
+  },
+  "exactness_argument": {
+    "upper_bound": "Every typed automorphism induces an automorphism of the retained five-face adjacency cycle C5.",
+    "kernel": "Fixing all five faces and their two bounding seams fixes every level and every distance-from-side position, so the induced action has trivial kernel.",
+    "lower_bound": "The five rotations and five reflections lift to ten distinct weight-, direction- and face-incidence-preserving automorphisms."
+  },
+  "verification_mode": "Independent JavaScript reconstruction from the published finite specification; no Python generator or exported result table is imported.",
+  "claim_ceiling": "Machine-checkable verification of the bounded SCC-003 construction only. This certificate does not establish worldwide novelty, priority, significance, publication readiness or independent human review.",
+  "state": "LOCAL_OWNER_STAGING_NOT_PUBLISHED"
+}

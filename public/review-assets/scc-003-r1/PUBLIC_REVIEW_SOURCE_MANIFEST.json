@@ -1,0 +1,32 @@
+{
+  "schema": "nexah.scc003.open-review-projection/1.0.0",
+  "identity_reused": "SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST",
+  "source_packet_id": "SCC003-ERP-2026-10-13",
+  "source_manifest_sha256": "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b6454377679996f2",
+  "source_validation": {
+    "failures": [],
+    "manifest_files": 30,
+    "required_files": 18,
+    "status": "PASS"
+  },
+  "projection_state": "LOCAL_OWNER_STAGING_NOT_PUBLISHED",
+  "intended_url": "https://review.nexah.de/scc-003-r1/",
+  "navigator_effect": {
+    "new_entities": 0,
+    "new_relations": 0,
+    "new_aliases": 0,
+    "note": "Public presentation candidate over the existing SCC-003 identity."
+  },
+  "outputs": {
+    "pdf": {
+      "path": "SCC-003-R1_REVIEW_COPY.pdf",
+      "sha256": "3e5df9bf96e0bb69c98c253ec0f4e24ad220ad766da17831186dced4912f024d",
+      "bytes": 23916
+    },
+    "zip": {
+      "path": "SCC-003-R1_REPRODUCIBLE_PACKET.zip",
+      "sha256": "af8657058bd2c9d530df14897e418fa59e2b7bd45eed7b1b76b80eef7616dd94",
+      "bytes": 68753
+    }
+  }
+}

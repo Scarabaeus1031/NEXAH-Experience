@@ -1,0 +1,338 @@
+{
+  "record_id": "SCC-003-R1-RED-BALLOON-FLAGSHIP-2026-11-03",
+  "title": "The Red Balloon — NEXAH Science Flagship Notebook",
+  "work_class": "SOURCE_BOUND_VISUAL_RESEARCH_NOTEBOOK",
+  "route": "/scc-003-r1/generation-study/",
+  "canonical_origin": "https://review.nexah.de",
+  "related_identity": "SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST",
+  "proof_capsule_route": "/scc-003-r1/proof/",
+  "review_room_route": "/scc-003-r1/",
+  "eight_position_view": {
+    "carrier": "O8 = Z/8Z",
+    "positions": 8,
+    "active_positions": 7,
+    "held_positions": 1,
+    "quarter_lens_intervals": 2,
+    "p_t_reading": "bidirectional navigation between labelled positions only",
+    "open_label": "F?"
+  },
+  "orientation_whiteboard": {
+    "sequence": ["Euler shell", "three sails", "Nautilus hatch"],
+    "cultural_lane": ["red balloon", "frame", "cut", "remainder", "transformed return"],
+    "banksy_role": "cultural reference point only; no artwork reproduction or source authority",
+    "sydney_role": "morphological resemblance only; no geometric identity or architectural attribution",
+    "evidence_effect": "NONE"
+  },
+  "four_phase_weather_reading": {
+    "sequence": ["S / stop boundary", "T / tension bottle", "O / opening flash", "P / passage return"],
+    "flash_marker": "F",
+    "storm_settle_marker": "SS",
+    "marker_relation": "separate local display phases; no symbol identity",
+    "cultural_mnemonics": ["stop sign", "genie in the bottle"],
+    "weather_lane": ["white flash line", "thunder", "rain", "return"],
+    "formal_operator": false,
+    "evidence_effect": "NONE"
+  },
+  "graphite_interlude": {
+    "title": "Measure. Oscillation. Release.",
+    "asset": "/review-assets/scc-003-r1/graphite/measure-oscillation-release-v1.png",
+    "sha256": "76c1e9144801e6c467cb6d64f2f20a0ed09cf98f9cd606be6d49c7cdd2b29703",
+    "dimensions": "1774x887",
+    "generation_mode": "built-in ImageGen; original project asset",
+    "sequence": ["compass / puncture / graphite trace", "rocking T view / pendulum / one-second interval / slit", "tension / snap / whip curve / finite frame"],
+    "placement": "analogue interlude between modern exact SVG instruments",
+    "reference_role": "recent owner-supplied graphite and dynamic images used as visual inspiration only",
+    "claim_boundary": "not a historical Euler reconstruction, proof figure, physical mechanism or evidence source",
+    "evidence_effect": "NONE"
+  },
+  "typed_half_plane_joint": {
+    "upper_view": "one R-T semicircular counterview",
+    "lower_view": "A-B pendulum with one-second display interval",
+    "separator": "white display horizon",
+    "right_slit": "open",
+    "open_glyph": "⁄ø; owner glyph not defined",
+    "source_non_identity": "P[A/B] != P[R/T]",
+    "display_projection": "pi_display(P[A/B]) = pi_display(P[R/T]) = p",
+    "slash_semantics": "typed role separator, not division",
+    "new_operator": false,
+    "evidence_effect": "NONE"
+  },
+  "two_face_language_medal": {
+    "front": "RAIN / meteorological event",
+    "reverse": "REIGN / semantic-cultural reading",
+    "shared_edge": "L | RR | L",
+    "view_return_path": "INSIDE -> OUTSIDE -> INSIDE'",
+    "prime_semantics": "returned interior after passage; not automatic source-state identity",
+    "exact_reversal_property": "reverse(LRRL) = LRRL",
+    "homophone_non_identity": "RAIN != REIGN",
+    "rr_cultural_association": "Rolls-Royce named only as a cultural association; no logo, brand form, endorsement, provenance, mechanism or mathematical authority",
+    "new_operator": false,
+    "evidence_effect": "NONE"
+  },
+  "typed_zero_ledger": {
+    "source_authority": "A0 Mathfield / A0_MATHEMATICAL_JOINTS.html#red-balloon-mathfield-intake",
+    "zero_value": "0 is a declared value or origin inside a typed domain",
+    "null_state": "missing, unknown or not-applicable assignment; not coerced to 0",
+    "zero_digit": "visible base-10 place inside a numeral",
+    "aperture": "declared opening, mask or unoccupied display region; no value semantics without a binder",
+    "non_identity": "ZERO_VALUE != NULL_STATE != ZERO_DIGIT != APERTURE",
+    "doubling_fixture": ["2501*2=5002", "5002*2=10004", "10004*2=20008"],
+    "visible_zero_digit_counts": [1, 2, 3, 3],
+    "negative_control": "The third doubling keeps three zero digits; no general zero-growth law is claimed.",
+    "grouping_fixture": {
+      "value": 100000000,
+      "three_digit_view": "100|000|000",
+      "four_digit_view": "1|0000|0000"
+    },
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "cd_swing_phase_display": {
+    "title": "The swing. The kiss. The offset.",
+    "pivot": "P",
+    "turning_positions": ["C", "D"],
+    "coincidence_label": "K / Sun-Moon Kiss",
+    "display_law": "theta(tau)=45deg*cos(tau)",
+    "offset_trace": "theta_delta(tau)=45deg*cos(tau+12deg)",
+    "reading_grid": {
+      "quarters": 4,
+      "clock_stations": 12,
+      "subdivisions": 60
+    },
+    "return_boundary": "theta(tau+360deg)=theta(tau) repeats the display coordinate; time does not reverse",
+    "mapping_boundary": "calendar quarters, seasons, civil time, leap-day rules and historical clock mechanisms remain separate mappings",
+    "trebuchet_role": "asymmetric swing analogy only; no physical release model",
+    "earth_moon_rate_claim": false,
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "body_kinematics_view": {
+    "title": "The shoulders. The hips. The return.",
+    "classification": "SOURCE_BOUND_HUMAN_VIEW_KINEMATIC_MNEMONIC",
+    "source_view": "A0_BOOK/assets/a0-def-g-relation-view-lab/index.html#glyph-double-cover",
+    "fixed_axis": "12<->6",
+    "crossed_routes": {
+      "13_to_7": "right scapula to left hip",
+      "11_to_5": "left scapula to right hip"
+    },
+    "piston_endpoints": 4,
+    "chirality_routes": ["LR", "RL"],
+    "angle_domain_degrees": [-720, 720],
+    "display_law": "paired sine/cosine screen displacement with half-angle sheet cue psi(theta)=(cos(theta/2),sin(theta/2))",
+    "return_period_degrees": 720,
+    "snap_corridor_degrees": [-720, -270],
+    "step_score": {
+      "range": [1, 10],
+      "P1": "TA",
+      "P7": "KINK / PHANTOM TINE",
+      "P10": "FULL FAMILY",
+      "increment": 1,
+      "view_turn_degrees": 90
+    },
+    "throw_score": "4:3:2 choreography cue only; no derived ratio",
+    "owner_direction_label": "29 R|BBS / Brustbein-Kinn gloss provisional",
+    "owner_sequence_words": ["TIP", "FEET / FINS", "FINAL FRONTIER"],
+    "typed_distinction": "13->7 != 13.7; 11->5 != 11.5",
+    "anatomical_claim": false,
+    "force_or_machine_claim": false,
+    "dirac_equation_or_spin_measurement_claim": false,
+    "phantom_tine_yugo_identity": false,
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "plate_pentagon_round_trip": {
+    "title": "This was a round trip.",
+    "classification": "SOURCE_BOUND_VIEW_CROSSWALK",
+    "sequence": ["DURER_PLATE", "KHAJURAHO_COUNTER_PLATE", "EXTERNAL_29_PENTAGON_FOLD", "PRIME_INDEX_LENS", "SCC_003_RETURN"],
+    "sources": {
+      "q4_joint_audit": "A0_BOOK/A0_Q4_MAGIC_SQUARE_JOINT_AUDIT.html",
+      "pentagon_operator_joints": "A0_BOOK/A0_PASCAL_PENTAGON_OPERATOR_JOINTS.html",
+      "field_note": "A0_BOOK/assets/a0-field-notes/index.html#note-14"
+    },
+    "durer": {
+      "matrix": [[16, 3, 2, 13], [5, 10, 11, 8], [9, 6, 7, 12], [4, 15, 14, 1]],
+      "operator": "P(C(v))=R180(P(v))",
+      "scope": "placement-specific planar complement relation"
+    },
+    "khajuraho": {
+      "matrix": [[7, 12, 1, 14], [2, 13, 8, 11], [16, 3, 10, 5], [9, 6, 15, 4]],
+      "operator": "P(C(v))=T(2,2)(P(v))",
+      "scope": "placement-specific toroidal complement relation"
+    },
+    "fold_return": "28 internal addresses plus held external marker 29 displayed as Pentagon controller; no carrier identity",
+    "prime_index_lens": {
+      "exact": ["p1=2", "p2=3", "p3=5", "p6=13"],
+      "boundary": "lower-case p_n is standard prime indexing; upper-case P1..P10 is the owner choreography score"
+    },
+    "open_handle_layer": "P2/P3+H7 labels exist, but their mask-to-Q106-node assignment remains open",
+    "owner_closing_score": "P / BALLOON +X -> C'YA",
+    "owner_closing_score_role": "sign-off after return only; not an operator or release state",
+    "identity_effect": "REUSES SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST",
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "white_pearl_barycenter_return_lens": {
+    "title": "White Pearl / Golden Seven Return",
+    "classification": "SOURCE_BOUND_KINEMATIC_VIEW",
+    "identity_effect": "REUSES SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST AND THE EXISTING RED BALLOON FLAGSHIP",
+    "pivot": "P/V is displayed as the held IOTA event/pivot and is not rotated",
+    "direction": "YUGO is displayed as a normalized local direction vector and remains a separate 2D adapter role",
+    "barycenter_witness": "G_B(p) is a bounded moving White Pearl display witness with 0<=p<=1",
+    "golden_seven": "address 7 retains the local Kink / Phantom-Tine view role",
+    "return_knot": "route-memory glyph at address 6; no topological-knot classification",
+    "display_equations": ["p=(sin(theta)+1)/2", "G_B(theta)=(380+30 cos(theta),360+76 sin(theta))"],
+    "physical_balance_law_claim": false,
+    "topological_knot_claim": false,
+    "phantom_tine_yugo_identity": false,
+    "new_operator": false,
+    "new_identity": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "red_ear_shutter_sequence": {
+    "title": "Five frames. Two hex faces. One shutter.",
+    "classification": "SOURCE_BOUND_VIEW_SEQUENCE",
+    "identity_effect": "REUSES FESN:4774 AND THE EXISTING RED BALLOON FLAGSHIP",
+    "frames": [
+      {"id": "t1", "degrees": 0, "normalized_phase": 0, "role": "4774 / 47|74 source face"},
+      {"id": "t2", "degrees": 90, "normalized_phase": 0.25, "role": "7447 VIEW / 74|47 first transfer"},
+      {"id": "t3", "degrees": 180, "normalized_phase": 0.5, "role": "XiX / 55 held bookkeeping seam"},
+      {"id": "t4", "degrees": 270, "normalized_phase": 0.75, "role": "counterview / Return corridor"},
+      {"id": "t5", "degrees": 360, "normalized_phase": 1, "role": "4774 / 47|74 exact view Return"}
+    ],
+    "hex_hex": {
+      "front": "H+ / TICK",
+      "reverse": "H- / TACK",
+      "lamellae": 6,
+      "faces_per_lamella": 2,
+      "surface_states": 12,
+      "identity_boundary": "two faces of one six-lamella shutter; not two Hex identities"
+    },
+    "middle_ledger": {
+      "half_phase": "55/110=0.5",
+      "negative_control": "55*11=605; divisible by 11 but not a palindrome",
+      "role": "BigTube bookkeeping only"
+    },
+    "tri_route_lamella_view": {
+      "source_role": "clean reconstruction of counts and labels visible in the Owner-supplied reference image; not evidence authority",
+      "routes": 3,
+      "triangular_half_faces": 6,
+      "lamella_banks": 3,
+      "lamella_traces_per_bank": 7,
+      "intervals": 8,
+      "bracket_degrees": 120,
+      "local_lane": "L / 16-17-19",
+      "unique_solid_claim": false,
+      "mechanical_shutter_claim": false,
+      "scc_003_coupling_claim": false
+    },
+    "phantom_tine_release_view": {
+      "axis": "one held Crown-to-Return display spine",
+      "crystal": "one centre body under view rotation",
+      "sides": ["H+ front", "H- reverse"],
+      "turns_degrees": [0, 90, 180, 270, 360],
+      "release_corridor": "t3 to t4 local opening toward Return",
+      "phantom_tine": "local address-7 release view",
+      "free_flow": "visible route clearance only",
+      "wandering_c_trace": {
+        "role": "one display marker sampled across the existing five view frames",
+        "frame_percent_positions": [0, 25, 50, 75, 100],
+        "owner_station_labels": ["HE", "LE"],
+        "middle_label": "PctN / 50 percent",
+        "owner_label_semantics": "HE, LE and PctN remain held and undefined beyond this local view",
+        "carbon_identity_claim": false,
+        "periodic_table_carrier_claim": false,
+        "historical_he_9_identity_claim": false
+      },
+      "energy_discharge_claim": false,
+      "physical_shaft_claim": false,
+      "material_panel_claim": false,
+      "dynamical_law_claim": false
+    },
+    "owner_score_labels": ["XiX", "BigTube", "BOOM", "OP-TIK"],
+    "new_operator": false,
+    "new_identity": false,
+    "new_relation": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "rhythm_split_plane_ledger": {
+    "title": "The beat. The split. The planes.",
+    "arithmetic_correction": {
+      "2500_minutes_times_2_bpm": 5000,
+      "2500_minutes_times_4_bpm": 10000,
+      "classification": "ARITHMETIC_ONLY_NOT_EMBRYONIC_HEART_RATE_OBSERVATION"
+    },
+    "biological_roles": {
+      "heart": "event rate in beats per minute",
+      "lymph": "transport velocity in length per time; not ranked against heart rate",
+      "cleavage": "2^n is an ideal synchronous loss-free counting model only",
+      "mitochondria": "present in oocytes and early embryos; not introduced after a cell-count threshold"
+    },
+    "mathematical_roles": {
+      "c_plane": "Mandelbrot parameter plane",
+      "z_plane": "Julia dynamical plane for fixed c",
+      "n_plane": "iteration or event ledger; not a third complex plane",
+      "blue_pearl": "selected tuple (c,z0,n); not a physical six-dimensional object"
+    },
+    "source_checks": ["PMID:9475206", "PMID:37269161", "PMID:36935406"],
+    "biology_fractal_identity": false,
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "exact_number_game": {
+    "title": "The doubling. The stamp. The pyramid.",
+    "binary_split": {
+      "rule": "B_n=25*2^n*10^2+2^n=2501*2^n",
+      "exact_sequence": [2501, 5002, 10004, 20008],
+      "scope": "exact arithmetic doubling sequence; 2^n is an ideal synchronous loss-free biological branching analogy only, not an exact tissue-cell-total claim"
+    },
+    "decimal_stamp": {
+      "rule": "x(10^m+1)=x*10^m+x",
+      "concatenation_condition": "0<=x<10^m with a declared m-digit block width",
+      "examples": ["25*101=2525", "345*1001=345345", "1234*10001=12341234"],
+      "negative_control": "25*1001=25025; neither 2502 nor 5004 is derived"
+    },
+    "repunit_square": {
+      "rule": "R_k=(10^k-1)/9",
+      "carry_free_digit_pyramid_scope": "1<=k<=9",
+      "examples": ["11^2=121", "111^2=12321", "1111^2=1234321", "11111^2=123454321"],
+      "central_ridge": "454 occurs inside 123454321; no independent 454/444/333 relation is asserted"
+    },
+    "mirror_iteration_doubling": {
+      "source_binding": "A0 Grid Atlas dyadicGhost / SOURCE_BOUND_EXACT_RETURN",
+      "rule": "a_k=202*2^k",
+      "exact_sequence": [202, 404, 808, 1616, 3232, 6464, 12928],
+      "display_center": "C is a common reference marker only; 404 is the selected gate/address display",
+      "separate_views": {
+        "digit_reversal": "18<->81 only; no two-year switching law",
+        "ncs_q106": "related existing return lens, not identified with C or 404",
+        "unbound": ["29/XP"]
+      },
+      "new_operator": false,
+      "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+    },
+    "pascal_tesa_fold_comparator": {
+      "pascal_carrier": "depth six gives seven rows n=0..6 and 28 positions",
+      "tesa_carrier": "4*7=28 internal addresses plus external marker 29",
+      "fold_view": "external 29 is displayed as a held Pentagon/package tile",
+      "shared_invariant": "cardinality 28 only",
+      "refused_transport": ["carrier identity", "adjacency", "Pascal recurrence", "Q106 node addition", "new SCC-003 seam"],
+      "machina_binding": ["TRI_VIEW_DOCK", "BOOK_FOLD_ADDRESS_PRESERVATION", "ROOM_BOARD_SHADOW_CRT_RETURN"],
+      "source_model": "A0TesaGridCandidate / DOCUMENTARY_TRANSCRIPTION_NOT_FORMULA"
+    },
+    "biology_copy_role": "metaphor only; cell division and tandem repeats are not implementations of decimal place-value formulas",
+    "new_operator": false,
+    "evidence_effect": "DOCUMENTARY_PROJECTION_ONLY"
+  },
+  "authority_boundary": {
+    "new_navigator_identity": false,
+    "new_typed_relation": false,
+    "new_study": false,
+    "new_finding": false,
+    "new_evidence": false,
+    "publication_authorized": false,
+    "proof_authority": "the linked frozen SCC-003 proof capsule and its source bindings"
+  },
+  "state": "LOCAL_OWNER_STAGING_NOT_PUBLISHED",
+  "recorded_at": "2026-11-03",
+  "updated_at": "2026-11-04"
+}

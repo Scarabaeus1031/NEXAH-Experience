@@ -1,0 +1,351 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b6454377679996f2";
+const claims = [
+  ["C1", "Open counts", "28, 49, 70, 91, 112"],
+  ["C2", "Cyclic closure", "112 -> 106 quotient vertices"],
+  ["C3", "Directed structure", "180 unique recurrence edges"],
+  ["C4", "Carrier integrity", "Connected and facewise Pascal recurrence"],
+  ["C5", "Declared action", "Rotations and reflections form D5"],
+  ["C6", "Exact typed group", "Full typed automorphism group is exactly D5"],
+] as const;
+---
+
+<BaseLayout
+  title="Five Pascal Carriers. One Quotient. — SCC-003-R1"
+  description="Open human review of a finite typed Pascal-carrier quotient with 106 vertices and candidate full D5 symmetry."
+  canonicalOrigin="https://review.nexah.de"
+  robots="noindex, nofollow"
+  hideSessionQuestion={true}
+  lang="en"
+>
+  <article class="review-page">
+    <header class="review-hero">
+      <div class="review-hero__grid container">
+        <div class="review-hero__copy">
+          <p class="review-kicker">SCC-003-R1 · Open mathematical review</p>
+          <h1>Five Pascal Carriers.<br /><em>One Quotient.</em></h1>
+          <p class="review-deck">A finite typed graph with <strong>106 vertices</strong>, <strong>180 directed recurrence edges</strong> and a candidate full automorphism group of exactly <strong>D5</strong>.</p>
+          <div class="review-actions" aria-label="Review materials">
+            <a class="button review-button" href="/review-assets/scc-003-r1/SCC-003-R1_REVIEW_COPY.pdf">Read the review copy <span aria-hidden="true">↓</span></a>
+            <a class="button button--secondary review-button" href="/review-assets/scc-003-r1/SCC-003-R1_REPRODUCIBLE_PACKET.zip">Download reproducible packet <span aria-hidden="true">↓</span></a>
+            <a class="button button--secondary review-button" href="/scc-003-r1/proof/">Run proof capsule <span aria-hidden="true">→</span></a>
+            <a class="button button--secondary review-button" href="/scc-003-r1/generation-study/">Open Science Flagship notebook <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="review-status">Open review draft · not peer reviewed · no novelty or priority claim</p>
+        </div>
+
+        <figure class="review-figure">
+          <svg viewBox="0 0 620 620" role="img" aria-labelledby="review-diagram-title review-diagram-description">
+            <title id="review-diagram-title">Five Pascal carriers around a cyclic seam</title>
+            <desc id="review-diagram-description">A schematic view of five triangular carriers arranged around one pentagonal cycle. It is an orientation figure, not the formal graph.</desc>
+            <defs>
+              <radialGradient id="reviewHalo" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#e8b747" stop-opacity=".18" />
+                <stop offset="70%" stop-color="#43cae7" stop-opacity=".05" />
+                <stop offset="100%" stop-color="#07131e" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle cx="310" cy="310" r="292" fill="url(#reviewHalo)" />
+            <g class="diagram-rings">
+              <circle cx="310" cy="310" r="232" />
+              <circle cx="310" cy="310" r="154" />
+            </g>
+            <g class="diagram-carriers">
+              <path d="M310 67 L410 249 L210 249 Z" />
+              <path d="M541 235 L337 273 L399 83 Z" transform="rotate(72 310 310)" />
+              <path d="M541 235 L337 273 L399 83 Z" transform="rotate(144 310 310)" />
+              <path d="M541 235 L337 273 L399 83 Z" transform="rotate(216 310 310)" />
+              <path d="M541 235 L337 273 L399 83 Z" transform="rotate(288 310 310)" />
+            </g>
+            <path class="diagram-pentagon" d="M310 170 L443 267 L392 424 L228 424 L177 267 Z" />
+            <g class="diagram-nodes">
+              <circle cx="310" cy="170" r="6" /><circle cx="443" cy="267" r="6" />
+              <circle cx="392" cy="424" r="6" /><circle cx="228" cy="424" r="6" />
+              <circle cx="177" cy="267" r="6" /><circle cx="310" cy="310" r="8" />
+            </g>
+            <text x="310" y="302" text-anchor="middle">SCC-003</text>
+            <text x="310" y="327" text-anchor="middle">D5 REVIEW OBJECT</text>
+          </svg>
+          <figcaption>Schematic orientation only. The formal object is defined by typed vertices, recurrence edges, seam equivalence and retained face incidence.</figcaption>
+        </figure>
+      </div>
+    </header>
+
+    <section class="human-return section--line" aria-labelledby="human-return-title">
+      <div class="container human-return__grid">
+        <p class="section-index">01 · Why a human review</p>
+        <div>
+          <h2 id="human-return-title">AI can test a construction.<br />It cannot return a judgement.</h2>
+          <p class="human-return__lead">Mathematics can now be explored, challenged and documented with AI at unusual speed. What AI cannot provide is the independent human judgement that decides whether a definition is sound, a proof closes, a nearby construction has been missed, or a contribution is worth carrying forward.</p>
+          <p>AI systems assisted with exploration, criticism and documentation. Finite computational claims were also checked by deterministic programs. Neither layer is treated as independent scientific validation. The mathematical object, the claims and responsibility for their presentation remain with the author.</p>
+          <p class="human-return__ask">SCC-003-R1 is published here to request that human return.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-object section--line" aria-labelledby="review-object-title">
+      <div class="container">
+        <header class="review-section-heading">
+          <p class="section-index">02 · The review object</p>
+          <div>
+            <h2 id="review-object-title">Six finite claims.<br />No grand theory.</h2>
+            <p>The object is a cyclic five-face quotient of depth-six binomially weighted Pascal carriers. The request is deliberately narrow: inspect the definition, proof chain, exact typed automorphism claim and nearest prior art.</p>
+          </div>
+        </header>
+        <ol class="claim-grid">
+          {claims.map(([id, title, statement]) => (
+            <li>
+              <span>{id}</span>
+              <h3>{title}</h3>
+              <p>{statement}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="review-evidence section--line" aria-labelledby="review-evidence-title">
+      <div class="container review-evidence__grid">
+        <div>
+          <p class="section-index">03 · What can be inspected</p>
+          <h2 id="review-evidence-title">Read. Reproduce.<br />Challenge.</h2>
+        </div>
+        <div class="evidence-steps">
+          <article>
+            <span>01</span>
+            <div><h3>Read the bounded note</h3><p>The PDF presents the object, proofs, limitations, nearby constructions and the precise human-review request in one linear document.</p><a href="/review-assets/scc-003-r1/SCC-003-R1_REVIEW_COPY.pdf">Open PDF <b aria-hidden="true">→</b></a></div>
+          </article>
+          <article>
+            <span>02</span>
+            <div><h3>Reproduce the finite object</h3><p>The packet includes the formal specification, proof record, 106 vertices, 180 directed edges, seam classes, typed permutations and an independent union-find verifier.</p><a href="/review-assets/scc-003-r1/SCC-003-R1_REPRODUCIBLE_PACKET.zip">Download packet <b aria-hidden="true">→</b></a></div>
+          </article>
+          <article>
+            <span>03</span>
+            <div><h3>Reconstruct the finite proof object</h3><p>The browser proof capsule rebuilds the quotient without importing the Python generator or its exported result tables, then exposes every finite check and the exact D5 argument.</p><a href="/scc-003-r1/proof/">Run proof capsule <b aria-hidden="true">→</b></a></div>
+          </article>
+          <article>
+            <span>04</span>
+            <div><h3>Return a bounded judgement</h3><p>Acceptance, revision, rejection, controlling prior art or an inconclusive review are all valid outcomes. The aim is correction, not endorsement.</p><a href="/review-assets/scc-003-r1/REVIEW_FORM.md">Open review form <b aria-hidden="true">→</b></a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-fold section--line" aria-labelledby="review-fold-title">
+      <div class="container review-fold__grid">
+        <div class="review-fold__copy">
+          <p class="section-index">04 · Supplementary review point</p>
+          <h2 id="review-fold-title">Twenty-eight addresses.<br /><em>One held tile.</em></h2>
+          <p>The frozen paper and claims C1–C6 remain unchanged. A separate display check asks whether the existing fold view preserves the declared <strong>1…28</strong> source addresses when external marker <strong>29</strong> is shown as a held pentagonal controller.</p>
+          <p class="review-fold__classification"><strong>A0 classification:</strong> Paper C method example · supplementary review point · no new Finding, Study or SCC node.</p>
+          <dl class="review-fold__ledger">
+            <div><dt>Pascal carrier</dt><dd>1 + 2 + … + 7 = <strong>28</strong></dd></div>
+            <div><dt>TESA view</dt><dd>4 × 7 = <strong>28</strong></dd></div>
+            <div><dt>Fold controller</dt><dd><strong>29</strong> remains external</dd></div>
+            <div><dt>Proof effect</dt><dd><strong>none</strong></dd></div>
+          </dl>
+          <p class="review-fold__question"><strong>Optional review question:</strong> Is the fold display a clear, reversible address-preserving view, without implying carrier identity or adding a vertex to the 106-node quotient?</p>
+          <div class="review-fold__links">
+            <a href="/scc-003-r1/generation-study/#pascal-tesa-title">Inspect the fold comparator <b aria-hidden="true">→</b></a>
+            <a href="/review-assets/scc-003-r1/PENTAGON_TILE_REVIEW_ADDENDUM.md">Read the bounded addendum <b aria-hidden="true">→</b></a>
+          </div>
+        </div>
+
+        <figure class="review-fold__figure">
+          <svg viewBox="0 0 560 360" role="img" aria-labelledby="review-fold-svg-title review-fold-svg-desc">
+            <title id="review-fold-svg-title">Pascal and TESA address counts with one external pentagon fold controller</title>
+            <desc id="review-fold-svg-desc">Seven Pascal rows total twenty-eight positions. A four by seven TESA grid also contains twenty-eight addresses. External marker twenty-nine points to a separate pentagonal fold controller. Only the counts are compared.</desc>
+            <g class="fold-pascal" aria-hidden="true">
+              {Array.from({ length: 7 }, (_, row) =>
+                Array.from({ length: row + 1 }, (_, column) => (
+                  <circle cx={86 + (column - row / 2) * 21} cy={55 + row * 28} r="4.5" />
+                ))
+              )}
+            </g>
+            <text x="86" y="256" text-anchor="middle">7 ROWS</text>
+            <text x="86" y="276" text-anchor="middle" class="fold-count">28</text>
+            <path class="fold-separator" d="M172 30 V300" />
+            <g class="fold-tesa" aria-hidden="true">
+              {Array.from({ length: 4 }, (_, row) =>
+                Array.from({ length: 7 }, (_, column) => (
+                  <rect x={218 + column * 24} y={72 + row * 30} width="8" height="8" rx="1" />
+                ))
+              )}
+            </g>
+            <text x="294" y="222" text-anchor="middle">4 × 7</text>
+            <text x="294" y="242" text-anchor="middle" class="fold-count">28</text>
+            <circle class="fold-external" cx="426" cy="97" r="15" />
+            <text x="426" y="101" text-anchor="middle" class="fold-external-label">29</text>
+            <path class="fold-arrow" d="M431 116 C451 146 467 169 477 199" />
+            <path class="fold-arrow-head" d="M477 199 l-10 -6 l12 -3Z" />
+            <polygon class="fold-pentagon" points="477,205 513,231 499,273 455,273 441,231" />
+            <text x="477" y="235" text-anchor="middle" class="fold-controller">FOLD</text>
+            <text x="477" y="249" text-anchor="middle" class="fold-controller">VIEW</text>
+            <text x="280" y="328" text-anchor="middle" class="fold-boundary">28 ↔ 28 · COUNT ONLY · 29 EXTERNAL</text>
+          </svg>
+          <figcaption>The tile controls a view. It does not transport TESA adjacency, Pascal recurrence or a new seam into SCC‑003.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="review-boundary section--line" aria-labelledby="review-boundary-title">
+      <div class="container review-boundary__grid">
+        <div>
+          <p class="section-index">05 · Claim boundary</p>
+          <h2 id="review-boundary-title">What is not being claimed.</h2>
+        </div>
+        <ul>
+          <li>No worldwide novelty or priority.</li>
+          <li>No universal Pascal algebra or general m,d theorem.</li>
+          <li>No physical, quantum, harmonic or astronomical mechanism.</li>
+          <li>No inference from the number 106 alone.</li>
+          <li>No request to validate NEXAH as a whole.</li>
+          <li>No publication authority created by this page.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="review-return section--line" aria-labelledby="review-return-title">
+      <div class="container review-return__inner">
+        <p class="section-index">06 · Independent return</p>
+        <h2 id="review-return-title">Find the earliest point that fails.<br /><em>Or show why it holds.</em></h2>
+        <p>A useful review identifies the exact definition, inference, computation or prior construction that changes the disposition. Terminological resemblance alone is not enough; neither is internal agreement between AI systems.</p>
+        <div class="review-actions review-actions--centered">
+          <a class="button review-button" href="/review-assets/scc-003-r1/REVIEW_FORM.md">Review form <span aria-hidden="true">→</span></a>
+          <a class="button button--secondary review-button" href="/contact/">Contact NEXAH <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="review-provenance">
+      <div class="container review-provenance__grid">
+        <div><span>Identity</span><code>SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST</code></div>
+        <div><span>Packet</span><code>SCC003-ERP-2026-10-13</code></div>
+        <div><span>Manifest SHA-256</span><code>{manifestHash}</code></div>
+        <div><span>Scientific home</span><code>A0 · Paper C §11.2</code></div>
+        <div><span>Review state</span><code>OPEN REVIEW DRAFT / HUMAN RETURN OPEN</code></div>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .review-page { background: #f3efe6; color: #101b24; }
+  .review-hero { position: relative; overflow: hidden; padding: clamp(5rem, 8vw, 8.5rem) 0 clamp(4rem, 7vw, 7rem); background: #07131e; color: #edf4f2; }
+  .review-hero::after { position: absolute; inset: auto -15% -38% 25%; height: 75%; border-top: 1px solid rgba(67, 202, 231, .18); border-radius: 50%; content: ""; transform: rotate(-5deg); }
+  .review-hero__grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(25rem, .8fr); gap: clamp(2rem, 7vw, 7rem); align-items: center; }
+  .review-kicker, .section-index { margin: 0 0 1.2rem; color: #e8b747; font: 800 .66rem/1.2 var(--mono, ui-monospace, monospace); letter-spacing: .16em; text-transform: uppercase; }
+  .review-hero h1 { max-width: 12ch; margin: 0 0 1.5rem; color: #f8f4e9; font-size: clamp(3.8rem, 7.1vw, 7.4rem); line-height: .86; letter-spacing: -.055em; }
+  .review-hero h1 em { color: #e8b747; font-weight: 400; }
+  .review-deck { max-width: 42rem; margin-bottom: 2rem; color: #b8c9d0; font-size: clamp(1.05rem, 1.5vw, 1.35rem); line-height: 1.6; }
+  .review-deck strong { color: #fff; }
+  .review-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .review-button { border-radius: 0; }
+  .review-hero .review-button { border-color: #e8b747; background: #e8b747; color: #07131e; }
+  .review-hero .button--secondary { background: transparent; color: #edf4f2; }
+  .review-hero .button--secondary:hover { background: rgba(232, 183, 71, .09); }
+  .review-status { margin: 1.25rem 0 0; color: #7f97a3; font: 700 .61rem/1.4 var(--mono, ui-monospace, monospace); letter-spacing: .08em; text-transform: uppercase; }
+  .review-figure { margin: 0; }
+  .review-figure svg { width: 100%; filter: drop-shadow(0 1.5rem 3rem rgba(0, 0, 0, .24)); }
+  .diagram-rings circle { fill: none; stroke: rgba(67, 202, 231, .15); stroke-width: 1; }
+  .diagram-carriers path { fill: rgba(67, 202, 231, .025); stroke: rgba(67, 202, 231, .42); stroke-width: 1.2; }
+  .diagram-pentagon { fill: rgba(232, 183, 71, .04); stroke: #e8b747; stroke-width: 2; }
+  .diagram-nodes circle { fill: #07131e; stroke: #e8b747; stroke-width: 2; }
+  .review-figure text { fill: #dbe9ed; font: 700 11px/1 var(--sans); letter-spacing: 2px; }
+  .review-figure text:last-of-type { fill: #6f8995; font-size: 8px; }
+  .review-figure figcaption { max-width: 30rem; margin: .5rem auto 0; color: #718994; font-size: .67rem; line-height: 1.55; text-align: center; }
+
+  .human-return, .review-object, .review-evidence, .review-fold, .review-boundary, .review-return { padding-block: clamp(5rem, 9vw, 9rem); }
+  .human-return__grid, .review-section-heading, .review-evidence__grid, .review-boundary__grid { display: grid; grid-template-columns: minmax(10rem, .5fr) minmax(0, 1.5fr); gap: clamp(2rem, 8vw, 8rem); }
+  .human-return h2, .review-object h2, .review-evidence h2, .review-boundary h2, .review-return h2 { margin: 0 0 2rem; font-size: clamp(2.8rem, 5.7vw, 6.2rem); line-height: .93; letter-spacing: -.05em; }
+  .human-return__lead { max-width: 48rem; color: #24333d; font-family: var(--serif); font-size: clamp(1.45rem, 2.45vw, 2.35rem); line-height: 1.35; }
+  .human-return__grid > div > p:not(.human-return__lead, .human-return__ask) { max-width: 46rem; color: #536069; }
+  .human-return__ask { margin: 2rem 0 0; padding-left: 1.25rem; border-left: 2px solid #e8b747; font-weight: 800; }
+
+  .review-section-heading { align-items: end; margin-bottom: 3rem; }
+  .review-section-heading > div > p { max-width: 44rem; color: #59656d; }
+  .claim-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0; padding: 0; border-top: 1px solid #a9a398; border-left: 1px solid #a9a398; list-style: none; }
+  .claim-grid li { position: relative; min-height: 17rem; padding: 2rem; border-right: 1px solid #a9a398; border-bottom: 1px solid #a9a398; }
+  .claim-grid li > span { color: #b58b30; font: 800 .65rem/1 var(--mono, ui-monospace, monospace); letter-spacing: .12em; }
+  .claim-grid h3 { margin-top: 3rem; font-family: var(--serif); font-size: 1.55rem; font-weight: 400; }
+  .claim-grid p { color: #59656d; }
+
+  .review-evidence { background: #0b1c29; color: #edf4f2; }
+  .review-evidence h2 { color: #edf4f2; }
+  .evidence-steps { border-top: 1px solid #2b4452; }
+  .evidence-steps article { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 2.2rem 0; border-bottom: 1px solid #2b4452; }
+  .evidence-steps article > span { color: #e8b747; font: 800 .66rem/1 var(--mono, ui-monospace, monospace); }
+  .evidence-steps h3 { margin: 0 0 .5rem; color: #fff; font-family: var(--serif); font-size: 1.65rem; font-weight: 400; }
+  .evidence-steps p { max-width: 42rem; color: #9eb2bc; }
+  .evidence-steps a { color: #e8b747; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-decoration: none; text-transform: uppercase; }
+  .evidence-steps a b { display: inline-block; margin-left: .4rem; transition: transform 160ms ease; }
+  .evidence-steps a:hover b { transform: translateX(.25rem); }
+
+  .review-fold { background: #f7f3ea; }
+  .review-fold__grid { display: grid; grid-template-columns: minmax(18rem, .8fr) minmax(0, 1.2fr); gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
+  .review-fold h2 { margin: 0 0 1.5rem; font-size: clamp(2.8rem, 5.4vw, 5.7rem); line-height: .92; letter-spacing: -.05em; }
+  .review-fold h2 em { color: #b58b30; font-weight: 400; }
+  .review-fold__copy > p:not(.section-index, .review-fold__question) { max-width: 42rem; color: #59656d; }
+  .review-fold__classification { font: 700 .72rem/1.55 var(--mono, ui-monospace, monospace); letter-spacing: .035em; text-transform: uppercase; }
+  .review-fold__ledger { display: grid; grid-template-columns: 1fr 1fr; margin: 2rem 0; border-top: 1px solid #b4aea3; border-left: 1px solid #b4aea3; }
+  .review-fold__ledger div { min-height: 6rem; padding: 1rem; border-right: 1px solid #b4aea3; border-bottom: 1px solid #b4aea3; }
+  .review-fold__ledger dt { color: #78858d; font: 800 .58rem/1.4 var(--mono, ui-monospace, monospace); letter-spacing: .08em; text-transform: uppercase; }
+  .review-fold__ledger dd { margin: .65rem 0 0; font-family: var(--serif); font-size: 1.15rem; }
+  .review-fold__ledger strong { color: #9c741e; }
+  .review-fold__question { padding-left: 1rem; border-left: 2px solid #e8b747; color: #34444e; line-height: 1.65; }
+  .review-fold__links { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1.5rem; }
+  .review-fold__links a { color: #8d681b; font-size: .68rem; font-weight: 800; letter-spacing: .09em; text-decoration: none; text-transform: uppercase; }
+  .review-fold__figure { margin: 0; }
+  .review-fold__figure svg { display: block; width: 100%; border: 1px solid #9fa19d; background: #07131e; }
+  .review-fold__figure figcaption { margin-top: .7rem; color: #66747c; font-size: .7rem; line-height: 1.55; }
+  .review-fold__figure text { fill: #8ba3ad; font: 800 10px/1 var(--mono, ui-monospace, monospace); letter-spacing: .1em; }
+  .review-fold__figure .fold-count { fill: #e8b747; font-size: 18px; letter-spacing: 0; }
+  :global(.fold-pascal circle) { fill: #64d7d8; }
+  :global(.fold-tesa rect) { fill: #f08ab9; }
+  :global(.fold-separator) { stroke: #31505f; stroke-width: 1; stroke-dasharray: 4 5; }
+  :global(.fold-external) { fill: #07131e; stroke: #e8b747; stroke-width: 2; }
+  .review-fold__figure .fold-external-label { fill: #e8b747; font-size: 10px; letter-spacing: 0; }
+  :global(.fold-arrow) { fill: none; stroke: #e8b747; stroke-width: 2; stroke-dasharray: 5 5; }
+  :global(.fold-arrow-head) { fill: #e8b747; }
+  :global(.fold-pentagon) { fill: rgba(232, 183, 71, .1); stroke: #e8b747; stroke-width: 2; }
+  .review-fold__figure .fold-controller { fill: #e8b747; font-size: 8px; }
+  .review-fold__figure .fold-boundary { fill: #edf4f2; font-size: 8px; }
+
+  .review-boundary ul { display: grid; grid-template-columns: 1fr 1fr; margin: 0; padding: 0; border-top: 1px solid #b4aea3; list-style: none; }
+  .review-boundary li { min-height: 7rem; padding: 1.4rem 1rem 1.4rem 0; border-bottom: 1px solid #b4aea3; color: #48565f; }
+  .review-boundary li:nth-child(odd) { padding-right: 2rem; border-right: 1px solid #b4aea3; }
+  .review-boundary li:nth-child(even) { padding-left: 2rem; }
+
+  .review-return { text-align: center; }
+  .review-return__inner { max-width: 65rem; }
+  .review-return h2 em { color: #b58b30; font-weight: 400; }
+  .review-return__inner > p:not(.section-index) { max-width: 48rem; margin-inline: auto; color: #58656d; font-size: 1.14rem; }
+  .review-actions--centered { justify-content: center; margin-top: 2.5rem; }
+
+  .review-provenance { padding-block: 2.5rem; border-top: 4px solid #e8b747; background: #061018; color: #91a5af; }
+  .review-provenance__grid { display: grid; grid-template-columns: .8fr 1fr 2fr 1.2fr 1.4fr; gap: 1.4rem; }
+  .review-provenance span { display: block; margin-bottom: .5rem; color: #e8b747; font: 800 .55rem/1 var(--mono, ui-monospace, monospace); letter-spacing: .12em; text-transform: uppercase; }
+  .review-provenance code { display: block; overflow-wrap: anywhere; color: #91a5af; font-size: .65rem; line-height: 1.55; }
+
+  @media (max-width: 920px) {
+    .review-hero__grid, .human-return__grid, .review-section-heading, .review-evidence__grid, .review-fold__grid, .review-boundary__grid { grid-template-columns: 1fr; }
+    .review-figure { width: min(100%, 34rem); margin-inline: auto; }
+    .claim-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .review-provenance__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .review-hero { padding-top: 4rem; }
+    .review-hero__grid { gap: 2.5rem; }
+    .review-hero h1 { font-size: clamp(3.4rem, 16vw, 5rem); }
+    .review-actions { align-items: stretch; flex-direction: column; }
+    .review-actions .button { width: 100%; }
+    .claim-grid { grid-template-columns: 1fr; }
+    .claim-grid li { min-height: 13rem; }
+    .review-boundary ul { grid-template-columns: 1fr; }
+    .review-fold__ledger { grid-template-columns: 1fr; }
+    .review-boundary li, .review-boundary li:nth-child(odd), .review-boundary li:nth-child(even) { padding: 1.2rem 0; border-right: 0; }
+    .review-provenance__grid { grid-template-columns: 1fr; }
+  }
+</style>

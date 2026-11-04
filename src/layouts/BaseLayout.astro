@@ -11,23 +11,27 @@ import "@/styles/motion.css";
 type Props = {
   title?: string;
   description?: string;
+  canonicalOrigin?: string;
   hideFooter?: boolean;
   hideSessionQuestion?: boolean;
   hideEcosystemRail?: boolean;
   headerVariant?: "default" | "science";
   lang?: "en" | "de";
+  robots?: string;
 };
 
 const {
   title = "NEXAH — The Orientation Ecosystem",
   description = nexahIdentity.definition,
+  canonicalOrigin,
   hideFooter = false,
   hideSessionQuestion = false,
   hideEcosystemRail = false,
   headerVariant = "science",
   lang = "en",
+  robots = "index, follow",
 } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const canonicalURL = new URL(Astro.url.pathname, canonicalOrigin ?? Astro.site ?? Astro.url.origin);
 const structuredData = JSON.stringify(nexahStructuredData());
 ---
 
@@ -37,7 +41,7 @@ const structuredData = JSON.stringify(nexahStructuredData());
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#07131e" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="describedby" href="/llms.txt" />
