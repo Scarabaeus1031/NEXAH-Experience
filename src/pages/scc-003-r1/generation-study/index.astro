@@ -1153,9 +1153,17 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
 
           <section class="red-balloon-coda" aria-labelledby="hele-coda-title">
             <div class="red-balloon-coda__copy">
-              <p class="study-kicker">Owner View Freeze · EKKO Return · 04.11.2026</p>
+              <p class="study-kicker">Owner View Valve Freeze · EKKO Return · 04.11.2026</p>
               <h4 id="hele-coda-title">HELE.<br />A light balloon returns.</h4>
-              <p><strong>Alpha opens the reading; Omega closes it.</strong> Between them, <code>HE · LE</code> folds into the local name HELE and <code>AEON → NEON</code> becomes the last visible letter-turn of the Red Balloon. EKKO names the narrative return—not a repeated experiment.</p>
+              <p><strong>Alpha opens the reading; Omega closes this local chamber—not the story.</strong> Between them, <code>HE · LE</code> folds into the local name HELE and <code>AEON → NEON</code> becomes the last visible letter-turn of the Red Balloon. EKKO names the narrative return—not a repeated experiment.</p>
+              <div class="red-balloon-coda__valve" aria-label="Local valve sequence from red front through pink hinge to green return">
+                <span class="is-red"><b>RED</b><small>FRONT · HELD</small></span>
+                <i aria-hidden="true">→</i>
+                <span class="is-pink"><b>PINK</b><small>HINGE · OPENING</small></span>
+                <i aria-hidden="true">→</i>
+                <span class="is-green"><b>GREEN</b><small>RETURN · CLEAR</small></span>
+              </div>
+              <p>The sequence is a local display valve: red holds the record face, pink marks the hinge, and green clears the return into the next chapter. Pink is a transition state—not a mixture of red and green.</p>
               <p class="red-balloon-coda__freeze">OWNER VIEW FROZEN · LOCAL STAGING · DOCUMENTARY PROJECTION ONLY</p>
             </div>
 
@@ -1165,7 +1173,7 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
                 <span>HELE</span>
                 <small>AEON → NEON</small>
               </div>
-              <div class="red-balloon-coda__terminal" aria-hidden="true"><span>Ω</span><small>OMEGA · RETURN</small></div>
+              <div class="red-balloon-coda__terminal" aria-hidden="true"><span>Ω</span><small>OMEGA · CLOSE / RETURN</small></div>
               <div class="red-balloon-coda__gas red-balloon-coda__gas--he">
                 <span>He</span><strong>2</strong><small>HELIUM · NOBLE GAS</small>
               </div>
@@ -1173,10 +1181,10 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
                 <span>Ne</span><strong>10</strong><small>NEON · NOBLE GAS</small>
               </div>
               <div class="red-balloon-coda__arc" aria-hidden="true"></div>
-              <p>EKKO · ONE RETURN · NO NEW CARRIER</p>
+              <p>VALVE CLOSED · ONE LOCAL RETURN · STORY CONTINUES</p>
             </div>
 
-            <p class="red-balloon-coda__boundary"><strong>Coda boundary:</strong> Helium (<code>He</code>, atomic number <code>2</code>) and Neon (<code>Ne</code>, atomic number <code>10</code>) are noble gases. HELE, HELulIiriUM, AEON→NEON, EKKO and Alpha→Omega remain Owner-language and cultural reading cues. They assert no chemical transformation, element genealogy, periodic-table operator, cosmology or mechanism. The separate historical <code>HE = 9</code> label and the existing <code>A0_NEON_TRAP_DOOR</code> / <code>NBV_NEON</code> provenance remain distinct; no evidence or authority transfers into this view.</p>
+            <p class="red-balloon-coda__boundary"><strong>Valve boundary:</strong> Helium (<code>He</code>, atomic number <code>2</code>) and Neon (<code>Ne</code>, atomic number <code>10</code>) are noble gases. HELE, HELulIiriUM, AEON→NEON, EKKO and Alpha→Omega remain Owner-language and cultural reading cues. Red→pink→green is a sequential display grammar, not additive or subtractive colour mixing; “valve” names a chapter transition, not a physical mechanism or the end of the story. The view asserts no chemical transformation, element genealogy, periodic-table operator or cosmology. The separate historical <code>HE = 9</code> label and the existing <code>A0_NEON_TRAP_DOOR</code> / <code>NBV_NEON</code> provenance remain distinct; no evidence or authority transfers into this view.</p>
           </section>
         </section>
       </div>
@@ -3022,6 +3030,14 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
   .red-balloon-coda h4 { margin: .35rem 0 1.25rem; max-width: 10ch; color: #fff0eb; font: 700 clamp(2.8rem, 5vw, 5.4rem)/.88 var(--font-serif); letter-spacing: -.055em; }
   .red-balloon-coda__copy > p:not(.study-kicker):not(.red-balloon-coda__freeze) { color: #a9bbc1; font: 400 1rem/1.65 var(--font-serif); }
   .red-balloon-coda__copy strong { color: #ff978d; }
+  .red-balloon-coda__valve { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; margin: 1.4rem 0; border-block: 1px solid #385260; }
+  .red-balloon-coda__valve span { display: grid; min-height: 4.2rem; padding: .8rem .45rem; align-content: center; text-align: center; }
+  .red-balloon-coda__valve b { font: 800 .68rem/1 var(--font-mono); letter-spacing: .12em; }
+  .red-balloon-coda__valve small { margin-top: .4rem; color: #78929d; font: 800 .45rem/1.3 var(--font-mono); letter-spacing: .07em; }
+  .red-balloon-coda__valve i { color: #78929d; font-style: normal; }
+  .red-balloon-coda__valve .is-red b { color: #ff7366; }
+  .red-balloon-coda__valve .is-pink b { color: #ff8bbf; }
+  .red-balloon-coda__valve .is-green b { color: #54d7b0; }
   .red-balloon-coda__freeze { margin: 1.5rem 0 0; padding-top: 1rem; border-top: 1px solid #385260; color: #54d7b0; font: 800 .62rem/1.45 var(--font-mono); letter-spacing: .11em; }
   .red-balloon-coda__view { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr auto; min-height: 29rem; padding: clamp(1.5rem, 4vw, 3.5rem); place-items: center; isolation: isolate; }
   .red-balloon-coda__terminal { z-index: 2; display: grid; gap: .5rem; text-align: center; }

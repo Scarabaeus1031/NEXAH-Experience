@@ -437,9 +437,16 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /He<\/span><strong>2<\/strong><small>HELIUM · NOBLE GAS/);
   assert.match(study, /Ne<\/span><strong>10<\/strong><small>NEON · NOBLE GAS/);
   assert.match(study, /AEON → NEON/);
-  assert.match(study, /Alpha opens the reading; Omega closes it/);
+  assert.match(study, /Alpha opens the reading; Omega closes this local chamber—not the story/);
+  assert.match(study, /RED<\/b><small>FRONT · HELD/);
+  assert.match(study, /PINK<\/b><small>HINGE · OPENING/);
+  assert.match(study, /GREEN<\/b><small>RETURN · CLEAR/);
+  assert.match(study, /Pink is a transition state—not a mixture of red and green/);
+  assert.match(study, /VALVE CLOSED · ONE LOCAL RETURN · STORY CONTINUES/);
   assert.match(study, /OWNER VIEW FROZEN · LOCAL STAGING · DOCUMENTARY PROJECTION ONLY/);
-  assert.match(study, /no chemical transformation, element genealogy, periodic-table operator, cosmology or mechanism/);
+  assert.match(study, /sequential display grammar, not additive or subtractive colour mixing/);
+  assert.match(study, /chapter transition, not a physical mechanism or the end of the story/);
+  assert.match(study, /no chemical transformation, element genealogy, periodic-table operator or cosmology/);
   assert.match(study, /A0_NEON_TRAP_DOOR.*NBV_NEON.*no evidence or authority transfers/s);
   assert.match(study, /29 R\|BBS · Brustbein \/ Kinn owner gloss · provisional/);
   assert.match(study, /P1…P10/);
