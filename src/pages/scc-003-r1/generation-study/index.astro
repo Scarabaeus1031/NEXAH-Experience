@@ -2,6 +2,47 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 
 const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a0cbaf09e4";
+
+const gcd = (a: number, b: number): number => b === 0 ? Math.abs(a) : gcd(b, a % b);
+const isPrime = (n: number): boolean => {
+  if (n < 2) return false;
+  for (let divisor = 2; divisor * divisor <= n; divisor += 1) {
+    if (n % divisor === 0) return false;
+  }
+  return true;
+};
+const smallestFactor = (n: number): number => {
+  for (let divisor = 2; divisor * divisor <= n; divisor += 1) {
+    if (n % divisor === 0) return divisor;
+  }
+  return n;
+};
+const primeBalanceBlocks = [
+  { start: 1000, end: 1120 },
+  { start: 1120, end: 1240 },
+  { start: 1240, end: 1360 },
+].map(({ start, end }) => {
+  const candidates = Array.from({ length: end - start }, (_, index) => start + index)
+    .filter((value) => gcd(value, 30) === 1);
+  const primes = candidates.filter(isPrime);
+  return {
+    start,
+    end,
+    candidates,
+    primes,
+    stops: candidates.filter((value) => !isPrime(value)),
+    gaps: primes.slice(1).map((value, index) => value - primes[index]),
+  };
+});
+const extendedBalancePrimes = Array.from({ length: 240 }, (_, index) => 1120 + index).filter(isPrime);
+const extendedBalanceGaps = extendedBalancePrimes.slice(1).map((value, index) => value - extendedBalancePrimes[index]);
+const extendedGapFrequency = [...new Set(extendedBalanceGaps)]
+  .sort((left, right) => left - right)
+  .map((gap) => ({ gap, count: extendedBalanceGaps.filter((value) => value === gap).length }));
+const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
+  residue,
+  open: gcd(residue, 30) === 1,
+}));
 ---
 
 <BaseLayout
@@ -337,6 +378,201 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
           </svg>
           <figcaption><strong>The fold is a declared display operation.</strong> It can place external address 29 into the Pentagon view while preserving the 1…28 source addresses. It does not add a vertex to the depth-six Pascal carrier, alter the frozen 106-node quotient, or transport rectangular TESA adjacency into SCC‑003.</figcaption>
         </figure>
+
+        <section class="prime-balance" aria-labelledby="prime-balance-title">
+          <div class="prime-balance__head">
+            <div>
+              <p class="study-kicker">Count control · double tile · wheel ledger</p>
+              <h4 id="prime-balance-title">The prime balance.<br />Gates on one side.<br />Stops on the other.</h4>
+            </div>
+            <p>The Pentagon fold does not acquire a new geometry here. It acquires an auditable ledger: the same visible records can be counted locally by face or globally after concatenation. Prime gaps are then derived distances between admitted gates—not a second set of nodes.</p>
+          </div>
+
+          <div class="prime-balance__namespaces" aria-label="Double tile namespace comparison">
+            <article>
+              <span>LOCAL TILE LEDGER</span>
+              <strong>(f, a) · f ∈ {`{L,R}`} · a ∈ [1,28]</strong>
+              <div><b>56</b> address occurrences</div>
+              <div><b>18</b> prime-label occurrences · 2 × π(28)</div>
+              <div><b>14</b> mod-30 open occurrences</div>
+            </article>
+            <article>
+              <span>CONCATENATED AUDIT LEDGER</span>
+              <strong>n ∈ [1,56]</strong>
+              <div><b>56</b> indexed records</div>
+              <div><b>16</b> primes · π(56)</div>
+              <div><b>15</b> mod-30 open positions</div>
+            </article>
+            <aside>
+              <strong>56 = 56</strong>
+              <span>but 18 ≠ 16 and 14 ≠ 15</span>
+              <p>The difference is caused by the declared namespace, not by a physical fold or a new prime law.</p>
+            </aside>
+          </div>
+
+          <div class="prime-balance__triplet" aria-label="Prime gate and base stop transition">
+            <span class="is-prime"><b>1031</b><small>PRIME GATE · p173</small></span>
+            <span class="is-stop"><b>1032</b><small>BASE STOP · 2³ × 3 × 43</small></span>
+            <span class="is-prime"><b>1033</b><small>PRIME GATE · p174</small></span>
+          </div>
+          <p class="prime-balance__triplet-note"><code>1032</code> is the even midpoint of the twin-prime pair and lies outside the mod-30 wheel. It is therefore a base stop—not one of the secondary composite stops counted below.</p>
+
+          <div class="prime-balance__blocks">
+            {primeBalanceBlocks.map((block) => (
+              <article class="prime-block">
+                <header>
+                  <div><span>120-PACKAGE</span><strong>{block.start} ≤ n &lt; {block.end}</strong></div>
+                  <p><b>32</b> wheel positions = <i>{block.primes.length}</i> prime gates + <em>{block.stops.length}</em> secondary stops</p>
+                </header>
+                <div class="prime-block__cells">
+                  {block.candidates.map((value) => {
+                    const prime = isPrime(value);
+                    return <span class:list={[prime ? "is-prime" : "is-secondary-stop", value === 1001 && "is-crossing"]} title={prime ? `${value} is prime` : `${value} = ${smallestFactor(value)} × ${value / smallestFactor(value)}`}>
+                      <b>{value}</b><small>{prime ? "P" : `×${smallestFactor(value)}`}</small>
+                    </span>;
+                  })}
+                </div>
+                <footer>
+                  <span>internal prime gaps Δp</span>
+                  <code>{block.gaps.join(" · ")}</code>
+                </footer>
+              </article>
+            ))}
+          </div>
+
+          <div class="prime-balance__aggregate">
+            <span>EXTENDED AUDIT · 1120 ≤ n &lt; 1360</span>
+            <strong>{extendedBalancePrimes.length} primes · {extendedBalanceGaps.length} internal consecutive gaps</strong>
+            <div>{extendedGapFrequency.map(({ gap, count }) => <code>Δ{gap} × {count}</code>)}</div>
+            <p>Gap 4 is conventionally called a cousin-prime gap; gap 6 a sexy-prime gap. The 1237→1249 distance is included because both endpoints lie inside this declared interval.</p>
+          </div>
+
+          <section class="prime-null-test" aria-labelledby="prime-null-test-title">
+            <header>
+              <div>
+                <span>CALCULATION AUDIT · PRE-DECLARED NULL TEST · R1 COMPLETE</span>
+                <h5 id="prime-null-test-title">The peas before the primes.</h5>
+              </div>
+              <code>W₁₂₀ = {`{r ∈ [0,119] : gcd(r,30)=1}`}</code>
+            </header>
+
+            <div class="prime-null-test__grid" role="img" aria-label="One hundred and twenty residue cells: thirty-two candidate cells coprime to thirty and eighty-eight base-stop cells divisible by two, three or five">
+              {wheel120Control.map(({ residue, open }) => (
+                <span class:list={[open ? "is-open" : "is-base-stop"]} title={`r=${residue} · ${open ? "candidate residue" : "base stop by 2, 3 or 5"}`}>
+                  <i aria-hidden="true"></i><small>{residue}</small>
+                </span>
+              ))}
+            </div>
+
+            <div class="prime-null-test__ledger">
+              <article>
+                <span>00 · EXACT BASELINE</span>
+                <strong>32 candidate peas · 88 base stops</strong>
+                <p>The eight open residues <code>1, 7, 11, 13, 17, 19, 23, 29 (mod 30)</code> repeat four times. This is the control field; it predicts eligibility, never primality.</p>
+              </article>
+              <article>
+                <span>01 · DECLARED ORIENTATION</span>
+                <strong>u = (i+j)/√2 · q<sub>r</sub> = u<sup>r</sup></strong>
+                <p><code>u² = −1</code> and <code>u⁴ = 1</code>, so the local display has four phases. The principal logarithm of <code>i+j</code> is <code>½ ln 2 + π(i+j)/(2√2)</code>. This supplies an orientation label only.</p>
+              </article>
+              <article>
+                <span>02 · ANGLE AUDIT</span>
+                <strong>360°/63 − 360°/64 = 5/56°</strong>
+                <p><code>5/56° ≈ 0.0892857°</code>. The 63→64 step therefore does not generate a two-degree gap; any separate 2° marker needs its own source and definition.</p>
+              </article>
+            </div>
+
+            <div class="prime-null-test__contract">
+              <article><span>H₀ · NULL</span><strong>No added information.</strong><p>After residue class and interval are controlled, the four declared quaternion phases add no reproducible out-of-sample lift to the prime indicator.</p></article>
+              <article><span>H₁ · TESTABLE DELTA</span><strong>Lift must survive controls.</strong><p>A phase effect counts only if a frozen scoring rule beats the mod-30 baseline on a held-out interval and survives phase-label permutations.</p></article>
+              <article class="is-stop"><span>STOP RULE</span><strong>Otherwise: visual grammar only.</strong><p>No stable held-out lift, a permutation-level result, or sensitivity to the chosen start point closes the test without a Finding.</p></article>
+            </div>
+
+            <div class="prime-null-test__result" aria-label="Prime phase null test R1 result">
+              <header>
+                <div><span>R1 RESULT · H₀ RETAINED</span><strong>No held-out phase lift.</strong></div>
+                <code>mod 30 + phase ≡ mod 60</code>
+              </header>
+              <div>
+                <article><span>TRAIN · 10,000–1,009,999</span><strong>266,668 candidates · 78,022 primes</strong><p>Eight <code>mod 30</code> groups versus sixteen <code>(mod 30, mod 4)</code> groups.</p></article>
+                <article><span>PRIMARY HOLD-OUT · 1,010,000–2,009,999</span><strong>ΔBrier −1.4224 × 10<sup>−6</sup></strong><p>Baseline <code>0.1942696982</code>; phase model <code>0.1942711206</code>. Lower is better.</p></article>
+                <article><span>SECONDARY SCORE</span><strong>ΔLog-loss −3.6541 × 10<sup>−6</sup></strong><p>Baseline <code>0.5771202173</code>; phase model <code>0.5771238713</code>.</p></article>
+                <article><span>SENSITIVITY + PERMUTATION</span><strong>negative · negative · p = 0.06294</strong><p>Both later million-wide windows are also negative. One thousand phase-label permutations, seed <code>20261104</code>.</p></article>
+              </div>
+              <footer><strong>Structural control:</strong> the wheel candidates are odd, so only phases <code>1</code> and <code>3</code> occur. The apparent four-phase layer reduces to an ordinary two-way <code>mod 60</code> refinement. It adds parameters, not predictive information.</footer>
+            </div>
+
+            <p class="prime-null-test__boundary"><strong>Status.</strong> R1 is closed as a bounded calculation audit: the added phase label does not beat the mod-30 baseline out of sample. The phase remains visual grammar only. This result activates no Study or Finding, identifies no quaternion phase with prime position, and does not modify the closed A0 Pascal–Quaternion connector or SCC‑003.</p>
+          </section>
+
+          <section class="axis-hinge-lens" aria-labelledby="axis-hinge-title">
+            <header>
+              <div>
+                <span>RED BALLOON · SOURCE-BOUND AXIS / HINGE LENS</span>
+                <h5 id="axis-hinge-title">The hinge holds.<br />The <i>u</i>-axis stays silent.</h5>
+              </div>
+              <code>same two-arm grammar · different operations</code>
+            </header>
+
+            <div class="axis-hinge-lens__comparison">
+              <article class="axis-hinge-lens__hinge">
+                <span>01 · E-HINGE / ADDRESS ARMS</span>
+                <svg viewBox="0 0 520 280" role="img" aria-labelledby="e-hinge-title e-hinge-desc">
+                  <title id="e-hinge-title">E hinge with two unequal address arms</title>
+                  <desc id="e-hinge-desc">E at address five is the hinge between S at nineteen and L at twelve. The raw arm lengths are fourteen and seven, whose normalized ratio is two to one.</desc>
+                  <path d="M260 210L72 76M260 210L448 118" class="axis-hinge-lens__arm"></path>
+                  <path d="M260 248V32" class="axis-hinge-lens__axis"></path>
+                  <circle cx="72" cy="76" r="30" class="axis-hinge-lens__node"></circle>
+                  <circle cx="448" cy="118" r="30" class="axis-hinge-lens__node"></circle>
+                  <circle cx="260" cy="210" r="34" class="axis-hinge-lens__node axis-hinge-lens__node--hinge"></circle>
+                  <g class="axis-hinge-lens__node-label"><text x="72" y="82">S</text><text x="448" y="124">L</text><text x="260" y="216">E</text></g>
+                  <g class="axis-hinge-lens__address"><text x="72" y="121">XIX · 19</text><text x="448" y="163">XII · 12</text><text x="260" y="263">5 · HINGE</text></g>
+                  <text x="132" y="123" class="axis-hinge-lens__measure">|19−5| = 14</text>
+                  <text x="367" y="177" class="axis-hinge-lens__measure">|12−5| = 7</text>
+                </svg>
+                <strong><code>14:7 = 2:1</code></strong>
+                <p>The equality belongs to the ratio. The raw pair remains different from its normalized representation: <code>(14,7) ≠ (2,1)</code>.</p>
+              </article>
+
+              <div class="axis-hinge-lens__not-equal" aria-label="typed comparator, not an operator identity"><b>≠</b><span>TYPE<br />CHECK</span></div>
+
+              <article class="axis-hinge-lens__quaternion">
+                <span>02 · QUATERNION / INVARIANT AXIS</span>
+                <svg viewBox="0 0 520 280" role="img" aria-labelledby="u-axis-title u-axis-desc">
+                  <title id="u-axis-title">Invariant u axis for powers of one plus i minus j</title>
+                  <desc id="u-axis-desc">The i and j arms are equal and opposite around a central real axis. Their balance keeps the k component at zero along the declared power path.</desc>
+                  <path d="M260 38V242" class="axis-hinge-lens__axis"></path>
+                  <path d="M260 140L86 70" class="axis-hinge-lens__arm axis-hinge-lens__arm--i"></path>
+                  <path d="M260 140L434 210" class="axis-hinge-lens__arm axis-hinge-lens__arm--j"></path>
+                  <circle cx="260" cy="140" r="34" class="axis-hinge-lens__node axis-hinge-lens__node--real"></circle>
+                  <circle cx="86" cy="70" r="28" class="axis-hinge-lens__node axis-hinge-lens__node--i"></circle>
+                  <circle cx="434" cy="210" r="28" class="axis-hinge-lens__node axis-hinge-lens__node--j"></circle>
+                  <g class="axis-hinge-lens__node-label"><text x="260" y="146">Re</text><text x="86" y="76">+i</text><text x="434" y="216">−j</text></g>
+                  <text x="260" y="269" text-anchor="middle" class="axis-hinge-lens__measure">u = i−j · u² = −2 · k = 0</text>
+                </svg>
+                <strong><code>qⁿ = A<sub>n</sub> + B<sub>n</sub>u</code></strong>
+                <p>The two arms form an invariant algebraic subspace. This is not address normalization and not an E-Hinge operator.</p>
+              </article>
+            </div>
+
+            <div class="axis-hinge-lens__rules">
+              <article><span>03 · FULL STEP</span><strong><code>(a,b,c,d) ↦ (a−b+c, a+b+d, −a+c+d, d−b−c)</code></strong><p>Exact right multiplication by <code>q=1+i−j</code>.</p></article>
+              <article><span>04 · REDUCED STEP</span><strong><code>A′=A−2B · B′=A+B</code></strong><p>Starting at <code>(1,0)</code>: <code>(1,0) → (1,1) → (−1,2) → (−5,1) → (−7,−4)</code>.</p></article>
+              <article><span>05 · k GATE</span><strong><code>k=0 ∧ i+j≠0 ⇒ k′=−(i+j)≠0</code></strong><p><code>k</code> activates when the balance <code>j=−i</code> breaks—not when the other coordinates become zero. An isolated <code>dk</code> produces <code>d(i+j+k)</code>.</p></article>
+              <article><span>06 · GAUSSIAN / e± LIFT</span><strong><code>(50+i)(50−i)=2501=41·61</code></strong><p><code>N((1+i)<sup>m</sup>(50+i))=2<sup>m</sup>·2501</code>, giving <code>2501 → 5002 → 10004</code>. Also <code>50±i=√2501·e<sup>±i arctan(1/50)</sup></code>.</p></article>
+            </div>
+
+            <p class="axis-hinge-lens__boundary"><strong>Boundary.</strong> This lens reuses an existing A0 E-Hinge and the exact Red Balloon quaternion ledger. It exposes a shared two-arm visual grammar while keeping address ratio, quaternion recurrence, Gaussian norm and narrative labels typed apart. <code>LE XI</code> remains an undefined owner mnemonic. No prime coupling, IOTA mechanism, new Study or Finding follows.</p>
+          </section>
+
+          <div class="prime-balance__control">
+            <div><span>DÜRER CONTROL</span><strong>same labels 1…16 · magic sum 34</strong><p>Placement operator: half-turn <code>R180</code>.</p></div>
+            <div><span>KHAJURAHO CONTROL</span><strong>same labels 1…16 · magic sum 34</strong><p>Placement operator: toroidal shift <code>T(2,2)</code>.</p></div>
+            <p>Equal values and equal counts do not identify the placement operator. This is the same control principle used by the double-tile ledger.</p>
+          </div>
+
+          <p class="prime-balance__boundary"><strong>Boundary.</strong> <code>1001 = 7 × 11 × 13</code> is a triple-marked secondary stop, but it does not “exhaust” those factors or cause the following primes. Likewise, <code>1032 = 6 × 172</code> does not keep 1031 and 1033 clean: every <code>6k</code> has adjacent candidates <code>6k±1</code>, and separate divisibility tests decide whether they are prime. The mod-30 wheel organizes exclusions; repeating it four times to form 120 adds a larger bookkeeping package, not a stronger sieve or a smoothing theorem. None of these counts extends SCC‑003.</p>
+        </section>
       </div>
     </section>
 
@@ -1183,6 +1419,66 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
               <div class="red-balloon-coda__arc" aria-hidden="true"></div>
               <p>VALVE CLOSED · ONE LOCAL RETURN · STORY CONTINUES</p>
             </div>
+
+            <aside class="red-balloon-coda__balance" aria-labelledby="red-balloon-balance-title">
+              <header>
+                <div>
+                  <span>A0 SOURCE-BOUND · JOINT CONTROL RETURN AUDIT</span>
+                  <h5 id="red-balloon-balance-title">The state balance.</h5>
+                </div>
+                <code>Ω = {`{0,1}`}<sup>6</sup> · |Ω| = 2<sup>6</sup> = 64</code>
+              </header>
+              <div class="red-balloon-coda__accounts">
+                <article>
+                  <span>A · FIELD / AKTIVA</span>
+                  <strong>63<small>/64</small></strong>
+                  <p>sixty-three ordinary states</p>
+                </article>
+                <i aria-hidden="true">+</i>
+                <article>
+                  <span>B · WITNESS / PASSIVA</span>
+                  <strong>1<small>/64</small></strong>
+                  <p>one held state</p>
+                </article>
+                <b aria-hidden="true">=</b>
+                <article class="is-total">
+                  <span>NORMALIZED TOTAL</span>
+                  <strong>1</strong>
+                  <p>63/64 + 1/64</p>
+                </article>
+              </div>
+              <footer>
+                <p><strong>Share:</strong> the held state occupies <code>1/64</code> of the declared finite space.</p>
+                <p><strong>Ratio:</strong> held : field is <code>1:63</code>; its quotient is <code>1/63</code>.</p>
+                <p><strong>Boundary:</strong> “Aktiva / Passiva” is an accounting metaphor for this partition—not a financial balance sheet, probability law, energy model, physical mechanism or new SCC‑003 operator.</p>
+              </footer>
+            </aside>
+
+            <aside class="red-balloon-handle" aria-labelledby="red-balloon-handle-title">
+              <header>
+                <div>
+                  <span>A0 AUDIT 49 · NUMBER-VIEW HANDLES · 04.11.2026</span>
+                  <h5 id="red-balloon-handle-title">Two reversals.<br />One common drain.</h5>
+                </div>
+                <code>VIEW ≠ OPERATOR</code>
+              </header>
+              <div class="red-balloon-handle__pairs">
+                <article><span>PRIME HANDLE</span><strong>1087</strong><i aria-hidden="true">↔</i><strong>7801</strong><p><code>1087</code> is prime · <code>7801=29·269</code></p></article>
+                <article><span>COMPOSITE HANDLE</span><strong>1078</strong><i aria-hidden="true">↔</i><strong>8701</strong><p><code>2·7²·11</code> · <code>7·11·113</code></p></article>
+              </div>
+              <div class="red-balloon-handle__drain">
+                <article><span>EXPANSION VIEW</span><strong>1032 → 336 → 96</strong><p><code>φ/n=14/43</code> · <code>d=16</code> · <code>A=+576</code></p></article>
+                <b aria-hidden="true">→</b>
+                <article class="is-drain"><span>COMMON POWER-OF-2 SUFFIX</span><strong>32 → 16 → 8 → 4 → 2 → 1</strong><p>shared by these two carriers</p></article>
+                <b aria-hidden="true">←</b>
+                <article><span>COMPRESSION VIEW</span><strong>2301 → 1392 → 448 → 192 → 64</strong><p><code>φ/n≈0.604954</code> · <code>d=8</code> · <code>A=−1242</code></p></article>
+              </div>
+              <footer>
+                <p><strong>Prime index:</strong> <code>41=p13</code>, <code>43=p14</code>, <code>97=p25</code>. Twelve primes are counted from 43 through 97 inclusively; the index displacement is eleven.</p>
+                <p><strong>Polygonal type:</strong> <code>2301=P₉(26)</code>: the 26th nonagonal number—not “26-gonal.”</p>
+                <p><strong>Boundary:</strong> 43 may be drawn as a local closure/stop marker while remaining prime. Decimal reversal is not a prime-preserving mirror, and a factor 7 does not reactivate or bind the closed Root7 study.</p>
+              </footer>
+            </aside>
 
             <p class="red-balloon-coda__boundary"><strong>Valve boundary:</strong> Helium (<code>He</code>, atomic number <code>2</code>) and Neon (<code>Ne</code>, atomic number <code>10</code>) are noble gases. HELE, HELulIiriUM, AEON→NEON, EKKO and Alpha→Omega remain Owner-language and cultural reading cues. Red→pink→green is a sequential display grammar, not additive or subtractive colour mixing; “valve” names a chapter transition, not a physical mechanism or the end of the story. The view asserts no chemical transformation, element genealogy, periodic-table operator or cosmology. The separate historical <code>HE = 9</code> label and the existing <code>A0_NEON_TRAP_DOOR</code> / <code>NBV_NEON</code> provenance remain distinct; no evidence or authority transfers into this view.</p>
           </section>
@@ -3054,6 +3350,46 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
   .red-balloon-coda__gas--ne { right: 22%; bottom: 6.2rem; color: #ff8bbf; }
   .red-balloon-coda__arc { position: absolute; z-index: 1; width: 76%; height: 58%; border: 1px dashed #e8b747; border-bottom-color: transparent; border-radius: 50% 50% 0 0; opacity: .65; transform: rotate(180deg); }
   .red-balloon-coda__view > p { grid-column: 1 / -1; z-index: 2; margin: 0; color: #e8b747; font: 800 .58rem/1.4 var(--font-mono); letter-spacing: .11em; }
+  .red-balloon-coda__balance { grid-column: 1 / -1; border-top: 1px solid #385260; background: #071722; }
+  .red-balloon-coda__balance header { display: flex; justify-content: space-between; gap: 2rem; align-items: end; padding: 1.25rem 1.5rem; }
+  .red-balloon-coda__balance header span { color: #62d2d1; font: 800 .52rem/1.4 var(--font-mono); letter-spacing: .11em; }
+  .red-balloon-coda__balance h5 { margin: .35rem 0 0; color: #edf4f3; font: 500 clamp(1.55rem, 2.5vw, 2.25rem)/1 var(--font-serif); }
+  .red-balloon-coda__balance header code { color: #e8b747; font: 700 .74rem/1.5 var(--font-mono); white-space: nowrap; }
+  .red-balloon-coda__accounts { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; border-block: 1px solid #385260; background: #385260; gap: 1px; }
+  .red-balloon-coda__accounts article { display: grid; padding: 1rem 1.25rem; background: #050d15; align-content: center; }
+  .red-balloon-coda__accounts article > span { color: #78929d; font: 800 .5rem/1.35 var(--font-mono); letter-spacing: .09em; }
+  .red-balloon-coda__accounts strong { margin-top: .45rem; color: #edf4f3; font: 500 clamp(2rem, 3.3vw, 3.5rem)/1 var(--font-serif); }
+  .red-balloon-coda__accounts strong small { color: #78929d; font-size: .52em; }
+  .red-balloon-coda__accounts p { margin: .45rem 0 0; color: #78929d; font: 700 .55rem/1.45 var(--font-mono); }
+  .red-balloon-coda__accounts > i, .red-balloon-coda__accounts > b { display: grid; min-width: 2.5rem; background: #071722; color: #ff8bbf; font: 500 1.3rem/1 var(--font-serif); place-items: center; }
+  .red-balloon-coda__accounts .is-total { background: #0b2728; }
+  .red-balloon-coda__accounts .is-total strong { color: #54d7b0; }
+  .red-balloon-coda__balance footer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #385260; }
+  .red-balloon-coda__balance footer p { margin: 0; padding: .9rem 1.25rem; background: #071722; color: #9fb2ba; font-size: .68rem; line-height: 1.55; }
+  .red-balloon-coda__balance footer strong { color: #e8b747; }
+  .red-balloon-coda__balance footer code { color: #edf4f3; }
+  .red-balloon-handle { grid-column: 1 / -1; border-top: 1px solid #385260; background: #050d15; }
+  .red-balloon-handle header { display: flex; justify-content: space-between; gap: 2rem; align-items: end; padding: 1.25rem 1.5rem; }
+  .red-balloon-handle header span, .red-balloon-handle__pairs article > span, .red-balloon-handle__drain article > span { color: #62d2d1; font: 800 .52rem/1.4 var(--font-mono); letter-spacing: .11em; }
+  .red-balloon-handle h5 { margin: .35rem 0 0; color: #edf4f3; font: 500 clamp(1.55rem, 2.5vw, 2.25rem)/1 var(--font-serif); }
+  .red-balloon-handle header > code { color: #ff8bbf; font: 700 .74rem/1.5 var(--font-mono); white-space: nowrap; }
+  .red-balloon-handle__pairs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: #385260; border-block: 1px solid #385260; }
+  .red-balloon-handle__pairs article { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: .75rem; padding: 1rem 1.25rem; background: #071722; }
+  .red-balloon-handle__pairs article > span, .red-balloon-handle__pairs p { grid-column: 1 / -1; }
+  .red-balloon-handle__pairs strong { color: #edf4f3; font: 500 clamp(1.75rem, 3vw, 3rem)/1 var(--font-serif); }
+  .red-balloon-handle__pairs strong:last-of-type { text-align: right; }
+  .red-balloon-handle__pairs i { color: #e8b747; font: 500 1.6rem/1 var(--font-serif); }
+  .red-balloon-handle__pairs p, .red-balloon-handle__drain p { margin: 0; color: #78929d; font: 700 .58rem/1.5 var(--font-mono); }
+  .red-balloon-handle__drain { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1.25fr) auto minmax(0, 1fr); gap: 1px; align-items: stretch; background: #385260; border-bottom: 1px solid #385260; }
+  .red-balloon-handle__drain article { padding: 1rem 1.25rem; background: #071722; }
+  .red-balloon-handle__drain article strong { display: block; margin: .45rem 0; color: #edf4f3; font: 700 .72rem/1.5 var(--font-mono); }
+  .red-balloon-handle__drain .is-drain { background: #0b2728; }
+  .red-balloon-handle__drain .is-drain strong { color: #54d7b0; }
+  .red-balloon-handle__drain > b { display: grid; min-width: 2rem; place-items: center; background: #050d15; color: #e8b747; }
+  .red-balloon-handle footer { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #385260; }
+  .red-balloon-handle footer p { margin: 0; padding: .9rem 1.25rem; background: #071722; color: #9fb2ba; font-size: .68rem; line-height: 1.55; }
+  .red-balloon-handle footer strong { color: #e8b747; }
+  .red-balloon-handle footer code { color: #edf4f3; }
   .red-balloon-coda__boundary { grid-column: 1 / -1; margin: 0; padding: 1rem 1.2rem; border-top: 1px solid #385260; color: #9fb2ba; background: #0b1f2b; font-size: .75rem; }
   .red-balloon-coda__boundary strong { color: #e8b747; }
 
@@ -3183,6 +3519,152 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
   :global(.pascal-tesa-tape) { fill: rgba(232,183,71,.025); stroke: #78929d; stroke-width: 1; stroke-dasharray: 4 5; }
   :global(.pascal-tesa-equal) { fill: #e8b747; font: 400 23px/1 var(--serif); }
   :global(.pascal-tesa-not-equal) { fill: #9db1ba; font: 800 8px/1 var(--mono); letter-spacing: .08em; }
+
+  .prime-balance { margin-top: clamp(4rem, 8vw, 8rem); padding-top: clamp(2.5rem, 5vw, 5rem); border-top: 1px solid #385260; }
+  .prime-balance__head { display: grid; grid-template-columns: minmax(16rem, .8fr) minmax(18rem, 1.2fr); gap: clamp(2rem, 7vw, 7rem); align-items: end; }
+  .prime-balance__head h4 { margin: .8rem 0 0; color: #edf4f2; font: 400 clamp(2.6rem, 5vw, 5.2rem)/.93 var(--serif); letter-spacing: -.05em; }
+  .prime-balance__head > p { margin: 0; max-width: 44rem; color: #9db1ba; line-height: 1.75; }
+  .prime-balance__namespaces { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(14rem, .7fr); gap: 1px; margin-top: 2.5rem; border: 1px solid #385260; background: #385260; }
+  .prime-balance__namespaces article, .prime-balance__namespaces aside { padding: clamp(1.2rem, 2.5vw, 2rem); background: #07131e; }
+  .prime-balance__namespaces article > span, .prime-balance__control span { display: block; color: #62d2d1; font: 800 .6rem/1.4 var(--mono); letter-spacing: .11em; }
+  .prime-balance__namespaces article > strong { display: block; margin: .7rem 0 1.2rem; color: #edf4f2; font: 400 1.05rem/1.35 var(--serif); }
+  .prime-balance__namespaces article div { display: flex; align-items: baseline; gap: .6rem; padding: .45rem 0; border-top: 1px solid #1e3a48; color: #78929d; font: 700 .63rem/1.4 var(--mono); }
+  .prime-balance__namespaces article div b { min-width: 2.4rem; color: #e8b747; font-size: 1.15rem; }
+  .prime-balance__namespaces aside { display: flex; flex-direction: column; justify-content: center; }
+  .prime-balance__namespaces aside strong { color: #edf4f2; font: 400 2.5rem/1 var(--serif); }
+  .prime-balance__namespaces aside span { margin-top: .5rem; color: #ff978d; font: 800 .7rem/1.4 var(--mono); }
+  .prime-balance__namespaces aside p { margin: 1rem 0 0; color: #78929d; font-size: .72rem; line-height: 1.55; }
+  .prime-balance__triplet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 2.5rem; border: 1px solid #385260; background: #385260; }
+  .prime-balance__triplet > span { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; padding: 1rem 1.2rem; background: #050d15; }
+  .prime-balance__triplet b { font: 400 clamp(1.8rem, 3vw, 3rem)/1 var(--serif); }
+  .prime-balance__triplet small { font: 800 .6rem/1.4 var(--mono); letter-spacing: .08em; }
+  .prime-balance__triplet .is-prime b, .prime-balance__triplet .is-prime small { color: #62d2d1; }
+  .prime-balance__triplet .is-stop b, .prime-balance__triplet .is-stop small { color: #ff7366; }
+  .prime-balance__triplet-note { margin: .7rem 0 0; color: #78929d; font-size: .7rem; line-height: 1.6; }
+  .prime-balance__triplet-note code, .prime-balance__boundary code { color: #e8b747; }
+  .prime-balance__blocks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin-top: 2.5rem; border: 1px solid #385260; background: #385260; }
+  .prime-block { padding: clamp(1rem, 2vw, 1.5rem); background: #050d15; }
+  .prime-block header { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 1rem; }
+  .prime-block header span, .prime-block footer > span { display: block; color: #78929d; font: 800 .55rem/1.4 var(--mono); letter-spacing: .1em; }
+  .prime-block header strong { display: block; margin-top: .25rem; color: #edf4f2; font: 400 1.15rem/1.2 var(--serif); }
+  .prime-block header p { margin: 0; color: #78929d; font: 700 .59rem/1.4 var(--mono); text-align: right; }
+  .prime-block header p b { color: #edf4f2; }
+  .prime-block header p i { color: #62d2d1; font-style: normal; }
+  .prime-block header p em { color: #ff978d; font-style: normal; }
+  .prime-block__cells { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+  .prime-block__cells span { display: grid; place-items: center; min-height: 2.65rem; border: 1px solid #284e5d; background: #07131e; }
+  .prime-block__cells b { font: 700 .61rem/1 var(--mono); }
+  .prime-block__cells small { margin-top: .25rem; font: 800 .46rem/1 var(--mono); }
+  .prime-block__cells .is-prime { border-color: #3b9898; background: rgba(98,210,209,.08); color: #8ce5e4; }
+  .prime-block__cells .is-secondary-stop { color: #ff978d; }
+  .prime-block__cells .is-crossing { outline: 2px solid #e8b747; outline-offset: -3px; }
+  .prime-block footer { margin-top: .9rem; padding-top: .75rem; border-top: 1px solid #1e3a48; }
+  .prime-block footer code { display: block; margin-top: .35rem; color: #e8b747; font: 700 .6rem/1.6 var(--mono); overflow-wrap: anywhere; }
+  .prime-balance__aggregate { display: grid; grid-template-columns: minmax(12rem, .7fr) minmax(18rem, 1.3fr); gap: .5rem 2rem; padding: 1.2rem; border: 1px solid #385260; border-top: 0; background: #07131e; }
+  .prime-balance__aggregate > span { color: #62d2d1; font: 800 .58rem/1.4 var(--mono); letter-spacing: .1em; }
+  .prime-balance__aggregate > strong { color: #edf4f2; font: 400 1rem/1.35 var(--serif); }
+  .prime-balance__aggregate > div { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .35rem; }
+  .prime-balance__aggregate code { padding: .38rem .5rem; border: 1px solid #284e5d; color: #e8b747; font: 700 .58rem/1 var(--mono); }
+  .prime-balance__aggregate p { grid-column: 1 / -1; margin: .25rem 0 0; color: #78929d; font-size: .68rem; line-height: 1.55; }
+  .prime-null-test { margin-top: 2.5rem; border: 1px solid #385260; background: #07131e; }
+  .prime-null-test > header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-bottom: 1px solid #385260; }
+  .prime-null-test > header span, .prime-null-test__ledger article > span, .prime-null-test__contract article > span { display: block; color: #62d2d1; font: 800 .58rem/1.4 var(--mono); letter-spacing: .11em; }
+  .prime-null-test > header h5 { margin: .25rem 0 0; color: #edf4f2; font: 400 clamp(1.5rem, 3vw, 2.5rem)/1 var(--serif); }
+  .prime-null-test > header > code { color: #e8b747; font: 700 .65rem/1.4 var(--mono); }
+  .prime-null-test__grid { display: grid; grid-template-columns: repeat(30, minmax(0, 1fr)); gap: 1px; padding: 1rem; background: #102431; }
+  .prime-null-test__grid > span { position: relative; display: grid; place-items: center; aspect-ratio: 1; min-width: 0; background: #07131e; }
+  .prime-null-test__grid i { width: .28rem; height: .28rem; border-radius: 50%; background: #294553; }
+  .prime-null-test__grid small { position: absolute; inset: auto 2px 1px auto; color: #46616d; font: 500 .4rem/1 var(--mono); }
+  .prime-null-test__grid .is-open { background: #0c2930; }
+  .prime-null-test__grid .is-open i { background: #62d2d1; box-shadow: 0 0 .55rem rgba(98, 210, 209, .55); }
+  .prime-null-test__grid .is-open small { color: #9ce4df; }
+  .prime-null-test__ledger, .prime-null-test__contract { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #385260; }
+  .prime-null-test__ledger article, .prime-null-test__contract article { padding: 1.15rem; background: #07131e; }
+  .prime-null-test__ledger strong, .prime-null-test__contract strong { display: block; margin: .55rem 0; color: #edf4f2; font: 400 1rem/1.3 var(--serif); }
+  .prime-null-test__ledger p, .prime-null-test__contract p { margin: 0; color: #78929d; font-size: .68rem; line-height: 1.55; }
+  .prime-null-test__ledger code { color: #e8b747; }
+  .prime-null-test__contract { border-top: 1px solid #385260; }
+  .prime-null-test__contract .is-stop { box-shadow: inset 0 3px 0 #ed597f; }
+  .prime-null-test__contract .is-stop > span { color: #ed7897; }
+  .prime-null-test__result { border-top: 1px solid #385260; background: #06151d; }
+  .prime-null-test__result > header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding: 1.15rem; background: #0b2728; }
+  .prime-null-test__result > header span, .prime-null-test__result article > span { display: block; color: #54d7b0; font: 800 .56rem/1.4 var(--mono); letter-spacing: .1em; }
+  .prime-null-test__result > header strong { display: block; margin-top: .35rem; color: #edf4f2; font: 400 1.35rem/1.15 var(--serif); }
+  .prime-null-test__result > header code { color: #e8b747; font: 700 .66rem/1.4 var(--mono); white-space: nowrap; }
+  .prime-null-test__result > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: #385260; }
+  .prime-null-test__result article { padding: 1rem 1.15rem; background: #07131e; }
+  .prime-null-test__result article strong { display: block; margin: .45rem 0; color: #edf4f2; font: 400 1rem/1.3 var(--serif); }
+  .prime-null-test__result article p, .prime-null-test__result footer { margin: 0; color: #78929d; font-size: .66rem; line-height: 1.55; }
+  .prime-null-test__result code { color: #e8b747; }
+  .prime-null-test__result footer { padding: .9rem 1.15rem; border-top: 1px solid #385260; }
+  .prime-null-test__result footer strong { color: #54d7b0; }
+  .prime-null-test__boundary { margin: 0; padding: .9rem 1.2rem; border-top: 1px solid #385260; background: #050d15; color: #9db1ba; font-size: .7rem; line-height: 1.55; }
+  .axis-hinge-lens { margin-top: 2.5rem; border: 1px solid #3c5360; background: #06111b; }
+  .axis-hinge-lens > header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-bottom: 1px solid #3c5360; background: linear-gradient(110deg, #071925, #160d1d); }
+  .axis-hinge-lens > header span, .axis-hinge-lens article > span { display: block; color: #66d9de; font: 800 .56rem/1.4 var(--mono); letter-spacing: .11em; }
+  .axis-hinge-lens > header h5 { margin: .28rem 0 0; color: #edf4f2; font: 400 clamp(1.55rem, 3vw, 2.55rem)/.98 var(--serif); }
+  .axis-hinge-lens > header h5 i { color: #e8b747; font-weight: 400; }
+  .axis-hinge-lens > header code { color: #ed7897; font: 700 .62rem/1.4 var(--mono); }
+  .axis-hinge-lens__comparison { display: grid; grid-template-columns: minmax(0, 1fr) 8rem minmax(0, 1fr); align-items: stretch; gap: 1px; background: #3c5360; }
+  .axis-hinge-lens__comparison article { padding: 1.1rem; background: #07131e; }
+  .axis-hinge-lens__comparison svg { display: block; width: 100%; height: auto; margin: .7rem 0 .2rem; }
+  .axis-hinge-lens__comparison strong { display: block; color: #edf4f2; font: 400 1.05rem/1.3 var(--serif); }
+  .axis-hinge-lens__comparison strong code, .axis-hinge-lens__rules code { color: #e8b747; }
+  .axis-hinge-lens__comparison p, .axis-hinge-lens__rules p { margin: .5rem 0 0; color: #7f98a3; font-size: .66rem; line-height: 1.55; }
+  .axis-hinge-lens__not-equal { display: grid; place-content: center; gap: .4rem; background: #0c1c27; text-align: center; }
+  .axis-hinge-lens__not-equal b { color: #ed7897; font: 400 2.3rem/1 var(--serif); }
+  .axis-hinge-lens__not-equal span { max-width: 100%; color: #78929d; font: 700 .44rem/1.45 var(--mono); letter-spacing: .03em; overflow-wrap: anywhere; }
+  .axis-hinge-lens__arm { fill: none; stroke: #62d2d1; stroke-width: 4; }
+  .axis-hinge-lens__arm--i { stroke: #62d2d1; }
+  .axis-hinge-lens__arm--j { stroke: #ed7897; }
+  .axis-hinge-lens__axis { fill: none; stroke: #e8b747; stroke-width: 2; stroke-dasharray: 7 7; }
+  .axis-hinge-lens__node { fill: #0c2732; stroke: #62d2d1; stroke-width: 3; }
+  .axis-hinge-lens__node--hinge { fill: #5a2449; stroke: #e8b747; }
+  .axis-hinge-lens__node--real { fill: #4a3420; stroke: #e8b747; }
+  .axis-hinge-lens__node--i { fill: #0c3038; stroke: #62d2d1; }
+  .axis-hinge-lens__node--j { fill: #3b172b; stroke: #ed7897; }
+  .axis-hinge-lens__node-label { fill: #edf4f2; font: 800 15px var(--mono); text-anchor: middle; }
+  .axis-hinge-lens__address { fill: #78929d; font: 700 10px var(--mono); text-anchor: middle; }
+  .axis-hinge-lens__measure { fill: #e8b747; font: 700 11px var(--mono); }
+  .axis-hinge-lens__rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; border-top: 1px solid #3c5360; background: #3c5360; }
+  .axis-hinge-lens__rules article { padding: 1rem 1.15rem; background: #07131e; }
+  .axis-hinge-lens__rules strong { display: block; margin-top: .45rem; color: #edf4f2; font: 400 .91rem/1.35 var(--serif); }
+  .axis-hinge-lens__boundary { margin: 0; padding: .95rem 1.2rem; border-top: 1px solid #3c5360; background: #050d15; color: #9db1ba; font-size: .69rem; line-height: 1.55; }
+  .axis-hinge-lens__boundary strong { color: #e8b747; }
+  .prime-balance__control { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-top: 2.5rem; border: 1px solid #385260; background: #385260; }
+  .prime-balance__control > div { padding: 1.2rem; background: #07131e; }
+  .prime-balance__control strong { display: block; margin: .55rem 0; color: #edf4f2; font: 400 1.05rem/1.3 var(--serif); }
+  .prime-balance__control div p { margin: 0; color: #78929d; font-size: .72rem; }
+  .prime-balance__control div code { color: #e8b747; }
+  .prime-balance__control > p { grid-column: 1 / -1; margin: 0; padding: .9rem 1.2rem; background: #050d15; color: #9db1ba; font-size: .72rem; line-height: 1.55; }
+  .prime-balance__boundary { margin: 1rem 0 0; padding-left: 1rem; border-left: 2px solid #ff7366; color: #78929d; font-size: .72rem; line-height: 1.65; }
+  .prime-balance__boundary strong { color: #ff978d; }
+
+  @media (max-width: 820px) {
+    .prime-balance__head, .prime-balance__blocks, .prime-balance__aggregate { grid-template-columns: 1fr; }
+    .prime-balance__aggregate > div, .prime-balance__aggregate p { grid-column: 1; }
+    .prime-balance__namespaces { grid-template-columns: 1fr; }
+    .prime-balance__triplet { grid-template-columns: 1fr; }
+    .prime-block__cells { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .prime-null-test > header { display: block; }
+    .prime-null-test > header > code { display: block; margin-top: .8rem; }
+    .prime-null-test__grid { grid-template-columns: repeat(15, minmax(0, 1fr)); }
+    .prime-null-test__ledger, .prime-null-test__contract, .prime-null-test__result > div { grid-template-columns: 1fr; }
+    .prime-null-test__result > header { display: block; }
+    .prime-null-test__result > header code { display: block; margin-top: .8rem; }
+    .axis-hinge-lens > header { display: block; }
+    .axis-hinge-lens > header code { display: block; margin-top: .8rem; }
+    .axis-hinge-lens__comparison { grid-template-columns: 1fr; }
+    .axis-hinge-lens__not-equal { min-height: 5rem; }
+    .axis-hinge-lens__rules { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 560px) {
+    .prime-balance__control { grid-template-columns: 1fr; }
+    .prime-balance__control > p { grid-column: 1; }
+    .prime-block header { display: block; }
+    .prime-block header p { margin-top: .75rem; text-align: left; }
+  }
 
   .study-shutter { background: #dfe8e7; color: #101b24; transition: background-color .25s ease, color .25s ease; }
   .study-shutter[data-shutter-theme="night"] { background: #07131e; color: #edf4f2; }
@@ -3512,6 +3994,13 @@ const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a
     .red-balloon-coda__view { min-height: 24rem; padding-inline: 1rem; }
     .red-balloon-coda__gas--he { left: 20%; }
     .red-balloon-coda__gas--ne { right: 14%; }
+    .red-balloon-coda__balance header { display: grid; align-items: start; }
+    .red-balloon-coda__accounts { grid-template-columns: 1fr; }
+    .red-balloon-coda__accounts > i, .red-balloon-coda__accounts > b { min-height: 2rem; }
+    .red-balloon-coda__balance footer { grid-template-columns: 1fr; }
+    .red-balloon-handle header { display: grid; align-items: start; }
+    .red-balloon-handle__pairs, .red-balloon-handle__drain, .red-balloon-handle footer { grid-template-columns: 1fr; }
+    .red-balloon-handle__drain > b { min-height: 2rem; }
     .roundtrip-plates { grid-template-columns: 1fr; }
     .rhythm-number-game__cards { grid-template-columns: 1fr; }
     .study-doors { grid-template-columns: 1fr; }
