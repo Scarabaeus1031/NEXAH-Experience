@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Origami · Splinter</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --background: #181818;
+    --foreground: #f4f0e7;
+    --muted-foreground: #aaa49a;
+    --font-size-base: 16px;
+    --viz-series-1: #3b82f6;
+    --viz-series-2: #f2cf55;
+    --viz-series-3: #f08bc2;
+    --yellow: #f6c735;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--background); color: var(--foreground); }
+  body { padding: clamp(18px, 3vw, 34px); font: 16px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  h1 { margin: 0; font-size: clamp(1.45rem, 3vw, 2.25rem); line-height: 1.08; }
+  p { margin: 0; }
+  .text-muted { color: var(--muted-foreground); }
+  .btn { appearance: none; padding: .58rem .78rem; border: 1px solid #4a4a4a; border-radius: 999px; background: #242424; color: var(--foreground); font: inherit; cursor: pointer; }
+  .btn:hover { border-color: #777; }
+  .btn-primary { border-color: var(--viz-series-3); background: #f08bc224; box-shadow: inset 0 0 0 1px #f08bc255; }
+  .form-range { width: 100%; accent-color: var(--viz-series-3); }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="origami-splinter-study">
+  <style>
+    #origami-splinter-study {
+      color: var(--foreground);
+      font-family: inherit;
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.9);
+    }
+    #origami-splinter-study .oss-title {
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.25);
+    }
+    #origami-splinter-study .oss-controls {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 0.55fr);
+      gap: calc(var(--font-size-base) * 0.8);
+      align-items: end;
+    }
+    #origami-splinter-study .oss-lens-bar {
+      display: grid;
+      grid-template-columns: minmax(0, auto) minmax(280px, 1fr);
+      gap: calc(var(--font-size-base) * 0.8);
+      align-items: center;
+      padding: calc(var(--font-size-base) * 0.65);
+      border: 1px solid #3c3c3c;
+      border-radius: 14px;
+      background: #202020;
+    }
+    #origami-splinter-study .oss-modes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--font-size-base) * 0.35);
+    }
+    #origami-splinter-study .oss-state-key {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: .35rem .75rem;
+      color: var(--muted-foreground);
+      font-size: .82rem;
+    }
+    #origami-splinter-study .oss-state-key strong { color: var(--foreground); }
+    #origami-splinter-study .oss-view-bar {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: calc(var(--font-size-base) * 0.8);
+      align-items: end;
+    }
+    #origami-splinter-study .oss-view-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--font-size-base) * 0.35);
+    }
+    #origami-splinter-study .oss-tilts {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(180px, 1fr));
+      gap: calc(var(--font-size-base) * 0.7);
+    }
+    #origami-splinter-study .oss-steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--font-size-base) * 0.35);
+    }
+    #origami-splinter-study .oss-slider {
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.3);
+    }
+    #origami-splinter-study .oss-label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: calc(var(--font-size-base) * 0.5);
+    }
+    #origami-splinter-study .oss-stage {
+      width: 100%;
+      height: auto;
+      max-height: 570px;
+      display: block;
+      overflow: visible;
+    }
+    #origami-splinter-study .oss-stage text {
+      fill: var(--foreground);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    #origami-splinter-study .oss-stage .muted-text { fill: var(--muted-foreground); }
+    #origami-splinter-study .oss-stage .sheet {
+      fill: var(--background);
+      stroke: color-mix(in srgb, var(--foreground) 52%, var(--background));
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .fold-a {
+      fill: color-mix(in srgb, var(--viz-series-1) 16%, var(--background));
+      stroke: var(--viz-series-1);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .fold-b {
+      fill: color-mix(in srgb, var(--viz-series-2) 13%, var(--background));
+      stroke: var(--viz-series-2);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .crease {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 48%, var(--background));
+      stroke-width: 1.2;
+      stroke-dasharray: 6 6;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .ridge {
+      fill: none;
+      stroke: var(--viz-series-3);
+      stroke-width: 2.4;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .carrier {
+      fill: color-mix(in srgb, var(--yellow) 8%, transparent);
+      stroke: var(--yellow);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .view-a {
+      fill: color-mix(in srgb, var(--viz-series-1) 9%, transparent);
+      stroke: var(--viz-series-1);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .view-b {
+      fill: color-mix(in srgb, var(--viz-series-2) 9%, transparent);
+      stroke: var(--viz-series-2);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .intersection {
+      fill: color-mix(in srgb, var(--viz-series-3) 38%, transparent);
+      stroke: var(--viz-series-3);
+      stroke-width: 2.2;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .mask-shape {
+      fill: #050505;
+      stroke: none;
+    }
+    #origami-splinter-study .oss-stage .mask-edge {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 48%, var(--background));
+      stroke-width: 1.4;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .zone-np { fill: color-mix(in srgb, var(--viz-series-1) 62%, transparent); }
+    #origami-splinter-study .oss-stage .zone-pn { fill: color-mix(in srgb, var(--viz-series-2) 58%, transparent); }
+    #origami-splinter-study .oss-stage .zone-nn {
+      fill: color-mix(in srgb, var(--viz-series-3) 68%, transparent);
+      stroke: var(--viz-series-3);
+      stroke-width: 1.6;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .ty-center {
+      fill: var(--background);
+      stroke: var(--foreground);
+      stroke-width: 1.8;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .zone-label {
+      font-size: 11px;
+      font-weight: 700;
+      paint-order: stroke;
+      stroke: var(--background);
+      stroke-width: 4px;
+      stroke-linejoin: round;
+    }
+    #origami-splinter-study .oss-stage .side-ground {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 28%, var(--background));
+      stroke-width: 1.2;
+      stroke-dasharray: 7 7;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .side-flap-a {
+      fill: color-mix(in srgb, var(--viz-series-1) 34%, var(--background));
+      stroke: var(--viz-series-1);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .side-flap-b {
+      fill: color-mix(in srgb, var(--viz-series-2) 28%, var(--background));
+      stroke: var(--viz-series-2);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .side-dimension {
+      fill: none;
+      stroke: var(--muted-foreground);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .guide {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 23%, var(--background));
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-stage .leader {
+      fill: none;
+      stroke: var(--muted-foreground);
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-readout {
+      min-height: calc(var(--font-size-base) * 2.2);
+      color: var(--muted-foreground);
+    }
+    @media (max-width: 620px) {
+      #origami-splinter-study .oss-controls { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-lens-bar { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-state-key { justify-content: flex-start; }
+      #origami-splinter-study .oss-view-bar { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-tilts { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-stage { max-height: none; }
+    }
+  </style>
+
+  <div class="oss-title">
+    <h1>Faltung, Überlagerung und wandernder Splinter</h1>
+    <p class="text-muted">Links entsteht der Papierflieger; rechts wird seine Dreiecksstruktur auf den festen Fünferträger projiziert.</p>
+  </div>
+
+  <div class="oss-controls">
+    <div class="oss-steps" aria-label="Faltstufe">
+      <button class="btn" type="button" data-step="0" aria-pressed="false">A4</button>
+      <button class="btn" type="button" data-step="1" aria-pressed="false">Ecken zur Mitte</button>
+      <button class="btn" type="button" data-step="2" aria-pressed="false">Zweite Faltung</button>
+      <button class="btn" type="button" data-step="3" aria-pressed="false">Rückenfalte</button>
+      <button class="btn btn-primary" type="button" data-step="4" aria-pressed="true">Überlagerung</button>
+    </div>
+    <label class="oss-slider" for="oss-asymmetry">
+      <span class="oss-label-row"><span>Asymmetrie / Versatz</span><strong id="oss-asymmetry-value" class="tabular-nums">14</strong></span>
+      <input id="oss-asymmetry" class="form-range" type="range" min="0" max="30" step="1" value="30">
+    </label>
+  </div>
+
+  <div class="oss-lens-bar">
+    <div class="oss-modes" aria-label="Projektionslinse">
+      <button class="btn btn-primary" type="button" data-mode="glass" aria-pressed="true">GLAS · RELATIONEN</button>
+      <button class="btn" type="button" data-mode="mask" aria-pressed="false">MASKE · SCHATTEN</button>
+      <button class="btn" type="button" data-mode="gap" aria-pressed="false">SPALT · APERTUR</button>
+    </div>
+    <div class="oss-state-key" aria-label="Zwei-Lagen-Legende">
+      <span><strong>NN</strong> innen / innen</span>
+      <span><strong>NP</strong> T₁ / außen</span>
+      <span><strong>PN</strong> außen / T₂</span>
+      <span><strong>PP</strong> außen / außen</span>
+    </div>
+  </div>
+
+  <div class="oss-view-bar">
+    <div class="oss-view-buttons" aria-label="Geometrische Ansicht">
+      <button class="btn btn-primary" type="button" data-view="top" aria-pressed="true">OBEN · ÜBERLAGERUNG</button>
+      <button class="btn" type="button" data-view="side" aria-pressed="false">SEITE · MAPPE</button>
+    </div>
+    <div class="oss-tilts">
+      <label class="oss-slider" for="oss-tilt-a">
+        <span class="oss-label-row"><span>Tilt T₁ · α₁</span><strong id="oss-tilt-a-value" class="tabular-nums">32°</strong></span>
+        <input id="oss-tilt-a" class="form-range" type="range" min="0" max="80" step="1" value="32">
+      </label>
+      <label class="oss-slider" for="oss-tilt-b">
+        <span class="oss-label-row"><span>Tilt T₂ · α₂</span><strong id="oss-tilt-b-value" class="tabular-nums">48°</strong></span>
+        <input id="oss-tilt-b" class="form-range" type="range" min="0" max="80" step="1" value="48">
+      </label>
+    </div>
+  </div>
+
+  <svg class="oss-stage" viewBox="0 0 980 520" role="img" aria-labelledby="oss-svg-title oss-svg-desc">
+    <title id="oss-svg-title">Vom A4-Blatt zur überlagerten Dreiecksprojektion</title>
+    <desc id="oss-svg-desc">Eine interaktive Faltstudie. Links wird ein A4-Blatt schrittweise zum Papierflieger gefaltet. Rechts überlagern sich zwei Dreiecksansichten auf einem Pentagon. Ihre Schnittmenge bildet eine wandernde Speerspitze; die überstehenden Ecken sind Splinter.</desc>
+    <defs>
+      <marker id="oss-arrow" orient="auto" markerUnits="userSpaceOnUse" refX="8" refY="5" markerWidth="10" markerHeight="10">
+        <path d="M1 1L8 5 1 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <text x="205" y="25" text-anchor="middle">FALTTRÄGER · A4</text>
+    <text id="oss-projection-title" x="725" y="25" text-anchor="middle">PROJEKTION · 5 + 2</text>
+    <g id="oss-paper"></g>
+    <path d="M405 255H485" class="leader" marker-end="url(#oss-arrow)"/>
+    <text x="445" y="239" text-anchor="middle" class="muted-text">projiziert</text>
+    <g id="oss-projection"></g>
+  </svg>
+
+  <p id="oss-readout" class="oss-readout" aria-live="polite"></p>
+
+  <script>
+    (() => {
+      const root = document.getElementById('origami-splinter-study');
+      const paper = root.querySelector('#oss-paper');
+      const projection = root.querySelector('#oss-projection');
+      const slider = root.querySelector('#oss-asymmetry');
+      const sliderValue = root.querySelector('#oss-asymmetry-value');
+      const readout = root.querySelector('#oss-readout');
+      const buttons = [...root.querySelectorAll('[data-step]')];
+      const modeButtons = [...root.querySelectorAll('[data-mode]')];
+      const viewButtons = [...root.querySelectorAll('[data-view]')];
+      const tiltAInput = root.querySelector('#oss-tilt-a');
+      const tiltBInput = root.querySelector('#oss-tilt-b');
+      const tiltAValue = root.querySelector('#oss-tilt-a-value');
+      const tiltBValue = root.querySelector('#oss-tilt-b-value');
+      const projectionTitle = root.querySelector('#oss-projection-title');
+      const storageKey = 'nexah:scc003:origami-splinter-fold:v1';
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch {}
+      let step = saved && Number.isInteger(saved.step) ? Math.max(0, Math.min(4, saved.step)) : 4;
+      let asymmetry = saved && Number.isFinite(saved.asymmetry) ? Math.max(0, Math.min(30, saved.asymmetry)) : 30;
+      let mode = saved && ['glass','mask','gap'].includes(saved.mode) ? saved.mode : 'glass';
+      let view = saved && ['top','side'].includes(saved.view) ? saved.view : 'top';
+      let tiltA = saved && Number.isFinite(saved.tiltA) ? Math.max(0, Math.min(80, saved.tiltA)) : 32;
+      let tiltB = saved && Number.isFinite(saved.tiltB) ? Math.max(0, Math.min(80, saved.tiltB)) : 48;
+
+      const poly = points => points.map(p => p.join(',')).join(' ');
+      const area = points => points.reduce((sum, p, i) => {
+        const q = points[(i + 1) % points.length];
+        return sum + p[0] * q[1] - q[0] * p[1];
+      }, 0) / 2;
+      const inside = (p, a, b, sign) => sign * ((b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])) >= -0.001;
+      const intersection = (p1, p2, a, b) => {
+        const x1 = p1[0], y1 = p1[1], x2 = p2[0], y2 = p2[1];
+        const x3 = a[0], y3 = a[1], x4 = b[0], y4 = b[1];
+        const d = (x1-x2)*(y3-y4)-(y1-y2)*(x3-x4);
+        if (Math.abs(d) < 1e-8) return p2;
+        const t = ((x1-x3)*(y3-y4)-(y1-y3)*(x3-x4))/d;
+        return [x1+t*(x2-x1), y1+t*(y2-y1)];
+      };
+      const clipConvex = (subject, clip) => {
+        let output = subject.slice();
+        const sign = area(clip) >= 0 ? 1 : -1;
+        for (let i = 0; i < clip.length; i++) {
+          const a = clip[i], b = clip[(i+1)%clip.length];
+          const input = output.slice();
+          output = [];
+          if (!input.length) break;
+          let s = input[input.length-1];
+          for (const e of input) {
+            const eIn = inside(e,a,b,sign), sIn = inside(s,a,b,sign);
+            if (eIn) {
+              if (!sIn) output.push(intersection(s,e,a,b));
+              output.push(e);
+            } else if (sIn) output.push(intersection(s,e,a,b));
+            s = e;
+          }
+        }
+        return output;
+      };
+      const rotate = (points, angle, cx, cy, dx, dy) => {
+        const c = Math.cos(angle), s = Math.sin(angle);
+        return points.map(([x,y]) => {
+          const px=x-cx, py=y-cy;
+          return [cx + px*c - py*s + dx, cy + px*s + py*c + dy];
+        });
+      };
+
+      function drawPaper() {
+        const center = '<path class="crease" d="M205 48V458"/><text x="214" y="474" class="muted-text">Hauptlinie / Rückenfalte</text>';
+        if (step === 0) {
+          paper.innerHTML = '<path class="sheet" d="M75 48H335V458H75Z"/>' + center + '<text x="205" y="500" text-anchor="middle" class="muted-text">ungefalteter Träger</text>';
+        } else if (step === 1) {
+          paper.innerHTML = '<path class="sheet" d="M75 48H335V458H75Z"/><polygon class="fold-a" points="75,48 205,190 75,190"/><polygon class="fold-b" points="335,48 335,190 205,190"/><path class="crease" d="M75 48L205 190 335 48"/>' + center + '<text x="205" y="500" text-anchor="middle" class="muted-text">zwei Ecken treffen die Mitte</text>';
+        } else if (step === 2) {
+          paper.innerHTML = '<path class="sheet" d="M75 48H335V458H75Z"/><polygon class="fold-a" points="75,190 205,48 205,330"/><polygon class="fold-b" points="335,190 205,48 205,330"/><path class="crease" d="M75 190L205 330 335 190"/>' + center + '<path class="ridge" d="M205 48V330"/><text x="205" y="500" text-anchor="middle" class="muted-text">zweite Faltung bildet die Speerform</text>';
+        } else {
+          const wingShift = step === 4 ? asymmetry * 0.65 : 0;
+          paper.innerHTML = '<polygon class="fold-a" points="205,48 82,420 205,330"/><polygon class="fold-b" points="205,48 '+(328+wingShift)+',420 205,330"/><path class="ridge" d="M205 48V438"/><path class="crease" d="M82 420L205 330 '+(328+wingShift)+',420"/><text x="205" y="500" text-anchor="middle" class="muted-text">Rückenfalte + zwei Flügelansichten</text>';
+        }
+      }
+
+      function drawProjection() {
+        const pentagon = [[725,85],[890,205],[828,402],[622,402],[560,205]];
+        const triA = [[725,62],[548,376],[858,273]];
+        const angle = (asymmetry - 15) * Math.PI / 420;
+        const triB = rotate([[725,70],[592,258],[905,386]], angle, 725, 255, asymmetry-14, (asymmetry-14)*0.35);
+        const overlap = clipConvex(triA, triB);
+        const splinter = triB.reduce((best,p) => p[0] > best[0] ? p : best, triB[0]);
+        const overlapShape = overlap.length >= 3 ? '<polygon class="intersection" points="'+poly(overlap)+'"/>' : '';
+        if (view === 'side') {
+          drawSideProjection(triA, triB);
+          return;
+        }
+        const center = '<circle class="ty-center" cx="725" cy="255" r="7"/><text class="zone-label" x="738" y="250">TY</text>';
+        const base = '<circle class="guide" cx="725" cy="255" r="205"/>';
+        const leader = '<path class="leader" d="M'+splinter[0]+' '+splinter[1]+'L915 122"/><text x="918" y="116" class="muted-text">Splinter</text>';
+        if (mode === 'mask') {
+          projection.innerHTML = base+
+            '<g aria-label="Opake Projektionsmaske">'+
+              '<polygon class="mask-shape" points="'+poly(pentagon)+'"/>'+
+              '<polygon class="mask-shape" points="'+poly(triA)+'"/>'+
+              '<polygon class="mask-shape" points="'+poly(triB)+'"/>'+
+              '<polygon class="mask-edge" points="'+poly(pentagon)+'"/>'+
+              '<polygon class="mask-edge" points="'+poly(triA)+'"/>'+
+              '<polygon class="mask-edge" points="'+poly(triB)+'"/>'+
+            '</g>'+center+leader+
+            '<text x="725" y="474" text-anchor="middle" class="muted-text">MASKE · nur Silhouette / Schatten · Innenrelationen verdeckt</text>';
+        } else if (mode === 'gap') {
+          const defs = '<defs>'+
+            '<mask id="oss-zone-np"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triA)+'" fill="white"/><polygon points="'+poly(triB)+'" fill="black"/></mask>'+
+            '<mask id="oss-zone-pn"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triB)+'" fill="white"/><polygon points="'+poly(triA)+'" fill="black"/></mask>'+
+          '</defs>';
+          projection.innerHTML = defs+base+
+            '<polygon class="carrier" points="'+poly(pentagon)+'"/>'+
+            '<rect class="zone-np" x="500" y="35" width="450" height="420" mask="url(#oss-zone-np)"/>'+
+            '<rect class="zone-pn" x="500" y="35" width="450" height="420" mask="url(#oss-zone-pn)"/>'+
+            (overlap.length >= 3 ? '<polygon class="zone-nn" points="'+poly(overlap)+'"/>' : '')+
+            '<polygon class="mask-edge" points="'+poly(triA)+'"/><polygon class="mask-edge" points="'+poly(triB)+'"/>'+
+            '<text class="zone-label" x="730" y="175">NN</text><text class="zone-label" x="600" y="325">NP</text><text class="zone-label" x="842" y="350">PN</text><text class="zone-label muted-text" x="535" y="430">PP</text>'+
+            center+leader+
+            '<text x="725" y="474" text-anchor="middle" class="muted-text">SPALT · NN / NP / PN / PP · Zwei-Lagen-Lesung</text>';
+        } else {
+          projection.innerHTML = base+
+            '<polygon class="carrier" points="'+poly(pentagon)+'"/>'+
+            '<polygon class="view-a" points="'+poly(triA)+'"/>'+
+            '<polygon class="view-b" points="'+poly(triB)+'"/>'+
+            overlapShape+
+            '<path class="ridge" d="M725 62L725 432"/>'+center+leader+
+            '<text x="725" y="474" text-anchor="middle" class="muted-text">GLAS · P₅-Hülle + T₁/T₂ · TY bleibt getrennter Zentrumsträger</text>';
+        }
+      }
+
+      function drawSideProjection(triA, triB) {
+        const hinge = [725,350];
+        const a1 = tiltA * Math.PI / 180;
+        const a2 = tiltB * Math.PI / 180;
+        const lenA = 178;
+        const lenB = 162;
+        const endA = [hinge[0] - lenA*Math.cos(a1), hinge[1] - lenA*Math.sin(a1)];
+        const endB = [hinge[0] + lenB*Math.cos(a2), hinge[1] - lenB*Math.sin(a2)];
+        const thickness = 10;
+        const flapA = [hinge,endA,[endA[0],endA[1]+thickness],[hinge[0],hinge[1]+thickness]];
+        const flapB = [hinge,endB,[endB[0],endB[1]+thickness],[hinge[0],hinge[1]+thickness]];
+        const trueA = Math.abs(area(triA));
+        const trueB = Math.abs(area(triB));
+        const projectedA = trueA * Math.cos(a1);
+        const projectedB = trueB * Math.cos(a2);
+        const ratio = projectedB > 0 ? projectedA / projectedB : 0;
+        projection.dataset.areaRatio = ratio.toFixed(3);
+        projection.innerHTML =
+          '<path class="side-ground" d="M525 350H925"/>'+
+          '<path class="side-ground" d="M'+endA[0]+' '+endA[1]+'V350M'+endB[0]+' '+endB[1]+'V350"/>'+
+          '<polygon class="side-flap-a" points="'+poly(flapA)+'"/>'+
+          '<polygon class="side-flap-b" points="'+poly(flapB)+'"/>'+
+          '<circle class="ty-center" cx="725" cy="350" r="8"/>'+
+          '<text class="zone-label" x="738" y="345">TY · RÜCKEN</text>'+
+          '<text class="zone-label" x="'+(endA[0]-6)+'" y="'+(endA[1]-10)+'" text-anchor="end">T₁ · α₁ '+tiltA+'°</text>'+
+          '<text class="zone-label" x="'+(endB[0]+6)+'" y="'+(endB[1]-10)+'">T₂ · α₂ '+tiltB+'°</text>'+
+          '<path class="side-dimension" d="M'+endA[0]+' 374H725M725 398H'+endB[0]+'"/>'+
+          '<text x="'+((endA[0]+725)/2)+'" y="370" text-anchor="middle" class="muted-text">Π(T₁)=A₁ cos α₁</text>'+
+          '<text x="'+((endB[0]+725)/2)+'" y="394" text-anchor="middle" class="muted-text">Π(T₂)=A₂ cos α₂</text>'+
+          '<text x="725" y="458" text-anchor="middle">PROJEKTIONSVERHÄLTNIS · Π(T₁)/Π(T₂) = '+ratio.toFixed(3)+'</text>'+
+          '<text x="725" y="482" text-anchor="middle" class="muted-text">schematischer orthogonaler Lift · Flächen bleiben starr, Schatten schrumpfen mit cos α</text>';
+      }
+
+      function save() {
+        localStorage.setItem(storageKey, JSON.stringify({step,asymmetry,mode,view,tiltA,tiltB}));
+      }
+      function render(shouldSave=false) {
+        slider.value = String(asymmetry);
+        sliderValue.textContent = String(asymmetry);
+        buttons.forEach(button => {
+          const active = Number(button.dataset.step) === step;
+          button.classList.toggle('btn-primary', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        modeButtons.forEach(button => {
+          const active = button.dataset.mode === mode;
+          button.classList.toggle('btn-primary', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        viewButtons.forEach(button => {
+          const active = button.dataset.view === view;
+          button.classList.toggle('btn-primary', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        tiltAInput.value = String(tiltA);
+        tiltBInput.value = String(tiltB);
+        tiltAValue.textContent = tiltA + '°';
+        tiltBValue.textContent = tiltB + '°';
+        projectionTitle.textContent = view === 'side' ? 'SEITENPROFIL · MAPPE' : 'PROJEKTION · 5 + 2';
+        drawPaper();
+        drawProjection();
+        const messages = [
+          'Das A4-Blatt trägt bereits die spätere Hauptlinie; noch existiert keine Speerspitze.',
+          'Die ersten beiden Ecken erzeugen zwei spiegelnde Dreiecke mit einem gemeinsamen Treffpunkt.',
+          'Die zweite Faltung verdichtet beide Dreiecke zur schlanken Speerform.',
+          'Die Mittelfalte macht aus der ebenen Konstruktion einen dreidimensional lesbaren Rücken mit zwei Flügeln.',
+          'Durch den Versatz decken sich die Projektionen nicht mehr: Die helle Schnittmenge wandert, außen bleiben Splinter stehen.'
+        ];
+        const modeMessages = {
+          glass: ' GLAS zeigt Träger, Überlagerung und Schnittmenge zugleich.',
+          mask: ' MASKE zeigt die opake Projektion als Schatten; Innenlinien und Tiefenrelationen bleiben verdeckt.',
+          gap: ' SPALT trennt NN, NP, PN und PP als Zwei-Lagen-Zustände; TY bleibt davon unabhängig.'
+        };
+        const viewMessage = view === 'side'
+          ? ' SEITE hebt die verlorene Tiefeninformation als deklarierte Tilts α₁ und α₂ wieder an; die projizierte Fläche folgt A·|cos α|.'
+          : ' OBEN zeigt die orthogonale Überlagerung; die Tilt-Vorzeichen und Höhen bleiben in dieser Ansicht unsichtbar.';
+        readout.textContent = messages[step] + modeMessages[mode] + viewMessage + ' 5+2 ist eine Adresslesung; keine √5-Identität, starre Origami-Lösung oder Materialphysik.';
+        if (shouldSave) save();
+      }
+      buttons.forEach(button => button.addEventListener('click', () => {
+        step = Number(button.dataset.step);
+        render(true);
+      }));
+      slider.addEventListener('input', () => {
+        asymmetry = Number(slider.value);
+        if (step < 4) step = 4;
+        render(true);
+      });
+      modeButtons.forEach(button => button.addEventListener('click', () => {
+        mode = button.dataset.mode;
+        render(true);
+      }));
+      viewButtons.forEach(button => button.addEventListener('click', () => {
+        view = button.dataset.view;
+        render(true);
+      }));
+      tiltAInput.addEventListener('input', () => {
+        tiltA = Number(tiltAInput.value);
+        view = 'side';
+        render(true);
+      });
+      tiltBInput.addEventListener('input', () => {
+        tiltB = Number(tiltBInput.value);
+        view = 'side';
+        render(true);
+      });
+      render(false);
+    })();
+  </script>
+</div>
+</body>
+</html>

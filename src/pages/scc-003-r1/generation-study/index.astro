@@ -700,6 +700,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
           </svg>
           <figcaption>The two fins are a drawing convention. The exact retained facts are primality, factorization, midpoint and the one-sided totient return.</figcaption>
         </figure>
+
       </div>
     </section>
 
@@ -1932,6 +1933,225 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
           </svg>
           <figcaption>The slash inside <code>A/B</code> and <code>R/T</code> separates typed owner roles; it is not division. Equality is asserted only after the declared display projection. The lower pendulum supplies motion, the upper half-arc supplies its counterview, and the right slit remains open.</figcaption>
         </figure>
+
+        <figure class="root-gap-frame" id="root-gap-lens">
+          <div class="root-gap-controls" aria-label="Splinter and fold controls">
+            <label>
+              <span>Book fold · β <output data-root-gap-fold-output>180°</output></span>
+              <input data-root-gap-fold type="range" min="0" max="180" value="180" step="1" />
+            </label>
+            <label>
+              <span>Half-cell drift · ε <output data-root-gap-offset-output>+0.50 cell</output></span>
+              <input data-root-gap-offset type="range" min="-0.5" max="0.5" value="0.5" step="0.01" />
+            </label>
+          </div>
+          <svg viewBox="0 0 1200 560" role="img" aria-labelledby="root-gap-title root-gap-desc">
+            <title id="root-gap-title">A three-panel working lens for overlap, moving gap and count transfer</title>
+            <desc id="root-gap-desc">The first panel overlays two triangles on a pentagonal envelope. A declared book-fold angle and lateral half-cell drift move the pink projection; the pale polygon is their computed intersection and exterior portions are measured as layer splinters. The second panel places a pink bead on a curved golden fold route and measures its normal gap to a white reference line. The third panel preserves a total count of fifty-six while a one-hundred-eighty-degree display flip accompanies the declared transfer from twenty-eight and twenty-eight to twenty-five and thirty-one.</desc>
+            <defs>
+              <marker id="root-gap-arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 Z" class="root-gap-arrow-head"></path></marker>
+            </defs>
+            <line x1="400" y1="62" x2="400" y2="495" class="root-gap-rule"></line>
+            <line x1="800" y1="62" x2="800" y2="495" class="root-gap-rule"></line>
+
+            <g class="root-gap-panel">
+              <text x="200" y="54" text-anchor="middle" class="root-gap-index">I · OVERLAP / FOLD</text>
+              <circle cx="200" cy="250" r="150" class="root-gap-orbit"></circle>
+              <polygon points="200,106 338,207 286,370 114,370 62,207" class="root-gap-pentagon"></polygon>
+              <polygon points="200,76 63,327 329,282" class="root-gap-triangle root-gap-triangle--cyan"></polygon>
+              <polygon points="224,93 92,305 355,332" class="root-gap-triangle root-gap-triangle--pink" data-root-gap-projection></polygon>
+              <polygon points="211,113 267,269 207,304 151,261" class="root-gap-spear" data-root-gap-overlap></polygon>
+              <circle cx="207" cy="270" r="7" class="root-gap-bead"></circle>
+              <text x="200" y="425" text-anchor="middle" class="root-gap-caption">PENTAGON ENVELOPE · T₁ / T₂</text>
+              <text x="200" y="447" text-anchor="middle" class="root-gap-subcaption" data-root-gap-panel-readout>SPEAR = T₁∩T₂ · SPLINTER = Tᵢ∖P</text>
+            </g>
+
+            <g class="root-gap-panel">
+              <text x="600" y="54" text-anchor="middle" class="root-gap-index">II · BEAD / GAP</text>
+              <path d="M455 385 Q585 205 735 122" class="root-gap-axis root-gap-axis--yellow"></path>
+              <line x1="455" y1="337" x2="735" y2="150" class="root-gap-axis root-gap-axis--white"></line>
+              <circle cx="590" cy="229" r="12" class="root-gap-bead root-gap-bead--large"></circle>
+              <line x1="590" y1="229" x2="590" y2="247" class="root-gap-measure"></line>
+              <text x="612" y="242" class="root-gap-equation">g(t)</text>
+              <circle cx="539" cy="281" r="7" class="root-gap-root"></circle>
+              <text x="600" y="425" text-anchor="middle" class="root-gap-caption">B(t)=γ(t) · g(t)=dist(B(t), W)</text>
+              <text x="600" y="447" text-anchor="middle" class="root-gap-subcaption">GOLD = FOLD ROUTE · ROOT = g(t*) = 0</text>
+            </g>
+
+            <g class="root-gap-panel">
+              <text x="1000" y="54" text-anchor="middle" class="root-gap-index">III · COUNT / TRANSFER</text>
+              <text x="855" y="82" text-anchor="middle" class="root-gap-state">0° · 25+3</text>
+              <text x="1056" y="65" text-anchor="middle" class="root-gap-state">180° · 25+3+3</text>
+              <g class="root-gap-count-dots">
+                <circle cx="875" cy="140" r="5"></circle><circle cx="895" cy="140" r="5"></circle><circle cx="915" cy="140" r="5"></circle>
+                <circle cx="855" cy="163" r="5"></circle><circle cx="875" cy="163" r="5"></circle><circle cx="895" cy="163" r="5"></circle><circle cx="915" cy="163" r="5"></circle>
+                <circle cx="835" cy="186" r="5"></circle><circle cx="855" cy="186" r="5"></circle><circle cx="875" cy="186" r="5"></circle><circle cx="895" cy="186" r="5"></circle><circle cx="915" cy="186" r="5"></circle>
+                <circle cx="815" cy="209" r="5"></circle><circle cx="835" cy="209" r="5"></circle><circle cx="855" cy="209" r="5"></circle><circle cx="875" cy="209" r="5"></circle><circle cx="895" cy="209" r="5"></circle><circle cx="915" cy="209" r="5"></circle>
+                <circle cx="795" cy="232" r="5"></circle><circle cx="815" cy="232" r="5"></circle><circle cx="835" cy="232" r="5"></circle><circle cx="855" cy="232" r="5"></circle><circle cx="875" cy="232" r="5"></circle><circle cx="895" cy="232" r="5"></circle><circle cx="915" cy="232" r="5"></circle>
+              </g>
+              <g class="root-gap-ghost-dots" aria-label="three nodes transferred away from the left count">
+                <circle cx="835" cy="112" r="5"></circle><circle cx="875" cy="112" r="5"></circle><circle cx="915" cy="112" r="5"></circle>
+              </g>
+              <g class="root-gap-square-dots">
+                <circle cx="1008" cy="140" r="5"></circle><circle cx="1032" cy="140" r="5"></circle><circle cx="1056" cy="140" r="5"></circle><circle cx="1080" cy="140" r="5"></circle><circle cx="1104" cy="140" r="5"></circle>
+                <circle cx="1008" cy="166" r="5"></circle><circle cx="1032" cy="166" r="5"></circle><circle cx="1056" cy="166" r="5"></circle><circle cx="1080" cy="166" r="5"></circle><circle cx="1104" cy="166" r="5"></circle>
+                <circle cx="1008" cy="192" r="5"></circle><circle cx="1032" cy="192" r="5"></circle><circle cx="1056" cy="192" r="5"></circle><circle cx="1080" cy="192" r="5"></circle><circle cx="1104" cy="192" r="5"></circle>
+                <circle cx="1008" cy="218" r="5"></circle><circle cx="1032" cy="218" r="5"></circle><circle cx="1056" cy="218" r="5"></circle><circle cx="1080" cy="218" r="5"></circle><circle cx="1104" cy="218" r="5"></circle>
+                <circle cx="1008" cy="244" r="5"></circle><circle cx="1032" cy="244" r="5"></circle><circle cx="1056" cy="244" r="5"></circle><circle cx="1080" cy="244" r="5"></circle><circle cx="1104" cy="244" r="5"></circle>
+              </g>
+              <g class="root-gap-received-dots" aria-label="six nodes above the right five by five core">
+                <circle cx="1020" cy="112" r="5"></circle><circle cx="1056" cy="112" r="5"></circle><circle cx="1092" cy="112" r="5"></circle>
+                <circle cx="1020" cy="91" r="5"></circle><circle cx="1056" cy="91" r="5"></circle><circle cx="1092" cy="91" r="5"></circle>
+              </g>
+              <path d="M929 276 C970 302 1003 302 1039 276" class="root-gap-transfer" marker-end="url(#root-gap-arrow)"></path>
+              <text x="1000" y="326" text-anchor="middle" class="root-gap-count">28 | 28 → 25 | 31</text>
+              <text x="1000" y="360" text-anchor="middle" class="root-gap-total">56 = 7 × 8</text>
+              <text x="1000" y="425" text-anchor="middle" class="root-gap-caption">−3 | +3 · TOTAL HELD</text>
+              <text x="1000" y="447" text-anchor="middle" class="root-gap-subcaption">LAYER COUNT ≠ GEOMETRIC UNION</text>
+            </g>
+
+            <line x1="62" y1="492" x2="1138" y2="492" class="root-gap-footer-rule"></line>
+            <text x="70" y="526" class="root-gap-ledger">VIEW-ONLY WORKING LENS · NOT A FINDING</text>
+            <text x="1130" y="526" text-anchor="end" class="root-gap-ledger">NO ROOT7 REOPEN · NO SCC-003 CLAIM EFFECT</text>
+          </svg>
+          <div class="root-gap-metrics" aria-live="polite">
+            <article><span>FOLD REGISTER</span><strong data-root-gap-beta>β = 180°</strong><small>0° closed · 180° open; declared display projection.</small></article>
+            <article><span>SPLINTER DISTANCE</span><strong data-root-gap-distance>d<sub>S</sub> = 0.00 cell</strong><small>Maximum normal vertex distance beyond the pentagon envelope.</small></article>
+            <article><span>LAYER AREA</span><strong data-root-gap-area>A<sub>S</sub><sup>layer</sup> = 0.00 cell²</strong><small>Sum of T₁∖P and T₂∖P; overlap is not silently merged.</small></article>
+            <article><span>BAND EVENTS</span><strong data-root-gap-bands>n<sub>S</sub> = 0</strong><small>Discrete crossings of the declared one-cell projection band.</small></article>
+            <article><span>CENTER REGISTER</span><strong>5.5 ± 0.5 → 5 | 6</strong><small>Half-cell drift around an eleven-unit carrier; not a new count.</small></article>
+            <article><span>ROOT7 CARRIER</span><strong>L² = 7 · ‖L‖ = √7</strong><small>L=(2,1,1,1): squared norm and length remain different types.</small></article>
+            <article><span>TURN / ADDRESS</span><strong>1/12 turn = 30°</strong><small>112=111+1 is separate address arithmetic, not the fraction 1/12.</small></article>
+            <article><span>LAYER WORD</span><strong>PP → NP → NN → PN → PP</strong><small>N<sub>in</sub>=inside and P<sub>out</sub>=outside for each fold layer. Under P↔R and N↔L, the compact edge word PNNP reads RLLR.</small></article>
+            <article><span>DECIMAL CHIRALITY RAIL</span><strong>L⁻ 27 ↔ 32 ↔ 37 L⁺</strong><small>N<sub>fold</sub>=L⁻⊕L⁺ · Δ=10 · residue 7 held. This is a decimal address view, not the prime-candidate rule 6k±1.</small></article>
+            <article><span>STATUS</span><strong>VIEW LEDGER · R0</strong><small>No physical paper law, Root7 reopening or SCC-003 claim effect.</small></article>
+          </div>
+          <figcaption><span>I</span> β and ε drive a declared two-triangle projection; the pale spear is the computed intersection, while <code>d<sub>S</sub></code>, <code>A<sub>S</sub><sup>layer</sup></code> and <code>n<sub>S</sub></code> keep distance, layer area and band events separate. A transversal reads <code>PP→NP→NN→PN→PP</code>; its compact mirror word <code>PNNP</code> may be translated to <code>RLLR</code> only under the declared symbol map <code>P↔R</code>, <code>N↔L</code> · <span>II</span> a bead moves on the golden fold arc and reads its normal gap to the white reference · <span>III</span> a 180° display flip accompanies the declared −3|+3 transfer from 28|28 to 25|31 while 56 remains fixed. Rotation changes orientation; the separately declared transfer changes the split. “Root gap” names an interstitial or zero-of-gap reading here; it is not identified with √7. The typed Root7 carrier is only <code>L=(2,1,1,1)</code>, <code>L²=7</code>, <code>‖L‖=√7</code>. The separate address pair <code>27↔37</code> holds residue 7 across a <code>+10</code> decimal-lane shift; chirality belongs to the ordered fold view, not to either integer alone.</figcaption>
+        </figure>
+
+        <section class="number-world-receipt" id="number-world-geometry-receipt" aria-labelledby="number-world-receipt-title">
+          <header class="number-world-receipt__header">
+            <div>
+              <p class="study-kicker">Number World · geometry receipt</p>
+              <h3 id="number-world-receipt-title">The mesh can be read without turning its addresses into identities.</h3>
+            </div>
+            <p>The receipt fixes three different layers: exact integer relations, the Euler mesh ledger and one declared decimal readout. The readout is reproducible for these source meshes, but it is resolution-dependent and therefore not a new topological invariant.</p>
+          </header>
+
+          <div class="number-world-receipt__operators" aria-label="Number World operators and exact equations">
+            <article>
+              <span>01 · CORE / CLAMP / MOTION</span>
+              <strong><i>b</i> = 8</strong>
+              <code>K(b)=2b+1=17</code>
+              <code>M(b)=3b+1=25</code>
+              <p><b>17 = 8|1|8</b> is the declared clamp. <b>25 = 3·8+1</b> is the three-block-plus-witness expansion.</p>
+            </article>
+            <article>
+              <span>02 · EULER CLAMP</span>
+              <strong>χ = V − E + F</strong>
+              <code>E=V+F−χ</code>
+              <p>The sign word is <b>(+V, −E, +F)</b>. Edge count <i>E</i> is the connection term between vertices and faces, not a free Number-Game substitution.</p>
+            </article>
+            <article>
+              <span>03 · WHITE 19 AXIS</span>
+              <strong>A<sub>FV</sub>(M)=⌊10F/V⌋=19</strong>
+              <code>D(M)=(A<sub>FV</sub>, ⌊100·&#123;10F/V&#125;⌋)</code>
+              <p>The first readout digit pair remains <b>19</b> across the listed triangulated carriers. The residual supplies a second, explicitly quantized address.</p>
+            </article>
+            <article>
+              <span>04 · TWO PRIME WITNESSES</span>
+              <strong>D(Splinter) = 19|61</strong>
+              <code>10·355/181 = 19.613259…</code>
+              <strong>D(Boundary) = 19|83</strong>
+              <code>10·119/60 = 19.833333…</code>
+              <p><b>61</b> and <b>83</b> are prime, but primality is a property of the resulting addresses—not the cause of the mesh ratios.</p>
+            </article>
+            <article>
+              <span>05 · 96-SHELL / RED WITNESS</span>
+              <strong>96 = 12·8 = 6·16 = 3·32</strong>
+              <code>63=64−1=2<sup>6</sup>−1</code>
+              <p>The Red Balloon address <b>63</b> and prime witnesses <b>61, 83</b> all lie inside the declared finite address set <b>V<sub>96</sub>=&#123;1,…,96&#125;</b>.</p>
+            </article>
+            <article>
+              <span>06 · NUMBER-WORLD ENVELOPE</span>
+              <strong>1001 = 10<sup>3</sup>+1 = 7·11·13</strong>
+              <code>V<sub>96</sub> ⊂ N<sub>1001</sub>=&#123;0,…,1001&#125;</code>
+              <code>X<sub>10</sub>(n)=n+10</code>
+              <p>The ×10 stick moves along a decimal column while preserving the final digit: <b>19→29→39→…→99</b>. Integer <b>1001</b> remains distinct from decimal <b>1.001</b>.</p>
+            </article>
+          </div>
+
+          <div class="number-world-receipt__mesh" aria-label="Measured mesh receipt">
+            <div class="number-world-receipt__mesh-heading">
+              <span>Measured carrier set</span>
+              <strong>V · E · F · components · boundary</strong>
+            </div>
+            <div class="number-world-receipt__table-wrap">
+              <table>
+                <thead><tr><th scope="col">Carrier</th><th scope="col">V</th><th scope="col">E</th><th scope="col">F</th><th scope="col">F/V</th><th scope="col">χ</th><th scope="col">C</th><th scope="col">∂E</th><th scope="col">Address</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Splinter array ×12</th><td>8,688</td><td>25,704</td><td>17,040</td><td>355/181</td><td>24</td><td>24</td><td>288</td><td>19|61</td></tr>
+                  <tr><th scope="row">Splinter connector</th><td>724</td><td>2,142</td><td>1,420</td><td>355/181</td><td>2</td><td>2</td><td>24</td><td>19|61</td></tr>
+                  <tr><th scope="row">Dashed boundary ring</th><td>21,600</td><td>64,440</td><td>42,840</td><td>119/60</td><td>0</td><td>15</td><td>360</td><td>19|83</td></tr>
+                  <tr><th scope="row">Inner / outer ring, each</th><td>12,960</td><td>38,844</td><td>25,884</td><td>719/360</td><td>0</td><td>1</td><td>36</td><td>19|97</td></tr>
+                  <tr><th scope="row">Pentagon frame</th><td>3,612</td><td>10,812</td><td>7,200</td><td>600/301</td><td>0</td><td>1</td><td>24</td><td>19|93</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="number-world-receipt__address">
+            <span>Compact view address</span>
+            <code>W=[8; K<sub>2</sub>=17; M<sub>3</sub>=25; A<sub>FV</sub>=19; P<sub>V</sub>=&#123;61,83&#125;; R=63; S=96; N=1001; X<sub>10</sub>]</code>
+          </div>
+
+          <p class="number-world-receipt__boundary"><strong>Boundary.</strong> <code>χ=V−E+F</code> and the displayed counts are exact for the inspected files. <code>19|61</code> and <code>19|83</code> require the declared decimal quantizer and may change under remeshing. “Clamp”, “white axis”, “Red Balloon”, “stick” and “Number World” are view roles. This receipt creates no mesh identity, autonomous operator, Finding, ROOT7 reopening or SCC‑003 claim extension.</p>
+        </section>
+
+        <section class="root-gap-demonstrators" id="root-gap-demonstrators" aria-labelledby="root-gap-demonstrators-title">
+          <header class="root-gap-demonstrators__header">
+            <div>
+              <p class="study-kicker">Four source-bound working demonstrators</p>
+              <h3 id="root-gap-demonstrators-title">Fold, gap, transfer and chirality can now be inspected directly.</h3>
+            </div>
+            <p>The overview above keeps the common ledger visible. These embedded HTML instruments expose four constructions separately: the wandering splinter, the bead-to-diagonal gap, the 28→25|31 transfer and a finite 18° × 23 chirality wheel. The first instrument can switch between transparent relations, an opaque shadow mask and the typed NN/NP/PN/PP aperture register; a separate side profile exposes both flap tilts and their orthographic area ratio without changing the carrier.</p>
+          </header>
+
+          <div class="root-gap-demo-tabs" role="tablist" aria-label="Root gap working demonstrators">
+            <button type="button" role="tab" aria-selected="true" aria-controls="root-gap-demo-fold" id="root-gap-tab-fold" data-root-gap-demo-tab="fold">
+              <span>I</span><strong>Origami · Splinter</strong><small>β fold · ε offset</small>
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="root-gap-demo-gap" id="root-gap-tab-gap" data-root-gap-demo-tab="gap">
+              <span>II</span><strong>Bead · Root gap</strong><small>gold arc · white diagonal</small>
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="root-gap-demo-transfer" id="root-gap-tab-transfer" data-root-gap-demo-tab="transfer">
+              <span>III</span><strong>28 → 25 | 31</strong><small>5×5 core · cap transfer</small>
+            </button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="root-gap-demo-complex" id="root-gap-tab-complex" data-root-gap-demo-tab="complex">
+              <span>IV</span><strong>18° × 23 · Chirality</strong><small>red bead · hoop · splinter</small>
+            </button>
+          </div>
+
+          <article class="root-gap-demo-panel is-active" role="tabpanel" id="root-gap-demo-fold" aria-labelledby="root-gap-tab-fold" data-root-gap-demo-panel="fold">
+            <iframe src="/review-assets/scc-003-r1/demonstrators/origami-splinter-fold.html?rev=side-lens-1" title="Interactive origami fold, side profile, mask, aperture and wandering splinter demonstrator" loading="eager" sandbox="allow-scripts allow-same-origin"></iframe>
+            <footer><span>ORIGINAL WORKING HTML · EMBEDDED VIEW</span><a href="/review-assets/scc-003-r1/demonstrators/origami-splinter-fold.html?rev=side-lens-1" target="_blank" rel="noreferrer">Open standalone ↗</a></footer>
+          </article>
+          <article class="root-gap-demo-panel" role="tabpanel" id="root-gap-demo-gap" aria-labelledby="root-gap-tab-gap" data-root-gap-demo-panel="gap" hidden>
+            <iframe src="/review-assets/scc-003-r1/demonstrators/root-gap-diagonal-measure.html?rev=standalone-fix-1" title="Interactive root gap, bead and diagonal measure demonstrator" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            <footer><span>ORIGINAL WORKING HTML · EMBEDDED VIEW</span><a href="/review-assets/scc-003-r1/demonstrators/root-gap-diagonal-measure.html?rev=standalone-fix-1" target="_blank" rel="noreferrer">Open standalone ↗</a></footer>
+          </article>
+          <article class="root-gap-demo-panel" role="tabpanel" id="root-gap-demo-transfer" aria-labelledby="root-gap-tab-transfer" data-root-gap-demo-panel="transfer" hidden>
+            <iframe src="/review-assets/scc-003-r1/demonstrators/twenty-eight-transfer-pentagon.html?rev=standalone-fix-1" title="Interactive double twenty-eight to asymmetric pentagon carrier demonstrator" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            <footer><span>ORIGINAL WORKING HTML · EMBEDDED VIEW</span><a href="/review-assets/scc-003-r1/demonstrators/twenty-eight-transfer-pentagon.html?rev=standalone-fix-1" target="_blank" rel="noreferrer">Open standalone ↗</a></footer>
+          </article>
+
+          <article class="root-gap-demo-panel" role="tabpanel" id="root-gap-demo-complex" aria-labelledby="root-gap-tab-complex" data-root-gap-demo-panel="complex" hidden>
+            <iframe src="/review-assets/scc-003-r1/demonstrators/complex-fold-18x23.html?rev=thread-record-1" title="Interactive eighteen degree by twenty-three station chirality, red bead, hoop and splinter demonstrator" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            <footer><span>DOCUMENTARY WORKING HTML · EMBEDDED VIEW</span><a href="/review-assets/scc-003-r1/demonstrators/complex-fold-18x23.html?rev=thread-record-1" target="_blank" rel="noreferrer">Open standalone ↗</a><a href="http://127.0.0.1:8768/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_MATHEMATICAL_JOINTS.html#complex-fold-18x23-mathfield-return" target="_blank" rel="noreferrer">Mathfield return ↗</a><a href="http://127.0.0.1:8768/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_RESEARCH_DESK.html#complex-fold-18x23-thread-return-20261109" target="_blank" rel="noreferrer">Science Desk ↗</a></footer>
+          </article>
+
+          <p class="root-gap-demo-boundary"><strong>Boundary.</strong> These are source-bound working views. Their controls change only the displayed construction; they do not create a Finding, reopen ROOT7 or alter the SCC-003 claim set.</p>
+        </section>
       </div>
     </section>
 
@@ -2778,6 +2998,125 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
     }
     rivets.append(make("circle", { cx: endX, cy: endY, r: 3.2, class: "shadow-rivet shadow-rivet--ring", "aria-label": `Strand ${strand + 1}, boundary rivet` }));
   }
+
+  const rootGapFold = document.querySelector("[data-root-gap-fold]");
+  const rootGapOffset = document.querySelector("[data-root-gap-offset]");
+  const rootGapFoldOutput = document.querySelector("[data-root-gap-fold-output]");
+  const rootGapOffsetOutput = document.querySelector("[data-root-gap-offset-output]");
+  const rootGapProjection = document.querySelector("[data-root-gap-projection]");
+  const rootGapOverlap = document.querySelector("[data-root-gap-overlap]");
+  const rootGapPanelReadout = document.querySelector("[data-root-gap-panel-readout]");
+  const rootGapBeta = document.querySelector("[data-root-gap-beta]");
+  const rootGapDistance = document.querySelector("[data-root-gap-distance]");
+  const rootGapArea = document.querySelector("[data-root-gap-area]");
+  const rootGapBands = document.querySelector("[data-root-gap-bands]");
+
+  if (rootGapFold && rootGapOffset && rootGapProjection && rootGapOverlap) {
+    const hingeX = 200;
+    const cell = 48;
+    const triangleA = [[200, 76], [63, 327], [329, 282]];
+    const triangleBOpen = [[200, 93], [68, 305], [331, 332]];
+    const envelope = [[200, 106], [338, 207], [286, 370], [114, 370], [62, 207]];
+    const polygonArea = (polygon) => Math.abs(polygon.reduce((sum, point, index) => {
+      const next = polygon[(index + 1) % polygon.length];
+      return sum + point[0] * next[1] - next[0] * point[1];
+    }, 0)) / 2;
+    const signedArea = (polygon) => polygon.reduce((sum, point, index) => {
+      const next = polygon[(index + 1) % polygon.length];
+      return sum + point[0] * next[1] - next[0] * point[1];
+    }, 0) / 2;
+    const ccw = (polygon) => signedArea(polygon) < 0 ? [...polygon].reverse() : [...polygon];
+    const lineIntersection = (a, b, c, d) => {
+      const abx = b[0] - a[0];
+      const aby = b[1] - a[1];
+      const cdx = d[0] - c[0];
+      const cdy = d[1] - c[1];
+      const denominator = abx * cdy - aby * cdx;
+      if (Math.abs(denominator) < 1e-9) return b;
+      const t = ((c[0] - a[0]) * cdy - (c[1] - a[1]) * cdx) / denominator;
+      return [a[0] + t * abx, a[1] + t * aby];
+    };
+    const clipConvex = (subject, clip) => {
+      let output = ccw(subject);
+      const boundary = ccw(clip);
+      for (let index = 0; index < boundary.length; index += 1) {
+        const c = boundary[index];
+        const d = boundary[(index + 1) % boundary.length];
+        const input = output;
+        output = [];
+        const inside = (p) => (d[0] - c[0]) * (p[1] - c[1]) - (d[1] - c[1]) * (p[0] - c[0]) >= -1e-7;
+        input.forEach((b, pointIndex) => {
+          const a = input[(pointIndex + input.length - 1) % input.length];
+          if (inside(b)) {
+            if (!inside(a)) output.push(lineIntersection(a, b, c, d));
+            output.push(b);
+          } else if (inside(a)) {
+            output.push(lineIntersection(a, b, c, d));
+          }
+        });
+        if (!output.length) break;
+      }
+      return output;
+    };
+    const pointInside = (point, polygon) => {
+      const boundary = ccw(polygon);
+      return boundary.every((a, index) => {
+        const b = boundary[(index + 1) % boundary.length];
+        return (b[0] - a[0]) * (point[1] - a[1]) - (b[1] - a[1]) * (point[0] - a[0]) >= -1e-7;
+      });
+    };
+    const segmentDistance = (point, a, b) => {
+      const dx = b[0] - a[0];
+      const dy = b[1] - a[1];
+      const lengthSquared = dx * dx + dy * dy;
+      const t = lengthSquared ? Math.max(0, Math.min(1, ((point[0] - a[0]) * dx + (point[1] - a[1]) * dy) / lengthSquared)) : 0;
+      return Math.hypot(point[0] - (a[0] + t * dx), point[1] - (a[1] + t * dy));
+    };
+    const boundaryDistance = (point, polygon) => Math.min(...polygon.map((a, index) => segmentDistance(point, a, polygon[(index + 1) % polygon.length])));
+    const pointsAttribute = (polygon) => polygon.map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`).join(" ");
+
+    const updateRootGapLedger = () => {
+      const beta = Number(rootGapFold.value);
+      const epsilon = Number(rootGapOffset.value);
+      const foldScale = Math.sin(beta * Math.PI / 360);
+      const triangleB = triangleBOpen.map(([x, y]) => [hingeX + (x - hingeX) * foldScale + epsilon * cell, y]);
+      const overlap = clipConvex(triangleA, triangleB);
+      const splinterArea = [triangleA, triangleB].reduce((sum, triangle) => sum + Math.max(0, polygonArea(triangle) - polygonArea(clipConvex(triangle, envelope))), 0);
+      const exteriorVertices = [...triangleA, ...triangleB].filter((point) => !pointInside(point, envelope));
+      const distance = exteriorVertices.length ? Math.max(...exteriorVertices.map((point) => boundaryDistance(point, envelope))) : 0;
+      const normalizedDistance = distance / cell;
+      const normalizedArea = splinterArea / (cell * cell);
+      const bands = normalizedDistance < 1e-9 ? 0 : Math.ceil(normalizedDistance - 1e-9);
+
+      rootGapProjection.setAttribute("points", pointsAttribute(triangleB));
+      rootGapOverlap.setAttribute("points", overlap.length >= 3 ? pointsAttribute(overlap) : "");
+      rootGapFoldOutput.value = `${beta}°`;
+      rootGapOffsetOutput.value = `${epsilon >= 0 ? "+" : ""}${epsilon.toFixed(2)} cell`;
+      rootGapPanelReadout.textContent = `β ${beta}° · ε ${epsilon >= 0 ? "+" : ""}${epsilon.toFixed(2)} · nₛ ${bands}`;
+      rootGapBeta.innerHTML = `β = ${beta}°`;
+      rootGapDistance.innerHTML = `d<sub>S</sub> = ${normalizedDistance.toFixed(2)} cell`;
+      rootGapArea.innerHTML = `A<sub>S</sub><sup>layer</sup> = ${normalizedArea.toFixed(2)} cell²`;
+      rootGapBands.innerHTML = `n<sub>S</sub> = ${bands}`;
+    };
+
+    rootGapFold.addEventListener("input", updateRootGapLedger);
+    rootGapOffset.addEventListener("input", updateRootGapLedger);
+    updateRootGapLedger();
+  }
+
+  const rootGapDemoTabs = [...document.querySelectorAll("[data-root-gap-demo-tab]")];
+  const rootGapDemoPanels = [...document.querySelectorAll("[data-root-gap-demo-panel]")];
+  rootGapDemoTabs.forEach((button) => {
+    button.addEventListener("click", () => {
+      const target = button.dataset.rootGapDemoTab;
+      rootGapDemoTabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab === button)));
+      rootGapDemoPanels.forEach((panel) => {
+        const active = panel.dataset.rootGapDemoPanel === target;
+        panel.hidden = !active;
+        panel.classList.toggle("is-active", active);
+      });
+    });
+  });
 </script>
 
 <style>
@@ -3875,6 +4214,95 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   .half-plane-frame svg { display: block; width: 100%; border: 1px solid #3b4653; background: #0c1420; }
   .half-plane-frame figcaption { color: #6c655b; font-size: .72rem; line-height: 1.6; }
   .half-plane-frame code { color: #34302b; font: .72rem/1.6 var(--mono); }
+  .root-gap-frame { margin: clamp(3rem, 7vw, 6rem) 0 0; }
+  .root-gap-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; border: 1px solid #b8afa1; border-bottom: 0; background: #b8afa1; }
+  .root-gap-controls label { display: grid; gap: .65rem; padding: 1rem 1.1rem; background: #f2ecdf; color: #504a43; font: 800 .66rem/1.35 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .root-gap-controls label span { display: flex; justify-content: space-between; gap: 1rem; }
+  .root-gap-controls output { color: #9b7417; }
+  .root-gap-controls input { width: 100%; accent-color: #b95085; }
+  .root-gap-frame svg { display: block; width: 100%; border: 1px solid #b8afa1; background: #f2ecdf; }
+  .root-gap-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid #b8afa1; border-top: 0; background: #b8afa1; }
+  .root-gap-metrics article { min-height: 8.5rem; padding: 1rem; background: #eee7da; }
+  .root-gap-metrics span, .root-gap-metrics strong, .root-gap-metrics small { display: block; }
+  .root-gap-metrics span { color: #8b681d; font: 800 .58rem/1.3 var(--mono); letter-spacing: .08em; }
+  .root-gap-metrics strong { margin-top: .65rem; color: #302c27; font: 700 1.03rem/1.3 var(--serif); }
+  .root-gap-metrics small { margin-top: .5rem; color: #6c655b; font: .63rem/1.5 var(--mono); }
+  .root-gap-frame figcaption { color: #6c655b; font-size: .72rem; line-height: 1.6; }
+  .root-gap-frame figcaption span { color: #302c27; font-family: var(--serif); font-style: italic; }
+  .number-world-receipt { margin-top: clamp(2rem, 5vw, 4.5rem); border: 1px solid #9f988d; background: #f2ecdf; color: #302c27; }
+  .number-world-receipt__header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .85fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: end; padding: clamp(1.4rem, 3vw, 2.6rem); border-bottom: 1px solid #b8afa1; }
+  .number-world-receipt__header h3 { max-width: 18ch; margin: 0; font: 400 clamp(2rem, 4vw, 4rem)/.98 var(--serif); letter-spacing: -.035em; }
+  .number-world-receipt__header > p { margin: 0; color: #6c655b; font-size: .82rem; line-height: 1.7; }
+  .number-world-receipt__operators { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #b8afa1; }
+  .number-world-receipt__operators article { min-height: 17rem; padding: clamp(1rem, 2.4vw, 1.7rem); background: #eee7da; }
+  .number-world-receipt__operators span, .number-world-receipt__operators strong, .number-world-receipt__operators code { display: block; }
+  .number-world-receipt__operators span { color: #8b681d; font: 800 .59rem/1.35 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .number-world-receipt__operators strong { margin-top: .9rem; color: #302c27; font: 700 clamp(1.1rem, 2vw, 1.55rem)/1.2 var(--serif); }
+  .number-world-receipt__operators code { margin-top: .55rem; color: #397c85; font: 750 .78rem/1.45 var(--mono); white-space: normal; }
+  .number-world-receipt__operators p { margin: 1rem 0 0; color: #6c655b; font-size: .7rem; line-height: 1.65; }
+  .number-world-receipt__operators p b { color: #302c27; }
+  .number-world-receipt__mesh { border-top: 1px solid #b8afa1; }
+  .number-world-receipt__mesh-heading { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; color: #6c655b; font: 800 .58rem/1.4 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+  .number-world-receipt__mesh-heading strong { color: #8b681d; }
+  .number-world-receipt__table-wrap { overflow-x: auto; border-top: 1px solid #b8afa1; }
+  .number-world-receipt table { width: 100%; min-width: 760px; border-collapse: collapse; font: .66rem/1.4 var(--mono); font-variant-numeric: tabular-nums; }
+  .number-world-receipt th, .number-world-receipt td { padding: .72rem .8rem; border-right: 1px solid #cec5b7; border-bottom: 1px solid #cec5b7; text-align: right; white-space: nowrap; }
+  .number-world-receipt th:first-child { text-align: left; }
+  .number-world-receipt thead th { background: #ded5c6; color: #655e55; font-size: .56rem; letter-spacing: .06em; text-transform: uppercase; }
+  .number-world-receipt tbody th { color: #302c27; }
+  .number-world-receipt tbody td:last-child { color: #9b2f65; font-weight: 800; }
+  .number-world-receipt__address { display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.5rem; align-items: center; padding: 1rem; border-top: 1px solid #b8afa1; background: #07131e; color: #edf4f2; }
+  .number-world-receipt__address span { color: #e8b747; font: 800 .59rem/1.35 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .number-world-receipt__address code { color: #d6e2e1; font: 750 .72rem/1.5 var(--mono); overflow-wrap: anywhere; }
+  .number-world-receipt__boundary { margin: 0; padding: 1rem 1.2rem; border-top: 1px solid #b8afa1; color: #6c655b; font-size: .7rem; line-height: 1.65; }
+  .number-world-receipt__boundary strong { color: #302c27; font-family: var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .root-gap-demonstrators { margin-top: clamp(2rem, 5vw, 4.5rem); border: 1px solid #9f988d; background: #07131e; color: #edf4f2; }
+  .root-gap-demonstrators__header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, .85fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: end; padding: clamp(1.4rem, 3vw, 2.6rem); border-bottom: 1px solid #39505c; }
+  .root-gap-demonstrators__header h3 { max-width: 16ch; margin: 0; font: 400 clamp(2rem, 4vw, 4rem)/.98 var(--serif); letter-spacing: -.035em; }
+  .root-gap-demonstrators__header > p { margin: 0; color: #a9bbc2; font-size: .82rem; line-height: 1.7; }
+  .root-gap-demo-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid #39505c; }
+  .root-gap-demo-tabs button { display: grid; grid-template-columns: auto 1fr; gap: .3rem .8rem; min-height: 6rem; padding: 1rem 1.2rem; border: 0; border-right: 1px solid #39505c; border-radius: 0; background: #0b1c29; color: #a9bbc2; text-align: left; cursor: pointer; }
+  .root-gap-demo-tabs button:last-child { border-right: 0; }
+  .root-gap-demo-tabs button[aria-selected="true"] { background: #132d3d; color: #fff4cf; box-shadow: inset 0 -3px #e8b747; }
+  .root-gap-demo-tabs span { grid-row: 1 / 3; color: #e8b747; font: italic 1.5rem/1 var(--serif); }
+  .root-gap-demo-tabs strong { font: 800 .72rem/1.25 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .root-gap-demo-tabs small { color: #829ca7; font: 700 .57rem/1.35 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+  .root-gap-demo-panel { margin: 0; background: #111; }
+  .root-gap-demo-panel[hidden] { display: none; }
+  .root-gap-demo-panel iframe { display: block; width: 100%; height: min(760px, 78vh); min-height: 580px; border: 0; background: #181818; }
+  .root-gap-demo-panel footer { display: flex; justify-content: space-between; gap: 1rem; padding: .8rem 1rem; border-top: 1px solid #39505c; background: #0b1c29; color: #829ca7; font: 800 .56rem/1.4 var(--mono); letter-spacing: .07em; }
+  .root-gap-demo-panel footer a { color: #e8b747; text-decoration: none; }
+  .root-gap-demo-boundary { margin: 0; padding: 1rem 1.2rem; border-top: 1px solid #39505c; color: #829ca7; font-size: .7rem; line-height: 1.65; }
+  .root-gap-demo-boundary strong { color: #edf4f2; font-family: var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .root-gap-rule, .root-gap-footer-rule { stroke: #c9c0b2; stroke-width: 1; }
+  .root-gap-index, .root-gap-caption, .root-gap-subcaption, .root-gap-ledger, .root-gap-equation, .root-gap-total { font-family: var(--mono); }
+  .root-gap-index { fill: #655e55; font-size: 13px; letter-spacing: .08em; }
+  .root-gap-caption { fill: #3c3832; font-size: 12px; font-weight: 750; }
+  .root-gap-subcaption { fill: #81786d; font-size: 9px; letter-spacing: .04em; }
+  .root-gap-orbit { fill: none; stroke: #c9c0b2; }
+  .root-gap-pentagon { fill: #d2ae3217; stroke: #b28a18; stroke-width: 2.5; }
+  .root-gap-triangle { stroke-width: 1.8; }
+  .root-gap-triangle--cyan { fill: #429aa51f; stroke: #4a969f; }
+  .root-gap-triangle--pink { fill: #b9518824; stroke: #ae5a85; }
+  .root-gap-spear { fill: #fffdf4a8; stroke: #8b8579; stroke-width: 1.2; }
+  .root-gap-bead { fill: #b95085; stroke: #f8f3e9; stroke-width: 2; }
+  .root-gap-bead--large { filter: drop-shadow(0 2px 4px #7b5b68); }
+  .root-gap-axis { fill: none; stroke-width: 3; }
+  .root-gap-axis--yellow { stroke: #c9a12b; }
+  .root-gap-axis--white { stroke: #fff; filter: drop-shadow(0 0 2px #a49d90); }
+  .root-gap-measure { stroke: #438e99; stroke-width: 2; stroke-dasharray: 5 4; }
+  .root-gap-equation { fill: #43818b; font-size: 12px; }
+  .root-gap-root { fill: #f2ecdf; stroke: #6c9277; stroke-width: 2; }
+  .root-gap-count-dots circle { fill: #4d9ba3; }
+  .root-gap-square-dots circle { fill: #b95789; }
+  .root-gap-ghost-dots circle { fill: none; stroke: #b28a18; stroke-width: 1.5; stroke-dasharray: 2 2; }
+  .root-gap-received-dots circle { fill: #c8a22f; }
+  .root-gap-transfer { fill: none; stroke: #b28a18; stroke-width: 2; stroke-dasharray: 5 5; }
+  .root-gap-arrow-head { fill: #b28a18; }
+  .root-gap-state { fill: #756d63; font: 800 9px var(--mono); letter-spacing: .04em; }
+  .root-gap-count { fill: #302c27; font: 700 21px var(--serif); }
+  .root-gap-total { fill: #b28a18; font-size: 16px; font-weight: 800; }
+  .root-gap-ledger { fill: #756d63; font-size: 9px; letter-spacing: .04em; }
   :global(.half-plane-kicker), :global(.half-plane-small), :global(.half-plane-caption), :global(.half-plane-ledger) { fill: #8299a7; font: 800 10px/1 var(--mono); letter-spacing: .1em; }
   :global(.half-plane-small) { font-size: 8px; }
   :global(.half-plane-caption) { fill: #eab94d; }
@@ -4010,10 +4438,18 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
     .zero-boundary { flex-direction: column; }
     .zero-boundary span { text-align: left; }
     .study-footer__grid { grid-template-columns: 1fr; }
+    .root-gap-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .number-world-receipt__header { grid-template-columns: 1fr; }
+    .number-world-receipt__operators { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media (max-width: 560px) {
     .zero-ledger { grid-template-columns: 1fr; }
     .roundtrip-fold { grid-template-columns: 1fr; }
+    .root-gap-controls, .root-gap-metrics, .number-world-receipt__operators { grid-template-columns: 1fr; }
+    .number-world-receipt__address { grid-template-columns: 1fr; }
+    .root-gap-demonstrators__header, .root-gap-demo-tabs { grid-template-columns: 1fr; }
+    .root-gap-demo-tabs button { border-right: 0; border-bottom: 1px solid #39505c; }
+    .root-gap-demo-panel iframe { height: 70vh; min-height: 520px; }
   }
 </style>

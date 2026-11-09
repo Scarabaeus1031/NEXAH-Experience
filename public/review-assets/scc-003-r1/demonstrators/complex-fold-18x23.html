@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Complex Fold · 18° × 23 Stations</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg:#111820; --panel:#17232d; --line:#334957; --text:#eef4ef; --muted:#91a6ae;
+    --gold:#f3c53f; --pink:#f176bd; --cyan:#58dfe5; --red:#ff5f58; --white:#f4f2e9;
+  }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); }
+  body { padding:clamp(16px,3vw,32px); font:15px/1.5 Inter,ui-sans-serif,system-ui,sans-serif; }
+  button,input { font:inherit; }
+  .shell { display:grid; gap:18px; max-width:1280px; margin:auto; }
+  header { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(18rem,.65fr); gap:22px; align-items:end; }
+  .eyebrow,.label { color:var(--gold); font:800 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.12em; text-transform:uppercase; }
+  h1 { margin:.35rem 0; font:700 clamp(1.7rem,4vw,3.5rem)/.95 Georgia,serif; letter-spacing:-.035em; }
+  header p,.boundary { margin:0; color:var(--muted); }
+  .controls { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding:14px; border:1px solid var(--line); background:var(--panel); }
+  .control { display:grid; gap:6px; }
+  .control-row { display:flex; justify-content:space-between; gap:10px; }
+  input[type=range] { width:100%; accent-color:var(--pink); }
+  .segmented { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+  button { padding:.55rem .7rem; border:1px solid var(--line); border-radius:4px; background:#0e1820; color:var(--text); cursor:pointer; }
+  button[aria-pressed=true],button:hover { border-color:var(--pink); background:#f176bd20; }
+  .stage { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(260px,.65fr); border:1px solid var(--line); background:#0d151c; }
+  svg { display:block; width:100%; height:auto; min-height:520px; }
+  svg text { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .ledger { display:grid; align-content:start; border-left:1px solid var(--line); }
+  .readout { padding:14px; border-bottom:1px solid var(--line); }
+  .readout span { display:block; color:var(--muted); font:700 10px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.08em; text-transform:uppercase; }
+  .readout strong { display:block; margin-top:4px; color:var(--gold); font:700 18px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .chain { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); border:1px solid var(--line); }
+  .chain div { min-height:96px; padding:11px; border-right:1px solid var(--line); background:#101b23; }
+  .chain div:last-child { border:0; }
+  .chain span { color:var(--muted); font:700 9px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.06em; }
+  .chain strong { display:block; margin-top:8px; color:var(--gold); font:700 16px/1.15 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .boundary { padding:12px 14px; border-left:3px solid var(--gold); background:#f3c53f0b; font-size:12px; }
+  .boundary strong { color:var(--text); }
+  @media(max-width:850px){ header,.stage{grid-template-columns:1fr}.ledger{border-left:0;border-top:1px solid var(--line)}.controls{grid-template-columns:1fr 1fr}.chain{grid-template-columns:1fr 1fr}.chain div{border-bottom:1px solid var(--line)} }
+  @media(max-width:520px){ .controls,.chain{grid-template-columns:1fr}.chain div{border-right:0} }
+</style>
+</head>
+<body>
+<main class="shell">
+  <header>
+    <div>
+      <div class="eyebrow">SCC-003 · documentary view · no new identity</div>
+      <h1>Complex Fold · 18° × 23 Stations</h1>
+    </div>
+    <p>Zwanzig Winkelrichtungen kreuzen dreiundzwanzig deklarierte Radialstationen. Zwei gespiegelte Faltfamilien erzeugen einen messbaren Splinter; die rote Bead liest den Abstand auf einem Hoop.</p>
+  </header>
+
+  <section class="controls" aria-label="Demonstrator controls">
+    <label class="control" for="delta"><span class="control-row"><span>Splinter half-angle δ</span><strong id="deltaValue">7.0°</strong></span><input id="delta" type="range" min="0" max="18" step="0.5" value="7"></label>
+    <label class="control" for="station"><span class="control-row"><span>Bead station j</span><strong id="stationValue">12 / 23</strong></span><input id="station" type="range" min="0" max="23" step="1" value="12"></label>
+    <div class="control"><span class="control-row"><span>Chirality</span><strong id="chiralityValue">C⁺</strong></span><div class="segmented"><button id="plus" type="button" aria-pressed="true">C⁺ / PNNP</button><button id="minus" type="button" aria-pressed="false">C⁻ / RLLR</button></div></div>
+    <div class="control"><span class="control-row"><span>Station pulse</span><strong>23 stops</strong></span><button id="pulse" type="button" aria-pressed="false">Play red bead</button></div>
+  </section>
+
+  <section class="stage">
+    <svg viewBox="0 0 820 560" role="img" aria-labelledby="title desc">
+      <title id="title">Eighteen degree by twenty-three station complex fold</title>
+      <desc id="desc">A top plan shows twenty radial directions, two mirrored fold rays, a golden hoop and a red bead. A side profile shows two tilted flaps and their splinter gap.</desc>
+      <defs><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <g id="top"></g><g id="side"></g>
+    </svg>
+    <aside class="ledger" aria-live="polite">
+      <div class="readout"><span>Angular carrier</span><strong>360° / 18° = 20</strong></div>
+      <div class="readout"><span>Radial carrier</span><strong>j ∈ {0,…,23}</strong></div>
+      <div class="readout"><span>Normalized radius</span><strong id="rValue">r = 0.522</strong></div>
+      <div class="readout"><span>Local splinter chord</span><strong id="gapValue">g = 0.127</strong></div>
+      <div class="readout"><span>Fold family</span><strong id="familyValue">Cᵢ⁺ / Cᵢ⁻</strong></div>
+      <div class="readout"><span>Constraint status</span><strong>UNTESTED · DECLARED VIEW</strong></div>
+    </aside>
+  </section>
+
+  <section class="chain" aria-label="Exact arithmetic chain">
+    <div><span>PRIME INDEX</span><strong>61 = P₁₈</strong></div>
+    <div><span>PRIME INDEX</span><strong>83 = P₂₃</strong></div>
+    <div><span>ADDRESS SUM</span><strong>18 + 23 = 41</strong></div>
+    <div><span>SQUARE</span><strong>61 + 83 = 144 = 12²</strong></div>
+    <div><span>CUBE</span><strong>144 × 12 = 1728 = 12³</strong></div>
+    <div><span>WITNESS</span><strong>1728 + 1 = 1729</strong></div>
+  </section>
+
+  <p class="boundary"><strong>Boundary.</strong> Die Gleichungen und die Splinter-Sehne <code>g(r)=2r·sin|δ|</code> sind exakt innerhalb dieses deklarierten Modells. Die 23 Stationen sind eine gewählte Diskretisierung. <code>PNNP ↔ RLLR</code> gilt nur unter der eingeblendeten Symbolzuordnung. „Red Ball“, „Hoops“, „Crown“ und „Wheel“ sind Ansichtsrollen; der Demonstrator behauptet weder eine physikalische Kraft noch ein biologisches Faltgesetz.</p>
+</main>
+
+<script>
+(() => {
+  const $=s=>document.querySelector(s), top=$('#top'), side=$('#side');
+  const delta=$('#delta'), station=$('#station'), plus=$('#plus'), minus=$('#minus'), pulse=$('#pulse');
+  const NS='http://www.w3.org/2000/svg'; let chirality=1, timer=null;
+  const el=(name,attrs={},text='')=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n;};
+  const line=(g,x1,y1,x2,y2,stroke,width=1,dash='')=>g.append(el('line',{x1,y1,x2,y2,stroke,'stroke-width':width,'stroke-dasharray':dash,'vector-effect':'non-scaling-stroke'}));
+  const text=(g,x,y,value,fill='#91a6ae',size=11,anchor='start')=>g.append(el('text',{x,y,fill,'font-size':size,'text-anchor':anchor},value));
+  const polar=(cx,cy,r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)];
+  function draw(){
+    top.replaceChildren(); side.replaceChildren();
+    const d=Number(delta.value)*Math.PI/180, j=Number(station.value), r=j/23, cx=300,cy=245,R=180;
+    text(top,28,34,'TOP PLAN · HOOP / RED BEAD / SPLINTER','#f3c53f',11);
+    top.append(el('circle',{cx,cy,r:R,fill:'none',stroke:'#334957','stroke-width':1.5}));
+    top.append(el('circle',{cx,cy,r:R*.64,fill:'none',stroke:'#f3c53f','stroke-width':2,'stroke-opacity':.85}));
+    for(let i=0;i<20;i++){const a=-Math.PI/2+i*Math.PI/10,p=polar(cx,cy,R,a);line(top,cx,cy,p[0],p[1],i%5===0?'#557180':'#263a45',i%5===0?1.2:.7,i%5===0?'':'2 5');}
+    for(let k=1;k<=23;k++){const rr=R*.64*k/23;top.append(el('circle',{cx,cy,r:rr,fill:'none',stroke:'#f3c53f','stroke-width':k===j?1.4:.35,'stroke-opacity':k===j?.6:.12}));}
+    const base=-Math.PI/2+chirality*Math.PI/10, a1=base+d, a2=base-d;
+    const p1=polar(cx,cy,R,a1),p2=polar(cx,cy,R,a2);
+    line(top,cx,cy,p1[0],p1[1],'#f176bd',3); line(top,cx,cy,p2[0],p2[1],'#58dfe5',3);
+    const q1=polar(cx,cy,R*r*.64,a1),q2=polar(cx,cy,R*r*.64,a2),qm=[(q1[0]+q2[0])/2,(q1[1]+q2[1])/2];
+    top.append(el('path',{d:`M ${cx} ${cy} L ${q1[0]} ${q1[1]} L ${q2[0]} ${q2[1]} Z`,fill:'#f3c53f22',stroke:'#f3c53f','stroke-width':1.4}));
+    line(top,q1[0],q1[1],q2[0],q2[1],'#f4f2e9',2,'4 3');
+    top.append(el('circle',{cx:qm[0],cy:qm[1],r:8,fill:'#ff5f58',stroke:'#f4f2e9','stroke-width':2,filter:'url(#glow)'}));
+    text(top,cx,cy+5,'O₀','#eef4ef',12,'middle'); text(top,qm[0]+13,qm[1]-10,'RED BEAD','#ff8a84',10);
+    text(top,28,478,'Cᵢ±(r) = R(θᵢ ± δ)(r,0)','#eef4ef',12); text(top,28,500,'g(r) = ‖Cᵢ⁺−Cᵢ⁻‖ = 2r sin|δ|','#f3c53f',12);
+    const sx=590,sy=410,w=185,h=115; text(side,520,34,'SIDE PROFILE · TWO FLAPS','#f3c53f',11);
+    line(side,500,sy,sx+w,sy,'#667984',1.5);
+    const rise=Math.sin(d)*h*2.2, xa=sx-w*.42, xb=sx+w*.42;
+    side.append(el('path',{d:`M ${sx} ${sy} L ${xa} ${sy-rise} L ${xa+18} ${sy-rise+8} Z`,fill:'#f176bd55',stroke:'#f176bd','stroke-width':2}));
+    side.append(el('path',{d:`M ${sx} ${sy} L ${xb} ${sy-rise} L ${xb-18} ${sy-rise+8} Z`,fill:'#58dfe555',stroke:'#58dfe5','stroke-width':2}));
+    line(side,xa,sy-rise,xb,sy-rise,'#f4f2e9',2,'4 4'); text(side,sx,sy-rise-10,'SPLINTER / GAP','#f4f2e9',10,'middle');
+    side.append(el('circle',{cx:sx,cy:sy-rise,r:7,fill:'#ff5f58',stroke:'#f4f2e9','stroke-width':1.5}));
+    text(side,520,500,'tilt ±δ · orthographic side read','#91a6ae',11);
+    const gap=2*r*Math.sin(Math.abs(d));
+    $('#deltaValue').textContent=Number(delta.value).toFixed(1)+'°'; $('#stationValue').textContent=j+' / 23';
+    $('#chiralityValue').textContent=chirality>0?'C⁺':'C⁻'; $('#rValue').textContent='r = '+r.toFixed(3); $('#gapValue').textContent='g = '+gap.toFixed(3);
+    $('#familyValue').textContent=chirality>0?'PNNP · P↔R, N↔L':'RLLR · declared mirror';
+  }
+  function setChirality(v){chirality=v;plus.setAttribute('aria-pressed',String(v>0));minus.setAttribute('aria-pressed',String(v<0));draw();}
+  delta.addEventListener('input',draw);station.addEventListener('input',draw);plus.addEventListener('click',()=>setChirality(1));minus.addEventListener('click',()=>setChirality(-1));
+  pulse.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;pulse.textContent='Play red bead';pulse.setAttribute('aria-pressed','false');return;}pulse.textContent='Pause red bead';pulse.setAttribute('aria-pressed','true');timer=setInterval(()=>{station.value=(Number(station.value)+1)%24;draw();},350);});
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)pulse.title='Animation is available only on explicit activation.';
+  draw();
+})();
+</script>
+</body>
+</html>

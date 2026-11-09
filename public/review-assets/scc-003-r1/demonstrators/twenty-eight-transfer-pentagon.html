@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>28 → 25 | 31 · Transfer</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --background: #181818;
+    --foreground: #f4f0e7;
+    --muted-foreground: #aaa49a;
+    --font-size-base: 16px;
+    --viz-series-1: #3b82f6;
+    --viz-series-2: #f2cf55;
+    --viz-series-3: #f08bc2;
+    --yellow: #f6c735;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; min-height: 100%; background: var(--background); color: var(--foreground); }
+  body { padding: clamp(18px, 3vw, 34px); font: 16px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  h1 { margin: 0; font-size: clamp(1.45rem, 3vw, 2.25rem); line-height: 1.08; }
+  p { margin: 0; }
+  .text-muted { color: var(--muted-foreground); }
+  .btn { appearance: none; padding: .58rem .78rem; border: 1px solid #4a4a4a; border-radius: 999px; background: #242424; color: var(--foreground); font: inherit; cursor: pointer; }
+  .btn:hover { border-color: #777; }
+  .btn-primary { border-color: var(--viz-series-3); background: #f08bc224; box-shadow: inset 0 0 0 1px #f08bc255; }
+  .form-range { width: 100%; accent-color: var(--viz-series-3); }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div id="transfer-pentagon-study">
+  <style>
+    #transfer-pentagon-study {
+      color: var(--foreground);
+      font-family: inherit;
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.9);
+    }
+    #transfer-pentagon-study .tps-title {
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.25);
+    }
+    #transfer-pentagon-study .tps-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: calc(var(--font-size-base) * 0.6);
+    }
+    #transfer-pentagon-study .tps-control-group {
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.3);
+    }
+    #transfer-pentagon-study .tps-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: calc(var(--font-size-base) * 0.3);
+    }
+    #transfer-pentagon-study .tps-slider {
+      display: grid;
+      gap: calc(var(--font-size-base) * 0.3);
+      min-width: 220px;
+      flex: 1;
+    }
+    #transfer-pentagon-study .tps-label-row {
+      display: flex;
+      justify-content: space-between;
+      gap: calc(var(--font-size-base) * 0.5);
+    }
+    #transfer-pentagon-study .tps-stage {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    #transfer-pentagon-study .tps-stage text {
+      fill: var(--foreground);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 400;
+    }
+    #transfer-pentagon-study .tps-stage .muted { fill: var(--muted-foreground); }
+    #transfer-pentagon-study .tps-stage .core {
+      fill: color-mix(in srgb, var(--viz-series-2) 8%, var(--background));
+      stroke: color-mix(in srgb, var(--foreground) 48%, var(--background));
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+    }
+    #transfer-pentagon-study .tps-stage .gridline {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 20%, var(--background));
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #transfer-pentagon-study .tps-stage .cap-a {
+      fill: color-mix(in srgb, var(--viz-series-1) 18%, transparent);
+      stroke: var(--viz-series-1);
+      stroke-width: 1.8;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #transfer-pentagon-study .tps-stage .cap-b {
+      fill: color-mix(in srgb, var(--viz-series-3) 18%, transparent);
+      stroke: var(--viz-series-3);
+      stroke-width: 1.8;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #transfer-pentagon-study .tps-stage .fold {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 45%, var(--background));
+      stroke-width: 1.2;
+      stroke-dasharray: 5 5;
+      vector-effect: non-scaling-stroke;
+    }
+    #transfer-pentagon-study .tps-stage .mother {
+      fill: none;
+      stroke: var(--yellow);
+      stroke-width: 2;
+      stroke-dasharray: 8 5;
+      vector-effect: non-scaling-stroke;
+      stroke-linejoin: round;
+    }
+    #transfer-pentagon-study .tps-stage .node-core { fill: var(--viz-series-2); }
+    #transfer-pentagon-study .tps-stage .node-a { fill: var(--viz-series-1); }
+    #transfer-pentagon-study .tps-stage .node-b { fill: var(--viz-series-3); }
+    #transfer-pentagon-study .tps-stage .arrow {
+      fill: none;
+      stroke: var(--muted-foreground);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+    }
+    #transfer-pentagon-study .tps-stage .split {
+      stroke: color-mix(in srgb, var(--foreground) 18%, var(--background));
+      stroke-width: 1;
+      vector-effect: non-scaling-stroke;
+    }
+    #transfer-pentagon-study .tps-readout {
+      min-height: calc(var(--font-size-base) * 2.3);
+      color: var(--muted-foreground);
+    }
+    @media (max-width: 620px) {
+      #transfer-pentagon-study .tps-controls { align-items: stretch; }
+      #transfer-pentagon-study .tps-control-group, #transfer-pentagon-study .tps-slider { width: 100%; }
+    }
+  </style>
+
+  <div class="tps-title">
+    <h1>Vom Doppel-28 zur asymmetrischen Pentagondach-Hülle</h1>
+    <p class="text-muted">Jeder 28er wird als 5×5-Kern plus Dreierkappe gelesen. Der Transfer verschiebt eine Kappe, nicht den Gesamtträger.</p>
+  </div>
+
+  <div class="tps-controls">
+    <div class="tps-control-group">
+      <span>Verteilung</span>
+      <div class="tps-buttons" aria-label="Verteilung wählen">
+        <button class="btn" type="button" data-distribution="balanced" aria-pressed="false">28 | 28</button>
+        <button class="btn btn-primary" type="button" data-distribution="transfer" aria-pressed="true">25 | 31</button>
+      </div>
+    </div>
+    <div class="tps-control-group">
+      <span>Kappenlage</span>
+      <div class="tps-buttons" aria-label="Kappenlage wählen">
+        <button class="btn" type="button" data-placement="aligned" aria-pressed="false">deckungsgleich</button>
+        <button class="btn btn-primary" type="button" data-placement="offset" aria-pressed="true">asymmetrisch</button>
+      </div>
+    </div>
+    <label class="tps-slider" for="tps-offset">
+      <span class="tps-label-row"><span>Überstand</span><strong id="tps-offset-value" class="tabular-nums">18</strong></span>
+      <input id="tps-offset" class="form-range" type="range" min="0" max="32" step="1" value="32">
+    </label>
+  </div>
+
+  <svg class="tps-stage" viewBox="0 0 1000 520" role="img" aria-labelledby="tps-svg-title tps-svg-desc">
+    <title id="tps-svg-title">Transfer von drei Kappennodes zwischen zwei 28er-Trägern</title>
+    <desc id="tps-svg-desc">Zwei 28er-Träger bestehen jeweils aus einem 5 mal 5 Kern und einer Dreierkappe. Nach dem Transfer bleibt links 25 und rechts entstehen 31. Rechts zeigt eine geometrische Vergrößerung zwei rechtwinklige Faltflächen, deren gemeinsame Außenkontur nur bei passender Deckung ein Pentagon ist.</desc>
+    <defs>
+      <marker id="tps-head" orient="auto" markerUnits="userSpaceOnUse" refX="8" refY="5" markerWidth="10" markerHeight="10">
+        <path d="M1 1L8 5 1 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+      </marker>
+    </defs>
+    <text x="242" y="25" text-anchor="middle">ZAHLENKÖRPER · 56 = 28 + 28</text>
+    <text x="755" y="25" text-anchor="middle">FALTKÖRPER · QUADRAT + DREIERKAPPE</text>
+    <line x1="500" y1="45" x2="500" y2="490" class="split"/>
+    <g id="tps-counts"></g>
+    <g id="tps-geometry"></g>
+  </svg>
+
+  <p id="tps-readout" class="tps-readout" aria-live="polite"></p>
+
+  <script>
+    (() => {
+      const root = document.getElementById('transfer-pentagon-study');
+      const counts = root.querySelector('#tps-counts');
+      const geometry = root.querySelector('#tps-geometry');
+      const slider = root.querySelector('#tps-offset');
+      const sliderValue = root.querySelector('#tps-offset-value');
+      const readout = root.querySelector('#tps-readout');
+      const distributionButtons = [...root.querySelectorAll('[data-distribution]')];
+      const placementButtons = [...root.querySelectorAll('[data-placement]')];
+      const storageKey = 'nexah:scc003:twenty-eight-transfer-pentagon:v1';
+      let saved = null;
+      try { saved = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch {}
+      let distribution = saved && saved.distribution === 'balanced' ? 'balanced' : 'transfer';
+      let placement = saved && saved.placement === 'aligned' ? 'aligned' : 'offset';
+      let offset = saved && Number.isFinite(saved.offset) ? Math.max(0, Math.min(32, saved.offset)) : 32;
+
+      const circles = (x, y, cols, rows, gap, cls) => {
+        let out = '';
+        for (let r=0;r<rows;r++) for (let c=0;c<cols;c++) out += '<circle class="'+cls+'" cx="'+(x+c*gap)+'" cy="'+(y+r*gap)+'" r="4"/>';
+        return out;
+      };
+      const capNodes = (x, y, cls) => '<circle class="'+cls+'" cx="'+x+'" cy="'+y+'" r="5"/><circle class="'+cls+'" cx="'+(x-18)+'" cy="'+(y+23)+'" r="5"/><circle class="'+cls+'" cx="'+(x+18)+'" cy="'+(y+23)+'" r="5"/>';
+      const core = (x, y) => {
+        let grid = '<rect class="core" x="'+x+'" y="'+y+'" width="120" height="120"/>';
+        for (let i=1;i<5;i++) {
+          grid += '<path class="gridline" d="M'+(x+i*24)+' '+y+'V'+(y+120)+'M'+x+' '+(y+i*24)+'H'+(x+120)+'"/>';
+        }
+        return grid;
+      };
+      function drawCounts() {
+        const moved = distribution === 'transfer';
+        const leftValue = moved ? 25 : 28;
+        const rightValue = moved ? 31 : 28;
+        counts.innerHTML =
+          '<text x="135" y="62" text-anchor="middle" class="muted">TRÄGER A</text>'+
+          '<text x="362" y="62" text-anchor="middle" class="muted">TRÄGER B</text>'+
+          circles(87,132,5,5,24,'node-core')+
+          circles(314,132,5,5,24,'node-core')+
+          (!moved ? capNodes(135,82,'node-a') : '')+
+          capNodes(362,82,'node-b')+
+          (moved ? capNodes(362,305,'node-a') : '')+
+          '<text x="135" y="285" text-anchor="middle">'+leftValue+'</text>'+
+          '<text x="362" y="285" text-anchor="middle">'+rightValue+'</text>'+
+          '<path class="arrow" d="M172 76C225 42 282 42 329 76" marker-end="url(#tps-head)"/>'+
+          '<text x="249" y="51" text-anchor="middle" class="muted">'+(moved ? 'Transfer +3' : 'zwei Kappen')+'</text>'+
+          '<text x="249" y="355" text-anchor="middle">'+leftValue+' + '+rightValue+' = 56</text>'+
+          '<text x="249" y="380" text-anchor="middle" class="muted">Mitte 28 · Abweichung '+(moved ? '±3' : '0')+'</text>'+
+          (moved ? '<text x="362" y="344" text-anchor="middle" class="muted">31 = 25 + 3 + 3</text>' : '<text x="249" y="344" text-anchor="middle" class="muted">28 = 25 + 3</text>');
+      }
+      function drawGeometry() {
+        const actualOffset = placement === 'aligned' ? 0 : offset;
+        const x=655, y=225, w=200, h=190, apexX=x+w/2;
+        const secondApex=apexX+actualOffset, secondLeft=x+actualOffset*0.35, secondRight=x+w+actualOffset*0.35;
+        const motherLeft=Math.min(x,secondLeft)-18;
+        const motherRight=Math.max(x+w,secondRight)+18;
+        const motherApex=Math.min(y-125,y-125-actualOffset*0.35);
+        geometry.innerHTML =
+          '<rect class="core" x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'"/>'+
+          '<path class="gridline" d="M'+(x+40)+' '+y+'V'+(y+h)+'M'+(x+80)+' '+y+'V'+(y+h)+'M'+(x+120)+' '+y+'V'+(y+h)+'M'+(x+160)+' '+y+'V'+(y+h)+'M'+x+' '+(y+38)+'H'+(x+w)+'M'+x+' '+(y+76)+'H'+(x+w)+'M'+x+' '+(y+114)+'H'+(x+w)+'M'+x+' '+(y+152)+'H'+(x+w)+'"/>'+
+          '<polygon class="cap-a" points="'+x+','+y+' '+apexX+','+(y-125)+' '+(x+w)+','+y+'"/>'+
+          '<path class="fold" d="M'+apexX+' '+(y-125)+'V'+y+'"/>'+
+          '<polygon class="cap-b" points="'+secondLeft+','+y+' '+secondApex+','+(y-125-actualOffset*0.35)+' '+secondRight+','+y+'"/>'+
+          '<path class="fold" d="M'+secondApex+' '+(y-125-actualOffset*0.35)+'V'+y+'"/>'+
+          '<polygon class="mother" points="'+motherLeft+','+(y+8)+' '+((motherLeft+motherRight)/2)+','+motherApex+' '+motherRight+','+(y+8)+' '+(x+w+18)+','+(y+h+20)+' '+(x-18)+','+(y+h+20)+'"/>'+
+          capNodes(apexX,y-118,'node-a')+
+          capNodes(secondApex,y-118-actualOffset*0.35,'node-b')+
+          '<text x="755" y="458" text-anchor="middle">5×5-Kern + zwei Dreierkappen</text>'+
+          '<text x="755" y="482" text-anchor="middle" class="muted">gestrichelt: gesetzte Mutter-/Hüllkontur</text>'+
+          '<text x="875" y="112" class="muted">Überstand '+actualOffset+'</text>';
+      }
+      function save() {
+        localStorage.setItem(storageKey,JSON.stringify({distribution,placement,offset}));
+      }
+      function render(shouldSave=false) {
+        slider.value=String(offset);
+        sliderValue.textContent=String(placement === 'aligned' ? 0 : offset);
+        distributionButtons.forEach(button => {
+          const active=button.dataset.distribution===distribution;
+          button.classList.toggle('btn-primary',active);
+          button.setAttribute('aria-pressed',String(active));
+        });
+        placementButtons.forEach(button => {
+          const active=button.dataset.placement===placement;
+          button.classList.toggle('btn-primary',active);
+          button.setAttribute('aria-pressed',String(active));
+        });
+        drawCounts();
+        drawGeometry();
+        if (distribution==='balanced') {
+          readout.textContent='Beide Seiten tragen denselben 25er-Kern und je eine Dreierkappe: 28 | 28.';
+        } else if (placement==='aligned') {
+          readout.textContent='Nach dem Transfer liegen beide Dreierkappen deckungsgleich über dem 25er-Kern. Die sichtbare Dachkontur bleibt fünfseitig, obwohl zwei Layer gezählt werden.';
+        } else {
+          readout.textContent='Durch den Versatz steht eine Kappe außen über. Die gelbe Fünferkontur ist nun eine gesetzte Mutterhülle; die tatsächliche Vereinigung besitzt nicht automatisch genau fünf Seiten.';
+        }
+        if (shouldSave) save();
+      }
+      distributionButtons.forEach(button => button.addEventListener('click',()=>{distribution=button.dataset.distribution;render(true);}));
+      placementButtons.forEach(button => button.addEventListener('click',()=>{placement=button.dataset.placement;render(true);}));
+      slider.addEventListener('input',()=>{offset=Number(slider.value);placement=offset===0?'aligned':'offset';render(true);});
+      render(false);
+    })();
+  </script>
+</div>
+</body>
+</html>
