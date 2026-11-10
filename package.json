@@ -8,6 +8,8 @@
   },
   "type": "module",
   "scripts": {
+    "sync:five-h": "node scripts/sync-five-h-binding.mjs --write",
+    "check:five-h": "node scripts/sync-five-h-binding.mjs",
     "generate:catalog": "ruby scripts/generate-publication-catalog.rb",
     "generate:orion": "./scripts/generate-orion-interaction",
     "import:reader": "node scripts/import-reader-assets.mjs",

@@ -1,0 +1,28 @@
+{
+  "schema": "nexah.experience.five-h-projection/1.0.0",
+  "date": "2026-11-10",
+  "identity_effect": "REUSES_EXISTING_IDENTITIES_ONLY",
+  "canonical": {
+    "repository": "NEXAH-Science-Lab",
+    "path": "SCIENCE_LAB/EXPORTS/NEXAH_FIVE_H_ONE_Q_CUT.html",
+    "sha256": "8c733218dfd1ae6e8632653439877c059429286fa45e09889d0ccfdce0e123ca",
+    "entity_id": "ART:FIVE_H:ONE_Q_CUT",
+    "module_id": "MOD:FIVE_H_PHASE_CUT"
+  },
+  "projection": {
+    "path": "public/review-assets/scc-003-r1/demonstrators/five-h-one-q-cut.html",
+    "route": "/scc-003-r1/five-h-binding/",
+    "state": "LOCAL_OWNER_STAGING_NOT_PUBLISHED",
+    "editable_master": false
+  },
+  "related_identity": "SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST",
+  "contract": ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"],
+  "navigator_effect": {
+    "new_entities": 0,
+    "new_relations": 0,
+    "new_aliases": 0
+  },
+  "scc_003_claim_effect": "NONE",
+  "publication_authorized": false,
+  "claim_boundary": "Read-only documentary lens. No carrier identity, graph relation, physical mechanism, Study activation, claim promotion or publication authority."
+}

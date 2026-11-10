@@ -1,0 +1,90 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const canonicalHash = "8c733218dfd1ae6e8632653439877c059429286fa45e09889d0ccfdce0e123ca";
+const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
+---
+
+<BaseLayout
+  title="Five H Binding — SCC-003-R1"
+  description="A source-bound documentary lens connecting the existing Five-H/Q instrument to the existing SCC-003 review context without changing either identity."
+  canonicalOrigin="https://review.nexah.de"
+  robots="noindex, nofollow"
+  hideSessionQuestion={true}
+  lang="en"
+>
+  <main class="binding-page">
+    <header class="binding-hero container">
+      <p class="binding-kicker">SCC-003-R1 · documentary lens · no new identity</p>
+      <h1>Five H.<br /><em>One held return.</em></h1>
+      <p class="binding-deck">The existing Five-H instrument is shown here as a reading grammar for cut, projection, trace, mask and record. It remains a separate source object from the Pascal carrier.</p>
+      <ol class="binding-contract" aria-label="Five H binding contract">
+        {stages.map((stage, index) => (
+          <li><span>{stage}</span>{index < stages.length - 1 && <b aria-hidden="true">→</b>}</li>
+        ))}
+      </ol>
+      <div class="binding-meta">
+        <span>Reuses <code>ART:FIVE_H:ONE_Q_CUT</code></span>
+        <span>Related review identity <code>SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST</code></span>
+        <span>Canonical SHA-256 <code>{canonicalHash}</code></span>
+      </div>
+    </header>
+
+    <section class="instrument-shell" aria-labelledby="instrument-title">
+      <div class="instrument-heading container">
+        <div>
+          <p class="binding-kicker">Read-only source projection</p>
+          <h2 id="instrument-title">The canonical instrument, byte for byte.</h2>
+        </div>
+        <p>This checked projection is refreshed from the Science Lab master. It is not a second editable copy and does not alter SCC-003 claims C1–C6.</p>
+      </div>
+      <iframe
+        title="Five H · One Q degree canonical instrument"
+        src="/review-assets/scc-003-r1/demonstrators/five-h-one-q-cut.html"
+        loading="eager"
+        referrerpolicy="no-referrer"
+      ></iframe>
+    </section>
+
+    <section class="binding-boundary container" aria-labelledby="boundary-title">
+      <p class="binding-kicker">Boundary</p>
+      <h2 id="boundary-title">A relation for reading.<br />Not an identity claim.</h2>
+      <ul>
+        <li>No new Navigator entity, relation or alias.</li>
+        <li>No astronomical rhythm is identified with the Pascal carrier.</li>
+        <li>No fold, physical, harmonic or biological mechanism is asserted.</li>
+        <li>No Study, claim-ceiling, review or publication state changes.</li>
+      </ul>
+      <p><a href="/scc-003-r1/">Return to the bounded SCC-003 review object <span aria-hidden="true">→</span></a></p>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .binding-page { background: #07131e; color: #e7f0ef; }
+  .binding-hero { padding-block: clamp(5rem, 10vw, 9rem); }
+  .binding-kicker { margin: 0 0 1.2rem; color: #e8b747; font: 800 .65rem/1.3 var(--mono, ui-monospace, monospace); letter-spacing: .15em; text-transform: uppercase; }
+  h1, h2 { color: #f5f1e8; letter-spacing: -.05em; }
+  h1 { max-width: 10ch; margin: 0; font-size: clamp(4rem, 9vw, 9rem); line-height: .84; }
+  h1 em { color: #72d9a1; font-weight: 400; }
+  .binding-deck { max-width: 54rem; margin: 2rem 0; color: #9db1b9; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.6; }
+  .binding-contract { display: flex; flex-wrap: wrap; gap: .6rem 1rem; margin: 2.5rem 0; padding: 0; list-style: none; }
+  .binding-contract li { display: flex; gap: 1rem; align-items: center; color: #72d9a1; font: 800 clamp(.9rem, 1.5vw, 1.2rem)/1 var(--mono, monospace); }
+  .binding-contract b { color: #e8b747; }
+  .binding-meta { display: grid; gap: .45rem; padding-top: 1.5rem; border-top: 1px solid #29424d; color: #77929e; font-size: .72rem; }
+  .binding-meta code { color: #b8c8ce; overflow-wrap: anywhere; }
+  .instrument-shell { padding-block: 4rem; border-block: 1px solid #29424d; background: #101010; }
+  .instrument-heading { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: end; margin-bottom: 2rem; }
+  .instrument-heading h2, .binding-boundary h2 { margin: 0; font-size: clamp(2.8rem, 5vw, 5.5rem); line-height: .93; }
+  .instrument-heading > p { color: #91a6ad; line-height: 1.6; }
+  iframe { display: block; width: min(1480px, calc(100% - 2rem)); height: min(78rem, 88vh); margin-inline: auto; border: 1px solid #3b4d54; background: #181818; }
+  .binding-boundary { padding-block: clamp(5rem, 9vw, 8rem); }
+  .binding-boundary ul { display: grid; grid-template-columns: 1fr 1fr; margin: 3rem 0; padding: 0; border-top: 1px solid #29424d; list-style: none; }
+  .binding-boundary li { padding: 1.3rem 1rem 1.3rem 0; border-bottom: 1px solid #29424d; color: #9db1b9; }
+  .binding-boundary li:nth-child(even) { padding-left: 1rem; }
+  .binding-boundary a { color: #e8b747; font-weight: 800; text-decoration: none; }
+  @media (max-width: 760px) {
+    .instrument-heading, .binding-boundary ul { grid-template-columns: 1fr; }
+    .binding-boundary li:nth-child(even) { padding-left: 0; }
+  }
+</style>
