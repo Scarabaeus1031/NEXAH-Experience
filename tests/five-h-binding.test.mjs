@@ -23,6 +23,9 @@ test("Five H remains a hash-bound read-only projection over the SCC-003 context"
   assert.equal(manifest.publication_authorized, false);
 
   for (const token of manifest.contract) assert.match(projection, new RegExp(token.replace(/[°³()]/g, "\\$&")));
+  assert.match(projection, /ι · IOTA CUT/);
+  assert.match(projection, /CODED ROLES · OPERATOR LAYER/);
+  assert.match(projection, /HELD READING · reader aliases, no operator identity/);
   assert.match(page, /documentary lens · no new identity/);
   assert.match(page, /The canonical instrument, byte for byte/);
   assert.match(page, /No new Navigator entity, relation or alias/);
