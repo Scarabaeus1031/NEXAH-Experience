@@ -752,6 +752,45 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
           <figcaption><i>P</i> is a point label, not “prime”. The symbols φ<sub>g</sub>, π and √3 denote three different geometric quantities; they are not lower nodes or a shared number family.</figcaption>
         </figure>
       </div>
+
+      <div class="container scarab-grid-lens" aria-labelledby="scarab-grid-title">
+        <header class="scarab-grid-lens__heading">
+          <div>
+            <p class="study-kicker">Scarabaeus central · orthogonal address lens</p>
+            <h3 id="scarab-grid-title">The High Five.<br />The Q° shadow.<br />The field.</h3>
+          </div>
+          <div class="scarab-grid-lens__route" aria-label="Bounded arithmetic route">
+            <span><b>1029</b><small>3 × 7³</small></span>
+            <i>+4</i>
+            <span><b>1033</b><small>prime gate</small></span>
+            <i>digit reversal</i>
+            <span><b>3301</b><small>prime address</small></span>
+          </div>
+        </header>
+
+        <div class="scarab-grid-lens__strip" aria-label="Orthogonal grid tags modulo 3 and modulo 5 over 1029 through 1040">
+          <span class="is-mod3"><b>1029</b><small>r₃ 0 · r₅ 4</small></span>
+          <span class="is-mod5"><b>1030</b><small>r₃ 1 · r₅ 0</small></span>
+          <span class="is-prime"><b>1031</b><small>r₃ 2 · r₅ 1</small></span>
+          <span class="is-mod3 is-pivot"><b>1032</b><small>r₃ 0 · r₅ 2</small></span>
+          <span class="is-prime is-gate"><b>1033</b><small>r₃ 1 · r₅ 3</small></span>
+          <span><b>1034</b><small>r₃ 2 · r₅ 4</small></span>
+          <span class="is-joint"><b>1035</b><small>r₃ 0 · r₅ 0</small></span>
+          <span><b>1036</b><small>r₃ 1 · r₅ 1</small></span>
+          <span><b>1037</b><small>r₃ 2 · r₅ 2</small></span>
+          <span class="is-mod3"><b>1038</b><small>r₃ 0 · r₅ 3</small></span>
+          <span class="is-prime"><b>1039</b><small>r₃ 1 · r₅ 4</small></span>
+          <span class="is-mod5"><b>1040</b><small>r₃ 2 · r₅ 0</small></span>
+        </div>
+
+        <div class="scarab-grid-lens__legend" aria-label="Grid tag legend">
+          <span><i class="tag-mod3"></i> divisible by 3</span>
+          <span><i class="tag-mod5"></i> divisible by 5</span>
+          <span><i class="tag-joint"></i> mod-3 / mod-5 crossing</span>
+          <span><i class="tag-prime"></i> prime marker</span>
+        </div>
+        <p class="scarab-grid-lens__boundary"><strong>Display boundary.</strong> The strip records exact residues, factor classes, the existing twin-prime midpoint <code>1031–1032–1033</code>, and the literal digit reversal <code>1033 ↔ 3301</code>. The route <code>1029 + 4 = 1033</code> is arithmetic bookkeeping only; it does not derive the primes, identify Q° with a number, or extend the SCC-003 claim set.</p>
+      </div>
     </section>
 
     <section class="study-whiteboard" aria-labelledby="study-whiteboard-title">
@@ -4140,6 +4179,36 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   .shadow-frame { margin: 0; }
   .shadow-frame svg { display: block; width: 100%; border: 1px solid #385260; background: #0b1c29; }
   .shadow-frame figcaption { color: #7f98a3; font-size: .7rem; line-height: 1.55; }
+  .scarab-grid-lens { margin-top: clamp(3rem, 6vw, 6rem); padding-top: clamp(2rem, 4vw, 3.5rem); border-top: 1px solid #334d59; }
+  .scarab-grid-lens__heading { display: grid; grid-template-columns: minmax(16rem, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; }
+  .scarab-grid-lens h3 { margin: 0; color: #edf4f2; font: 400 clamp(2.2rem, 5vw, 4.8rem)/.94 var(--serif); letter-spacing: -.045em; }
+  .scarab-grid-lens__route { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: .65rem; align-items: center; }
+  .scarab-grid-lens__route span { min-width: 0; padding: .9rem .75rem; border: 1px solid #385260; background: #0b1c29; text-align: center; }
+  .scarab-grid-lens__route b { display: block; color: #edf4f2; font: 700 clamp(1.35rem, 2.6vw, 2.2rem)/1 var(--mono); }
+  .scarab-grid-lens__route small { display: block; margin-top: .35rem; color: #8fa5ae; font: 700 .55rem/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+  .scarab-grid-lens__route i { color: #e8b747; font: 700 .58rem/1.2 var(--mono); letter-spacing: .06em; text-align: center; text-transform: uppercase; }
+  .scarab-grid-lens__strip { display: grid; grid-template-columns: repeat(12, minmax(4.4rem, 1fr)); margin-top: 2rem; overflow-x: auto; padding-bottom: .45rem; }
+  .scarab-grid-lens__strip > span { position: relative; min-height: 5.4rem; padding: 1rem .45rem .7rem; border-block: 1px solid #385260; border-right: 1px solid #223b48; background: #15232c; text-align: center; }
+  .scarab-grid-lens__strip > span:first-child { border-left: 1px solid #385260; }
+  .scarab-grid-lens__strip > span::before { content: ""; position: absolute; inset: 0 0 auto; height: .36rem; background: #5e6970; }
+  .scarab-grid-lens__strip > .is-mod3::before { background: #58a9df; }
+  .scarab-grid-lens__strip > .is-mod5::before { background: #96cf9d; }
+  .scarab-grid-lens__strip > .is-joint::before { background: #f1c84b; }
+  .scarab-grid-lens__strip > .is-prime { box-shadow: inset 0 0 0 1px #b398e8; }
+  .scarab-grid-lens__strip > .is-gate { box-shadow: inset 0 0 0 2px #ff7366; }
+  .scarab-grid-lens__strip > .is-pivot b { color: #f1c84b; }
+  .scarab-grid-lens__strip b { display: block; color: #edf4f2; font: 700 .88rem/1 var(--mono); }
+  .scarab-grid-lens__strip small { display: block; margin-top: .7rem; color: #8fa5ae; font: 600 .48rem/1.3 var(--mono); white-space: nowrap; }
+  .scarab-grid-lens__legend { display: flex; flex-wrap: wrap; gap: .7rem 1.3rem; margin-top: .85rem; color: #8fa5ae; font: 700 .52rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .scarab-grid-lens__legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .scarab-grid-lens__legend i { width: 1rem; height: .24rem; background: #5e6970; }
+  .scarab-grid-lens__legend .tag-mod3 { background: #58a9df; }
+  .scarab-grid-lens__legend .tag-mod5 { background: #96cf9d; }
+  .scarab-grid-lens__legend .tag-joint { background: #f1c84b; }
+  .scarab-grid-lens__legend .tag-prime { height: .7rem; border: 1px solid #b398e8; background: transparent; }
+  .scarab-grid-lens__boundary { max-width: 92ch; margin: 1rem 0 0; color: #8fa5ae; font-size: .72rem; line-height: 1.6; }
+  .scarab-grid-lens__boundary strong { color: #edf4f2; }
+  .scarab-grid-lens__boundary code { color: #e8b747; }
   :global(.shadow-layer-label), :global(.shadow-register-label), :global(.shadow-return-label) { fill: #78929d; font: 800 9px/1 var(--mono); letter-spacing: .12em; }
   :global(.shadow-return-label) { fill: #e8b747; }
   :global(.shadow-address) { fill: #ff8a80; font: 700 12px/1 var(--mono); letter-spacing: .08em; }
@@ -4401,7 +4470,9 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   .study-footer code, .study-footer a { overflow-wrap: anywhere; color: #91a5af; font: .65rem/1.5 var(--mono); }
 
   @media (max-width: 900px) {
-    .study-heading, .study-assembly__grid, .study-zero__grid, .study-return__grid, .study-hatch__grid, .whiteboard-heading, .study-seal__grid, .study-dodeca__grid, .study-swing__grid, .study-body__grid, .body-roundtrip__heading, .body-record-ears__heading, .study-rhythm__grid, .rhythm-number-game__heading, .rhythm-mirror-channel, .rhythm-pascal-tesa, .study-shutter__grid, .study-joint__grid, .study-shadow__grid, .study-octagon__grid, .graphite-heading, .weather-heading, .medal-heading, .study-boundary__grid { grid-template-columns: 1fr; }
+    .study-heading, .study-assembly__grid, .study-zero__grid, .study-return__grid, .study-hatch__grid, .whiteboard-heading, .study-seal__grid, .study-dodeca__grid, .study-swing__grid, .study-body__grid, .body-roundtrip__heading, .body-record-ears__heading, .study-rhythm__grid, .rhythm-number-game__heading, .rhythm-mirror-channel, .rhythm-pascal-tesa, .study-shutter__grid, .study-joint__grid, .study-shadow__grid, .scarab-grid-lens__heading, .study-octagon__grid, .graphite-heading, .weather-heading, .medal-heading, .study-boundary__grid { grid-template-columns: 1fr; }
+    .scarab-grid-lens__route { grid-template-columns: 1fr; }
+    .scarab-grid-lens__route > i { min-height: 1.4rem; transform: rotate(90deg); }
     .roundtrip-route { grid-template-columns: 1fr; }
     .roundtrip-route > i { width: auto; min-height: 2rem; transform: rotate(90deg); }
     .body-record-ears__diagram { grid-template-columns: 1fr; gap: 1rem; }

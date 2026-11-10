@@ -639,6 +639,11 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /Move <i>P<\/i> across the shell/);
   assert.match(study, /not the ORION LYRA translator/);
   assert.match(study, /updateShadowFrame/);
+  assert.match(study, /Scarabaeus central · orthogonal address lens/);
+  assert.match(study, /1029 \+ 4 = 1033/);
+  assert.match(study, /1033 ↔ 3301/);
+  assert.match(study, /r₃ 0 · r₅ 0/);
+  assert.match(study, /does not derive the primes, identify Q° with a number, or extend the SCC-003 claim set/);
   assert.match(study, /does not identify <i>G<\/i> with 1032/);
 });
 
