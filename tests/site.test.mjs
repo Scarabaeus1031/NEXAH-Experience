@@ -649,6 +649,10 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /10\^PENTA = 10⁵ = 100000/);
   assert.match(study, /OPEN MASK FIELD · OWNER MNEMONIC/);
   assert.match(study, /BEA · TRIX/);
+  assert.match(study, /ANA · AnnA · æ/);
+  assert.match(study, /AM · I · PM · VM/);
+  assert.match(study, /p · d · q · b/);
+  assert.match(study, /<b>T<\/b> marks the return cue/);
   assert.match(study, /BE · RT<\/b> · <b>BE · RND/);
   assert.match(study, /RDMH · TRIX/);
   assert.match(study, /Scarabaeus central · orthogonal address lens/);
