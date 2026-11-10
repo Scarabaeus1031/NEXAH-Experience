@@ -26,6 +26,9 @@ test("Five H remains a hash-bound read-only projection over the SCC-003 context"
   assert.match(projection, /ι · IOTA CUT/);
   assert.match(projection, /CODED ROLES · OPERATOR LAYER/);
   assert.match(projection, /HELD READING · reader aliases, no operator identity/);
+  assert.match(projection, /5-STRING LOOP · OFF/);
+  assert.match(projection, /FIVE-STRING SCORE · 5 SAITEN · Q° = TAKTSTRICH/);
+  assert.match(projection, /½ NODE · 24 h HINGE/);
   assert.match(page, /documentary lens · no new identity/);
   assert.match(page, /The canonical instrument, byte for byte/);
   assert.match(page, /No new Navigator entity, relation or alias/);
