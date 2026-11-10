@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Complex Fold · 18° × 23 Stations</title>
+<script type="module" src="../vendor/model-viewer.min.js"></script>
 <style>
   :root {
     color-scheme: dark;
     --bg:#111820; --panel:#17232d; --line:#334957; --text:#eef4ef; --muted:#91a6ae;
-    --gold:#f3c53f; --pink:#f176bd; --cyan:#58dfe5; --red:#ff5f58; --white:#f4f2e9;
+    --gold:#f3c53f; --pink:#f176bd; --cyan:#58dfe5; --red:#ff5f58; --white:#f4f2e9; --green:#34dc91;
   }
   * { box-sizing:border-box; }
   html,body { margin:0; min-height:100%; background:var(--bg); color:var(--text); }
@@ -38,10 +39,29 @@
   .chain div:last-child { border:0; }
   .chain span { color:var(--muted); font:700 9px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.06em; }
   .chain strong { display:block; margin-top:8px; color:var(--gold); font:700 16px/1.15 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .number-rail { display:grid; gap:14px; padding:16px; border:1px solid var(--line); background:#0d151c; }
+  .rail-head { display:flex; justify-content:space-between; gap:18px; align-items:end; }
+  .rail-head h2 { margin:.25rem 0 0; font:700 clamp(1.25rem,2.5vw,2rem)/1 Georgia,serif; }
+  .rail-head p { max-width:48rem; margin:0; color:var(--muted); font-size:12px; }
+  .rail-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:6px; }
+  .rail-node { position:relative; min-height:118px; padding:12px 9px; border:1px solid var(--line); background:#101b23; text-align:center; }
+  .rail-node::before { content:""; position:absolute; top:50%; right:100%; width:7px; border-top:1px solid var(--line); }
+  .rail-node:first-child::before { display:none; }
+  .rail-node b { display:block; color:var(--text); font:800 25px/1 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .rail-node span { display:block; margin-top:8px; color:var(--muted); font:700 9px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.05em; }
+  .rail-node em { display:block; margin-top:6px; color:var(--gold); font:700 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace; font-style:normal; }
+  .rail-node.prime { border-color:#58dfe580; }
+  .rail-node.center { border-color:var(--red); box-shadow:inset 0 0 0 1px #ff5f5835; }
+  .rail-node.cube { border-color:#f176bd80; }
+  .rail-returns { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); border:1px solid var(--line); }
+  .rail-returns div { padding:11px; border-right:1px solid var(--line); }
+  .rail-returns div:last-child { border:0; }
+  .rail-returns span { display:block; color:var(--muted); font:700 9px/1.25 ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.06em; }
+  .rail-returns strong { display:block; margin-top:6px; color:var(--gold); font:700 14px/1.25 ui-monospace,SFMono-Regular,Menlo,monospace; }
   .boundary { padding:12px 14px; border-left:3px solid var(--gold); background:#f3c53f0b; font-size:12px; }
   .boundary strong { color:var(--text); }
-  @media(max-width:850px){ header,.stage{grid-template-columns:1fr}.ledger{border-left:0;border-top:1px solid var(--line)}.controls{grid-template-columns:1fr 1fr}.chain{grid-template-columns:1fr 1fr}.chain div{border-bottom:1px solid var(--line)} }
-  @media(max-width:520px){ .controls,.chain{grid-template-columns:1fr}.chain div{border-right:0} }
+  @media(max-width:850px){ header,.stage{grid-template-columns:1fr}.ledger{border-left:0;border-top:1px solid var(--line)}.controls{grid-template-columns:1fr 1fr}.chain{grid-template-columns:1fr 1fr}.chain div{border-bottom:1px solid var(--line)}.rail-grid{grid-template-columns:repeat(4,1fr)}.rail-returns{grid-template-columns:1fr 1fr}.rail-returns div{border-bottom:1px solid var(--line)} }
+  @media(max-width:520px){ .controls,.chain,.rail-grid,.rail-returns{grid-template-columns:1fr}.chain div,.rail-returns div{border-right:0}.rail-head{display:grid}.rail-node::before{display:none} }
 </style>
 </head>
 <body>
@@ -57,6 +77,7 @@
   <section class="controls" aria-label="Demonstrator controls">
     <label class="control" for="delta"><span class="control-row"><span>Splinter half-angle δ</span><strong id="deltaValue">7.0°</strong></span><input id="delta" type="range" min="0" max="18" step="0.5" value="7"></label>
     <label class="control" for="station"><span class="control-row"><span>Bead station j</span><strong id="stationValue">12 / 23</strong></span><input id="station" type="range" min="0" max="23" step="1" value="12"></label>
+    <label class="control" for="fold"><span class="control-row"><span>Fold / Capture f</span><strong id="foldValue">0% · OPEN</strong></span><input id="fold" type="range" min="0" max="100" step="1" value="0"></label>
     <div class="control"><span class="control-row"><span>Chirality</span><strong id="chiralityValue">C⁺</strong></span><div class="segmented"><button id="plus" type="button" aria-pressed="true">C⁺ / PNNP</button><button id="minus" type="button" aria-pressed="false">C⁻ / RLLR</button></div></div>
     <div class="control"><span class="control-row"><span>Station pulse</span><strong>23 stops</strong></span><button id="pulse" type="button" aria-pressed="false">Play red bead</button></div>
     <div class="control"><span class="control-row"><span>Atlas cut layer</span><strong>3 × INNER-1</strong></span><button id="atlas" type="button" aria-pressed="true">Hide tri-entanglement</button></div>
@@ -74,6 +95,8 @@
       <div class="readout"><span>Radial carrier</span><strong>j ∈ {0,…,23}</strong></div>
       <div class="readout"><span>Normalized radius</span><strong id="rValue">r = 0.522</strong></div>
       <div class="readout"><span>Local splinter chord</span><strong id="gapValue">g = 0.127</strong></div>
+      <div class="readout"><span>Fold state</span><strong id="captureValue">OPEN V · BALLOON OUTSIDE</strong></div>
+      <div class="readout"><span>Effective half-angle</span><strong id="effectiveValue">δf = 7.0°</strong></div>
       <div class="readout"><span>Fold family</span><strong id="familyValue">Cᵢ⁺ / Cᵢ⁻</strong></div>
       <div class="readout"><span>Five carrier / Wagen</span><strong>3 AXIS + 2 FLANKS = 5</strong></div>
       <div class="readout"><span>Inner septet</span><strong>5 + 2 CROWN = 7</strong></div>
@@ -91,13 +114,266 @@
     <div><span>WITNESS</span><strong>1728 + 1 = 1729</strong></div>
   </section>
 
-  <p class="boundary"><strong>Boundary.</strong> Die Gleichungen und die Splinter-Sehne <code>g(r)=2r·sin|δ|</code> sind exakt innerhalb dieses deklarierten Modells. Die drei Makroknoten wiederholen dieselbe lokale Schnittregel; sie beweisen keine physikalische Verschränkung. <code>7+7+4=18</code> korrigiert die historische Sphärenzählung, erzeugt aber keine neue Atlas-Identität. Die 23 Stationen sind eine gewählte Diskretisierung. <code>PNNP ↔ RLLR</code> gilt nur unter der eingeblendeten Symbolzuordnung. „Red Ball“, „Hoops“, „Crown“, „Wheel“ und „Wagen“ sind Ansichtsrollen; der Demonstrator behauptet weder eine physikalische Kraft noch ein biologisches Faltgesetz.</p>
+  <style>
+    .dual-rail-crosswalk{margin:18px 0 28px;padding:20px;border:1px solid #365565;background:#06121a;color:#dcebf0}
+    .dual-rail-head{display:flex;justify-content:space-between;gap:22px;align-items:end}.dual-rail-head h2{margin:3px 0 0;color:#fff;font:700 clamp(23px,3.4vw,38px)/1.06 Georgia,serif}.dual-rail-head p{max-width:550px;margin:0;color:#9fc0cc}
+    .dual-rail-kicker{color:#ffca36;font:800 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em}
+    .dual-rail-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:18px;margin-top:18px}
+    .dual-rail-stage,.dual-rail-ledger{border:1px solid #294654;background:#02080d}.dual-rail-stage{display:grid;align-content:center;min-height:300px;padding:24px;background:radial-gradient(circle at 50% 50%,#142337 0,#06121a 56%,#010508 100%)}
+    .dual-rail{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:8px}.dual-node{display:grid;place-items:center;min-width:0;aspect-ratio:1;border:2px solid #63e8ef;border-radius:50%;background:#07131b;text-align:center;box-shadow:0 0 22px #63e8ef22}.dual-node.owner{border-color:#f176bd}.dual-node.cube{border-color:#ffca36}.dual-node b{font:800 clamp(22px,3vw,38px)/1 ui-monospace,SFMono-Regular,Menlo,monospace}.dual-node span{margin-top:5px;color:#9fc0cc;font:700 9px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace}.dual-step{color:#ffca36;font:800 12px/1 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:center}.dual-rail-caption{margin:22px 0 0;text-align:center;color:#9fc0cc;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}.dual-rail-caption strong{color:#fff}
+    .dual-rail-ledger{padding:16px}.dual-rail-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}.dual-rail-eq{margin:8px 0;padding:9px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff;overflow-wrap:anywhere}.dual-rail-test{display:flex;justify-content:space-between;gap:10px;margin-top:12px;padding:10px;border:1px solid #63e8ef;color:#9fc0cc}.dual-rail-test strong{color:#63e8ef}.dual-rail-boundary{margin-top:13px;padding-top:11px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+    .typed-return-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.typed-return-card{padding:16px;border:1px solid #294654;background:#02080d}.typed-return-card h3{margin:0 0 10px;color:#63e8ef;font:800 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.typed-return-card p{margin:8px 0;color:#9fc0cc;font-size:12px}.typed-return-card code{color:#fff}.typed-return-card.mask-contract{grid-column:1/-1}.pnnp-word{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0}.pnnp-state{padding:11px 6px;border:1px solid #f176bd80;background:#111822;text-align:center}.pnnp-state b{display:block;color:#fff;font:800 22px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.pnnp-state span{display:block;margin-top:6px;color:#f59bce;font:800 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.pnnp-state.nonprime{border-color:#63e8ef80}.pnnp-state.nonprime span{color:#63e8ef}.typed-mask-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:10px}.typed-mask-row div{padding:10px;border:1px solid #294654;background:#07131b}.typed-mask-row b{display:block;color:#ffca36;font:800 12px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace}.typed-mask-row span{display:block;margin-top:5px;color:#9fc0cc;font-size:11px}
+    .euler-fold-test{grid-column:1/-1;padding:16px;border:1px solid #ffca3670;background:#07131b}.euler-fold-test h3{margin:0;color:#ffca36;font:800 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.euler-fold-intro{display:flex;justify-content:space-between;gap:16px;align-items:start}.euler-fold-intro p{max-width:56rem;margin:0;color:#9fc0cc}.euler-fold-panels{display:grid;grid-template-columns:.8fr 1fr 1.2fr;gap:10px;margin-top:14px}.euler-panel{padding:12px;border:1px solid #294654;background:#02080d}.euler-panel h4{margin:0 0 9px;color:#63e8ef;font:800 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.06em}.mod-cycle{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:14px 0}.mod-cycle b{display:grid;place-items:center;width:38px;height:38px;border:1px solid #f176bd;border-radius:50%;color:#fff;font:800 14px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.mod-cycle i{color:#ffca36;font-style:normal}.euler-fold-svg{width:100%;min-height:0!important;height:auto;border:1px solid #1b3541;background:#06121a}.fold-mode-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:9px 0}.fold-mode-buttons button{padding:.42rem .3rem;font-size:11px}.euler-status{display:flex;justify-content:space-between;gap:8px;margin-top:8px;color:#9fc0cc;font:700 10px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}.euler-status strong{color:#63e8ef}.euler-control{display:grid;gap:5px;margin-top:9px;color:#9fc0cc;font-size:11px}.euler-control output{color:#fff;font:700 11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}.topology-gate{grid-column:1/-1}.topology-candidates{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.topology-candidate{padding:10px;border:1px solid #1b3541;background:#06121a}.topology-candidate h5{margin:0 0 8px;color:#fff;font:800 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}.topology-ledger{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.topology-ledger div{padding:7px;border:1px solid #294654}.topology-ledger span{display:block;color:#7896a1;font:700 8px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace}.topology-ledger b{display:block;margin-top:3px;color:#ffca36;font:800 13px/1 ui-monospace,SFMono-Regular,Menlo,monospace}.topology-checks{margin:8px 0 0;color:#9fc0cc;font:700 10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}.topology-hold{margin:10px 0 0;padding:9px;border-left:3px solid #ffca36;background:#ffca3610;color:#d7e4e8;font-size:11px}.euler-contract{margin-top:12px;padding-top:10px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}.euler-contract code{color:#fff}
+    .source-bound-comparator{grid-column:1/-1;padding:16px;border:1px solid #63e8ef70;background:linear-gradient(135deg,#06121a,#111321)}.source-bound-comparator h3{margin:0 0 6px;color:#63e8ef;font:800 12px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em}.source-bound-comparator>p{margin:6px 0 12px;color:#9fc0cc;font-size:12px}.source-bind-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.source-bind-card{padding:12px;border:1px solid #294654;background:#02080d}.source-bind-card h4{margin:0 0 8px;color:#ffca36;font:800 11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace}.source-bind-card p{margin:7px 0;color:#9fc0cc;font-size:11px}.source-bind-card a{color:#63e8ef}.k-ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px}.k-ledger div{padding:9px;border:1px solid #294654;background:#07131b}.k-ledger b{display:block;color:#f176bd;font:800 11px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace}.k-ledger span{display:block;margin-top:5px;color:#9fc0cc;font-size:10px}.source-bind-status{display:flex;justify-content:space-between;gap:8px;margin-top:10px;padding-top:9px;border-top:1px solid #294654;color:#9fc0cc;font:700 10px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}.source-bind-status strong{color:#63e8ef}
+    @media(max-width:850px){.dual-rail-head{display:block}.dual-rail-head p{margin-top:10px}.dual-rail-grid,.typed-return-grid,.euler-fold-panels,.topology-candidates,.source-bind-grid{grid-template-columns:1fr}.dual-rail{gap:5px}.dual-node span{display:none}.typed-return-card.mask-contract,.euler-fold-test,.topology-gate,.source-bound-comparator{grid-column:auto}.k-ledger{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.dual-rail-stage{padding:14px}.dual-step{font-size:10px}.dual-node b{font-size:20px}.typed-mask-row{grid-template-columns:1fr}}
+  </style>
+  <section class="dual-rail-crosswalk" id="dual-rail-21-24-31-34-41" aria-labelledby="dualRailTitle">
+    <div class="dual-rail-head">
+      <div><div class="dual-rail-kicker">SCC-003 CROSSWALK · OWNER STATIONS × CUBE CENTRES</div><h2 id="dualRailTitle">Zwei Zehnerschienen, ein 3|7-Schrittwort.</h2></div>
+      <p>Die vorhandenen Owner-Stationen <strong>21–31–41</strong> und die Package-Zentren <strong>24–34</strong> werden nicht verschmolzen: Der Rechenschieber legt beide Schienen abwechselnd übereinander.</p>
+    </div>
+    <div class="dual-rail-grid">
+      <div class="dual-rail-stage">
+        <div class="dual-rail" aria-label="21 plus 3 equals 24, plus 7 equals 31, plus 3 equals 34, plus 7 equals 41">
+          <div class="dual-node owner"><b>21</b><span>3×7 · OWNER</span></div><div class="dual-step">+3</div>
+          <div class="dual-node cube"><b>24</b><span>|0…23| · CUBE</span></div><div class="dual-step">+7</div>
+          <div class="dual-node owner"><b>31</b><span>P₁₁ · OWNER</span></div><div class="dual-step">+3</div>
+          <div class="dual-node cube"><b>34</b><span>2×17 · CUBE</span></div><div class="dual-step">+7</div>
+          <div class="dual-node owner"><b>41</b><span>18+23 · P₁₃</span></div>
+        </div>
+        <p class="dual-rail-caption"><strong>OWNER / PRIME:</strong> 21 → 31 → 41 &nbsp;·&nbsp; <strong>CUBE CENTRES:</strong> 24 → 34<br><strong>INTERLEAVE:</strong> 21 → 24 → 31 → 34 → 41 &nbsp;·&nbsp; Δ = 3, 7, 3, 7</p>
+      </div>
+      <aside class="dual-rail-ledger">
+        <h3>EXACT CROSSWALK / TESTED VIEW</h3>
+        <div class="dual-rail-eq"><code>21=3×7</code> · <code>24=|{0,…,23}|</code></div>
+        <div class="dual-rail-eq"><code>31=P₁₁</code> · <code>34=2×17</code> · <code>41=18+23=P₁₃</code></div>
+        <div class="dual-rail-eq"><code>23³+24³+25³=41616=204²</code></div>
+        <div class="dual-rail-eq"><code>33³+34³+35³=118116</code></div>
+        <div class="dual-rail-eq"><code>41616=36×34²=(6×34)²=204²</code></div>
+        <div class="dual-rail-test"><span>Arithmetic + prime-index contract</span><strong id="dualRailTest">PENDING</strong></div>
+        <p><strong>Join to the witness chain:</strong> <code>41</code> is the address sum already shown above; the existing <code>61/P₁₈ → 83/P₂₃ → 144 → 1728 → 1729</code> ledger remains unchanged.</p>
+        <p><a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_COMPLEX_FOLD_18X23_SPLINTER_THREAD_RETURN_2026-11-09.md">A0 source protocol →</a></p>
+        <p class="dual-rail-boundary"><strong>BOUNDARY:</strong> Exakte Adress- und Arithmetikbrücke innerhalb SCC‑003. Die Rollen Pascal-Zeile, Prime-Index, Stationskardinalität und Cube-Summe bleiben getrennt. Keine neue Family, Navigator-Identität, Source-Graph-Relation oder physikalische Mechanik.</p>
+      </aside>
+    </div>
+    <div class="typed-return-grid" id="typed-return-ledger" aria-label="Typed arithmetic Return and PNNP denominator fold">
+      <article class="typed-return-card">
+        <h3>FACTOR / MIRROR RETURN</h3>
+        <div class="dual-rail-eq"><code>36×51 = 34×54 = 1836</code></div>
+        <div class="dual-rail-eq"><code>54=6×9 → 56=7×8</code> · <code>6+9=7+8=15</code></div>
+        <div class="dual-rail-eq"><code>1836=17×108=17×12×3²</code></div>
+        <div class="dual-rail-eq"><code>18|36</code> plate · <code>18+36=54</code> · <code>2×54=108</code></div>
+        <div class="dual-rail-eq"><code>18°→36°→54°→72°→90°→108°</code></div>
+        <div class="dual-rail-eq"><code>19=P₈</code> · <code>rev₁₀(19)=91=7×13=P₄P₆</code></div>
+        <div class="dual-rail-eq"><code>19×91=1729</code> · <code>1836−1729=107=P₂₈</code></div>
+        <p><code>51→54→56→61</code> bleibt eine Folge verschiedener getypter Schritte: Faktorumordnung, Balancierung und ein noch nicht gebundener <code>+5</code>-Übergang zu <code>61=P₁₈</code>. <code>18|36</code> ist eine Dezimaltafel, keine Multiplikation. Erst in der deklarierten Winkelansicht wird der dimensionslose Quotient <code>1836/17=108</code> als <code>108°</code>, Innenwinkel des regelmäßigen Pentagons, gelesen.</p>
+      </article>
+      <article class="typed-return-card">
+        <h3>DECIMAL DENOMINATOR FOLD</h3>
+        <div class="pnnp-word" aria-label="Exponents three four six seven read prime nonprime nonprime prime">
+          <div class="pnnp-state"><b>3</b><span>P · P₂</span></div>
+          <div class="pnnp-state nonprime"><b>4</b><span>N · P₁²</span></div>
+          <div class="pnnp-state nonprime"><b>6</b><span>N · P₁P₂</span></div>
+          <div class="pnnp-state"><b>7</b><span>P · P₄</span></div>
+        </div>
+        <div class="dual-rail-eq"><code>3+7=4+6=10</code> · <code>3×7=21</code> · <code>4×6=24</code></div>
+        <div class="dual-rail-eq"><code>10³×10⁷ = 10⁴×10⁶ = 10¹⁰</code></div>
+        <p>Als Nenner gilt entsprechend <code>10⁻³×10⁻⁷=10⁻⁴×10⁻⁶=10⁻¹⁰</code>. Das exakte Fenster erklärt die erste Rail-Stufe <code>21→24</code>; es wird als deklarierter Adressadapter geprüft, nicht als Ursache der Faltgeometrie.</p>
+      </article>
+      <article class="typed-return-card mask-contract">
+        <h3>C / MANDELBROT / JULIA · MASK CONTRACT</h3>
+        <div class="typed-mask-row">
+          <div><b>c-PLANE</b><span>Mandelbrot-Parameterraum; „C / Complexity“ bleibt eine menschliche Ansichtsbezeichnung.</span></div>
+          <div><b>z-PLANE</b><span>Julia-Dynamik für ein fest gewähltes <code>c</code>.</span></div>
+          <div><b>n-LEDGER</b><span>Diskreter Iterations-/Ereigniszähler; Teller und Body bleiben Masken derselben Ablesung.</span></div>
+        </div>
+        <p><strong>Boundary:</strong> Gemeinsamer ausgewählter Tupelpunkt, aber keine Gleichsetzung von Complexity, Mandelbrot, Julia, Teller oder Body und kein gemeinsamer physikalischer Mechanismus.</p>
+      </article>
+      <article class="source-bound-comparator" id="a0-moving-gap-k-crosswalk" aria-labelledby="a0MovingGapTitle">
+        <h3 id="a0MovingGapTitle">A0 SOURCE BIND · 99-GATE COUNT CONTROL × J-CALIBRATION × SCC-003</h3>
+        <p>Diese Platte baut kein zweites A0-Instrument. Sie bindet zwei bereits vorhandene, getrennt getestete A0-Ansichten an die dokumentarische SCC‑003-Linse und hält ihre Zählersemantiken auseinander.</p>
+        <div class="source-bind-grid">
+          <section class="source-bind-card" aria-label="Existing A0 folded axis 99 gate source">
+            <h4>F₉₉ · EXISTING FOLDED AXIS / LRRL WINDOW</h4>
+            <div class="dual-rail-eq"><code>99=9×11</code> · <code>(97+101)/2=99</code></div>
+            <div class="dual-rail-eq"><code>97×101=9797=99²−4</code></div>
+            <p>Die 99 roten Punkte sind eine instrumentgenerierte endliche Zählkontrolle. <code>SP</code> ist der lokale Pivot; der blaue Punkt ist ein Display-Ziel auf einer Return-Kurve. Das ist weder ein Pixelcount noch derselbe Carrier wie <code>360°/18°=20</code>.</p>
+            <p><a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_ORIENTATION_CONTROLLER_BENCH.html#foldedAxisLrrlWindow">A0-Bench · 99 Gates öffnen →</a></p>
+          </section>
+          <section class="source-bind-card" aria-label="Existing A0 J calibration source">
+            <h4>J₂₄ₖ · EXISTING COUNT / ANGLE CALIBRATION</h4>
+            <div class="dual-rail-eq"><code>6k=6000 ↔ 90°</code> · <code>4×6k=24k ↔ 360°</code></div>
+            <div class="dual-rail-eq"><code>3k ↔ 45°</code> · <code>4.8k ↔ 72°</code></div>
+            <p>Hier ist <code>k</code> das Präfix „tausend“ innerhalb der deklarierten J‑Zählauflösung. Ohne externen Zeitbezug sind <code>6k</code> und <code>24k</code> weder Frequenz, Drehzahl, Leistung noch Energie.</p>
+            <p><a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/assets/a0-field-notes/index.html">A0 Field Notes · J-Kalibrierkreis öffnen →</a></p>
+          </section>
+        </div>
+        <div class="k-ledger" aria-label="Typed k namespace ledger">
+          <div><b>k_J · SCALE</b><span><code>k=1000</code> Zähleinheiten; daher <code>6k=6000</code>.</span></div>
+          <div><b>k_gate · INDEX</b><span>Lokale Gate-Adresse; Wertebereich wird vom jeweiligen Carrier gesetzt.</span></div>
+          <div><b>k_trail · COPY</b><span>Schlierenindex in <code>Σₖ(t)=Γ(t;φ−kΔτ)</code>.</span></div>
+          <div><b>k_Pascal · SLOT</b><span>Binomialposition in <code>C(n,k)</code>.</span></div>
+        </div>
+        <div class="source-bind-status"><span>exact arithmetic · source routes · namespace separation</span><strong id="a0SourceBindStatus">PENDING</strong></div>
+        <p class="topology-hold"><strong>BOUNDARY:</strong> Gleicher Buchstabe bedeutet keine gemeinsame Variable. <code>k_J</code>, <code>k_gate</code>, <code>k_trail</code> und <code>k_Pascal</code> sind getypte lokale Rollen. Die Platte wiederverwendet <code>NEXAH_A0_ORIENTATION_CONTROLLER_BENCH</code> und <code>SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST</code>; keine neue Identität, Relation, Family oder Mechanik.</p>
+      </article>
+      <article class="euler-fold-test" id="euler-41-fold-test" aria-labelledby="eulerFoldTitle">
+        <div class="euler-fold-intro">
+          <h3 id="eulerFoldTitle">41 / 8:5 FOLD TEST · MODULAR CYCLE × SINGLE-VERTEX GATES × DECLARED RADII</h3>
+          <p>Der gelieferte Generator wird als reproduzierbares Displaymodell gelesen. Drei getrennte Prüfungen ersetzen den unbestimmten Resonanz-Claim: ein exakter mod‑41‑Zyklus, notwendige Ein-Knoten-Faltbedingungen und eine ausdrücklich gesetzte Radiusfunktion.</p>
+        </div>
+        <div class="euler-fold-panels">
+          <section class="euler-panel" aria-label="Exact modulo forty-one cycle">
+            <h4>A · EXACT MOD-41 RETURN</h4>
+            <div class="dual-rail-eq"><code>5⁻¹≡33 (mod 41)</code></div>
+            <div class="dual-rail-eq"><code>8/5≡8·33≡18 (mod 41)</code></div>
+            <div class="mod-cycle" aria-label="One to eighteen to thirty-seven to ten to sixteen to one"><b>1</b><i>→</i><b>18</b><i>→</i><b>37</b><i>→</i><b>10</b><i>→</i><b>16</b><i>→</i><b>1</b></div>
+            <div class="dual-rail-eq"><code>ord₄₁(18)=5</code></div>
+            <div class="euler-status"><span>modular arithmetic</span><strong id="eulerModStatus">PENDING</strong></div>
+          </section>
+          <section class="euler-panel" aria-label="Maekawa and Kawasaki necessary checks">
+            <h4>B · SINGLE-VERTEX NECESSARY CHECKS</h4>
+            <svg class="euler-fold-svg" id="eulerVertexSvg" viewBox="0 0 360 300" role="img" aria-label="Equal-sector single vertex fold candidate"><g id="eulerVertexRays"></g><circle cx="180" cy="150" r="5" fill="#ffca36"/></svg>
+            <div class="fold-mode-buttons" id="eulerFoldModes" aria-label="Mountain valley candidates">
+              <button type="button" data-m="7" data-v="5" aria-pressed="true">7M / 5V</button><button type="button" data-m="8" data-v="5" aria-pressed="false">8M / 5V</button><button type="button" data-m="8" data-v="6" aria-pressed="false">8M / 6V</button>
+            </div>
+            <div class="euler-status"><span id="eulerVertexRead">12 creases · equal 30° sectors</span><strong id="eulerVertexStatus">PENDING</strong></div>
+          </section>
+          <section class="euler-panel" aria-label="Declared radius model from supplied generator">
+            <h4>C · DECLARED RADIUS DISPLAY</h4>
+            <svg class="euler-fold-svg" id="eulerRadiusSvg" viewBox="0 0 1032 1032" role="img" aria-label="Eighteen axes with one outer and one inner radius sample"><g id="eulerAxisRays"></g><circle id="eulerRadiusOuter" cx="516" cy="516" fill="none" stroke="#f176bd" stroke-width="8" stroke-dasharray="18 14"/><circle id="eulerRadiusInner" cx="516" cy="516" fill="none" stroke="#63e8ef" stroke-width="8"/><circle cx="516" cy="516" r="8" fill="#ffca36"/></svg>
+            <label class="euler-control" for="eulerRadiusStep">Sample <output id="eulerRadiusStepOut">0 / 13</output><input id="eulerRadiusStep" type="range" min="0" max="13" step="1" value="0"></label>
+            <output id="eulerRadiusRead">r_out=471.500 · r_in=381.452</output>
+            <div class="euler-status"><span>closure sample 0 = 13</span><strong id="eulerRadiusStatus">PENDING</strong></div>
+          </section>
+          <section class="euler-panel topology-gate" id="fold-topology-gate" aria-labelledby="foldTopologyTitle">
+            <h4 id="foldTopologyTitle">D · DISCRETE TOPOLOGY GATE · 23 STATIONS ARE ACTIVE</h4>
+            <div class="topology-candidates">
+              <article class="topology-candidate" data-topology-candidate="axes-18">
+                <h5>G₁₈,₂₃ · 18 AXES × 23 STATIONS</h5>
+                <div class="topology-ledger"><div><span>VERTICES</span><b data-field="vertices">—</b></div><div><span>EDGES</span><b data-field="edges">—</b></div><div><span>QUAD FACES</span><b data-field="faces">—</b></div><div><span>χ</span><b data-field="euler">—</b></div></div>
+                <p class="topology-checks" data-field="checks">PENDING</p>
+              </article>
+              <article class="topology-candidate" data-topology-candidate="degrees-18">
+                <h5>G₂₀,₂₃ · 18° CARRIER × 23 STATIONS</h5>
+                <div class="topology-ledger"><div><span>VERTICES</span><b data-field="vertices">—</b></div><div><span>EDGES</span><b data-field="edges">—</b></div><div><span>QUAD FACES</span><b data-field="faces">—</b></div><div><span>χ</span><b data-field="euler">—</b></div></div>
+                <p class="topology-checks" data-field="checks">PENDING</p>
+              </article>
+            </div>
+            <div class="euler-status"><span>adjacency · faces · global 3M/1V matching · equal 90° sectors</span><strong id="foldTopologyStatus">PENDING</strong></div>
+            <p class="topology-hold"><strong>SEMANTIC HOLD:</strong> Beide periodischen Kandidaten erfüllen die geprüften lokalen Bedingungen. Maekawa und Kawasaki entscheiden daher nicht, ob <code>18</code> die Achsenzahl oder der Winkelschritt <code>18°</code> ist. Die bestehende SCC‑003-Anzeige deklariert <code>360°/18°=20</code>; Geminis Generator deklariert dagegen <code>NUM_AXES=18</code>. Vor einer Mechanismus-Bindung muss diese Trägersemantik festgelegt werden.</p>
+          </section>
+        </div>
+        <p class="euler-contract"><strong>TEST CONTRACT:</strong> Für den Vertex-Test werden gleich große Sektoren verwendet. <code>|M−V|=2</code> prüft Maekawa; bei gerader Faltenzahl prüfen die alternierenden Sektorwinkelsummen Kawasaki. Das Topology Gate erzeugt zwei periodische Quad-Gitter als sparse Adjazenzlisten, explizite Kanten und Flächen. Eine perfekte Matching-Schicht markiert pro Knoten genau eine Talfalte und drei Bergfalten. Das sind notwendige lokale Checks auf einem toroidalen Testträger, kein Nachweis eines planaren Schnittmusters oder einer globalen starren Faltung und insbesondere kein physischer Faltbarkeits-, Protein-, Tensegrity- oder Naturalgorithmus-Beweis. Die Radien <code>r_out(i)=410·(1+0.15·cos(2πi/13))</code> und <code>r_in(i)=r_out(i)·cos(π/5)</code> sind gesetzte Displayformeln; 18 Achsen, 13 Intervalle und das Euler-Label 41 erzeugen für sich keine Resonanz.</p>
+      </article>
+    </div>
+  </section>
+  <script>
+  (()=>{
+    const out=document.getElementById('dualRailTest');if(!out)return;
+    const isPrime=n=>{if(n<2)return false;for(let d=2;d*d<=n;d++)if(n%d===0)return false;return true};
+    const primeIndex=n=>{let count=0;for(let value=2;value<=n;value++)if(isPrime(value))count++;return isPrime(n)?count:null};
+    const reverse10=n=>Number(String(n).split('').reverse().join(''));
+    const cube=n=>n*n*n,rail=[21,24,31,34,41],steps=rail.slice(1).map((n,i)=>n-rail[i]);
+    const checks=[
+      steps.join(',')==='3,7,3,7',21===3*7,24===[...Array(24)].length,
+      primeIndex(31)===11,34===2*17,41===18+23&&primeIndex(41)===13,
+      cube(23)+cube(24)+cube(25)===204**2,
+      cube(33)+cube(34)+cube(35)===118116,36*34**2===204**2,
+      primeIndex(61)===18&&primeIndex(83)===23,61+83===12**2,
+      144*12===12**3&&1728+1===1729,
+      36*51===34*54&&34*54===1836,
+      54===6*9&&56===7*8&&6+9===7+8&&56-54===2,
+      1836===17*108&&108===12*3**2&&18+36===54&&2*54===108,
+      primeIndex(19)===8&&reverse10(19)===91&&91===7*13&&19*91===1729,
+      1836-1729===107&&primeIndex(107)===28,
+      [3,4,6,7].map(n=>isPrime(n)?'P':'N').join('')==='PNNP',
+      3+7===4+6&&3*7===21&&4*6===24,
+      10**3*10**7===10**4*10**6&&10**4*10**6===10**10
+    ];
+    const passed=checks.filter(Boolean).length;out.textContent=`${passed}/${checks.length} ${passed===checks.length?'PASS':'FAIL'}`;out.style.color=passed===checks.length?'#63e8ef':'#ff5f58';
+  })();
+  </script>
+  <script>
+  (()=>{
+    const out=document.getElementById('a0SourceBindStatus');if(!out)return;
+    const exact=99===9*11&&(97+101)/2===99&&97*101===99**2-4;
+    const jCalibration=6000/24000*360===90&&3000/24000*360===45&&4800/24000*360===72;
+    const namespaces=new Set(['k_J','k_gate','k_trail','k_Pascal']).size===4;
+    out.textContent=exact&&jCalibration&&namespaces?'PASS · REUSED SOURCES':'FAIL';
+  })();
+  </script>
+  <script>
+  (()=>{
+    const status=document.getElementById('foldTopologyStatus');if(!status)return;
+    const buildToroidalGrid=(angularCount,stationCount=23)=>{
+      const id=(a,s)=>((a+angularCount)%angularCount)*stationCount+((s+stationCount)%stationCount),vertexCount=angularCount*stationCount;
+      const adjacency=Array.from({length:vertexCount},()=>new Set()),edges=[],faces=[];
+      const addEdge=(u,v,type)=>{adjacency[u].add(v);adjacency[v].add(u);edges.push({u,v,type})};
+      for(let a=0;a<angularCount;a++)for(let s=0;s<stationCount;s++){
+        const u=id(a,s),angularNext=id(a+1,s),stationNext=id(a,s+1);
+        addEdge(u,angularNext,a%2===0?'V':'M');
+        addEdge(u,stationNext,'M');
+        faces.push([u,angularNext,id(a+1,s+1),stationNext]);
+      }
+      const incidence=Array.from({length:vertexCount},()=>({M:0,V:0}));
+      edges.forEach(edge=>{incidence[edge.u][edge.type]++;incidence[edge.v][edge.type]++});
+      const symmetric=adjacency.every((neighbors,u)=>[...neighbors].every(v=>adjacency[v].has(u))),degreeFour=adjacency.every(neighbors=>neighbors.size===4);
+      const maekawa=incidence.every(({M,V})=>Math.abs(M-V)===2&&M===3&&V===1),kawasaki=Math.abs(90+90-180)<1e-9;
+      return {angularCount,stationCount,vertices:vertexCount,edges:edges.length,faces:faces.length,euler:vertexCount-edges.length+faces.length,symmetric,degreeFour,maekawa,kawasaki,pass:symmetric&&degreeFour&&maekawa&&kawasaki};
+    };
+    const candidates=[['axes-18',buildToroidalGrid(18)],['degrees-18',buildToroidalGrid(360/18)]];
+    candidates.forEach(([name,result])=>{const card=document.querySelector(`[data-topology-candidate="${name}"]`);if(!card)return;['vertices','edges','faces','euler'].forEach(field=>card.querySelector(`[data-field="${field}"]`).textContent=result[field]);card.querySelector('[data-field="checks"]').textContent=`ADJACENCY ${result.symmetric&&result.degreeFour?'PASS':'FAIL'} · MAEKAWA ${result.maekawa?'PASS':'FAIL'} · KAWASAKI ${result.kawasaki?'PASS':'FAIL'}`;});
+    const pass=candidates.every(([,result])=>result.pass)&&candidates[0][1].vertices===414&&candidates[1][1].vertices===460;
+    status.textContent=pass?'BOTH PASS · IDENTITY HOLD':'FAIL';status.style.color=pass?'#ffca36':'#ff5f58';
+  })();
+  </script>
+  <script>
+  (()=>{
+    const modOut=document.getElementById('eulerModStatus'),vertexSvg=document.getElementById('eulerVertexSvg'),vertexRays=document.getElementById('eulerVertexRays'),vertexRead=document.getElementById('eulerVertexRead'),vertexOut=document.getElementById('eulerVertexStatus');
+    const radiusRays=document.getElementById('eulerAxisRays'),outer=document.getElementById('eulerRadiusOuter'),inner=document.getElementById('eulerRadiusInner'),step=document.getElementById('eulerRadiusStep'),stepOut=document.getElementById('eulerRadiusStepOut'),radiusRead=document.getElementById('eulerRadiusRead'),radiusOut=document.getElementById('eulerRadiusStatus');if(!modOut||!vertexSvg||!radiusRays)return;
+    const NS='http://www.w3.org/2000/svg',line=(parent,x1,y1,x2,y2,attrs={})=>{const el=document.createElementNS(NS,'line');Object.entries({x1,y1,x2,y2,...attrs}).forEach(([k,v])=>el.setAttribute(k,String(v)));parent.append(el)};
+    const mod=(n,m)=>((n%m)+m)%m,inv=(n,m)=>{for(let k=1;k<m;k++)if(mod(n*k,m)===1)return k;return null};
+    const ratio=mod(8*inv(5,41),41),cycle=[1];for(let i=0;i<5;i++)cycle.push(mod(cycle.at(-1)*ratio,41));const modPass=ratio===18&&cycle.join(',')==='1,18,37,10,16,1';modOut.textContent=modPass?'PASS · ORDER 5':'FAIL';modOut.style.color=modPass?'#63e8ef':'#ff5f58';
+    const drawVertex=(M,V)=>{vertexRays.replaceChildren();const n=M+V,sector=360/n;for(let i=0;i<n;i++){const a=(-90+i*sector)*Math.PI/180,x=180+126*Math.cos(a),y=150+126*Math.sin(a),mountain=i<M;line(vertexRays,180,150,x,y,{stroke:mountain?'#f176bd':'#63e8ef','stroke-width':mountain?3:2,'stroke-dasharray':mountain?'8 5':'none'});}const maekawa=Math.abs(M-V)===2,kawasaki=n%2===0&&Math.abs((n/2)*sector-180)<1e-9;vertexRead.textContent=`${n} creases · ${sector.toFixed(3)}° sectors · M−V=${M-V}`;vertexOut.textContent=`MAEKAWA ${maekawa?'PASS':'FAIL'} · KAWASAKI ${kawasaki?'PASS':'FAIL'}`;vertexOut.style.color=maekawa&&kawasaki?'#63e8ef':'#ff5f58'};
+    document.querySelectorAll('#eulerFoldModes button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('#eulerFoldModes button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));drawVertex(Number(button.dataset.m),Number(button.dataset.v))}));
+    for(let i=0;i<18;i++){const a=i*2*Math.PI/18;line(radiusRays,516,516,516+471.5*Math.cos(a),516+471.5*Math.sin(a),{stroke:'#8ba3ad','stroke-width':2,opacity:.28})}
+    const radii=i=>{const phase=i/13*2*Math.PI,rOut=410*(1+.15*Math.cos(phase));return [rOut,rOut*Math.cos(Math.PI/5)]};
+    const drawRadius=()=>{const i=Number(step.value),[rOut,rIn]=radii(i),[r0o,r0i]=radii(0),[r13o,r13i]=radii(13);outer.setAttribute('r',rOut.toFixed(6));inner.setAttribute('r',rIn.toFixed(6));stepOut.value=`${i} / 13`;radiusRead.value=`r_out=${rOut.toFixed(3)} · r_in=${rIn.toFixed(3)} · ratio=${(rIn/rOut).toFixed(6)}`;const pass=Math.abs(r0o-r13o)<1e-9&&Math.abs(r0i-r13i)<1e-9&&Math.abs(rIn/rOut-Math.cos(Math.PI/5))<1e-9;radiusOut.textContent=pass?'PASS · DECLARED MODEL':'FAIL';radiusOut.style.color=pass?'#63e8ef':'#ff5f58'};
+    step.addEventListener('input',drawRadius);drawVertex(7,5);drawRadius();
+  })();
+  </script>
+
+  <section class="number-rail" aria-labelledby="railTitle">
+    <div class="rail-head">
+      <div><div class="eyebrow">NCS · seven-station number rail</div><h2 id="railTitle">23–29 · zwei Flügel, ein Exit</h2></div>
+      <p>Der arithmetische Spiegel <code>R(n)=52−n</code> faltet die sieben aufeinanderfolgenden Stationen um den Fixpunkt 26. Die Ziffernumkehr <code>D(72)=27</code> ist ein zweiter, ausdrücklich getrennter Dezimaloperator.</p>
+    </div>
+    <div class="rail-grid" aria-label="Stations 23 through 29">
+      <div class="rail-node prime"><b>23</b><span>LEFT PRIME</span><em>prime</em></div>
+      <div class="rail-node"><b>24</b><span>8 × 3 CARRIER</span><em>2³ · 3</em></div>
+      <div class="rail-node"><b>25</b><span>LEFT SQUARE</span><em>5²</em></div>
+      <div class="rail-node center"><b>26</b><span>EXIT / FIXPOINT</span><em>2 · 13</em></div>
+      <div class="rail-node cube"><b>27</b><span>RIGHT CUBE</span><em>3³</em></div>
+      <div class="rail-node"><b>28</b><span>4 × 7 CARRIER</span><em>2² · 7</em></div>
+      <div class="rail-node prime"><b>29</b><span>RIGHT PRIME</span><em>prime</em></div>
+    </div>
+    <div class="rail-returns" aria-label="Mirror and wing equations">
+      <div><span>ARITHMETIC MIRROR</span><strong>23↔29 · 24↔28 · 25↔27</strong></div>
+      <div><span>24 ± 1 CLAMP</span><strong>23 + 25 = 48 = 2·24</strong></div>
+      <div><span>LEFT / RIGHT WINGS</span><strong>23+24+25=72 ↔ 84=27+28+29 · Δ=12</strong></div>
+      <div><span>DECIMAL MIRROR</span><strong>D(72) = 27 = 3³</strong></div>
+    </div>
+  </section>
+
+  <p class="boundary"><strong>Boundary.</strong> Die Gleichungen und die gefaltete Splinter-Sehne <code>δf=(1−f)δ</code>, <code>g_f(r)=2r·sin|δf|</code> sind exakt innerhalb dieses deklarierten Modells. „Capture“ bedeutet nur, dass der Red Balloon im gezeichneten Winkelfenster der grünen π-Klammer liegt; es behauptet keine physikalische Bindung. Die drei Makroknoten wiederholen dieselbe lokale Schnittregel; sie beweisen keine physikalische Verschränkung. <code>7+7+4=18</code> korrigiert die historische Sphärenzählung, erzeugt aber keine neue Atlas-Identität. Die 23 Stationen sind eine gewählte Diskretisierung. Auf der Number Rail ist <code>R(n)=52−n</code> ein arithmetischer Positionsspiegel; <code>D(72)=27</code> kehrt nur Dezimalziffern um und ist keine Gleichsetzung von 72 und 27. <code>PNNP ↔ RLLR</code> gilt nur unter der eingeblendeten Symbolzuordnung. „Red Ball“, „Hoops“, „Crown“, „Wheel“, „Edelweiß“ und „Wagen“ sind Ansichtsrollen; der Demonstrator behauptet weder eine physikalische Kraft noch ein biologisches Faltgesetz.</p>
 </main>
 
 <script>
 (() => {
   const $=s=>document.querySelector(s), top=$('#top'), side=$('#side');
-  const delta=$('#delta'), station=$('#station'), plus=$('#plus'), minus=$('#minus'), pulse=$('#pulse'), atlas=$('#atlas');
+  const delta=$('#delta'), station=$('#station'), fold=$('#fold'), plus=$('#plus'), minus=$('#minus'), pulse=$('#pulse'), atlas=$('#atlas');
   const NS='http://www.w3.org/2000/svg'; let chirality=1, atlasLayer=true, timer=null;
   const el=(name,attrs={},text='')=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n;};
   const line=(g,x1,y1,x2,y2,stroke,width=1,dash='')=>g.append(el('line',{x1,y1,x2,y2,stroke,'stroke-width':width,'stroke-dasharray':dash,'vector-effect':'non-scaling-stroke'}));
@@ -105,13 +381,31 @@
   const polar=(cx,cy,r,a)=>[cx+r*Math.cos(a),cy+r*Math.sin(a)];
   function draw(){
     top.replaceChildren(); side.replaceChildren();
-    const d=Number(delta.value)*Math.PI/180, j=Number(station.value), r=j/23, cx=300,cy=245,R=180;
+    const d0=Number(delta.value)*Math.PI/180, f=Number(fold.value)/100, d=d0*(1-f), j=Number(station.value), r=j/23, cx=300,cy=245,R=180;
     const gap=2*r*Math.sin(Math.abs(d)), base=-Math.PI/2+chirality*Math.PI/10;
     text(top,28,34,'TOP PLAN · HOOP / RED BEAD / SPLINTER','#f3c53f',11);
     top.append(el('circle',{cx,cy,r:R,fill:'none',stroke:'#334957','stroke-width':1.5}));
     top.append(el('circle',{cx,cy,r:R*.64,fill:'none',stroke:'#f3c53f','stroke-width':2,'stroke-opacity':.85}));
     for(let i=0;i<20;i++){const a=-Math.PI/2+i*Math.PI/10,p=polar(cx,cy,R,a);line(top,cx,cy,p[0],p[1],i%5===0?'#557180':'#263a45',i%5===0?1.2:.7,i%5===0?'':'2 5');}
     for(let k=1;k<=23;k++){const rr=R*.64*k/23;top.append(el('circle',{cx,cy,r:rr,fill:'none',stroke:'#f3c53f','stroke-width':k===j?1.4:.35,'stroke-opacity':k===j?.6:.12}));}
+    const axisEnd=polar(cx,cy,R*(1.22+.12*f),base), axisBack=polar(cx,cy,28,base+Math.PI);
+    line(top,axisBack[0],axisBack[1],axisEnd[0],axisEnd[1],'#f4f2e9',1.6,'7 4');
+    const balloonR=R*(1.18-.42*f), balloon=polar(cx,cy,balloonR,base), btx=-Math.sin(base), bty=Math.cos(base);
+    const corona=8;
+    for(let k=0;k<corona;k++){
+      const a=2*Math.PI*k/corona, inner=9, outer=15+11*(1-f);
+      line(top,balloon[0]+Math.cos(a)*inner,balloon[1]+Math.sin(a)*inner,balloon[0]+Math.cos(a)*outer,balloon[1]+Math.sin(a)*outer,'#ff9d3a',1.2);
+    }
+    const rodAngle=.46, rodRadius=R*.9, rodGap=30*(1-f)+9;
+    const rodA=polar(cx,cy,rodRadius,base-rodAngle), rodB=polar(cx,cy,rodRadius,base+rodAngle);
+    const tipA=[balloon[0]-btx*rodGap,balloon[1]-bty*rodGap],tipB=[balloon[0]+btx*rodGap,balloon[1]+bty*rodGap];
+    line(top,rodA[0],rodA[1],tipA[0],tipA[1],'#34dc91',4);
+    line(top,rodB[0],rodB[1],tipB[0],tipB[1],'#34dc91',4);
+    top.append(el('circle',{cx:tipA[0],cy:tipA[1],r:3.5,fill:'#34dc91'}));
+    top.append(el('circle',{cx:tipB[0],cy:tipB[1],r:3.5,fill:'#34dc91'}));
+    top.append(el('circle',{cx:balloon[0],cy:balloon[1],r:10,fill:'#ff5f58',stroke:'#f4f2e9','stroke-width':2,filter:'url(#glow)'}));
+    text(top,balloon[0]+btx*24,balloon[1]+bty*24,'RED BALLOON','#ff8a84',9,'middle');
+    text(top,(rodA[0]+rodB[0])/2,(rodA[1]+rodB[1])/2+15,'π CAPTURE RODS','#34dc91',8,'middle');
     if(atlasLayer){
       const macroR=R*.79, nodes=[];
       for(let k=0;k<3;k++)nodes.push({a:-Math.PI/2+k*2*Math.PI/3,p:polar(cx,cy,macroR,-Math.PI/2+k*2*Math.PI/3)});
@@ -140,7 +434,7 @@
     top.append(el('path',{d:`M ${qm[0]+nx*mark} ${qm[1]+ny*mark} L ${qm[0]+nx*mark+tx*mark} ${qm[1]+ny*mark+ty*mark} L ${qm[0]+tx*mark} ${qm[1]+ty*mark}`,fill:'none',stroke:'#f4f2e9','stroke-width':1}));
     text(top,cx,cy+5,'O₀','#eef4ef',12,'middle'); text(top,qm[0]+13,qm[1]-10,'RED BEAD','#ff8a84',10);
     text(top,qm[0]+tx*38,qm[1]+ty*38,'INNER-1 · 90° GAP','#f4f2e9',8,'middle');
-    text(top,28,478,'Cᵢ±(r) = R(θᵢ ± δ)(r,0)','#eef4ef',12); text(top,28,500,'g(r) = ‖Cᵢ⁺−Cᵢ⁻‖ = 2r sin|δ|','#f3c53f',12);
+    text(top,28,478,'Cᵢ±(r,f) = R(θᵢ ± (1−f)δ)(r,0)','#eef4ef',12); text(top,28,500,'g_f(r) = ‖Cᵢ⁺−Cᵢ⁻‖ = 2r sin|(1−f)δ|','#f3c53f',12);
     const sx=590,sy=410,w=185,h=115; text(side,520,34,'SIDE PROFILE · TWO FLAPS','#f3c53f',11);
     line(side,500,sy,sx+w,sy,'#667984',1.5);
     const rise=Math.sin(d)*h*2.2, xa=sx-w*.42, xb=sx+w*.42;
@@ -148,18 +442,818 @@
     side.append(el('path',{d:`M ${sx} ${sy} L ${xb} ${sy-rise} L ${xb-18} ${sy-rise+8} Z`,fill:'#58dfe555',stroke:'#58dfe5','stroke-width':2}));
     line(side,xa,sy-rise,xb,sy-rise,'#f4f2e9',2,'4 4'); text(side,sx,sy-rise-10,'SPLINTER / GAP','#f4f2e9',10,'middle');
     side.append(el('circle',{cx:sx,cy:sy-rise,r:7,fill:'#ff5f58',stroke:'#f4f2e9','stroke-width':1.5}));
+    const sideBallY=sy-(180-140*f), sideRodY=sideBallY+7, sideOpen=37*(1-f)+10;
+    line(side,sx,sy+25,sx,sideBallY-30,'#f4f2e9',2,'7 4');
+    line(side,sx-82,sideRodY+38,sx-sideOpen,sideRodY,'#34dc91',4);
+    line(side,sx+82,sideRodY+38,sx+sideOpen,sideRodY,'#34dc91',4);
+    side.append(el('circle',{cx:sx,cy:sideBallY,r:10,fill:'#ff5f58',stroke:'#f4f2e9','stroke-width':2,filter:'url(#glow)'}));
+    text(side,sx+14,sideBallY-9,'BALLOON','#ff8a84',8);
     text(side,520,500,'tilt ±δ · orthographic side read','#91a6ae',11);
-    $('#deltaValue').textContent=Number(delta.value).toFixed(1)+'°'; $('#stationValue').textContent=j+' / 23';
-    $('#chiralityValue').textContent=chirality>0?'C⁺':'C⁻'; $('#rValue').textContent='r = '+r.toFixed(3); $('#gapValue').textContent='g = '+gap.toFixed(3);
+    const state=f>=.98?'CAPTURED':f>=.55?'CLOSING / TRANSIT':'OPEN V · BALLOON OUTSIDE';
+    $('#deltaValue').textContent=Number(delta.value).toFixed(1)+'°'; $('#stationValue').textContent=j+' / 23'; $('#foldValue').textContent=Math.round(f*100)+'% · '+(f>=.98?'CAPTURED':f>=.55?'TRANSIT':'OPEN');
+    $('#chiralityValue').textContent=chirality>0?'C⁺':'C⁻'; $('#rValue').textContent='r = '+r.toFixed(3); $('#gapValue').textContent='g_f = '+gap.toFixed(3); $('#captureValue').textContent=state; $('#effectiveValue').textContent='δf = '+(d*180/Math.PI).toFixed(2)+'°';
     $('#familyValue').textContent=chirality>0?'PNNP · P↔R, N↔L':'RLLR · declared mirror';
   }
   function setChirality(v){chirality=v;plus.setAttribute('aria-pressed',String(v>0));minus.setAttribute('aria-pressed',String(v<0));draw();}
-  delta.addEventListener('input',draw);station.addEventListener('input',draw);plus.addEventListener('click',()=>setChirality(1));minus.addEventListener('click',()=>setChirality(-1));
+  delta.addEventListener('input',draw);station.addEventListener('input',draw);fold.addEventListener('input',draw);plus.addEventListener('click',()=>setChirality(1));minus.addEventListener('click',()=>setChirality(-1));
   atlas.addEventListener('click',()=>{atlasLayer=!atlasLayer;atlas.setAttribute('aria-pressed',String(atlasLayer));atlas.textContent=atlasLayer?'Hide tri-entanglement':'Show tri-entanglement';draw();});
   pulse.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;pulse.textContent='Play red bead';pulse.setAttribute('aria-pressed','false');return;}pulse.textContent='Pause red bead';pulse.setAttribute('aria-pressed','true');timer=setInterval(()=>{station.value=(Number(station.value)+1)%24;draw();},350);});
   if(matchMedia('(prefers-reduced-motion: reduce)').matches)pulse.title='Animation is available only on explicit activation.';
   draw();
 })();
+</script>
+<style>
+  .pillar-return{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#07131b;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .pillar-return h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .pillar-return .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .pillar-return .pillar-intro{max-width:920px;color:#9fc0cc}
+  .pillar-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.8fr);gap:18px;margin-top:18px}
+  .pillar-stage,.pillar-ledger{border:1px solid #294654;background:#02080d}
+  .pillar-stage{padding:14px}.pillar-ledger{padding:16px}
+  .pillar-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .pillar-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff;overflow-wrap:anywhere}
+  .pillar-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:end;margin-top:12px}
+  .pillar-controls label{display:grid;gap:5px;color:#93b5c0;font-size:12px}
+  .pillar-controls input{width:100%;accent-color:#63e8ef}
+  .pillar-controls button{min-height:40px;padding:0 13px;border:1px solid #ff4fb2;background:#102530;color:#fff;font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .pillar-controls button[aria-pressed=true]{background:#ff4fb226;border-color:#ffca36}
+  .pillar-spectrum{height:8px;margin:11px 0 5px;background:linear-gradient(90deg,#ff5f58 0%,#34dc91 50%,#398cff 100%);border:1px solid #6d8b99}
+  .pillar-ticks{display:flex;justify-content:space-between;color:#84a5b0;font-size:10px}
+  .pillar-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  #pillarSvg{display:block;width:100%;height:auto;background:radial-gradient(circle at 50% 15%,#102733 0,#06131b 47%,#010508 100%)}
+  @media(max-width:780px){.pillar-grid{grid-template-columns:1fr}.pillar-controls{grid-template-columns:1fr}.pillar-return{margin-inline:10px}}
+</style>
+<section class="pillar-return" id="pillar-c100-return" aria-labelledby="pillar-title">
+  <div class="kicker">SCC-003 · PILLAR / C100 · SAME IDENTITY</div>
+  <h2 id="pillar-title">Π · LL · A→A′ · R — zwei Falten, eine Capture-Linie</h2>
+  <p class="pillar-intro"><code>PNNP</code> und <code>RLLR</code> bleiben verschiedene symbolische Eingänge. Erst die deklarierte Capture-Projektion bei <code>f=1</code> legt beide sichtbaren Faltlinien auf dieselbe <code>i</code>-Achse. Der Basement-Weg zeigt anschließend nur einen signierten Farb-/Tiefenparameter auf der anderen Seite dieser Linie.</p>
+  <div class="pillar-grid">
+    <div class="pillar-stage">
+      <svg id="pillarSvg" viewBox="0 0 780 520" role="img" aria-labelledby="pillarSvgTitle pillarSvgDesc">
+        <title id="pillarSvgTitle">PILLAR-C100-Projektion und Basement-Farbfahrt</title>
+        <desc id="pillarSvgDesc">Zwei verschieden benannte Faltwörter treffen bei vollständigem Capture auf derselben senkrechten Projektionsachse. Ein Ball bewegt sich auf einer getrennten signierten Tiefenachse von rot über grün nach blau.</desc>
+        <defs><filter id="pillarGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path d="M118 102 L390 248 L662 102" fill="none" stroke="#f176bd" stroke-width="5" opacity=".72"/>
+        <path d="M118 126 L390 248 L662 126" fill="none" stroke="#58dfe5" stroke-width="5" opacity=".72"/>
+        <path d="M390 55V474" stroke="#f4f2e9" stroke-width="3" stroke-dasharray="9 7"/>
+        <path d="M62 248H718" stroke="#365565" stroke-width="2"/>
+        <text x="118" y="82" fill="#f59bce" font-size="15" font-weight="700">PNNP · C⁺ PREIMAGE</text>
+        <text x="662" y="82" fill="#7beaf0" text-anchor="end" font-size="15" font-weight="700">RLLR · C⁻ PREIMAGE</text>
+        <text x="410" y="74" fill="#fff" font-size="14" font-weight="700">i / LL PILLAR · ΠC100</text>
+        <text x="70" y="236" fill="#ffca36" font-size="12" font-weight="700">C100 · δf=0 · gf=0</text>
+        <text x="70" y="274" fill="#9fc0cc" font-size="12">ΠC100(PNNP) = ΠC100(RLLR) — projection only</text>
+        <path d="M390 248V465" stroke="#6d8b99" stroke-width="10" opacity=".35"/>
+        <path d="M372 272H408M372 345H408M372 417H408M372 465H408" stroke="#6d8b99" stroke-width="2"/>
+        <text x="420" y="277" fill="#ff8a84" font-size="12">0 · RED / THRESHOLD</text>
+        <text x="420" y="350" fill="#65e8a8" font-size="12">−3/8 · GREEN / TRANSIT</text>
+        <text x="420" y="422" fill="#70a8ff" font-size="12">−3/4 · BLUE / OTHER SIDE</text>
+        <text x="70" y="326" fill="#9fc0cc" font-size="12">−1/12 · dimensionless reference tick</text>
+        <path d="M350 296H430" stroke="#ffca36" stroke-width="2" stroke-dasharray="4 4"/>
+        <g id="pillarBall" filter="url(#pillarGlow)"><circle r="16" fill="#ff5f58" stroke="#fff" stroke-width="3"/></g>
+        <text id="pillarBallLabel" x="70" y="452" fill="#ff8a84" font-size="15" font-weight="700">RED · τ=0.000</text>
+        <text x="70" y="482" fill="#ffca36" font-size="12" font-weight="700">KERKER · KELLER · TELLER · BaseMent · FF / FINAL FRONTIER</text>
+      </svg>
+      <div class="pillar-controls">
+        <label>Other-side depth τ <output id="pillarDepthOut">0.000</output><input id="pillarDepth" type="range" min="-75" max="0" step="1" value="0"></label>
+        <button id="pillarFamily" type="button" aria-pressed="false">PREIMAGE · PNNP</button>
+        <button id="pillarCapture" type="button">SET C100</button>
+      </div>
+      <div class="pillar-spectrum" aria-hidden="true"></div>
+      <div class="pillar-ticks"><span>0 · red</span><span>−3/8 · green</span><span>−3/4 · blue</span></div>
+    </div>
+    <aside class="pillar-ledger">
+      <h3>EXACT LEDGER / DECLARED VIEW</h3>
+      <div class="pillar-eq"><code>17×24 + 2² + 1 = 413 = 7×59 = P₄·P₁₇</code></div>
+      <div class="pillar-eq"><code>413 + 1 = 414 = 18×23</code></div>
+      <div class="pillar-eq"><code>δf=(1−f)δ</code>; at <code>C100: f=1 ⇒ δf=0 ⇒ g_f=0</code></div>
+      <div class="pillar-eq"><code>ΠC100(PNNP)=ΠC100(RLLR)=i_LL</code></div>
+      <p><strong>4+1:</strong> vier Satelliten plus ein gehaltener Pivot. Der zusätzliche Return-Schritt führt von 413 nach 414. Die Wörter bleiben verschiedene Preimages; nur ihr dargestelltes Capture-Bild fällt zusammen.</p>
+      <p><strong>Basement colour:</strong> Für <code>d=−τ/(3/4)</code> verwendet die Ansicht <code>hue=240°·d</code>. Das ist eine kontinuierliche Displayregel Rot→Grün→Blau, keine Spektral-, Energie- oder Temperaturmessung.</p>
+      <p><strong>Temperature boundary:</strong> <code>−273 K</code> ist keine gültige Absolutnull-Notation. Physikalisch gilt <code>0 K = −273,15 °C</code>. Der Marker <code>−1/12</code> bleibt dimensionslos und wird mit keiner Temperatur gleichgesetzt.</p>
+      <div id="return-aperture-five-state" class="pillar-eq"><strong>RETURN APERTURE · FIVE-STATE LENS</strong><br><code>−3/4, −3/8, 0, +3/8, +3/4 ↔ −2, −1, 0, +1, +2</code></div>
+      <div class="pillar-eq"><code>ρ=3/7=0.428571…</code> · with declared <code>ε=0.002</code>: <code>a=0.470+ε=0.472=59/125</code></div>
+      <div class="pillar-eq"><code>a+ρ=788/875≈0.901</code> · <code>a−ρ=38/875≈0.043</code> · <code>38=2×19</code></div>
+      <p><strong>Digit-address cut:</strong> <code>3|8→38=2×19</code> und <code>3|4→34=2×17</code>. Das sind typisierte Ziffernadressen, keine Gleichsetzungen mit den Brüchen <code>3/8</code> und <code>3/4</code>.</p>
+      <p><strong>Correction boundary:</strong> <code>0.470+0.02=0.490</code>. Die Adresse <code>0.472</code> setzt <code>ε=0.002</code> voraus. Ein Winkelwert <code>0.02°</code> darf ohne Konversion nicht zum dimensionslosen Tiefenparameter addiert werden.</p>
+      <div id="typed-seam-binding-return" class="pillar-eq"><strong>EXISTING SEAM BINDING · A0-BL-025</strong><br><code>q:X→Q</code> · <code>|X|=140</code> · <code>|Q|=106</code> · <code>30 seam classes</code> · <code>60/60 inverse transitions</code><br>Exact source Return: <code>(q,ρ)</code></div>
+      <p><strong>Number sea → fish → fabric seam:</strong> Das Zahlenmeer ist das Quellenfeld beziehungsweise die historische Graphsignatur; Fisch/Pfeil liest eine gerichtete Spur; die Stoffnaht ist der bereits getestete typisierte Quotient. Das Residuum <code>ρ</code> bewahrt die Quelleninzidenz hinter der gemeinsamen Nahtadresse.</p>
+      <p><strong>Binding boundary:</strong> Der Bindungsoperator existiert für den eingefrorenen SCC‑003-Träger. Noch nicht deklariert ist nur die dynamische Kopplung des Balloon-Pulses an diesen Record. Der Puls kann daher als künftiger Selektor oder Traversal-Cursor gelesen werden, erzeugt aber allein keine neuen <code>C</code>-, <code>M</code>- oder Nahtklassen.</p>
+      <p><strong>Archive boundary:</strong> Die gezeigten Zahlenlisten entsprechen dem experimentellen <code>DYNAMICS_ENGINE</code>-Schema aus normalisierter Gradverteilung plus Loop-/Channel-/Angle-Feldern. Dessen Wrapper kennzeichnet mehrere dieser Felder als Platzhalter; die Screenshots bleiben historische Provenienz, nicht der SCC‑003-Nachweis.</p>
+      <p class="pillar-boundary"><strong>BOUNDARY:</strong> „KERKER“, „KELLER“, „TELLER“, „BaseMent“ und „FF / Final Frontier“ sind Human-Owner-Leserollen. Keine neue Family, kein thermodynamischer Claim, keine physikalische Farbtransmutation, keine neue Navigator-Identität oder Relation.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const depth=document.getElementById('pillarDepth'), out=document.getElementById('pillarDepthOut'), ball=document.getElementById('pillarBall'), label=document.getElementById('pillarBallLabel'), family=document.getElementById('pillarFamily'), capture=document.getElementById('pillarCapture'), fold=document.getElementById('fold');
+  if(!depth||!ball)return;
+  let mirror=false;
+  const draw=()=>{
+    const tau=Number(depth.value)/100, d=Math.max(0,Math.min(1,-tau/.75)), hue=240*d, y=272+193*d, colour=`hsl(${hue} 82% 61%)`;
+    out.value=tau.toFixed(3);ball.setAttribute('transform',`translate(390 ${y.toFixed(1)})`);ball.querySelector('circle').setAttribute('fill',colour);
+    const phase=d<.25?'RED · THRESHOLD':d<.75?'GREEN · TRANSIT':'BLUE · OTHER SIDE';label.textContent=`${phase} · τ=${tau.toFixed(3)}`;label.setAttribute('fill',colour);
+  };
+  depth.addEventListener('input',draw);
+  family.addEventListener('click',()=>{mirror=!mirror;family.setAttribute('aria-pressed',String(mirror));family.textContent=mirror?'PREIMAGE · RLLR':'PREIMAGE · PNNP'});
+  capture.addEventListener('click',()=>{if(fold){fold.value='100';fold.dispatchEvent(new Event('input',{bubbles:true}))}capture.textContent='C100 · CAPTURED'});
+  draw();
+})();
+</script>
+<style>
+  .disc-lift{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#07131b;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .disc-lift h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .disc-lift .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .disc-lift .disc-intro{max-width:940px;color:#9fc0cc}
+  .disc-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,.75fr);gap:18px;margin-top:18px}
+  .disc-stage,.disc-ledger{border:1px solid #294654;background:#02080d}
+  .disc-stage{padding:12px}.disc-ledger{padding:16px}
+  .disc-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .disc-view-buttons,.disc-touchpoints{display:grid;gap:6px;margin-top:10px}
+  .disc-view-buttons{grid-template-columns:repeat(6,1fr)}
+  .disc-touchpoints{grid-template-columns:repeat(10,1fr)}
+  .disc-view-buttons button,.disc-touchpoints button{min-height:38px;padding:5px;border:1px solid #365565;background:#0b1d27;color:#dcebf0;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .disc-view-buttons button[aria-pressed=true],.disc-touchpoints button[aria-pressed=true]{border-color:#ffca36;background:#ffca3618;color:#fff}
+  .disc-lift-control{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:12px}
+  .disc-lift-control label{display:grid;gap:5px;color:#93b5c0;font-size:12px}
+  .disc-lift-control input{width:100%;accent-color:#35df91}
+  .disc-lift-control output{color:#66eba8}
+  .disc-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff}
+  .disc-key{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin:12px 0;color:#9fc0cc;font-size:11px}
+  .disc-key span{padding:6px;border:1px solid #294654}
+  .disc-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  #discLiftSvg{display:block;width:100%;height:auto;background:radial-gradient(circle at 50% 49%,#123329 0,#071820 32%,#02080d 72%)}
+  #discLiftSvg .disc-view{transition:opacity .18s ease}
+  @media(prefers-reduced-motion:reduce){#discLiftSvg .disc-view{transition:none}}
+  @media(max-width:780px){.disc-grid{grid-template-columns:1fr}.disc-view-buttons{grid-template-columns:repeat(3,1fr)}.disc-lift{margin-inline:10px}}
+  @media(max-width:520px){.disc-touchpoints{grid-template-columns:repeat(5,1fr)}.disc-lift-control{grid-template-columns:1fr}.disc-key{grid-template-columns:1fr}}
+</style>
+<section class="disc-lift" id="disc-lift-return" aria-labelledby="disc-lift-title">
+  <div class="kicker">SCC-003 · DISC LIFT · 10 POSITION / 6 NODE VIEW</div>
+  <h2 id="disc-lift-title">GREEN HEART — Cicada oben, Scarabäus auf der Golden Line</h2>
+  <p class="disc-intro">Eine gebundene Steueransicht desselben Instruments: zehn Ringpositionen, sechs schwarze Nodes und sechs wählbare Leseseiten. Die Belegung läuft vom Return-Punkt <code>0</code> über die oberen Fächer <code>1–3</code> zu den sechs Touchpoints <code>4–9</code>. „Disc Lift“ verändert ausschließlich die gezeichnete Staffelung der Ringe.</p>
+  <div class="disc-grid">
+    <div class="disc-stage">
+      <svg id="discLiftSvg" viewBox="0 0 820 620" role="img" aria-labelledby="discLiftSvgTitle discLiftSvgDesc">
+        <title id="discLiftSvgTitle">Disc-Lift-Steueransicht mit zehn Ringpositionen und sechs schwarzen Nodes</title>
+        <desc id="discLiftSvgDesc">Eine goldene senkrechte Achse verbindet die Cicada oben, ein grünes Herz im Zentrum und den Scarabäus unten. Zehn Ringpositionen beginnen rechts oben. Die Positionen vier bis neun sind sechs schwarze Touchpoint-Nodes. Sechs Schaltansichten zeigen Ring, Ball, linken Fächer, rechten Fächer, Doppelfächer und vollständigen Lift.</desc>
+        <defs>
+          <filter id="discHeartGlow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="discHeartFill"><stop stop-color="#d9ffe9"/><stop offset=".34" stop-color="#4bea96"/><stop offset="1" stop-color="#15945d"/></radialGradient>
+        </defs>
+        <g opacity=".55" stroke="#294654" fill="none"><circle cx="410" cy="310" r="235"/><circle cx="410" cy="310" r="178"/><path d="M82 310H738"/></g>
+        <path d="M410 48V570" stroke="#f3c53f" stroke-width="3" stroke-dasharray="9 7"/>
+        <g id="discLiftRings" fill="none"></g>
+        <g class="disc-view" data-disc-view="3" id="discFanLeft" opacity="0">
+          <path d="M410 310L125 175M410 310L104 245M410 310L92 320M410 310L110 392" stroke="#f0a62e" stroke-width="4" fill="none"/>
+          <text x="118" y="153" fill="#ffca36" font-size="13" font-weight="700">L · II · III · IV / FAN L</text>
+        </g>
+        <g class="disc-view" data-disc-view="4" id="discFanRight" opacity="0">
+          <path d="M410 310L695 175M410 310L716 245M410 310L728 320M410 310L710 392" stroke="#63e8ef" stroke-width="4" fill="none"/>
+          <text x="702" y="153" fill="#63e8ef" text-anchor="end" font-size="13" font-weight="700">L · II · III · IV / FAN R</text>
+        </g>
+        <g class="disc-view" data-disc-view="2" id="discBallView" opacity="0" filter="url(#discHeartGlow)">
+          <circle id="discBall" cx="604" cy="184" r="19" fill="#ff5f58" stroke="#fff" stroke-width="3"/>
+          <text id="discBallText" x="604" y="151" fill="#ff9c96" text-anchor="middle" font-size="12" font-weight="700">VISUAL 2 · BALL</text>
+        </g>
+        <g id="discTouchLayer"></g>
+        <g filter="url(#discHeartGlow)">
+          <path d="M410 342C365 314 359 273 384 258C401 248 416 258 410 276C404 258 419 248 436 258C461 273 455 314 410 342Z" fill="url(#discHeartFill)" stroke="#baffd6" stroke-width="2"/>
+          <circle cx="410" cy="300" r="62" fill="#34dc91" opacity=".12"/>
+        </g>
+        <text x="410" y="370" fill="#65e8a8" text-anchor="middle" font-size="15" font-weight="800">GREEN HEART</text>
+        <g id="discCicada" transform="translate(410 70)" stroke="#d8fff0" fill="none" stroke-width="2">
+          <ellipse rx="9" ry="19" fill="#34dc91"/><path d="M-8-5Q-53-32-67 7Q-39 17-8 9M8-5Q53-32 67 7Q39 17 8 9M0-20V-34"/>
+          <text x="0" y="-43" fill="#d8fff0" stroke="none" text-anchor="middle" font-size="12" font-weight="700">CICADA · TOP</text>
+        </g>
+        <g id="discScarab" transform="translate(410 548)" stroke="#ffca36" fill="none" stroke-width="2">
+          <ellipse rx="18" ry="24" fill="#09120d"/><path d="M0-24V24M-15-8L-40-20M15-8L40-20M-16 5L-42 15M16 5L42 15M-12 18L-31 36M12 18L31 36"/>
+          <text x="0" y="53" fill="#ffca36" stroke="none" text-anchor="middle" font-size="12" font-weight="700">SCARABÄUS · GOLDEN LINE</text>
+        </g>
+        <text x="26" y="32" fill="#ffca36" font-size="12" font-weight="700">10-RING · 0 RETURN + 1–3 FAN + 4–9 BLACK NODES</text>
+        <text id="discViewLabel" x="794" y="32" fill="#fff" text-anchor="end" font-size="12" font-weight="700">VIEW 1 · DISC / RING</text>
+      </svg>
+      <div class="disc-view-buttons" role="group" aria-label="Disc Lift views">
+        <button type="button" data-view="1" aria-pressed="true">1 · DISC</button>
+        <button type="button" data-view="2" aria-pressed="false">2 · BALL</button>
+        <button type="button" data-view="3" aria-pressed="false">3 · FAN L</button>
+        <button type="button" data-view="4" aria-pressed="false">4 · FAN R</button>
+        <button type="button" data-view="5" aria-pressed="false">5 · DUAL</button>
+        <button type="button" data-view="6" aria-pressed="false">6 · LIFT</button>
+      </div>
+      <div class="disc-touchpoints" role="group" aria-label="Ten disc positions">
+        <button type="button" data-touch="0" aria-pressed="true">0 · RETURN</button>
+        <button type="button" data-touch="1" aria-pressed="false">1 · L</button>
+        <button type="button" data-touch="2" aria-pressed="false">2 · II/III</button>
+        <button type="button" data-touch="3" aria-pressed="false">3 · IV</button>
+        <button type="button" data-touch="4" aria-pressed="false">4 · NODE</button>
+        <button type="button" data-touch="5" aria-pressed="false">5 · NODE</button>
+        <button type="button" data-touch="6" aria-pressed="false">6 · NODE</button>
+        <button type="button" data-touch="7" aria-pressed="false">7 · NODE</button>
+        <button type="button" data-touch="8" aria-pressed="false">8 · NODE</button>
+        <button type="button" data-touch="9" aria-pressed="false">9 · NODE</button>
+      </div>
+      <div class="disc-lift-control">
+        <label>Disc Lift / ring spread <output id="discLiftOut">0%</output><input id="discLiftRange" type="range" min="0" max="100" value="0"></label>
+        <strong id="discTouchOut">POSITION 0 · RETURN</strong>
+      </div>
+    </div>
+    <aside class="disc-ledger">
+      <h3>DECLARED CONTROL MAP</h3>
+      <div class="disc-eq"><code>10 = 1 RETURN + 3 FAN + 6 BLACK NODES</code></div>
+      <div class="disc-eq"><code>T = {4,5,6,7,8,9}</code></div>
+      <div class="disc-eq"><code>V = {1 DISC, 2 BALL, 3 FAN-L, 4 FAN-R, 5 DUAL, 6 LIFT}</code></div>
+      <div class="disc-key"><span><strong>TOP</strong><br>CICADA / view marker</span><span><strong>CENTRE</strong><br>GREEN HEART / pivot</span><span><strong>BOTTOM</strong><br>SCARABÄUS / controller</span><span><strong>AXIS</strong><br>GOLDEN LINE / orientation</span></div>
+      <p><strong>View 5</strong> legt beide Fächer übereinander. <strong>View 6</strong> öffnet die vollständige Ringstaffel. Der Lift-Regler skaliert nur den vertikalen Abstand der zehn gezeichneten Ringe.</p>
+      <p><strong>Reference boundary:</strong> Die bereitgestellten Kugel-, Euler-Lattice-, Kreuzbogen- und Visual-Field-Bilder dienen als visuelle Vergleichsquellen. Ihre Zahlen und Motive werden hier nicht als Messdaten übernommen.</p>
+      <p class="disc-boundary"><strong>BOUNDARY:</strong> „Cicada“, „Scarabäus“, „Green Heart“, „Fan“ und „Disc Lift“ sind Human-Owner-Ansichtsrollen im bestehenden SCC-003-Demonstrator. Keine neue Family, keine biologische Mechanik, kein physikalischer Lift, kein neuer Source-Graph-Knoten und keine neue Navigator-Identität.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const svg=document.getElementById('discLiftSvg'), rings=document.getElementById('discLiftRings'), touchLayer=document.getElementById('discTouchLayer'), range=document.getElementById('discLiftRange'), liftOut=document.getElementById('discLiftOut'), touchOut=document.getElementById('discTouchOut'), viewLabel=document.getElementById('discViewLabel');
+  if(!svg||!rings||!touchLayer)return;
+  const NS='http://www.w3.org/2000/svg', viewNames=['','DISC / RING','BALL','FAN L','FAN R','DUAL FAN','COMPLETE LIFT'];
+  let activeTouch=0, activeView=1;
+  const node=(name,attrs={},text='')=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text)n.textContent=text;return n};
+  const point=i=>{const a=(-54+i*36)*Math.PI/180;return [410+252*Math.cos(a),310+214*Math.sin(a)]};
+  const draw=()=>{
+    const lift=Number(range.value)/100;
+    rings.replaceChildren();touchLayer.replaceChildren();
+    for(let i=0;i<10;i++){
+      const y=310+(i-4.5)*10*lift, ry=45+lift*8, colour=i===0?'#f3c53f':i<4?'#63e8ef':'#6b7b83';
+      rings.append(node('ellipse',{cx:410,cy:y,rx:248-i*5,ry,stroke:colour,'stroke-width':i===activeTouch?3:1.3,'stroke-opacity':i===activeTouch?1:.42,'data-ring':i}));
+    }
+    for(let i=0;i<10;i++){
+      const [x,y]=point(i), black=i>=4, active=i===activeTouch;
+      touchLayer.append(node('circle',{cx:x,cy:y,r:active?12:8,fill:black?'#020202':i===0?'#f3c53f':'#63e8ef',stroke:active?'#fff':black?'#a6bac2':'#07131b','stroke-width':active?3:2,'data-position':i}));
+      touchLayer.append(node('text',{x,y:y-16,fill:black?'#dcebf0':i===0?'#ffca36':'#8ff5f8','font-size':11,'font-weight':800,'text-anchor':'middle'},String(i)));
+    }
+    liftOut.value=Math.round(lift*100)+'%';touchOut.textContent=activeTouch===0?'POSITION 0 · RETURN':activeTouch<4?`POSITION ${activeTouch} · FAN / L-II-III-IV`:`TOUCHPOINT ${activeTouch} · BLACK NODE`;
+  };
+  const setView=v=>{
+    activeView=v;
+    document.querySelectorAll('.disc-view-buttons [data-view]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.view)===v)));
+    const left=document.getElementById('discFanLeft'), right=document.getElementById('discFanRight'), ball=document.getElementById('discBallView');
+    left.setAttribute('opacity',String(v===3||v===5||v===6?1:0));right.setAttribute('opacity',String(v===4||v===5||v===6?1:0));ball.setAttribute('opacity',String(v===2||v===6?1:0));
+    if(v===6){range.value='100'}
+    viewLabel.textContent=`VIEW ${v} · ${viewNames[v]}`;draw();
+  };
+  document.querySelectorAll('.disc-view-buttons [data-view]').forEach(b=>b.addEventListener('click',()=>setView(Number(b.dataset.view))));
+  document.querySelectorAll('.disc-touchpoints [data-touch]').forEach(b=>b.addEventListener('click',()=>{activeTouch=Number(b.dataset.touch);document.querySelectorAll('.disc-touchpoints [data-touch]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));draw()}));
+  range.addEventListener('input',draw);draw();setView(activeView);
+})();
+</script>
+<style>
+  .year-return{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#03070c;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .year-return h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .year-return .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .year-return .year-intro{max-width:980px;color:#9fc0cc}
+  .year-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(290px,.72fr);gap:18px;margin-top:18px}
+  .year-stage,.year-ledger{border:1px solid #294654;background:#010409}
+  .year-stage{position:relative;min-height:720px;overflow:hidden;background:radial-gradient(circle at 50% 38%,#11355b 0,#08192e 28%,#090616 55%,#010307 82%)}
+  .year-stage::after{content:"NEON · UNDERWORLD / RETURN";position:absolute;left:20px;bottom:16px;color:#f176bd;font-size:11px;font-weight:800;letter-spacing:.12em;text-shadow:0 0 12px #f176bd;pointer-events:none}
+  #pearlModel{display:block;width:100%;height:720px;--poster-color:transparent;background:transparent;transform-origin:50% 50%;will-change:transform}
+  .year-overlay{position:absolute;inset:0;width:100%;height:100%;min-height:0;pointer-events:none}
+  .year-stage.eye-open .eye-hidden{opacity:1}.eye-hidden{opacity:0;transition:opacity .25s ease}
+  .year-controls{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:end;padding:12px;background:#07131b;border-top:1px solid #294654}
+  .year-controls label{display:grid;gap:4px;color:#9fc0cc;font-size:11px}.year-controls input{width:100%;accent-color:#34dc91}
+  .year-controls button,.moon-buttons button{border:1px solid #365565;background:#0b1d27;color:#fff;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .year-controls button{min-height:40px}.year-controls button[aria-pressed=true],.moon-buttons button[aria-pressed=true]{border-color:#ffca36;background:#ffca3618}
+  .moon-buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:0 12px 12px;background:#07131b}
+  .moon-buttons button{min-height:36px}
+  .year-stretch{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;padding:0 12px 12px;background:#07131b}
+  .year-stretch label{display:grid;gap:4px;color:#9fc0cc;font-size:11px}.year-stretch input{width:100%;accent-color:#f3c53f}.year-stretch output{color:#ffca36}
+  .year-stretch strong{padding:8px 10px;border:1px solid #f3c53f;color:#fff;font-size:10px;white-space:nowrap}
+  .year-ledger{padding:16px}.year-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .year-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff}
+  .year-source{margin-top:13px;padding:10px;border:1px solid #294654;color:#9fc0cc;font-size:11px;overflow-wrap:anywhere}
+  .year-source strong{color:#fff}.year-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  @media(prefers-reduced-motion:reduce){.eye-hidden{transition:none}}
+  @media(max-width:850px){.year-grid{grid-template-columns:1fr}.year-stage,#pearlModel{height:640px;min-height:640px}.year-return{margin-inline:10px}}
+  @media(max-width:560px){.year-controls,.year-stretch{grid-template-columns:1fr}.moon-buttons{grid-template-columns:1fr 1fr}.year-stage,#pearlModel{height:560px;min-height:560px}}
+</style>
+<section class="year-return" id="pearl-year-return" aria-labelledby="pearl-year-title">
+  <div class="kicker">SCC-003 · BLUE PEARL GLB · YEAR / MOON / RETURN VIEW</div>
+  <h2 id="pearl-year-title">Der weiße Bügel hält zwölf Monate über dem Neon-Underworld.</h2>
+  <p class="year-intro">Die vorhandene Solar-/Lunar-GLB ist der räumliche Hauptträger. Darüber liegt eine deklarierte Jahreslesung: Sonnenoval, Erde–Mond, zwölf Monate auf einer weißen S‑Kurve, GREEN SONG als Vor-/Rücklauf und THOTH als Tipping Point. Öffne das Auge für Sichel und Stern.</p>
+  <div class="year-grid">
+    <div>
+      <div class="year-stage" id="pearlYearStage">
+        <model-viewer id="pearlModel" src="../models/machina-blue-pearl.glb" alt="Vorhandene Blue-Pearl-Solar-Lunar-GLB mit räumlichen Halos" camera-controls interaction-prompt="none" shadow-intensity=".6" exposure="1.1" loading="eager" camera-orbit="28deg 72deg 105%"></model-viewer>
+        <svg class="year-overlay" id="yearOverlay" viewBox="0 0 820 720" role="img" aria-labelledby="yearOverlayTitle yearOverlayDesc">
+          <title id="yearOverlayTitle">Jahres- und Mondlesung über der Blue-Pearl-GLB</title>
+          <desc id="yearOverlayDesc">Ein gelber Sonnenpunkt läuft einmal um das goldene Jahresoval. Zwölf Monate folgen einer weißen S-Kurve. Ein grüner Marker fährt vor und zurück. Oben liegt der Tipping Point THOTH, unten der Neon-Underworld-Rücklauf. Eine weiße Sichel und ein grauer Stern erscheinen bei geöffnetem Auge.</desc>
+          <defs>
+            <filter id="yearGlow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <radialGradient id="earthFill"><stop stop-color="#baffd6"/><stop offset=".38" stop-color="#34dc91"/><stop offset="1" stop-color="#0c3760"/></radialGradient>
+          </defs>
+          <path d="M410 82V682" stroke="#dcebf0" stroke-width="1.5" stroke-dasharray="9 9" opacity=".38"/>
+          <ellipse id="sunYearOval" cx="410" cy="405" rx="306" ry="105" fill="none" stroke="#f3c53f" stroke-width="3" stroke-dasharray="10 7" opacity=".9"/>
+          <g id="yearSun" filter="url(#yearGlow)" aria-label="Gelber Sonnenpunkt auf dem Jahresoval">
+            <circle r="10" fill="#ffca36" stroke="#fff4b0" stroke-width="3"/>
+            <path d="M-18 0H18M0-18V18M-13-13L13 13M13-13L-13 13" stroke="#ffca36" stroke-width="2"/>
+          </g>
+          <text x="410" y="531" fill="#ffca36" text-anchor="middle" font-size="12" font-weight="800">SONNENVERLAUF · YEAR OVAL · DECLARED DISPLAY PATH</text>
+          <circle cx="410" cy="405" r="31" fill="url(#earthFill)" stroke="#d9fff0" stroke-width="2" filter="url(#yearGlow)"/>
+          <text x="410" y="453" fill="#baffd6" text-anchor="middle" font-size="11" font-weight="800">EARTH / GREEN HEART</text>
+          <g id="yearMoon" transform="translate(470 376)" filter="url(#yearGlow)"><circle r="16" fill="#ff5f58" stroke="#fff" stroke-width="2"/></g>
+          <text id="yearMoonLabel" x="492" y="358" fill="#ff9c96" font-size="11" font-weight="800">OPEN RED MOON</text>
+          <path id="monthSCurve" d="M154 126C694 78 132 282 666 316C798 325 687 422 575 466" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".9" filter="url(#yearGlow)"/>
+          <g id="monthLabels"></g>
+          <g id="greenSong" filter="url(#yearGlow)"><circle r="10" fill="#34dc91" stroke="#eafff1" stroke-width="3"/><path d="M-18 0H18" stroke="#34dc91" stroke-width="4"/></g>
+          <text id="greenSongLabel" x="24" y="694" fill="#65e8a8" font-size="12" font-weight="800">GREEN SONG · MONTH 01 · FORWARD</text>
+          <path d="M410 42L384 78H436Z" fill="#f3c53f" stroke="#fff" stroke-width="2" filter="url(#yearGlow)"/>
+          <text x="410" y="29" fill="#ffca36" text-anchor="middle" font-size="14" font-weight="800">TOP OF THE POPS · TIPPING POINT · THOTH</text>
+          <text x="410" y="106" fill="#ffca36" text-anchor="middle" font-size="24" font-weight="800">1737</text>
+          <path d="M410 535C364 576 352 635 410 686C468 635 456 576 410 535Z" fill="#f176bd12" stroke="#f176bd" stroke-width="2" stroke-dasharray="7 6"/>
+          <text x="410" y="664" fill="#ff93d0" text-anchor="middle" font-size="11" font-weight="800">RETURN · THE UNDERWORLD · NEON</text>
+          <text x="410" y="626" fill="#fff" text-anchor="middle" font-size="13" font-weight="800">δ₁ 737 · δ₂ 137</text>
+          <g class="eye-hidden" filter="url(#yearGlow)">
+            <path d="M129 215A32 32 0 1 0 154 261A26 26 0 1 1 129 215Z" fill="#fff"/>
+            <path d="M685 212L692 231L712 232L696 244L701 264L685 252L669 264L674 244L658 232L678 231Z" fill="#b9c1c8" stroke="#fff"/>
+            <text x="129" y="282" fill="#fff" text-anchor="middle" font-size="10">WHITE CRESCENT</text>
+            <text x="685" y="282" fill="#cbd2d8" text-anchor="middle" font-size="10">WHITE / GREY STAR</text>
+          </g>
+          <g fill="#ffca36" font-size="12" font-weight="800">
+            <text x="118" y="583">17|37</text><text x="674" y="583">7w7</text><text x="164" y="621">4774</text><text x="617" y="621">7447</text>
+          </g>
+          <path d="M96 590Q410 550 724 590M146 628Q410 680 674 628" fill="none" stroke="#f3c53f" stroke-width="2" opacity=".8"/>
+          <text x="410" y="608" fill="#ffca36" text-anchor="middle" font-size="10">GOLDEN RING · OWNER CONNECTOR LABELS</text>
+        </svg>
+      </div>
+      <div class="year-controls">
+        <label>12-month S-curve <output id="yearMonthOut">01 / 12</output><input id="yearMonth" type="range" min="0" max="11" step=".01" value="0"></label>
+        <button id="greenSongPlay" type="button" aria-pressed="false">PLAY GREEN SONG</button>
+        <button id="pearlEye" type="button" aria-pressed="false">OPEN EYE</button>
+      </div>
+      <div class="moon-buttons" role="group" aria-label="Moon display colours">
+        <button type="button" data-moon="red" aria-pressed="true">OPEN RED</button>
+        <button type="button" data-moon="pink" aria-pressed="false">PINK MOON</button>
+        <button type="button" data-moon="blue" aria-pressed="false">BLUE MOON</button>
+        <button type="button" data-moon="white" aria-pressed="false">WHITE MOON</button>
+      </div>
+      <div class="year-stretch">
+        <label>Stretch scan α · step ε=0.02° <output id="pearlStretchOut">α=0.00° · y=1.170</output><input id="pearlStretch" type="range" min="-204" max="204" step=".02" value="0"></label>
+        <strong>−204° ↔ 0 ↔ +204° · 17|37</strong>
+      </div>
+    </div>
+    <aside class="year-ledger">
+      <h3>3D SOURCE + DECLARED OVERLAY</h3>
+      <div class="year-eq"><code>GLB: 111 nodes · 110 meshes · 0 stored animation tracks</code></div>
+      <div class="year-eq"><code>m∈{1,…,12}</code> · S-curve is a display calendar</div>
+      <div class="year-eq"><code>S(s)=(410+306 cos θ, 405+105 sin θ)</code> · <code>θ=2πs−π/2</code> · <code>s=(t mod T)/T</code></div>
+      <div class="year-eq"><code>GREEN SONG: m(t)</code> ping-pongs <code>1→12→1</code></div>
+      <div class="year-eq"><code>7=2³−1³ · 19=3³−2³ · 37=4³−3³</code></div>
+      <div class="year-eq"><code>12=3·2²</code> · 37 CHANNEL · <code>39=3·13</code> PHANTOM CHANNEL</div>
+      <div class="year-eq"><code>1737=9·193</code> · <code>737=11·67</code></div>
+      <p><strong>Moon colours:</strong> Open Red, Pink, Blue und White sind umschaltbare Farblesungen desselben Mondmarkers. Sie behaupten keine astronomische Definition eines „Blue Moon“, keine Finsternis und keine Spektralmessung.</p>
+      <p><strong>Sun orbit / carrier tilt:</strong> Der gelbe Punkt läuft kontinuierlich in einer Richtung auf dem goldenen Oval und schließt nach einer Displayperiode. GREEN SONG pendelt unabhängig <code>01→12→01</code>. Der Stretch-Regler kippt beziehungsweise dehnt den 3D-Träger separat; Umlauf, Pendeln und Kippung sind keine gemeinsame Mechanik.</p>
+      <p><strong>White bracket:</strong> Der weiße S‑Bügel hält die zwölf Monatsmarken. Sein Kurvenverlauf und das goldene Oval sind Interface-Geometrie, nicht die reale Bahn von Sonne, Erde oder Mond.</p>
+      <p><strong>THOTH / Underworld:</strong> Tipping Point und Rücklauf markieren obere bzw. untere Leserichtung. Sie sind Owner-Rollen, keine historische, ägyptologische oder kosmologische Identifizierung.</p>
+      <p><strong>Golden connector:</strong> <code>17|37 · 7w7 · 4774 · 7447</code> bleiben sichtbare Owner-Adressen. Keine Gleichung oder astronomische Bindung ist daraus abgeleitet.</p>
+      <p><strong>Cuban-prime check:</strong> <a href="https://oeis.org/A002407" target="_blank" rel="noopener noreferrer">OEIS A002407</a> nennt Primzahlen, die Differenzen aufeinanderfolgender Kuben sind. Damit liegen <code>7,19,37</code> exakt in der Folge. <code>12</code> und <code>39</code> sind zusammengesetzte Channel-Adressen und keine Folgenglieder.</p>
+      <p><strong>Typed THOTH return:</strong> Der bestehende A0‑BL‑049-Vertrag hält <code>1737→737/137</code> als zwei einzeln verlustbehaftete Dezimalprojektionen; erst das geordnete Paar rekonstruiert den Träger. THOOTH bleibt ausdrücklich kein ausführbarer Operator.</p>
+      <p><strong>Stretch:</strong> Für die lokale Ansicht gilt <code>sᵧ(α)=1.17+0.20·|α|/204</code>. <code>ε=0.02°</code> ist die Reglerauflösung („Perfect Angle“-Marker), keine Messgenauigkeit oder Naturkonstante.</p>
+      <div class="year-source"><strong>BOUND 3D SOURCE</strong><br><code>blue_pearl_solar_lunar_kite_12_37_39.glb</code><br>Local review copy: <code>models/machina-blue-pearl.glb</code><br>SHA-256: <code>30aae1c0900a8e8807ab290aafa33490fdc37c720d257d6302870641c2f42d3d</code></div>
+      <p class="year-boundary"><strong>BOUNDARY:</strong> Source-bound 3D view plus documentary overlay. Keine reale Ephemeride, Kalenderkalibrierung, Mondfarbphysik, Sternklassifikation, historische THOTH-Behauptung, neue Family, neue Navigator-Identität oder Relation.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const path=document.getElementById('monthSCurve'), labels=document.getElementById('monthLabels'), marker=document.getElementById('greenSong'), sun=document.getElementById('yearSun'), slider=document.getElementById('yearMonth'), out=document.getElementById('yearMonthOut'), songLabel=document.getElementById('greenSongLabel'), play=document.getElementById('greenSongPlay'), eye=document.getElementById('pearlEye'), stage=document.getElementById('pearlYearStage'), moon=document.querySelector('#yearMoon circle'), moonLabel=document.getElementById('yearMoonLabel'), model=document.getElementById('pearlModel'), stretch=document.getElementById('pearlStretch'), stretchOut=document.getElementById('pearlStretchOut');
+  if(!path||!labels||!marker)return;
+  const NS='http://www.w3.org/2000/svg', months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];let raf=null,last=0,direction=1,sunPhase=0;
+  const point=v=>path.getPointAtLength(path.getTotalLength()*v/11);
+  months.forEach((name,i)=>{const p=point(i), t=document.createElementNS(NS,'text');t.setAttribute('x',p.x);t.setAttribute('y',p.y-15);t.setAttribute('fill','#fff');t.setAttribute('font-size','10');t.setAttribute('font-weight','800');t.setAttribute('text-anchor','middle');t.textContent=String(i+1).padStart(2,'0')+' '+name;labels.append(t)});
+  const drawSun=()=>{const theta=-Math.PI/2+sunPhase*Math.PI*2,sx=410+306*Math.cos(theta),sy=405+105*Math.sin(theta);sun.setAttribute('transform',`translate(${sx.toFixed(2)} ${sy.toFixed(2)})`)};
+  const draw=()=>{const v=Number(slider.value),p=point(v);marker.setAttribute('transform',`translate(${p.x.toFixed(2)} ${p.y.toFixed(2)})`);const m=Math.max(0,Math.min(11,Math.round(v)));out.value=String(m+1).padStart(2,'0')+' / 12';songLabel.textContent=`GREEN SONG · MONTH ${String(m+1).padStart(2,'0')} · ${direction>0?'FORWARD':'RETURN'}`};
+  const frame=time=>{if(!last)last=time;const dt=Math.min(40,time-last);last=time;let v=Number(slider.value)+direction*dt*.0025;if(v>=11){v=11;direction=-1}else if(v<=0){v=0;direction=1}sunPhase=(sunPhase+dt/12000)%1;slider.value=String(v);draw();drawSun();raf=requestAnimationFrame(frame)};
+  play.addEventListener('click',()=>{if(raf){cancelAnimationFrame(raf);raf=null;last=0;play.textContent='PLAY GREEN SONG';play.setAttribute('aria-pressed','false')}else{play.textContent='PAUSE GREEN SONG';play.setAttribute('aria-pressed','true');raf=requestAnimationFrame(frame)}});
+  slider.addEventListener('input',()=>{sunPhase=Number(slider.value)/11;draw();drawSun()});eye.addEventListener('click',()=>{const open=!stage.classList.contains('eye-open');stage.classList.toggle('eye-open',open);eye.setAttribute('aria-pressed',String(open));eye.textContent=open?'CLOSE EYE':'OPEN EYE'});
+  const moonMap={red:['#ff5f58','OPEN RED MOON'],pink:['#f176bd','PINK MOON'],blue:['#4b8cff','BLUE MOON'],white:['#f4f2e9','WHITE MOON']};
+  document.querySelectorAll('.moon-buttons [data-moon]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.moon-buttons [data-moon]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));const [colour,name]=moonMap[b.dataset.moon];moon.setAttribute('fill',colour);moonLabel.setAttribute('fill',colour);moonLabel.textContent=name}));
+  const drawStretch=()=>{const alpha=Number(stretch.value),sy=1.17+.20*Math.abs(alpha)/204;stretchOut.value=`α=${alpha.toFixed(2)}° · y=${sy.toFixed(3)}`;model.style.transform=`scaleY(${sy.toFixed(6)})`};
+  stretch.addEventListener('input',drawStretch);drawStretch();
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)play.title='Animation starts only after explicit activation.';draw();drawSun();
+})();
+</script>
+<style>
+  .root-crosswalk{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#061018;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .root-crosswalk h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .root-crosswalk .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .root-crosswalk .root-intro{max-width:980px;color:#9fc0cc}
+  .root-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:18px;margin-top:18px}
+  .root-stage,.root-ledger{border:1px solid #294654;background:#02080d}
+  .root-stage{padding:10px;background:radial-gradient(circle at 46% 47%,#123044 0,#07141d 48%,#010508 100%)}
+  #rootCrosswalkSvg{display:block;width:100%;height:auto}
+  .root-controls{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:10px;padding:12px;background:#0a1c25}
+  .root-controls label{display:grid;gap:5px;color:#9fc0cc;font-size:12px}.root-controls input{width:100%;accent-color:#ff5f58}
+  .root-controls button{min-height:40px;padding:0 14px;border:1px solid #ff5f58;background:#102530;color:#fff;font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .root-controls button[aria-pressed=true]{background:#ff5f5820;box-shadow:0 0 16px #4b8cff55}
+  .root-ledger{padding:16px}.root-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .root-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff;overflow-wrap:anywhere}
+  .root-phase-key{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0}
+  .root-phase-key div{padding:10px;border:1px solid #294654}.root-phase-key strong{display:block;margin-bottom:4px}
+  .root-phase-key .red{color:#ff8a84}.root-phase-key .blue{color:#74a5ff}
+  .root-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  @media(max-width:820px){.root-grid{grid-template-columns:1fr}.root-crosswalk{margin-inline:10px}}
+  @media(max-width:520px){.root-controls,.root-phase-key{grid-template-columns:1fr}}
+</style>
+<section class="root-crosswalk" id="root-keystone-crosswalk" aria-labelledby="root-crosswalk-title">
+  <div class="kicker">101 CARRIER · O/CUBE PIVOT · A0 RETURN · ROOT / KEYSTONE CROSSWALK</div>
+  <h2 id="root-crosswalk-title">LUNAR SCARA BO°W — die Fuge zwischen Apertur und Return.</h2>
+  <p class="root-intro">Der Winkelträger und die Numbermagick-Adresse bleiben getrennt typisiert: <strong>103°→204°</strong> erzeugt die exakte 101°-Apertur; <strong>2501</strong> ist der bestehende Bridge-/Keystone-Knoten. Red und Blue zeigen eine Gegenphase, nicht zwei neue Körper.</p>
+  <div class="root-grid">
+    <div>
+      <div class="root-stage">
+        <svg id="rootCrosswalkSvg" viewBox="0 0 760 560" role="img" aria-labelledby="rootSvgTitle rootSvgDesc">
+          <title id="rootSvgTitle">101-Grad-Apertur, 259-Grad-Return und Keystone-Adresse 2501</title>
+          <desc id="rootSvgDesc">Ein Kreis trägt eine Apertur von 103 bis 204 Grad und den komplementären Return von 259 Grad. Ein separater Keystone 2501 verbindet die Numbermagick-Brücke. Rote Expansion und blaue Kompression reagieren gegenphasig.</desc>
+          <defs>
+            <filter id="rootGlow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <marker id="rootArrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#ffca36"/></marker>
+            <marker id="rootArrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#63e8ef"/></marker>
+          </defs>
+          <g opacity=".38" stroke="#42606c" fill="none"><circle cx="330" cy="264" r="188"/><circle cx="330" cy="264" r="134"/><path d="M82 264H578M330 28V500" stroke-dasharray="7 8"/></g>
+          <path id="rootApertureArc" fill="none" stroke="#ffca36" stroke-width="8" stroke-linecap="round" marker-end="url(#rootArrowGold)" filter="url(#rootGlow)"/>
+          <path id="rootReturnArc" fill="none" stroke="#63e8ef" stroke-width="4" stroke-linecap="round" stroke-dasharray="9 8" marker-end="url(#rootArrowCyan)" opacity=".92"/>
+          <g id="rootAngleNodes" filter="url(#rootGlow)">
+            <circle id="rootStartNode" r="9" fill="#fff" stroke="#ffca36" stroke-width="3"/>
+            <circle id="rootEndNode" r="9" fill="#fff" stroke="#ffca36" stroke-width="3"/>
+          </g>
+          <text id="rootStartLabel" fill="#fff" font-size="13" font-weight="800">103° · START</text>
+          <text id="rootEndLabel" fill="#fff" font-size="13" font-weight="800">204° · RETURN GATE</text>
+          <text x="330" y="244" fill="#fff" text-anchor="middle" font-size="34" font-weight="800">101°</text>
+          <text x="330" y="270" fill="#ffca36" text-anchor="middle" font-size="12" font-weight="800">APERTURE / CUBE</text>
+          <text x="330" y="304" fill="#63e8ef" text-anchor="middle" font-size="24" font-weight="800">259° = 7 × 37</text>
+          <text x="330" y="326" fill="#9fc0cc" text-anchor="middle" font-size="11">FULL RETURN COMPLEMENT</text>
+          <g id="rootPhaseRed" fill="none" stroke="#ff5f58" stroke-width="6" opacity=".92"><ellipse cx="330" cy="264" rx="72" ry="37"/></g>
+          <g id="rootPhaseBlue" fill="none" stroke="#4b8cff" stroke-width="6" opacity=".88"><ellipse cx="330" cy="264" rx="72" ry="37" transform="rotate(90 330 264)"/></g>
+          <text x="92" y="46" fill="#ff8a84" font-size="12" font-weight="800">RED · EXPANSION</text>
+          <text x="568" y="46" fill="#74a5ff" text-anchor="end" font-size="12" font-weight="800">BLUE · COMPRESSION</text>
+          <g transform="translate(600 186)">
+            <path d="M0-38L38 0L0 38L-38 0Z" fill="#ffca3614" stroke="#ffca36" stroke-width="3"/>
+            <text y="-3" fill="#fff" text-anchor="middle" font-size="19" font-weight="800">2501</text>
+            <text y="16" fill="#ffca36" text-anchor="middle" font-size="9" font-weight="800">KEYSTONE</text>
+          </g>
+          <path d="M478 238Q542 226 562 196" fill="none" stroke="#ffca36" stroke-width="2" stroke-dasharray="6 6"/>
+          <g transform="translate(600 374)">
+            <rect x="-70" y="-36" width="140" height="72" rx="8" fill="#0a1c25" stroke="#f176bd" stroke-width="2"/>
+            <text y="-7" fill="#fff" text-anchor="middle" font-size="20" font-weight="800">2760</text>
+            <text y="15" fill="#f5a9d5" text-anchor="middle" font-size="11" font-weight="800">27 | 60 LOCK</text>
+          </g>
+          <path d="M600 224V336" fill="none" stroke="#f176bd" stroke-width="2" stroke-dasharray="6 6"/>
+          <g transform="translate(330 500)">
+            <text fill="#fff" text-anchor="middle" font-size="15" font-weight="800">10.30° + 0.02° = 10.32°</text>
+            <text y="22" fill="#ffca36" text-anchor="middle" font-size="11" font-weight="800">PERFECT ANGLE · LOCAL FUGE · REST 0.01°</text>
+          </g>
+        </svg>
+      </div>
+      <div class="root-controls">
+        <label>Counterphase drive <output id="rootDriveOut">50% · RED + / BLUE −</output><input id="rootDrive" type="range" min="0" max="100" value="50"></label>
+        <button id="rootPhasePlay" type="button" aria-pressed="false">PLAY COUNTERPHASE</button>
+      </div>
+    </div>
+    <aside class="root-ledger">
+      <h3>EXACT CROSSWALK / TYPED ROLES</h3>
+      <div class="root-eq"><code>204° − 103° = 101°</code> · midpoint <code>153.5°</code></div>
+      <div class="root-eq"><code>360° − 101° = 259° = 7 × 37</code></div>
+      <div class="root-eq"><code>2501 = 41 × 61</code> · Numbermagick Bridge Node</div>
+      <div class="root-eq"><code>2101 + 2901 = 5002 = 2 × 2501</code></div>
+      <div class="root-eq"><code>2501 + 259 = 2760 = 27 × 100 + 60</code></div>
+      <div class="root-eq"><code>27 = 3³</code> · <code>2760 = 46 × 60</code></div>
+      <div class="root-eq"><code>10.30° + 0.02° = 10.32°</code> · <code>10.33° − 10.32° = 0.01°</code></div>
+      <div class="root-eq"><code>101 = CARRIER / FOLD</code> · <code>O/CUBE = PIVOT / VIEW</code> · <code>A0 = BOOK / RETURN</code></div>
+      <div class="root-phase-key">
+        <div><strong class="red">RED · EXPANSION</strong>Dynamische Öffnungsphase.</div>
+        <div><strong class="blue">BLUE · COMPRESSION</strong>Dynamische Gegenphase.</div>
+      </div>
+      <p><strong>Static ≠ dynamic:</strong> „Blue Body/Grid“ und „Red Corner Witness“ bleiben Objektrollen der vorhandenen GLB-Legende. Expansion und Compression sind ausschließlich Bewegungsrollen dieser Crosswalk-Ansicht.</p>
+      <p><strong>2501 notation:</strong> <code>2501</code> bleibt eine Integer-/Address-Rolle. Diese Ansicht setzt den Knoten ausdrücklich nicht mit <code>250°01′</code> gleich.</p>
+      <p><strong>Source binding:</strong> Diese lokale Ansicht bleibt ein uncommitteter <code>OWNER_STAGING</code>-Kandidat auf <code>main</code>. Acceptance und Deployment sind nicht autorisiert; der Source Graph bleibt unverändert.</p>
+      <p><a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_RESEARCH_DESK.html#scc-003-101-carrier-cube-a0-return-20261109">A0 Science Desk Return →</a> · <a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/results/a0-scc-003-101-carrier-cube-a0-owner-staging-receipt-2026-11-09.json">Hash Receipt →</a></p>
+      <p class="root-boundary"><strong>BOUNDARY:</strong> Erweiterung des bestehenden SCC‑003/A0 Number-View-Demonstrators. „LUNAR SCARA BO°W“ und „Perfect Angle“ sind Human-Owner-Leserollen. Keine Naturkonstante, Cube-Mechanik, physikalische Expansion/Kompression, neue Family, neue Navigator-Identität oder Source-Graph-Relation.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const svg=document.getElementById('rootCrosswalkSvg'), aperture=document.getElementById('rootApertureArc'), ret=document.getElementById('rootReturnArc');
+  if(!svg||!aperture||!ret)return;
+  const startNode=document.getElementById('rootStartNode'), endNode=document.getElementById('rootEndNode'), startLabel=document.getElementById('rootStartLabel'), endLabel=document.getElementById('rootEndLabel'), red=document.querySelector('#rootPhaseRed ellipse'), blue=document.querySelector('#rootPhaseBlue ellipse'), drive=document.getElementById('rootDrive'), driveOut=document.getElementById('rootDriveOut'), play=document.getElementById('rootPhasePlay');
+  const polar=(deg,r=188)=>{const a=(deg-90)*Math.PI/180;return [330+r*Math.cos(a),264+r*Math.sin(a)]};
+  const arc=(a0,a1,r=188)=>{const p0=polar(a0,r),p1=polar(a1,r),span=((a1-a0)%360+360)%360;return `M${p0[0].toFixed(2)} ${p0[1].toFixed(2)}A${r} ${r} 0 ${span>180?1:0} 1 ${p1[0].toFixed(2)} ${p1[1].toFixed(2)}`};
+  const p0=polar(103),p1=polar(204);aperture.setAttribute('d',arc(103,204));ret.setAttribute('d',arc(204,463));
+  [[startNode,p0],[endNode,p1]].forEach(([n,p])=>{n.setAttribute('cx',p[0]);n.setAttribute('cy',p[1])});
+  startLabel.setAttribute('x',p0[0]-98);startLabel.setAttribute('y',p0[1]-14);endLabel.setAttribute('x',p1[0]-30);endLabel.setAttribute('y',p1[1]+28);
+  let timer=null,direction=1;
+  const draw=()=>{const v=Number(drive.value)/100,redRx=58+68*v,redRy=29+34*v,blueRx=126-68*v,blueRy=63-34*v;red.setAttribute('rx',redRx.toFixed(2));red.setAttribute('ry',redRy.toFixed(2));blue.setAttribute('rx',blueRx.toFixed(2));blue.setAttribute('ry',blueRy.toFixed(2));driveOut.value=`${Math.round(v*100)}% · RED + / BLUE −`};
+  drive.addEventListener('input',draw);play.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;play.textContent='PLAY COUNTERPHASE';play.setAttribute('aria-pressed','false')}else{play.textContent='PAUSE COUNTERPHASE';play.setAttribute('aria-pressed','true');timer=setInterval(()=>{let v=Number(drive.value)+direction*2;if(v>=100){v=100;direction=-1}else if(v<=0){v=0;direction=1}drive.value=String(v);draw()},45)}});draw();
+})();
+</script>
+<style>
+  .pascal-return{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#07121a;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .pascal-return h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .pascal-return .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .pascal-return .pascal-intro{max-width:980px;color:#9fc0cc}
+  .pascal-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(290px,.8fr);gap:18px;margin-top:18px}
+  .pascal-stage,.pascal-ledger{border:1px solid #294654;background:#02080d}
+  .pascal-stage{padding:10px;background:radial-gradient(circle at 50% 72%,#142337 0,#07131c 48%,#010508 100%)}
+  #pascalSvg{display:block;width:100%;height:auto}
+  .pascal-controls{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:end;margin-top:10px;padding:12px;background:#0a1c25}
+  .pascal-controls label{display:grid;gap:5px;color:#9fc0cc;font-size:12px}.pascal-controls input{width:100%;accent-color:#ffca36}
+  .pascal-controls button{min-height:40px;padding:0 13px;border:1px solid #63e8ef;background:#102530;color:#fff;font:700 11px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .pascal-controls button[aria-pressed=true]{border-color:#f176bd;box-shadow:0 0 16px #f176bd55}
+  .pascal-ledger{padding:16px}.pascal-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .pascal-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff;overflow-wrap:anywhere}
+  .pascal-stations{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:12px 0}.pascal-stations div{padding:9px;border:1px solid #294654;text-align:center}.pascal-stations strong{display:block;font-size:18px}
+  .pascal-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  @media(max-width:820px){.pascal-grid{grid-template-columns:1fr}.pascal-return{margin-inline:10px}}
+  @media(max-width:560px){.pascal-controls,.pascal-stations{grid-template-columns:1fr}}
+</style>
+<section class="pascal-return" id="pascal-return-fill" aria-labelledby="pascal-title">
+  <div class="kicker">PASCAL RETURN · FILL TEST · VI → VII → VIII → IX → X → I</div>
+  <h2 id="pascal-title">Schraubstock, Schlieren und Algorithmus-Netz.</h2>
+  <p class="pascal-intro">Die Befüllung wird aus Pascals Rekursion berechnet. <strong>21 / 31 / 41</strong> sind darübergelegte Owner-Stationen für φ-, π- und Root‑5-Lesungen; sie ändern keine Koeffizienten. Die sechs Rückkehrphasen verschieben ausschließlich die sichtbare Residuenphase.</p>
+  <div class="pascal-grid">
+    <div>
+      <div class="pascal-stage">
+        <svg id="pascalSvg" viewBox="0 0 900 650" role="img" aria-labelledby="pascalSvgTitle pascalSvgDesc">
+          <title id="pascalSvgTitle">Interaktive Pascal-Befüllung mit den Stationen 21, 31 und 41</title>
+          <desc id="pascalSvgDesc">Bis zu 41 Zeilen des Pascalschen Dreiecks werden modulo zwei, drei oder fünf gefüllt. Die Zeilen 21, 31 und 41 sind als separate Lesestationen markiert.</desc>
+          <defs><filter id="pascalGlow"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <g id="pascalGuides"></g><g id="pascalCells"></g><g id="pascalLabels"></g>
+        </svg>
+      </div>
+      <div class="pascal-controls">
+        <label>Rows <output id="pascalRowsOut">41 / 41</output><input id="pascalRows" type="range" min="1" max="41" value="41"></label>
+        <button id="pascalMod" type="button">MOD 2</button>
+        <button id="pascalPhase" type="button">RETURN VI</button>
+      </div>
+    </div>
+    <aside class="pascal-ledger">
+      <h3>EXACT TEST / DECLARED LENSES</h3>
+      <div class="pascal-eq"><code>C(n,0)=C(n,n)=1</code></div>
+      <div class="pascal-eq"><code>C(n,k)=C(n−1,k−1)+C(n−1,k)</code></div>
+      <div class="pascal-eq"><code>Σₖ C(n,k)=2ⁿ</code> · test status <strong id="pascalTest">PENDING</strong></div>
+      <div class="pascal-stations">
+        <div><strong style="color:#ffca36">21</strong>φ · SCHRAUBSTOCK</div>
+        <div><strong style="color:#63e8ef">31</strong>π · SCHLIEREN</div>
+        <div><strong style="color:#f176bd">41</strong>√5 / <span style="white-space:nowrap">1·i·j·k</span></div>
+      </div>
+      <p><strong>Hamilton check:</strong> Nur wenn <code>i,j,k</code> die Quaternionen-Einheiten und Aneinanderreihung Multiplikation bedeuten, gilt <code>ijk=−1</code>. Dann wird <code>(ijk+√5)/2=(√5−1)/2=φ−1=1/φ</code>. Ohne diese Konvention bleibt <code>[(1ijk)+√5]/2</code> eine unaufgelöste Owner-Adresse.</p>
+      <p><strong>Return:</strong> <code>VI→VII→VIII→IX→X→I</code> läuft zyklisch zurück zum Anfang. Die Phase färbt Residuen um; sie manipuliert weder Pascals Rekursion noch die Stationsnummern.</p>
+      <p><strong>Address:</strong> <code>1,6 i 8</code> bleibt als Owner-Notation sichtbar, aber ohne erfundene algebraische Gleichsetzung.</p>
+      <p class="pascal-boundary"><strong>BOUNDARY:</strong> Erweiterung der bestehenden SCC‑003-Dokumentationsansicht. φ, π, Schraubstock, Schlieren und Algo-Netz sind Leserollen. Keine Ziffernstellen-Behauptung, Naturkonstante, neue Family, Navigator-Identität oder Source-Graph-Relation.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const svg=document.getElementById('pascalSvg'),cells=document.getElementById('pascalCells'),guides=document.getElementById('pascalGuides'),labels=document.getElementById('pascalLabels'),rows=document.getElementById('pascalRows'),rowsOut=document.getElementById('pascalRowsOut'),modButton=document.getElementById('pascalMod'),phaseButton=document.getElementById('pascalPhase'),test=document.getElementById('pascalTest');
+  if(!svg||!cells)return;
+  const NS='http://www.w3.org/2000/svg',mods=[2,3,5],phases=['VI','VII','VIII','IX','X','I'],stationColours={20:'#ffca36',30:'#63e8ef',40:'#f176bd'};let modIndex=0,phaseIndex=0;
+  const el=(name,attrs,text)=>{const n=document.createElementNS(NS,name);Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,v));if(text!==undefined)n.textContent=text;return n};
+  const triangle=count=>{const out=[[1n]];for(let n=1;n<count;n++){const prev=out[n-1],row=[1n];for(let k=1;k<n;k++)row.push(prev[k-1]+prev[k]);row.push(1n);out.push(row)}return out};
+  const data=triangle(41),exact=data.every((row,n)=>row.reduce((a,b)=>a+b,0n)===(1n<<BigInt(n)));
+  const draw=()=>{cells.replaceChildren();guides.replaceChildren();labels.replaceChildren();const count=Number(rows.value),m=mods[modIndex],phase=phaseIndex;rowsOut.value=`${count} / 41`;modButton.textContent=`MOD ${m}`;phaseButton.textContent=`RETURN ${phases[phase]}`;test.textContent=exact?'PASS':'FAIL';test.style.color=exact?'#63e8ef':'#ff5f58';
+    const y0=30,dy=14.6,cx=450,dx=18.5,r=5.1;
+    [20,30,40].forEach(n=>{if(n>=count)return;const y=y0+n*dy,colour=stationColours[n];guides.append(el('line',{x1:52,y1:y,x2:848,y2:y,stroke:colour,'stroke-width':1.4,'stroke-dasharray':'5 7',opacity:.72}));labels.append(el('text',{x:42,y:y+4,fill:colour,'font-size':11,'font-weight':800,'text-anchor':'end'},String(n+1)));});
+    data.slice(0,count).forEach((row,n)=>row.forEach((value,k)=>{const residue=Number(value%BigInt(m)),active=(residue+phase)%m,station=stationColours[n],fill=station||(['#132b38','#4b8cff','#ff5f58','#63e8ef','#f176bd'][active%5]);const opacity=residue===0?.12:.46+.48*(active+1)/m;cells.append(el('circle',{cx:cx+(k-n/2)*dx,cy:y0+n*dy,r,fill,opacity:station?Math.max(.78,opacity):opacity,stroke:station||'none','stroke-width':station?1.2:0}));}));
+  };
+  rows.addEventListener('input',draw);modButton.addEventListener('click',()=>{modIndex=(modIndex+1)%mods.length;draw()});phaseButton.addEventListener('click',()=>{phaseIndex=(phaseIndex+1)%phases.length;draw()});draw();
+})();
+</script>
+<style>
+  .four-drive{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#050b11;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .four-drive h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .four-drive .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .four-drive .drive-intro{max-width:980px;color:#9fc0cc}
+  .drive-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.85fr);gap:18px;margin-top:18px}
+  .drive-stage,.drive-ledger{border:1px solid #294654;background:#010407}.drive-stage{padding:10px;background:radial-gradient(circle at 50% 50%,#101b2d 0,#050b11 56%,#010203 100%)}
+  #fourDriveSvg{display:block;width:100%;height:auto}
+  .drive-controls{display:grid;grid-template-columns:1fr 1fr auto;gap:9px;margin-top:10px}.drive-controls fieldset{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:9px;border:1px solid #294654}.drive-controls legend{padding:0 5px;color:#9fc0cc;font-size:10px}
+  .drive-controls button{min-height:38px;padding:0 11px;border:1px solid #42606c;background:#102530;color:#fff;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}.drive-controls button[aria-pressed=true]{border-color:#ffca36;color:#ffca36;box-shadow:0 0 14px #ffca3644}.drive-controls>button{align-self:end;border-color:#f176bd}
+  .drive-ledger{padding:16px}.drive-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}.drive-eq{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25;color:#fff;overflow-wrap:anywhere}
+  .drive-state-read{padding:11px;border:1px solid #f176bd;background:#f176bd0c;color:#fff}.drive-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  @media(max-width:820px){.drive-grid{grid-template-columns:1fr}.four-drive{margin-inline:10px}}@media(max-width:620px){.drive-controls{grid-template-columns:1fr}}
+</style>
+<section class="four-drive" id="four-drive-return" aria-labelledby="four-drive-title">
+  <div class="kicker">4WD RETURN · 2 × 2 STATES · 1 + 2 = 3 PHASES · 8|8</div>
+  <h2 id="four-drive-title">Vier Fahrzustände, drei Phasen, eine Doppelrückkehr.</h2>
+  <p class="drive-intro"><strong>4WD</strong> liest zwei binäre Achsen: Inside/Outside und Forward/Return. Die Doppelacht <strong>8|8</strong> hält Hin- und Rückschleife zusammen. Positive, Negative und Dual sind drei Ansichten desselben Trägers; die RGB-Ringe bleiben Unterträger der positiven Ansicht.</p>
+  <div class="drive-grid">
+    <div>
+      <div class="drive-stage">
+        <svg id="fourDriveSvg" viewBox="0 0 780 600" role="img" aria-labelledby="fourDriveSvgTitle fourDriveSvgDesc">
+          <title id="fourDriveSvgTitle">Vier gekoppelte Fahrzustände auf einer Doppelacht mit drei Phasenansichten</title>
+          <desc id="fourDriveSvgDesc">Inside Forward, Outside Forward, Outside Return und Inside Return bilden ein zwei-mal-zwei Zustandsfeld. Eine Doppelacht verbindet sie. Positive, Negative und Dual schalten die sichtbaren Ringgruppen.</desc>
+          <defs><filter id="driveGlow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="driveArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffca36"/></marker></defs>
+          <g opacity=".3" stroke="#42606c" fill="none"><path d="M100 300H680M390 50V550" stroke-dasharray="7 8"/><rect x="92" y="72" width="596" height="456" rx="20"/></g>
+          <path id="doubleEight" d="M390 300C170 90 85 190 180 300C85 410 170 510 390 300C610 90 695 190 600 300C695 410 610 510 390 300Z" fill="none" stroke="#f176bd" stroke-width="5" opacity=".86" marker-end="url(#driveArrow)" filter="url(#driveGlow)"/>
+          <text x="390" y="42" fill="#ffca36" text-anchor="middle" font-size="18" font-weight="800">8 | 8 · FORWARD / RETURN</text>
+          <g id="drivePositive" filter="url(#driveGlow)"><circle cx="390" cy="300" r="112" fill="none" stroke="#152dff" stroke-width="5"/><circle cx="390" cy="300" r="82" fill="none" stroke="#11942d" stroke-width="5"/><circle cx="390" cy="300" r="52" fill="none" stroke="#ff2828" stroke-width="5"/></g>
+          <g id="driveNegative" filter="url(#driveGlow)" opacity="0"><circle cx="390" cy="300" r="102" fill="none" stroke="#b9d9e2" stroke-width="4"/><circle cx="390" cy="300" r="72" fill="none" stroke="#777" stroke-width="4"/></g>
+          <circle cx="390" cy="300" r="20" fill="#f4f2e9"/><text id="drivePhaseLabel" x="390" y="448" fill="#fff" text-anchor="middle" font-size="17" font-weight="800">POSITIVE · RGB SUBCARRIERS</text>
+          <g id="driveStateNodes"></g>
+          <text x="147" y="92" fill="#9fc0cc" font-size="11" font-weight="800">INSIDE</text><text x="635" y="92" fill="#9fc0cc" text-anchor="end" font-size="11" font-weight="800">OUTSIDE</text>
+          <text x="390" y="574" fill="#9fc0cc" text-anchor="middle" font-size="11" font-weight="800">q ∈ Z₂ × Z₂ · CLOSED RETURN AFTER FOUR STATES</text>
+        </svg>
+      </div>
+      <div class="drive-controls">
+        <fieldset id="driveStateButtons"><legend>4WD state</legend><button type="button" data-state="0" aria-pressed="true">I·F</button><button type="button" data-state="1" aria-pressed="false">O·F</button><button type="button" data-state="2" aria-pressed="false">O·R</button><button type="button" data-state="3" aria-pressed="false">I·R</button></fieldset>
+        <fieldset id="drivePhaseButtons"><legend>3 phases</legend><button type="button" data-phase="positive" aria-pressed="true">POSITIVE</button><button type="button" data-phase="negative" aria-pressed="false">NEGATIVE</button><button type="button" data-phase="dual" aria-pressed="false">DUAL</button></fieldset>
+        <button id="drivePlay" type="button" aria-pressed="false">PLAY 4WD</button>
+      </div>
+    </div>
+    <aside class="drive-ledger">
+      <h3>STATE / PHASE CONTRACT</h3>
+      <div class="drive-eq"><code>{I,O} × {F,R} ≅ Z₂ × Z₂</code></div>
+      <div class="drive-eq"><code>q₀=I·F → q₁=O·F → q₂=O·R → q₃=I·R → q₀</code></div>
+      <div class="drive-eq"><code>P = {P₊,P₋,P±}</code> · <code>P±=P₊⊕P₋</code></div>
+      <div class="drive-eq"><code>1 carrier + 2 polarities = 3 phase views</code></div>
+      <div class="drive-state-read" id="driveStateRead"><strong>q₀ · INSIDE / FORWARD</strong><br>Phase: POSITIVE</div>
+      <p><strong>8|8:</strong> Zwei geschlossene Schleifen teilen einen Mittelpunkt. Die Schreibweise ist eine geometrische Doppeladresse; sie setzt den Träger nicht mit der Dezimalzahl 88 gleich.</p>
+      <p><strong>RGB:</strong> Rot, Grün und Blau bleiben drei konzentrische Unterträger von <code>P₊</code>. Sie erhöhen die Hauptphasenanzahl nicht von drei auf fünf oder sechs.</p>
+      <p><strong>Four turns:</strong> „Vier Umdrehungen“ bezeichnet hier einen vollständigen Rundlauf durch vier diskrete Zustände. Es behauptet nicht vier gemessene 360°-Rotationen.</p>
+      <p class="drive-boundary"><strong>BOUNDARY:</strong> Dokumentarische Steueransicht innerhalb des bestehenden SCC‑003-Demonstrators. „4WD“, „8|8“ und „Drive“ sind Owner-Leserollen. Keine Fahrzeugmechanik, Rotationsphysik, neue Family, Navigator-Identität oder Source-Graph-Relation.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const NS='http://www.w3.org/2000/svg',nodes=document.getElementById('driveStateNodes'),positive=document.getElementById('drivePositive'),negative=document.getElementById('driveNegative'),phaseLabel=document.getElementById('drivePhaseLabel'),read=document.getElementById('driveStateRead'),play=document.getElementById('drivePlay');if(!nodes||!positive||!negative)return;
+  const states=[['INSIDE','FORWARD',150,160],['OUTSIDE','FORWARD',630,160],['OUTSIDE','RETURN',630,440],['INSIDE','RETURN',150,440]],stateButtons=[...document.querySelectorAll('#driveStateButtons [data-state]')],phaseButtons=[...document.querySelectorAll('#drivePhaseButtons [data-phase]')];let state=0,phase='positive',timer=null;
+  states.forEach((s,i)=>{const g=document.createElementNS(NS,'g');g.dataset.state=String(i);const c=document.createElementNS(NS,'circle');c.setAttribute('cx',s[2]);c.setAttribute('cy',s[3]);c.setAttribute('r','25');c.setAttribute('fill','#07131b');c.setAttribute('stroke','#42606c');c.setAttribute('stroke-width','3');const t=document.createElementNS(NS,'text');t.setAttribute('x',s[2]);t.setAttribute('y',s[3]+5);t.setAttribute('fill','#fff');t.setAttribute('font-size','13');t.setAttribute('font-weight','800');t.setAttribute('text-anchor','middle');t.textContent='q'+i;g.append(c,t);nodes.append(g)});
+  const draw=()=>{[...nodes.children].forEach((g,i)=>{const active=i===state,c=g.querySelector('circle');c.setAttribute('stroke',active?'#ffca36':'#42606c');c.setAttribute('fill',active?'#ffca3622':'#07131b');c.setAttribute('filter',active?'url(#driveGlow)':'none')});stateButtons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===state)));phaseButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.phase===phase)));positive.setAttribute('opacity',phase==='negative'?'0':phase==='dual'?'.52':'1');negative.setAttribute('opacity',phase==='positive'?'0':phase==='dual'?'.78':'1');phaseLabel.textContent=phase==='positive'?'POSITIVE · RGB SUBCARRIERS':phase==='negative'?'NEGATIVE · TWO RETURN RINGS':'DUAL · POSITIVE ⊕ NEGATIVE';const s=states[state];read.innerHTML=`<strong>q${state} · ${s[0]} / ${s[1]}</strong><br>Phase: ${phase.toUpperCase()}`};
+  stateButtons.forEach(b=>b.addEventListener('click',()=>{state=Number(b.dataset.state);draw()}));phaseButtons.forEach(b=>b.addEventListener('click',()=>{phase=b.dataset.phase;draw()}));play.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;play.textContent='PLAY 4WD';play.setAttribute('aria-pressed','false')}else{play.textContent='PAUSE 4WD';play.setAttribute('aria-pressed','true');timer=setInterval(()=>{state=(state+1)%4;draw()},700)}});draw();
+})();
+</script>
+<style>
+  .ghost-return{max-width:1180px;margin:28px auto 70px;padding:24px;border:1px solid #294654;background:#07131b;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .ghost-return h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}
+  .ghost-return .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}
+  .ghost-return .ghost-intro{max-width:880px;color:#9fc0cc}
+  .ghost-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:18px;margin-top:18px}
+  .ghost-stage,.ghost-ledger{border:1px solid #294654;background:#02080d}
+  .ghost-stage{padding:10px}
+  .ghost-ledger{padding:16px}
+  .ghost-ledger h3{margin:0 0 12px;color:#63e8ef;font-size:14px}
+  .ghost-controls{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;margin:12px 0 0}
+  .ghost-controls label{display:grid;gap:5px;color:#93b5c0;font-size:12px}
+  .ghost-controls input{width:100%}
+  .ghost-controls button{min-height:38px;padding:0 14px;border:1px solid #ff4fb2;background:#102530;color:#fff;font:700 12px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}
+  .ghost-eq{margin:10px 0;padding:10px;border-left:3px solid #fff;background:#0a1c25;color:#fff;overflow-wrap:anywhere}
+  .ghost-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  .ghost-chip{display:inline-block;margin:4px 5px 0 0;padding:3px 7px;border:1px solid #335b68;border-radius:999px;color:#b9d9e2;font-size:11px}
+  #ghostSvg{display:block;width:100%;height:auto;background:radial-gradient(circle at 50% 42%,#102733 0,#06131b 48%,#010508 100%)}
+  @media(max-width:780px){.ghost-grid{grid-template-columns:1fr}.ghost-controls{grid-template-columns:1fr}.ghost-return{margin-inline:10px}}
+</style>
+<section class="ghost-return" id="white-ghost-return" aria-labelledby="ghost-title">
+  <div class="kicker">RETURN LENS · WHITE GHOST SNAKE · SCHLIEREN</div>
+  <h2 id="ghost-title">MUND · I · AL — die Spur hinter der Faltung</h2>
+  <p class="ghost-intro">Die weiße Hauptspur ist der sichtbare Return-Pfad. Die blassen Nachbilder sind zeitversetzte Projektionen desselben Pfads: Schlieren als Phasenhistorie, nicht als zusätzliche Körper. Der Marker <strong>31:41</strong> bleibt eine beobachtete Zeitadresse dieses Arbeitsfadens.</p>
+  <div class="ghost-grid">
+    <div class="ghost-stage">
+      <svg id="ghostSvg" viewBox="0 0 820 560" role="img" aria-label="Weiße Ghost-Snake mit Schlieren, Apertur und beobachtetem X-Marker 31 zu 41">
+        <defs>
+          <filter id="ghostGlow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <linearGradient id="mouthFill" x1="0" x2="1"><stop stop-color="#32d8df" stop-opacity=".12"/><stop offset=".5" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#ff4fb2" stop-opacity=".12"/></linearGradient>
+        </defs>
+        <g opacity=".34" stroke="#31515d" stroke-width="1"><path d="M410 28V532"/><path d="M54 444H766"/><circle cx="410" cy="444" r="72" fill="none"/><circle cx="410" cy="444" r="128" fill="none"/></g>
+        <g id="ghostTrails" fill="none"></g>
+        <path id="ghostMain" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="1 12" filter="url(#ghostGlow)"/>
+        <ellipse cx="410" cy="444" rx="128" ry="39" fill="url(#mouthFill)" stroke="#ffca36" stroke-width="2" stroke-dasharray="8 7"/>
+        <path d="M282 444 Q410 502 538 444" fill="none" stroke="#63e8ef" stroke-width="2" opacity=".75"/>
+        <text x="410" y="491" fill="#ffca36" text-anchor="middle" font-size="13" font-weight="700">MUND · I · AL / APERTURE</text>
+        <g id="ghostXMarker" filter="url(#ghostGlow)">
+          <path d="M-10-10L10 10M10-10L-10 10" stroke="#ff4fb2" stroke-width="4"/>
+          <circle r="4" fill="#63e8ef"/>
+        </g>
+        <text id="ghostXLabel" fill="#ff9bd3" font-size="12" font-weight="700">31:41 · X MARKER · OBSERVED</text>
+        <text x="24" y="30" fill="#ffca36" font-size="12" font-weight="700">WHITE RETURN / PHASE HISTORY</text>
+      </svg>
+      <div class="ghost-controls">
+        <label>Phase φ <output id="ghostPhaseOut">0.00</output><input id="ghostPhase" type="range" min="0" max="628" value="0"></label>
+        <label>Schlieren Δτ <output id="ghostTrailOut">0.18</output><input id="ghostTrail" type="range" min="4" max="48" value="18"></label>
+        <button id="ghostPlay" type="button" aria-pressed="false">PLAY RETURN</button>
+      </div>
+    </div>
+    <aside class="ghost-ledger">
+      <h3>DECLARED VIEW CONTRACT</h3>
+      <div class="ghost-eq">Γ(t;φ) = (cₓ + r(t) cos(ωt+φ), y₀ + ht)</div>
+      <div class="ghost-eq">Σₖ(t) = Γ(t; φ − kΔτ)</div>
+      <p><strong>Γ</strong> ist die Hauptspur. <strong>Σₖ</strong> sind dieselben Koordinaten mit Phasenversatz. Die Apertur zeigt den Return-Schnitt; sie behauptet weder Materialfluss noch Physik.</p>
+      <span class="ghost-chip">RED · STEP</span><span class="ghost-chip">BLUE · WAVE</span><span class="ghost-chip">PINK · PULSE</span><span class="ghost-chip">WHITE · RETURN</span>
+      <p class="ghost-boundary"><strong>BOUNDARY:</strong> Erweiterung des bestehenden Demonstrators. Keine neue Navigator-Identität, keine neue Source-Graph-Relation und keine Gleichsetzung von 31:41 mit einer mathematischen Konstante.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{
+  const NS='http://www.w3.org/2000/svg', main=document.getElementById('ghostMain'), trails=document.getElementById('ghostTrails');
+  if(!main||!trails)return;
+  const phase=document.getElementById('ghostPhase'), trail=document.getElementById('ghostTrail'), phaseOut=document.getElementById('ghostPhaseOut'), trailOut=document.getElementById('ghostTrailOut'), play=document.getElementById('ghostPlay'), marker=document.getElementById('ghostXMarker'), label=document.getElementById('ghostXLabel');
+  let timer=null;
+  const point=(t,p)=>{const r=178*(1-t)+20*t, a=12*Math.PI*t+p;return [410+r*Math.cos(a),46+398*t]};
+  const path=(p)=>{let d='';for(let i=0;i<=260;i++){const q=point(i/260,p);d+=(i?'L':'M')+q[0].toFixed(2)+' '+q[1].toFixed(2)}return d};
+  const draw=()=>{
+    const p=Number(phase.value)/100, dt=Number(trail.value)/100;
+    phaseOut.value=p.toFixed(2);trailOut.value=dt.toFixed(2);main.setAttribute('d',path(p));trails.replaceChildren();
+    for(let k=8;k>=1;k--){const el=document.createElementNS(NS,'path');el.setAttribute('d',path(p-k*dt));el.setAttribute('stroke',k%2?'#bcdde6':'#637f8a');el.setAttribute('stroke-width',String(Math.max(.7,3-k*.22)));el.setAttribute('opacity',String(.38-k*.032));el.setAttribute('stroke-linecap','round');el.setAttribute('stroke-dasharray','1 13');trails.appendChild(el)}
+    // Visual placement only: 31:41 remains an observed timestamp, not a quotient or constant.
+    const q=point(.43,p);marker.setAttribute('transform',`translate(${q[0]} ${q[1]})`);label.setAttribute('x',String(q[0]+16));label.setAttribute('y',String(q[1]-14));
+  };
+  phase.addEventListener('input',draw);trail.addEventListener('input',draw);
+  play.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;play.textContent='PLAY RETURN';play.setAttribute('aria-pressed','false')}else{play.textContent='PAUSE RETURN';play.setAttribute('aria-pressed','true');timer=setInterval(()=>{phase.value=(Number(phase.value)+3)%629;draw()},40)}});
+  draw();
+})();
+</script>
+<style>
+  .capsule-return{max-width:1180px;margin:28px auto;padding:24px;border:1px solid #365565;background:#03070c;color:#dcebf0;font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .capsule-return h2{margin:0 0 6px;color:#fff;font:700 clamp(24px,4vw,42px)/1.05 Georgia,serif}.capsule-return .kicker{color:#ffca36;font-size:12px;font-weight:800;letter-spacing:.13em}.capsule-return .intro{max-width:940px;color:#9fc0cc}
+  .capsule-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,.9fr);gap:18px;margin-top:18px}.capsule-stage,.capsule-ledger{border:1px solid #294654;background:#010407}.capsule-stage{padding:10px;background:radial-gradient(circle at 50% 47%,#152033 0,#050a11 55%,#010203 100%)}#root432CapsuleSvg{display:block;width:100%;height:auto}
+  .capsule-controls{display:grid;grid-template-columns:1fr repeat(5,auto);gap:9px;align-items:end;margin-top:10px}.capsule-controls label{display:grid;gap:5px;color:#9fc0cc;font-size:12px}.capsule-controls input{width:100%;accent-color:#ffca36}.capsule-controls button{min-height:40px;padding:0 12px;border:1px solid #63e8ef;background:#102530;color:#fff;font:700 10px ui-monospace,SFMono-Regular,Menlo,monospace;cursor:pointer}.capsule-controls button[aria-pressed=true]{border-color:#f176bd;box-shadow:0 0 14px #f176bd55}
+  .capsule-ledger{padding:16px}.capsule-ledger h3{margin:0 0 10px;color:#63e8ef;font-size:14px}.capsule-card{margin:9px 0;padding:10px;border-left:3px solid #ffca36;background:#0a1c25}.capsule-card.constructed{border-color:#63e8ef}.capsule-card.held{border-color:#f176bd}.capsule-boundary{margin-top:14px;padding-top:12px;border-top:1px solid #294654;color:#84a5b0;font-size:12px}
+  @media(max-width:820px){.capsule-grid{grid-template-columns:1fr}.capsule-return{margin-inline:10px}}@media(max-width:560px){.capsule-controls{grid-template-columns:1fr}}
+</style>
+<section class="capsule-return" id="root432-keystone-capsule" aria-labelledby="root432-capsule-title">
+  <div class="kicker">SCC-003 RETURN · ROOT 432 · KEYSTONE 2501 · RGB CAPSULE</div>
+  <h2 id="root432-capsule-title">Vier Ansichten, fünf Staffeln, eine gehaltene Gegenphase.</h2>
+  <p class="intro">Diese neue Ansicht bindet die letzten Universal-Clockwork-/Lotus88-Skizzen an bereits vorhandene A0-Träger. Sie trennt exakte Arithmetik, konstruierte Ringmasken und gehaltene Leserollen sichtbar voneinander.</p>
+  <div class="capsule-grid">
+    <div>
+      <div class="capsule-stage">
+        <svg id="root432CapsuleSvg" viewBox="0 0 820 650" role="img" aria-labelledby="root432SvgTitle root432SvgDesc">
+          <title id="root432SvgTitle">Interaktive Root-432- und Keystone-2501-Kapsel</title><desc id="root432SvgDesc">Vier konstruktive Ringmasken um eine rote und blaue Gegenphase, eine grüne Achse, einen grauen Pivot und fünf deklarierte Staffelpunkte.</desc>
+          <defs><filter id="capsuleGlow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <g id="capsuleRings" fill="none" stroke-width="4" stroke-dasharray="10 8"><ellipse cx="390" cy="300" rx="108" ry="84" stroke="#30df8f"/><ellipse cx="390" cy="300" rx="156" ry="122" stroke="#ffdf35"/><ellipse cx="390" cy="300" rx="212" ry="166" stroke="#32d8df"/><ellipse cx="390" cy="300" rx="284" ry="222" stroke="#f14bea"/></g>
+          <g id="capsuleBody" filter="url(#capsuleGlow)"><ellipse id="capsuleRed" cx="390" cy="300" rx="118" ry="38" fill="none" stroke="#ff4b4b" stroke-width="7"/><ellipse id="capsuleBlue" cx="390" cy="300" rx="58" ry="118" fill="none" stroke="#4d78ff" stroke-width="7"/><line x1="390" y1="154" x2="390" y2="446" stroke="#37e27c" stroke-width="7"/><circle cx="390" cy="300" r="12" fill="#aeb8bf" stroke="#fff" stroke-width="2"/></g>
+          <g id="capsuleHolderView" opacity="0" pointer-events="none">
+            <path d="M86 188 Q390 72 694 188M144 452 Q390 544 636 452" fill="none" stroke="#83dff5" stroke-width="2" opacity=".55"/>
+            <line x1="92" y1="300" x2="704" y2="300" stroke="#ff4b4b" stroke-width="4"/><text x="710" y="306" fill="#ff7a7a" font-size="13" font-weight="800">I(x)</text>
+            <line x1="324" y1="104" x2="324" y2="500" stroke="#30df8f" stroke-width="7"/><text x="324" y="86" fill="#30df8f" text-anchor="middle" font-size="14" font-weight="800">T(Y) · HOLDER · 432</text>
+            <line x1="500" y1="112" x2="500" y2="492" stroke="#ffdf35" stroke-width="7" opacity=".8"/><text x="500" y="92" fill="#ffdf35" text-anchor="middle" font-size="13" font-weight="800">PILLAR X · 528</text>
+            <line x1="150" y1="486" x2="654" y2="132" stroke="#4d78ff" stroke-width="3" stroke-dasharray="10 7"/><text x="658" y="128" fill="#78a0ff" font-size="13" font-weight="800">III(z) · 852</text>
+            <path d="M324 176 C344 226 424 248 500 400M324 424 C344 374 424 352 500 200" fill="none" stroke="#f176bd" stroke-width="6"/>
+            <circle cx="412" cy="300" r="11" fill="#aeb8bf" stroke="#fff" stroke-width="2"/>
+            <g transform="translate(115 522)" font-size="11" font-weight="800"><circle cx="0" cy="0" r="9" fill="#ff4b4b"/><text x="15" y="4" fill="#fff">+</text><circle cx="32" cy="0" r="9" fill="#30df8f"/><circle cx="64" cy="0" r="9" fill="#4d78ff"/><text x="82" y="4" fill="#fff">→ WHITE · DISPLAY ONLY</text><text x="0" y="25" fill="#63e8ef">CMY · COMPLEMENTARY DISPLAY PALETTE</text></g>
+            <text x="600" y="512" fill="#f176bd" text-anchor="middle" font-size="13" font-weight="800">7537 / 753(7) · HELD ADDRESS</text>
+          </g>
+          <g id="capsuleCrtView" opacity="0" pointer-events="none" font-size="12" font-weight="800">
+            <text x="390" y="82" fill="#63e8ef" text-anchor="middle" font-size="16">CRT ELEVATOR · n = 20q + r</text>
+            <ellipse cx="390" cy="142" rx="214" ry="46" fill="#071722" stroke="#63e8ef" stroke-width="3"/>
+            <path d="M176 142V454M604 142V454" stroke="#63e8ef" stroke-width="3"/><ellipse cx="390" cy="454" rx="214" ry="46" fill="#071722" stroke="#63e8ef" stroke-width="3"/>
+            <path d="M190 202Q390 242 590 202M183 264Q390 304 597 264M183 326Q390 366 597 326M190 388Q390 428 590 388" fill="none" stroke="#294654" stroke-width="2"/>
+            <path d="M518 128V464" stroke="#ffca36" stroke-width="10" opacity=".2"/><path d="M518 128V464" stroke="#ffca36" stroke-width="3" stroke-dasharray="7 6"/>
+            <text x="518" y="116" fill="#ffca36" text-anchor="middle">r=17 · GHOST-GRID LANE</text>
+            <g fill="#ffca36" stroke="#fff" stroke-width="1.5">
+              <circle cx="518" cy="178" r="9"/><circle cx="518" cy="230" r="9"/><circle cx="518" cy="282" r="9"/><circle cx="518" cy="350" r="9"/><circle cx="518" cy="420" r="9"/>
+            </g>
+            <g fill="#dcebf0"><text x="538" y="182">10537 · q526</text><text x="538" y="234">11357 · q567</text><text x="538" y="286">11537 · q576</text><text x="538" y="354">12537 · q626</text><text x="538" y="424">14357 · q717</text></g>
+            <g fill="#f176bd" stroke="#fff" stroke-width="1"><circle cx="276" cy="244" r="7"/><circle cx="310" cy="306" r="7"/><circle cx="344" cy="366" r="7"/></g>
+            <g fill="#f176bd"><text x="92" y="248">r11 · 13571</text><text x="92" y="310">r13 · 11573 / 13573</text><text x="92" y="370">r15 · 11735</text></g>
+            <text x="390" y="505" fill="#9fc0cc" text-anchor="middle">537 = 20·26+17 · 7537 = 20·376+17</text>
+            <text x="390" y="526" fill="#ff7a7a" text-anchor="middle">SHARED RESIDUE ≠ COMMON FACTOR / GENERATOR</text>
+          </g>
+          <g id="capsuleMetalView" opacity="0" pointer-events="none" font-size="12" font-weight="800">
+            <text x="390" y="82" fill="#ffca36" text-anchor="middle" font-size="16">VISUAL 4 · r=17 METAL LENS</text>
+            <path d="M166 406 C194 126 522 102 650 286 C708 370 636 486 524 500 C404 516 334 418 386 326 C430 248 562 252 598 340" fill="none" stroke="#cbd2d8" stroke-width="5"/>
+            <path d="M194 444 C250 514 418 516 508 438 C590 368 584 252 500 208 C414 164 304 212 284 298 C266 374 332 430 408 412" fill="none" stroke="#f1c232" stroke-width="5"/>
+            <ellipse cx="390" cy="350" rx="192" ry="72" fill="none" stroke="#d9822b" stroke-width="7"/>
+            <g stroke="#fff" stroke-width="1.5"><circle cx="186" cy="385" r="10" fill="#cbd2d8"/><circle cx="278" cy="214" r="10" fill="#f1c232"/><circle cx="390" cy="278" r="10" fill="#d9822b"/><circle cx="538" cy="224" r="10" fill="#f1c232"/><circle cx="626" cy="372" r="10" fill="#cbd2d8"/></g>
+            <g fill="#dcebf0"><text x="150" y="380">137</text><text x="248" y="202">237</text><text x="390" y="258" text-anchor="middle">537</text><text x="550" y="216">737</text><text x="642" y="376">937</text></g>
+            <text x="390" y="474" fill="#ffca36" text-anchor="middle">137 · 237 · 537 · 737 · 937 ≡ 17 (mod 20)</text>
+            <text x="390" y="500" fill="#9fc0cc" text-anchor="middle">SILVER / GOLD / BRONZE = DISPLAY ROLES ONLY</text>
+            <text x="390" y="524" fill="#ff7a7a" text-anchor="middle">NO CHEMISTRY · NO MATERIAL RESONANCE</text>
+          </g>
+          <g id="capsuleStaff" font-size="12" font-weight="800"><path d="M70 575H750" stroke="#56717c"/><g id="capsuleStaffNodes"></g></g>
+          <text x="390" y="44" fill="#ffca36" text-anchor="middle" font-size="18" font-weight="800">432 AXIS · 2501 KEYSTONE</text><text id="capsuleMaskLabel" x="390" y="540" fill="#9fc0cc" text-anchor="middle" font-size="12">CLOCKWORK MASK · CONSTRUCTED</text>
+        </svg>
+      </div>
+      <div class="capsule-controls"><label>Counterphase <output id="capsulePhaseOut">0°</output><input id="capsulePhase" type="range" min="0" max="360" value="0"></label><button id="capsulePlay" type="button" aria-pressed="false">PLAY CAPSULE</button><button id="capsuleMask" type="button" aria-pressed="false">ROOT SCALE</button><button id="capsuleHolder" type="button" aria-pressed="false">VISUAL 2 · HOLDER</button><button id="capsuleCrt" type="button" aria-pressed="false">VISUAL 3 · CRT</button><button id="capsuleMetal" type="button" aria-pressed="false">VISUAL 4 · r17</button></div>
+    </div>
+    <aside class="capsule-ledger">
+      <h3>EXACT / CONSTRUCTED / HELD</h3>
+      <div class="capsule-card"><strong>EXACT</strong><br><code>432=2⁴·3³</code><br><code>1080²=432·2700</code><br><code>2501=41·61</code></div>
+      <div class="capsule-card"><strong>EXACT STAFF</strong><br><code>432→528→639→741→852</code><br><code>Δ=(96,111,102,111)</code> · span <code>420</code><br>Negativkontrolle: <code>(432+852)/2=642≠639</code>.</div>
+      <div class="capsule-card constructed"><strong>CONSTRUCTED VIEW · VISUAL 2</strong><br><code>T(Y)</code> ist die grüne Holder-Achse bei 432; Pillar X liegt bei 528, die gestrichelte <code>III(z)</code>-Diagonale bei 852. Rosa Kurven zeigen die gebaute Klammeransicht.</div>
+      <div class="capsule-card"><strong>EXACT HOLDER SPAN</strong><br><code>528−432=96</code><br><code>852−528=324=18²</code><br><code>852−432=420</code>.</div>
+      <div class="capsule-card held"><strong>HELD VIEW</strong><br><code>7537 / 753(7)</code> bleibt eine deklarierte Holder-Adresse. „Proton“, „Electron“, „Neutron“, „Planetary“, „Zodiac“, „432 Hz“ und „Universal Clockwork“ bleiben Quellen-/Ownerrollen.</div>
+      <div class="capsule-card held"><strong>COLOUR BOUNDARY</strong><br><code>RGB → WHITE</code> bezeichnet additive Bildschirmfarbmischung; CMY ist die komplementäre Displaypalette. Keine QCD-, Color-Charge-, Teilchen- oder Übergangsbehauptung; kein Atom-, Sonnen-, Frequenz- oder Resonanzmodell.</div>
+      <div class="capsule-card constructed"><strong>EXACT CRT / VISUAL 3</strong><br><code>537=20·26+17</code> · <code>7537=20·376+17</code><br><code>10537,11357,11537,12537,14357 ≡17 (mod 20)</code>. Der Zylinder projiziert den vorhandenen CRT-Elevator.</div>
+      <div class="capsule-card held"><strong>GHOST-GRID BOUNDARY</strong><br><code>r=17</code> ist eine gemeinsame Restspalte. Sie beweist weder gleiche Faktorisierung noch Generatorgeschichte; <code>537</code> ist hier ein Suffix-/Lesemotiv, keine neue Family.</div>
+      <div class="capsule-card constructed"><strong>EXACT r17 / VISUAL 4</strong><br><code>137,237,537,737,937 ≡17 (mod 20)</code>. Die Ansicht legt auf diese vorhandene CRT-Spalte drei gebaute Leserollen: Silber = äußerer Return, Gold = innerer Holder, Bronze = Seam/Capture-Ring.</div>
+      <div class="capsule-card held"><strong>METAL-LENS BOUNDARY</strong><br>Silber, Gold und Bronze sind Displayrollen. Historische Zuordnungen wie <code>137/Ag</code>, <code>537/Rotgold</code> und <code>737/Au</code> bleiben Source-Aliasse; daraus folgt keine chemische, stoffliche oder resonanzphysikalische Aussage.</div>
+      <p><a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_RESEARCH_DESK.html#scc-003-root432-keystone-capsule-return-20261110">Science Desk Return →</a> · <a href="../../../../../../30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_MATHEMATICAL_JOINTS.html#complex-fold-root432-keystone-capsule-return">Mathfield →</a></p>
+      <p class="capsule-boundary"><strong>BOUNDARY:</strong> Source-bound Erweiterung von SCC‑003, <code>LAD:ROOT_432</code> und dem bestehenden Keystone-2501-Crosswalk. Keine neue Identity, Relation, Family, Naturkonstante oder Mechanik.</p>
+    </aside>
+  </div>
+</section>
+<script>
+(()=>{const NS='http://www.w3.org/2000/svg',slider=document.getElementById('capsulePhase'),out=document.getElementById('capsulePhaseOut'),red=document.getElementById('capsuleRed'),blue=document.getElementById('capsuleBlue'),play=document.getElementById('capsulePlay'),mask=document.getElementById('capsuleMask'),holder=document.getElementById('capsuleHolder'),crt=document.getElementById('capsuleCrt'),metal=document.getElementById('capsuleMetal'),holderView=document.getElementById('capsuleHolderView'),crtView=document.getElementById('capsuleCrtView'),metalView=document.getElementById('capsuleMetalView'),body=document.getElementById('capsuleBody'),rings=document.getElementById('capsuleRings'),label=document.getElementById('capsuleMaskLabel'),nodes=document.getElementById('capsuleStaffNodes');if(!slider||!nodes)return;const vals=[432,528,639,741,852],col=['#30df8f','#ffdf35','#32d8df','#f14bea','#ffca36'];vals.forEach((v,i)=>{const x=100+i*145,c=document.createElementNS(NS,'circle'),t=document.createElementNS(NS,'text');c.setAttribute('cx',x);c.setAttribute('cy','575');c.setAttribute('r','7');c.setAttribute('fill',col[i]);t.setAttribute('x',x);t.setAttribute('y','602');t.setAttribute('fill',col[i]);t.setAttribute('text-anchor','middle');t.textContent=String(v);nodes.append(c,t)});let timer=null,root=false,mode='capsule';const setMode=next=>{mode=next;const h=mode==='holder',c=mode==='crt',m=mode==='metal';holder.setAttribute('aria-pressed',String(h));crt.setAttribute('aria-pressed',String(c));metal.setAttribute('aria-pressed',String(m));holder.textContent=h?'VISUAL 1 · CAPSULE':'VISUAL 2 · HOLDER';crt.textContent=c?'VISUAL 1 · CAPSULE':'VISUAL 3 · CRT';metal.textContent=m?'VISUAL 1 · CAPSULE':'VISUAL 4 · r17';holderView.setAttribute('opacity',h?'1':'0');crtView.setAttribute('opacity',c?'1':'0');metalView.setAttribute('opacity',m?'1':'0');body.setAttribute('opacity',mode==='capsule'?'1':'.08');rings.setAttribute('opacity',mode==='capsule'?(root?'.62':'1'):'.08');label.textContent=h?'T(Y) HOLDER · CONSTRUCTED VIEW':c?'CRT ELEVATOR · EXISTING QRT PROJECTION':m?'r17 METAL LENS · DISPLAY ROLES':root?'ROOT SCALE · CONSTRUCTED':'CLOCKWORK MASK · CONSTRUCTED'};const draw=()=>{const a=Number(slider.value),r=a*Math.PI/180;out.value=`${a}°`;red.setAttribute('transform',`rotate(${a} 390 300) scale(${(1+.18*Math.sin(r)).toFixed(3)} 1)`);blue.setAttribute('transform',`rotate(${-a} 390 300) scale(${(1-.18*Math.sin(r)).toFixed(3)} 1)`)};slider.addEventListener('input',draw);play.addEventListener('click',()=>{if(timer){clearInterval(timer);timer=null;play.textContent='PLAY CAPSULE';play.setAttribute('aria-pressed','false')}else{play.textContent='PAUSE CAPSULE';play.setAttribute('aria-pressed','true');timer=setInterval(()=>{slider.value=String((Number(slider.value)+2)%361);draw()},40)}});mask.addEventListener('click',()=>{root=!root;mask.textContent=root?'CLOCKWORK MASK':'ROOT SCALE';mask.setAttribute('aria-pressed',String(root));rings.setAttribute('stroke-dasharray',root?'none':'10 8');setMode(mode)});holder.addEventListener('click',()=>setMode(mode==='holder'?'capsule':'holder'));crt.addEventListener('click',()=>setMode(mode==='crt'?'capsule':'crt'));metal.addEventListener('click',()=>setMode(mode==='metal'?'capsule':'metal'));setMode('capsule');draw()})();
 </script>
 </body>
 </html>
