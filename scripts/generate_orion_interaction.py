@@ -20,17 +20,34 @@ CANONICAL_UTTERANCE = (
 
 def locate_orion_repository() -> Path:
     configured = os.environ.get("ORION_REPOSITORY_PATH")
-    candidates = (
-        *((Path(configured).expanduser(),) if configured else ()),
-        *REPOSITORY_ROOT.parents,
-    )
+    candidates: list[Path] = []
+    if configured:
+        candidates.append(Path(configured).expanduser())
+
+    # Keep the explicit override authoritative, then support the canonical
+    # NEXAH ecosystem layout without baking a user-specific absolute path into
+    # the repository.  Experience and ORION are sibling chapters below the
+    # same ecosystem root, so ancestor-only discovery cannot find ORION.
+    for ancestor in (REPOSITORY_ROOT, *REPOSITORY_ROOT.parents):
+        candidates.append(ancestor)
+        orion_chapter = ancestor / "20 ORION"
+        if not orion_chapter.is_dir():
+            continue
+        candidates.extend(sorted(orion_chapter.glob("NEXAH-ORION-V1-CERTIFIED-*")))
+        candidates.append(orion_chapter / "NEXAH-ORION")
+
+    seen: set[Path] = set()
     for candidate in candidates:
         resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
         if (resolved / "src" / "orion" / "lyra_execution.py").is_file():
             return resolved
     raise SystemExit(
         "ORION repository not found. Set ORION_REPOSITORY_PATH to the frozen "
-        "ORION checkout before generating the Experience report."
+        "ORION checkout, or place it in the canonical '20 ORION' ecosystem "
+        "chapter before generating the Experience report."
     )
 
 

@@ -78,7 +78,9 @@ pnpm verify
 ```
 
 The reproducible publication check requires an external, immutable ORION
-checkout:
+checkout. In the canonical NEXAH ecosystem layout the generator discovers the
+certified checkout below `20 ORION/` automatically. Outside that layout, set an
+explicit path:
 
 ```sh
 ORION_REPOSITORY_PATH=/absolute/path/to/nexah-orion pnpm verify

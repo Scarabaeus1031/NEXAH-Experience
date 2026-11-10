@@ -368,6 +368,24 @@ test("the SCC-003 complex fold binds the owner stations to the two cube centres"
   assert.match(demonstrator, /kein Atom-, Sonnen-, Frequenz- oder Resonanzmodell/);
 });
 
+test("the SCC-003 qualification gates keep local, physical, and external status separate", async () => {
+  const demonstrator = await read("public/review-assets/scc-003-r1/demonstrators/complex-fold-18x23.html", "utf8");
+  const topology = JSON.parse(await read("public/review-assets/scc-003-r1/qualification/gate-1-topology-receipt.json", "utf8"));
+  const material = await read("public/review-assets/scc-003-r1/qualification/gate-2-material-load-protocol.md", "utf8");
+  const review = await read("public/review-assets/scc-003-r1/qualification/gate-3-qualified-review-packet.md", "utf8");
+  assert.match(demonstrator, /id="scc003-qualification-gates"/);
+  assert.match(demonstrator, /LOCAL PASS · GLOBAL OPEN/);
+  assert.match(demonstrator, /PROTOCOL READY · NOT RUN/);
+  assert.match(demonstrator, /AWAITING EXTERNAL REVIEW/);
+  assert.match(demonstrator, /qualification\/gate-1-topology-receipt\.json/);
+  assert.equal(topology.status, "LOCAL_NECESSARY_CONDITIONS_PASS_GLOBAL_MECHANISM_OPEN");
+  assert.deepEqual(topology.candidates.map(({vertices, edges, quad_faces, euler_characteristic}) => [vertices, edges, quad_faces, euler_characteristic]), [[414, 828, 414, 0], [460, 920, 460, 0]]);
+  assert.match(material, /PROTOCOL_READY \/ NOT_RUN/);
+  assert.match(material, /No threshold may be chosen after viewing results/);
+  assert.match(review, /AWAITING_EXTERNAL_REVIEW/);
+  assert.match(review, /Silence is not approval/);
+});
+
 test("the SCC-003 C100 return keeps the five-state aperture typed and exact", async () => {
   const demonstrator = await read("public/review-assets/scc-003-r1/demonstrators/complex-fold-18x23.html", "utf8");
   assert.match(demonstrator, /id="return-aperture-five-state"/);

@@ -1,0 +1,39 @@
+{
+  "schema": "scc-003-qualification-gate-v1",
+  "identity": "SCC-003",
+  "gate": 1,
+  "date": "2026-11-10",
+  "status": "LOCAL_NECESSARY_CONDITIONS_PASS_GLOBAL_MECHANISM_OPEN",
+  "candidates": [
+    {
+      "id": "G_18_23",
+      "interpretation": "18 axes by 23 stations",
+      "vertices": 414,
+      "edges": 828,
+      "quad_faces": 414,
+      "euler_characteristic": 0,
+      "vertex_degree": 4,
+      "maekawa": { "mountain": 3, "valley": 1, "difference": 2, "pass": true },
+      "kawasaki": { "sector_angles_degrees": [90, 90, 90, 90], "alternating_sums_degrees": [180, 180], "pass": true }
+    },
+    {
+      "id": "G_20_23",
+      "interpretation": "18 degree carrier, therefore 20 angular positions, by 23 stations",
+      "vertices": 460,
+      "edges": 920,
+      "quad_faces": 460,
+      "euler_characteristic": 0,
+      "vertex_degree": 4,
+      "maekawa": { "mountain": 3, "valley": 1, "difference": 2, "pass": true },
+      "kawasaki": { "sector_angles_degrees": [90, 90, 90, 90], "alternating_sums_degrees": [180, 180], "pass": true }
+    }
+  ],
+  "scope": "Periodic toroidal quad-grid candidates with sparse adjacency, explicit edges and faces, and local necessary single-vertex checks.",
+  "not_established": [
+    "which interpretation of 18 is authoritative",
+    "a planar crease pattern",
+    "global rigid foldability",
+    "collision-free motion",
+    "a physical material result"
+  ]
+}
