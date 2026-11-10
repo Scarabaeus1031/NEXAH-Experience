@@ -1770,7 +1770,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
         <div>
           <p class="study-kicker">Projection study · separated planes</p>
           <h2 id="study-shadow-title">The balloon.<br />The fan.<br />The shadow.</h2>
-          <p class="study-copy">The red point is held above the shell. Its rays open as a fan. A point <i>P</i> travels along the shell while the tangent <i>T(P)</i> rocks with it; the normal <i>N(P)</i> forms the “sword” through the construction centre <i>C</i>. Below, the pentagonal receiving plane carries eleven strands: eight internal rivets plus one boundary rivet on each strand, or <strong>88 + 11 = 99</strong> addresses.</p>
+          <p class="study-copy">The red point is held above the shell. Its rays open as a fan. A point <i>P</i> travels along the shell while the tangent <i>T(P)</i> rocks with it; the normal <i>N(P)</i> forms the “sword” through the construction centre <i>C</i>. A short inner arc <i>I(R)</i> travels just inside the shell as the return cue. Below, the pentagonal receiving plane carries eleven strands: eight internal rivets plus one boundary rivet on each strand, or <strong>88 + 11 = 99</strong> addresses.</p>
           <div class="shadow-controls">
             <label for="shadow-phase">Move <i>P</i> across the shell <output data-shadow-output>-90°</output></label>
             <input id="shadow-phase" data-shadow-phase type="range" min="-150" max="-30" step="1" value="-90" />
@@ -1779,6 +1779,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
             <article><span>LYRA reading</span><strong>fan as strings</strong><p>A visual resemblance only; not the ORION LYRA translator.</p></article>
             <article><span>Peacock reading</span><strong>fan as tail</strong><p>A morphological image; not a biological mechanism.</p></article>
             <article><span>Sword reading</span><strong>normal through C</strong><p>A geometric role for <i>N(P)</i>, not an historical attribution.</p></article>
+            <article><span>Inside / return reading</span><strong>small inner arc <i>I(R)</i></strong><p>Owner notation for the inward return cue; not a derived inverse or SCC operator.</p></article>
             <article><span>F-Groups reading</span><strong>7 × 6 return lens</strong><p>Owner working method over the pentagonal boundary; not a derived SCC operator.</p></article>
           </div>
         </div>
@@ -1786,7 +1787,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
         <figure class="shadow-frame">
           <svg viewBox="0 0 760 800" role="img" aria-labelledby="shadow-title shadow-desc">
             <title id="shadow-title">Moving point, tangent, normal and pentagonal rivet projection</title>
-            <desc id="shadow-desc">A red point marked 3301 sits above a circular shell. Nine projection rays form a fan. P moves on the shell with its tangent T and normal N. The normal passes through centre C toward a lower pentagonal plane containing eleven strands. Each strand carries eight internal rivets and one boundary rivet, for 99 addresses. D encloses the upper split with E and F below.</desc>
+            <desc id="shadow-desc">A red point marked 3301 sits above a circular shell. Nine projection rays form a fan. P moves on the shell with its tangent T and normal N. A short inner return arc I of R follows P just inside the shell. The normal passes through centre C toward a lower pentagonal plane containing eleven strands. Each strand carries eight internal rivets and one boundary rivet, for 99 addresses. D encloses the upper split with E and F below.</desc>
             <defs>
               <linearGradient id="shadow-fan-fill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#ff7366" stop-opacity=".18"></stop>
@@ -1817,6 +1818,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
 
             <text x="38" y="199" class="shadow-layer-label">02 · SHELL / MOVING FRAME</text>
             <path d="M168 243 A245 245 0 0 1 592 243" class="shadow-shell"></path>
+            <path data-shadow-inner-arc d="M343 158 A210 210 0 0 1 417 158" class="shadow-inner-arc"></path>
             <line data-shadow-cast x1="380" y1="84" x2="380" y2="120" class="shadow-active-ray"></line>
             <line data-shadow-tangent x1="310" y1="120" x2="450" y2="120" class="shadow-tangent"></line>
             <line data-shadow-normal x1="380" y1="90" x2="380" y2="405" class="shadow-normal"></line>
@@ -1824,6 +1826,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
             <text data-shadow-p-label x="394" y="109" class="shadow-symbol">P</text>
             <text data-shadow-t-label x="454" y="116" class="shadow-symbol shadow-symbol--t">T(P)</text>
             <text data-shadow-n-label x="391" y="270" class="shadow-symbol shadow-symbol--n">N(P)</text>
+            <text data-shadow-i-label x="397" y="174" class="shadow-symbol shadow-symbol--i">I(R)</text>
             <circle cx="380" cy="365" r="7" class="shadow-centre"></circle>
             <text x="397" y="361" class="shadow-symbol">C</text>
 
@@ -1842,7 +1845,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
             <text x="380" y="762" text-anchor="middle" class="shadow-register-label">11 × (8 + 1) = 88 + 11 = 99 RIVETS</text>
             <text x="380" y="782" text-anchor="middle" class="shadow-return-label">7 × 6 = 42 · F-GROUPS RETURN LENS OVER PENTAGON</text>
           </svg>
-          <figcaption>The projection direction, moving frame and strand register are declared drawing choices. D/E/F, the 7 × 6 return lens, LYRA, peacock, helmet and sword remain separate morphological or grouping readings.</figcaption>
+          <figcaption>The projection direction, moving frame and strand register are declared drawing choices. <i>I(R)</i> names the small inward return arc in this display only; it is not a derived inverse. D/E/F, the 7 × 6 return lens, LYRA, peacock, helmet and sword remain separate morphological or grouping readings.</figcaption>
         </figure>
       </div>
     </section>
@@ -2955,12 +2958,14 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   const shadowInput = document.querySelector("[data-shadow-phase]");
   const shadowOutput = document.querySelector("[data-shadow-output]");
   const shadowPoint = document.querySelector("[data-shadow-point]");
+  const shadowInnerArc = document.querySelector("[data-shadow-inner-arc]");
   const shadowTangent = document.querySelector("[data-shadow-tangent]");
   const shadowNormal = document.querySelector("[data-shadow-normal]");
   const shadowCast = document.querySelector("[data-shadow-cast]");
   const shadowPLabel = document.querySelector("[data-shadow-p-label]");
   const shadowTLabel = document.querySelector("[data-shadow-t-label]");
   const shadowNLabel = document.querySelector("[data-shadow-n-label]");
+  const shadowILabel = document.querySelector("[data-shadow-i-label]");
 
   function setLine(line, x1, y1, x2, y2) {
     Object.entries({ x1, y1, x2, y2 }).forEach(([key, value]) => line.setAttribute(key, value.toFixed(2)));
@@ -2978,9 +2983,19 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
     const ty = Math.cos(theta);
     const nx = Math.cos(theta);
     const ny = Math.sin(theta);
+    const innerRadius = 210;
+    const innerHalfAngle = 10 * Math.PI / 180;
+    const innerStart = theta - innerHalfAngle;
+    const innerEnd = theta + innerHalfAngle;
+    const innerStartX = cx + Math.cos(innerStart) * innerRadius;
+    const innerStartY = cy + Math.sin(innerStart) * innerRadius;
+    const innerEndX = cx + Math.cos(innerEnd) * innerRadius;
+    const innerEndY = cy + Math.sin(innerEnd) * innerRadius;
+    const innerLabelRadius = 186;
 
     shadowPoint.setAttribute("cx", x.toFixed(2));
     shadowPoint.setAttribute("cy", y.toFixed(2));
+    shadowInnerArc.setAttribute("d", `M${innerStartX.toFixed(2)} ${innerStartY.toFixed(2)} A${innerRadius} ${innerRadius} 0 0 1 ${innerEndX.toFixed(2)} ${innerEndY.toFixed(2)}`);
     setLine(shadowTangent, x - tx * 70, y - ty * 70, x + tx * 70, y + ty * 70);
     setLine(shadowNormal, x + nx * 30, y + ny * 30, x - nx * 285, y - ny * 285);
     setLine(shadowCast, 380, 84, x, y);
@@ -2990,6 +3005,8 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
     shadowTLabel.setAttribute("y", (y + ty * 78).toFixed(2));
     shadowNLabel.setAttribute("x", (x - nx * 135 + 10).toFixed(2));
     shadowNLabel.setAttribute("y", (y - ny * 135).toFixed(2));
+    shadowILabel.setAttribute("x", (cx + Math.cos(theta) * innerLabelRadius + 12).toFixed(2));
+    shadowILabel.setAttribute("y", (cy + Math.sin(theta) * innerLabelRadius + 6).toFixed(2));
     shadowOutput.value = `${degrees}°`;
   }
 
@@ -4216,6 +4233,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   :global(.shadow-fan-field) { fill: url(#shadow-fan-fill); stroke: none; }
   :global(.shadow-fan-rays line) { stroke: #e8b747; stroke-opacity: .34; stroke-width: 1; }
   :global(.shadow-shell) { fill: none; stroke: #dce8e7; stroke-width: 1.8; }
+  :global(.shadow-inner-arc) { fill: none; stroke: #62d2d1; stroke-width: 3; stroke-linecap: round; }
   :global(.shadow-active-ray) { stroke: #ff7366; stroke-width: 1.5; stroke-dasharray: 4 5; }
   :global(.shadow-tangent) { stroke: #e8b747; stroke-width: 2.2; }
   :global(.shadow-normal) { stroke: #dce8e7; stroke-width: 2.2; }
@@ -4224,6 +4242,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
   :global(.shadow-symbol) { fill: #edf4f2; font: italic 17px/1 var(--serif); }
   :global(.shadow-symbol--t) { fill: #e8b747; }
   :global(.shadow-symbol--n) { fill: #dce8e7; }
+  :global(.shadow-symbol--i) { fill: #62d2d1; }
   :global(.shadow-drop) { stroke: #5d8190; stroke-width: 1; stroke-dasharray: 4 6; }
   :global(.shadow-pentagon) { fill: url(#shadow-plane-fill); stroke: #5d8190; stroke-width: 1.5; }
   :global(.shadow-def-envelope) { fill: none; stroke: #e8b747; stroke-opacity: .55; stroke-width: 1.1; stroke-dasharray: 4 5; }

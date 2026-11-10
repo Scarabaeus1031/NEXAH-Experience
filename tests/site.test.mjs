@@ -639,6 +639,9 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /Move <i>P<\/i> across the shell/);
   assert.match(study, /not the ORION LYRA translator/);
   assert.match(study, /updateShadowFrame/);
+  assert.match(study, /data-shadow-inner-arc/);
+  assert.match(study, /small inner arc <i>I\(R\)<\/i>/);
+  assert.match(study, /not a derived inverse or SCC operator/);
   assert.match(study, /Scarabaeus central · orthogonal address lens/);
   assert.match(study, /1029 \+ 4 = 1033/);
   assert.match(study, /1033 ↔ 3301/);
