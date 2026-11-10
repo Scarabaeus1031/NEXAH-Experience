@@ -655,6 +655,10 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /<b>T<\/b> marks the return cue/);
   assert.match(study, /BE · RT<\/b> · <b>BE · RND/);
   assert.match(study, /RDMH · TRIX/);
+  assert.match(study, /Return coda · visual research freeze/);
+  assert.match(study, /The balloon returns\./);
+  assert.match(study, /The place is the same\. The state is not\. Memory carries the return\./);
+  assert.match(study, /an image that remembers its passage/);
   assert.match(study, /Scarabaeus central · orthogonal address lens/);
   assert.match(study, /1029 \+ 4 = 1033/);
   assert.match(study, /1033 ↔ 3301/);
