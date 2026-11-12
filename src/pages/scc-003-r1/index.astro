@@ -356,7 +356,7 @@ const claims = [
   async function verifyConstruction() {
     const badge = constructionQuery("[data-construction-verification]");
     try {
-      const { verifySCC003 } = await import(/* @vite-ignore */ "/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs");
+      const { verifySCC003 } = await import(/* @vite-ignore */ "/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs?rev=scc003-r1-public-20261112");
       const certificate = await fetch("/review-assets/scc-003-r1/proof/scc003-proof-certificate.json").then((response) => response.json());
       const result = verifySCC003(certificate);
       const closed = constructionStages[6];

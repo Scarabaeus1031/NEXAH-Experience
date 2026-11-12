@@ -259,6 +259,7 @@ test("SCC-003-R1 is presented as one bounded open-review projection", async () =
   assert.match(page, /href="\/forschen\/">Open public Science context/);
   assert.match(page, /robots="noindex, nofollow"/);
   assert.match(page, /Run proof capsule/);
+  assert.match(page, /scc003-proof-verifier\.mjs\?rev=scc003-r1-public-20261112/);
   assert.match(page, /Twenty-eight addresses\.<br \/><em>One held tile\.<\/em>/);
   assert.match(page, /1 \+ 2 \+ … \+ 7 = <strong>28<\/strong>/);
   assert.match(page, /4 × 7 = <strong>28<\/strong>/);

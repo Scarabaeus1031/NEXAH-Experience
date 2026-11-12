@@ -75,7 +75,7 @@ run_lftp "set cmd:fail-exit no
 rm -rf www_previous
 rm -rf www_next
 set cmd:fail-exit yes
-set xfer:use-temp-file yes
+set xfer:use-temp-file no
 mirror --reverse --delete --continue --no-empty-dirs --no-perms --parallel=1 --verbose=1 \"${DIST_DIR}\" www"
 
 unset deployment_password
