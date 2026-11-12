@@ -1,6 +1,6 @@
 # SCC-003-R1 — Optional Pentagon Tile Review Addendum
 
-Status: `SUPPLEMENTARY REVIEW QUESTION / LOCAL OWNER STAGING / NOT PUBLISHED`  
+Status: `SUPPLEMENTARY REVIEW QUESTION / OWNER_AUTHORIZED_PUBLIC_REVIEW`
 Related identity: `SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST`  
 Scientific home: `A0 Paper C §11.2 / bounded 28-address fold ledger`  
 Review role: `METHOD EXAMPLE / SUPPLEMENTARY REVIEW POINT / NOT A NEW FINDING`  

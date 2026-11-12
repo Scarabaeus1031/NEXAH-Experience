@@ -37,6 +37,18 @@ const rooms = [
     </ol>
   </section>
 
+  <section class="observatory-extension container" aria-labelledby="extension-title">
+    <div>
+      <p class="eyebrow">Extended sequence · source-bound lens</p>
+      <h2 id="extension-title">The Generation<br />Corner.</h2>
+    </div>
+    <div>
+      <p class="observatory-extension__lead">Follow the local Q° observer axis through cut, relation, intervention, generation, source and court. The grammar returns. The world-state does not.</p>
+      <p>This guided sequence composes existing Orientation Demonstrator and Five H material without creating a new scientific identity or completing the incomplete historical series.</p>
+      <a class="button" href="/laboratory/roedelheim-observatory/generation-corner/">Follow the Q° axis <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
   <aside class="observatory-return container">
     <div><p class="eyebrow">Claim ceiling</p><h2>An Observatory is a way of looking—not the object looked at.</h2></div>
     <div>
@@ -60,8 +72,12 @@ const rooms = [
   .observatory-rooms span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
   .observatory-rooms h3{margin:5rem 0 .8rem;font-family:var(--font-display);font-size:1.8rem;line-height:1}
   .observatory-rooms p,.observatory-return p{line-height:1.65}
+  .observatory-extension{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
+  .observatory-extension h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
+  .observatory-extension__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
+  .observatory-extension .button{margin-top:1.25rem}
   .observatory-return{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,9vw,9rem)}
   .observatory-return nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
-  @media(max-width:800px){.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-return{grid-template-columns:1fr}}
+  @media(max-width:800px){.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-extension,.observatory-return{grid-template-columns:1fr}}
   @media(max-width:520px){.observatory-rooms ol{grid-template-columns:1fr}.observatory-rooms h3{margin-top:3rem}}
 </style>

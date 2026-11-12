@@ -7,7 +7,7 @@ const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b645437767
 <BaseLayout
   title="SCC-003 Proof Capsule — Independent finite reconstruction"
   description="A transparent browser reconstruction of the bounded SCC-003 finite claims."
-  canonicalOrigin="https://review.nexah.de"
+  canonicalOrigin="https://nexah.de"
   robots="noindex, nofollow"
   hideSessionQuestion={true}
   lang="en"
@@ -144,7 +144,7 @@ const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b645437767
       <div class="container proof-footer__grid">
         <div><span>Identity</span><code>SCC-003 / A0OE:PASCAL_PENTAGON_D5_TEST</code></div>
         <div><span>Source manifest</span><code>{manifestHash}</code></div>
-        <div><span>State</span><code>LOCAL OWNER STAGING / NOT PUBLISHED</code></div>
+        <div><span>State</span><code>PUBLIC REVIEW / BOUNDED CLAIM SET</code></div>
       </div>
     </footer>
   </article>
@@ -261,7 +261,9 @@ const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b645437767
   function renderGraph(witness) {
     edgesLayer.replaceChildren();
     nodesLayer.replaceChildren();
-    const points = witness.nodes.map(pointFor);
+    // Array.map passes (value, index, array). Keep pointFor's optional
+    // center/step parameters at their declared defaults.
+    const points = witness.nodes.map((node) => pointFor(node));
     witness.edges.forEach(([source, target]) => {
       const line = document.createElementNS(namespace, "line");
       line.setAttribute("x1", points[source][0]); line.setAttribute("y1", points[source][1]);

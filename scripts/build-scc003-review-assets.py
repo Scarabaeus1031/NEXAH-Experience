@@ -396,8 +396,8 @@ def main() -> None:
         "source_packet_id": manifest["packet_id"],
         "source_manifest_sha256": observed,
         "source_validation": result,
-        "projection_state": "LOCAL_OWNER_STAGING_NOT_PUBLISHED",
-        "intended_url": "https://review.nexah.de/scc-003-r1/",
+        "projection_state": "OWNER_AUTHORIZED_PUBLIC_REVIEW",
+        "intended_url": "https://nexah.de/scc-003-r1/",
         "navigator_effect": {
             "new_entities": 0,
             "new_relations": 0,

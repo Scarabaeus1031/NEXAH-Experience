@@ -57,20 +57,22 @@ const structuredData = JSON.stringify(nexahStructuredData());
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <script is:inline type="application/ld+json" set:html={structuredData}></script>
-    <script is:inline>
-      // Local NEXAH work is always reviewed inside the persistent A0 Owner frame.
-      // Public nexah.de routes remain ordinary standalone website routes.
-      (() => {
-        if (window.self !== window.top) return;
-        if (!["127.0.0.1", "localhost"].includes(location.hostname)) return;
-        if (!["4321", "4322", "4325", "4326"].includes(location.port)) return;
-        const ownerFrame = new URL("http://127.0.0.1:8766/30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/index.html");
-        ownerFrame.searchParams.set("projection", "nexah-science");
-        ownerFrame.searchParams.set("nexah-origin", location.origin);
-        ownerFrame.searchParams.set("nexah-path", `${location.pathname}${location.search}${location.hash}`);
-        location.replace(ownerFrame.href);
-      })();
-    </script>
+    {import.meta.env.DEV && (
+      <script is:inline>
+        // Local NEXAH work is always reviewed inside the persistent A0 Owner frame.
+        // This development-only binding is omitted from public build artifacts.
+        (() => {
+          if (window.self !== window.top) return;
+          if (!["127.0.0.1", "localhost"].includes(location.hostname)) return;
+          if (!["4321", "4322", "4325", "4326"].includes(location.port)) return;
+          const ownerFrame = new URL("http://127.0.0.1:8766/30%20SCIENCE%20LAB/NEXAH-Science-Lab/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/index.html");
+          ownerFrame.searchParams.set("projection", "nexah-science");
+          ownerFrame.searchParams.set("nexah-origin", location.origin);
+          ownerFrame.searchParams.set("nexah-path", `${location.pathname}${location.search}${location.hash}`);
+          location.replace(ownerFrame.href);
+        })();
+      </script>
+    )}
     <script is:inline>
       // Keep the A0 Owner frame bound to the exact public route currently
       // visible in its staging projection. This is a no-op on nexah.de.

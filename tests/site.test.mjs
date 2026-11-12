@@ -254,7 +254,9 @@ test("SCC-003-R1 is presented as one bounded open-review projection", async () =
   assert.match(page, /It cannot return a judgement/);
   assert.match(page, /no novelty or priority claim/i);
   assert.match(page, /SCC-003 \/ A0OE:PASCAL_PENTAGON_D5_TEST/);
-  assert.match(page, /canonicalOrigin="https:\/\/review\.nexah\.de"/);
+  assert.match(page, /canonicalOrigin="https:\/\/nexah\.de"/);
+  assert.match(page, /Owner-authorized public review/);
+  assert.match(page, /href="\/forschen\/">Open public Science context/);
   assert.match(page, /robots="noindex, nofollow"/);
   assert.match(page, /Run proof capsule/);
   assert.match(page, /Twenty-eight addresses\.<br \/><em>One held tile\.<\/em>/);
@@ -279,7 +281,7 @@ test("SCC-003-R1 is presented as one bounded open-review projection", async () =
   assert.match(layout, /canonicalOrigin/);
   assert.match(layout, /robots = "index, follow"/);
   assert.match(builder, /EXPECTED_MANIFEST_SHA256/);
-  assert.match(builder, /LOCAL_OWNER_STAGING_NOT_PUBLISHED/);
+  assert.match(builder, /OWNER_AUTHORIZED_PUBLIC_REVIEW/);
 });
 
 test("the SCC-003 proof capsule explains reconstruction as a three-stage triptych", async () => {
@@ -323,8 +325,9 @@ test("the SCC-003 complex fold binds the owner stations to the two cube centres"
   assert.match(demonstrator, /k_gate · INDEX/);
   assert.match(demonstrator, /k_trail · COPY/);
   assert.match(demonstrator, /k_Pascal · SLOT/);
-  assert.match(demonstrator, /A0_ORIENTATION_CONTROLLER_BENCH\.html#foldedAxisLrrlWindow/);
-  assert.match(demonstrator, /assets\/a0-field-notes\/index\.html/);
+  assert.match(demonstrator, /Internal provenance: A0 Bench · folded-axis 99-gate window/);
+  assert.match(demonstrator, /Internal provenance: A0 Field Notes · J calibration circle/);
+  assert.doesNotMatch(demonstrator, /30%20SCIENCE|127\.0\.0\.1|file:\/\//);
   assert.match(demonstrator, /PASS · REUSED SOURCES/);
   assert.match(demonstrator, /id="euler-41-fold-test"/);
   assert.match(demonstrator, /5⁻¹≡33 \(mod 41\)/);
@@ -361,6 +364,22 @@ test("the SCC-003 complex fold binds the owner stations to the two cube centres"
   assert.match(demonstrator, /VISUAL 4 · r17/);
   assert.match(demonstrator, /SILVER \/ GOLD \/ BRONZE = DISPLAY ROLES ONLY/);
   assert.match(demonstrator, /NO CHEMISTRY · NO MATERIAL RESONANCE/);
+  assert.match(demonstrator, /id="capsuleFoldAddressView"/);
+  assert.match(demonstrator, /VISUAL 5 · FOLD/);
+  assert.match(demonstrator, /528=48·11/);
+  assert.match(demonstrator, /537=11·48\+9=20·26\+17/);
+  assert.match(demonstrator, /CRT\(9 mod 11, 17 mod 20\) = 97 mod 220 = P₂₅/);
+  assert.match(demonstrator, /97=4·23\+5<\/code> projiziert[\s\S]*?<code>\(g,j\)=\(17,5\)<\/code>/);
+  assert.match(demonstrator, /GATE 17 · θ=306°/);
+  assert.match(demonstrator, /STATION 5 · r=5\/23/);
+  assert.match(demonstrator, /97↔99↔101 · UNIQUE XI ±2 PRIME HINGE/);
+  assert.match(demonstrator, /101×4=404 · 413\+1=414 · Δ=10/);
+  assert.match(demonstrator, /404\+414=818=2×409=2×P₈₀ · WITNESS ONLY/);
+  assert.match(demonstrator, /Unter den XI-Zentren/);
+  assert.match(demonstrator, /537\+23=560=7·80/);
+  assert.match(demonstrator, /404\+414=818=2·409=2·P₈₀/);
+  assert.match(demonstrator, /keinen gemeinsamen Generator/);
+  assert.match(demonstrator, /Berg\/Tal, Kawasaki, Maekawa, starre Faltbarkeit, Layer Order und Kollision bleiben offen/);
   assert.match(demonstrator, /WHITE · DISPLAY ONLY/);
   assert.match(demonstrator, /Keine QCD-, Color-Charge-, Teilchen- oder Übergangsbehauptung/);
   assert.match(demonstrator, /\(432\+852\)\/2=642≠639/);
@@ -419,7 +438,7 @@ test("the SCC-003 generation study stays separate from the frozen proof", async 
   assert.match(study, /10⁸ = 100\|000\|000 = 1\|0000\|0000/);
   assert.match(study, /20008 · STILL THREE/);
   assert.match(study, /It does not extend the SCC-003 proof/);
-  assert.match(study, /LOCAL SCIENCE FLAGSHIP NOTEBOOK \/ NOT PUBLISHED/);
+  assert.match(study, /PUBLIC REVIEW NOTEBOOK \/ BOUNDED CLAIM SET/);
   assert.match(study, /1031 \+ 1033 = 2 × 1032/);
   assert.match(study, /2³ · 3 · 43, exactly/);
   assert.match(study, /The shell\.<br \/>The point\.<br \/>The hatch\./);

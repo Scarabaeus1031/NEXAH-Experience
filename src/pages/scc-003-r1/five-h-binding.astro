@@ -8,7 +8,7 @@ const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
 <BaseLayout
   title="Five H Binding — SCC-003-R1"
   description="A source-bound documentary lens connecting the existing Five-H/Q instrument to the existing SCC-003 review context without changing either identity."
-  canonicalOrigin="https://review.nexah.de"
+  canonicalOrigin="https://nexah.de"
   robots="noindex, nofollow"
   hideSessionQuestion={true}
   lang="en"
@@ -18,6 +18,7 @@ const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
       <p class="binding-kicker">SCC-003-R1 · documentary lens · no new identity</p>
       <h1>Five H.<br /><em>One held return.</em></h1>
       <p class="binding-deck">The existing Five-H instrument is shown here as a reading grammar for cut, projection, trace, mask and record. It remains a separate source object from the Pascal carrier.</p>
+      <p class="binding-unified"><a href="../../laboratory/roedelheim-observatory/generation-corner/#five-h">Read Five H inside the unified Generation Corner <span aria-hidden="true">→</span></a></p>
       <ol class="binding-contract" aria-label="Five H binding contract">
         {stages.map((stage, index) => (
           <li><span>{stage}</span>{index < stages.length - 1 && <b aria-hidden="true">→</b>}</li>
@@ -40,7 +41,7 @@ const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
       </div>
       <iframe
         title="Five H · One Q degree canonical instrument"
-        src="/review-assets/scc-003-r1/demonstrators/five-h-one-q-cut.html"
+        src="../../review-assets/scc-003-r1/demonstrators/five-h-one-q-cut.html"
         loading="eager"
         referrerpolicy="no-referrer"
       ></iframe>
@@ -55,12 +56,16 @@ const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
         <li>No fold, physical, harmonic or biological mechanism is asserted.</li>
         <li>No Study, claim-ceiling, review or publication state changes.</li>
       </ul>
-      <p><a href="/scc-003-r1/">Return to the bounded SCC-003 review object <span aria-hidden="true">→</span></a></p>
+      <p><a href="../../laboratory/roedelheim-observatory/generation-corner/#five-h">Return to the unified Generation Corner <span aria-hidden="true">→</span></a></p>
+      <p><a href="../">Return to the bounded SCC-003 review object <span aria-hidden="true">→</span></a></p>
     </section>
   </main>
 </BaseLayout>
 
-<style>
+<style is:inline>
+  html { background: #07131e; }
+  body { margin: 0; background: #07131e; }
+  .container { width: min(calc(100% - 3rem), 75rem); margin-inline: auto; }
   .binding-page { background: #07131e; color: #e7f0ef; }
   .binding-hero { padding-block: clamp(5rem, 10vw, 9rem); }
   .binding-kicker { margin: 0 0 1.2rem; color: #e8b747; font: 800 .65rem/1.3 var(--mono, ui-monospace, monospace); letter-spacing: .15em; text-transform: uppercase; }
@@ -68,6 +73,7 @@ const stages = ["Hⱼ", "Q°", "ΠQ", "TRACE", "MASK", "T³(q)"];
   h1 { max-width: 10ch; margin: 0; font-size: clamp(4rem, 9vw, 9rem); line-height: .84; }
   h1 em { color: #72d9a1; font-weight: 400; }
   .binding-deck { max-width: 54rem; margin: 2rem 0; color: #9db1b9; font-size: clamp(1.1rem, 2vw, 1.5rem); line-height: 1.6; }
+  .binding-unified a { display: inline-flex; padding: .85rem 1.2rem; border: 1px solid #72d9a1; border-radius: 999px; color: #e7f0ef; font: 800 .72rem/1.2 ui-monospace, monospace; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
   .binding-contract { display: flex; flex-wrap: wrap; gap: .6rem 1rem; margin: 2.5rem 0; padding: 0; list-style: none; }
   .binding-contract li { display: flex; gap: 1rem; align-items: center; color: #72d9a1; font: 800 clamp(.9rem, 1.5vw, 1.2rem)/1 var(--mono, monospace); }
   .binding-contract b { color: #e8b747; }

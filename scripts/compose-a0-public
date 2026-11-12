@@ -55,6 +55,7 @@ done
 # public /forschen/ route, rebase only those allowlisted document links to the
 # site root so they continue to resolve inside the composed nexah.de build.
 perl -0pi -e 's/href="((?:A0_|NEXAH_C_CONNECT|01_FROM_LINE_TO_READOUT)[^"]*)"/href="\/$1"/g' "${DIST_DIR}/forschen/index.html"
+perl -0pi -e 's#(href|src|poster)="((?:assets|results)/[^"]+)"#$1="/$2"#g' "${DIST_DIR}/forschen/index.html"
 
 print "Composed the verified, allowlisted A0 Science bundle without replacing nexah.de root."
 print "Artifact: ${DIST_DIR}"
