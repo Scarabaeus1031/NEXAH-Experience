@@ -1385,6 +1385,7 @@ test("public launch metadata and legal navigation remain complete and inspectabl
   const contact = await read("src/pages/contact.astro");
   const config = await read("astro.config.mjs");
   const robots = await read("public/robots.txt");
+  const htaccess = await read("public/.htaccess");
   const packageSource = await read("package.json");
   const report = await read("docs/reviews/EXPERIENCE_REVIEW_07_PUBLIC_LAUNCH.md");
   const llmsEndpoint = await read("src/pages/llms.txt.ts");
@@ -1406,6 +1407,7 @@ test("public launch metadata and legal navigation remain complete and inspectabl
   assert.match(config, /sitemap\(\)/);
   assert.match(robots, /Allow: \//);
   assert.match(robots, /sitemap-index\.xml/);
+  assert.match(htaccess, /AddType application\/javascript \.mjs/);
   await access(new URL("../public/favicon.png", import.meta.url));
 
   for (const href of ["/contact/", "/privacy/", "/imprint/"]) assert.match(footer, new RegExp(href));

@@ -1,5 +1,7 @@
 RewriteEngine On
 
+AddType application/javascript .mjs
+
 RewriteCond %{HTTP_HOST} ^www\.nexah\.de$ [NC]
 RewriteRule ^ https://nexah.de%{REQUEST_URI} [R=301,L,NE]
 
