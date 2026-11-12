@@ -2973,7 +2973,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
     const state = document.querySelector("[data-joint-proof-state]");
     try {
       const [{ verifySCC003 }, certificate] = await Promise.all([
-        import("/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs"),
+        import("/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs?rev=scc003-r1-public-20261112"),
         fetch("/review-assets/scc-003-r1/proof/scc003-proof-certificate.json").then((response) => response.json()),
       ]);
       const result = verifySCC003(certificate);
