@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SccReviewLayout from "@/layouts/SccReviewLayout.astro";
 
 const proofFreezeHash = "dbab929c5658f9949c0ff5424bba722a27f510a0c399c5c41e9058a0cbaf09e4";
 
@@ -45,13 +45,10 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
 }));
 ---
 
-<BaseLayout
+<SccReviewLayout
   title="The Red Balloon — NEXAH Science Flagship Notebook"
   description="A source-bound visual research notebook on source, projection and return, with a frozen SCC-003 proof capsule."
-  canonicalOrigin="https://nexah.de"
-  robots="noindex, nofollow"
-  hideSessionQuestion={true}
-  lang="en"
+  current="supplement"
 >
   <article class="study-page">
     <header class="study-hero">
@@ -2410,7 +2407,7 @@ const wheel120Control = Array.from({ length: 120 }, (_, residue) => ({
       </div>
     </footer>
   </article>
-</BaseLayout>
+</SccReviewLayout>
 
 <script is:inline>
   const ns = "http://www.w3.org/2000/svg";

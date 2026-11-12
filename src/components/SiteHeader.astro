@@ -1,5 +1,6 @@
 ---
 import Brand from "./Brand.astro";
+import LanguageControl from "./LanguageControl.astro";
 
 type Props = {
   hideEcosystemRail?: boolean;
@@ -47,6 +48,7 @@ const isCurrent = (href: string) => {
         >{label}{external ? <span aria-hidden="true"> ↗</span> : null}</a>
       ))}
     </nav>
+    <LanguageControl />
     <details class="mobile-nav">
       <summary aria-label="Open navigation"><span></span><span></span><span></span></summary>
       <nav aria-label="Mobile navigation">

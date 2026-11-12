@@ -1,0 +1,182 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+type Props = {
+  title: string;
+  description: string;
+  current: "review" | "proof" | "supplement";
+};
+
+const { title, description, current } = Astro.props;
+const links = [
+  { id: "review", label: "Review room", href: "/scc-003-r1/" },
+  { id: "proof", label: "Proof capsule", href: "/scc-003-r1/proof/" },
+  { id: "materials", label: "Materials", href: "/scc-003-r1/#review-materials" },
+] as const;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalOrigin="https://nexah.de"
+  robots="noindex, nofollow"
+  hideHeader={true}
+  hideFooter={true}
+  hideSessionQuestion={true}
+  lang="en"
+>
+  <header class="dossier-header">
+    <div class="dossier-header__inner">
+      <div class="dossier-identity" aria-label="NEXAH SCC-003-R1 independent review dossier">
+        <span class="dossier-wordmark">NEXAH</span>
+        <span class="dossier-divider" aria-hidden="true"></span>
+        <span class="dossier-code">SCC-003-R1</span>
+        <span class="dossier-kind">Independent mathematical review dossier</span>
+      </div>
+      <nav class="dossier-nav" aria-label="SCC-003-R1 dossier navigation">
+        {links.map((link) => (
+          <a href={link.href} aria-current={current === link.id ? "page" : undefined}>{link.label}</a>
+        ))}
+      </nav>
+      <p class="dossier-access"><span aria-hidden="true"></span> Direct review link · not in site navigation</p>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="dossier-footer">
+    <div class="dossier-footer__inner">
+      <p><strong>NEXAH · SCC-003-R1</strong><span>Bounded review surface · no novelty or priority claim</span></p>
+      <nav aria-label="Legal and contact navigation">
+        <a href="/contact/">Contact</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/imprint/">Imprint</a>
+      </nav>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .dossier-header {
+    position: relative;
+    z-index: 20;
+    border-bottom: 1px solid var(--line);
+    background: rgba(244, 240, 231, .97);
+  }
+  .dossier-header__inner,
+  .dossier-footer__inner {
+    width: min(calc(100% - 2.5rem), var(--container));
+    margin-inline: auto;
+  }
+  .dossier-header__inner {
+    display: grid;
+    grid-template-columns: minmax(20rem, 1fr) auto;
+    align-items: center;
+    gap: .8rem 2rem;
+    min-height: 6.4rem;
+    padding-block: 1rem;
+  }
+  .dossier-identity {
+    display: grid;
+    grid-template-columns: auto 1px auto;
+    align-items: center;
+    justify-content: start;
+    gap: .65rem;
+  }
+  .dossier-wordmark,
+  .dossier-code,
+  .dossier-kind,
+  .dossier-access,
+  .dossier-nav a,
+  .dossier-footer {
+    font-family: var(--sans);
+  }
+  .dossier-wordmark {
+    color: var(--ink);
+    font-size: .78rem;
+    font-weight: 850;
+    letter-spacing: .2em;
+  }
+  .dossier-divider {
+    width: 1px;
+    height: 1rem;
+    background: var(--line-strong);
+  }
+  .dossier-code {
+    color: #9b7119;
+    font: 750 .7rem/1 var(--sans);
+    letter-spacing: .13em;
+  }
+  .dossier-kind {
+    grid-column: 1 / -1;
+    color: var(--ink-faint);
+    font-size: .64rem;
+    letter-spacing: .105em;
+    text-transform: uppercase;
+  }
+  .dossier-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+  }
+  .dossier-nav a {
+    padding-block: .5rem;
+    border-bottom: 1px solid transparent;
+    color: var(--ink-soft);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-decoration: none;
+  }
+  .dossier-nav a[aria-current="page"] {
+    border-bottom-color: #b8871f;
+    color: var(--ink);
+  }
+  .dossier-access {
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin: 0;
+    color: var(--ink-faint);
+    font-size: .58rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  .dossier-access span {
+    display: inline-block;
+    width: .38rem;
+    height: .38rem;
+    margin-right: .45rem;
+    border-radius: 50%;
+    background: #b8871f;
+  }
+  .dossier-footer {
+    border-top: 1px solid #304653;
+    background: #061018;
+    color: #91a5af;
+  }
+  .dossier-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-block: 2rem;
+  }
+  .dossier-footer p { display: flex; flex-direction: column; gap: .35rem; margin: 0; }
+  .dossier-footer strong { color: #e8b747; font-size: .66rem; letter-spacing: .11em; text-transform: uppercase; }
+  .dossier-footer span { font-size: .65rem; }
+  .dossier-footer nav { display: flex; gap: 1.4rem; }
+  .dossier-footer a { color: #c6d0d5; font-size: .66rem; letter-spacing: .06em; text-decoration: none; text-transform: uppercase; }
+
+  @media (max-width: 880px) {
+    .dossier-header__inner { grid-template-columns: 1fr; }
+    .dossier-nav { flex-wrap: wrap; }
+    .dossier-access { justify-self: start; }
+  }
+  @media (max-width: 600px) {
+    .dossier-header__inner,
+    .dossier-footer__inner { width: min(calc(100% - 1.5rem), var(--container)); }
+    .dossier-header__inner { min-height: 0; }
+    .dossier-nav { gap: .5rem 1rem; padding-top: .35rem; border-top: 1px solid var(--line); }
+    .dossier-footer__inner { align-items: flex-start; flex-direction: column; }
+  }
+</style>

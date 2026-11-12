@@ -1,0 +1,71 @@
+<div class="language-control" data-language-control>
+  <span class="language-control__label">
+    <span class="lang-copy lang-copy--de">Originalsprache: Deutsch</span>
+    <span class="lang-copy lang-copy--en">Original language: German</span>
+  </span>
+  <span class="language-control__choices" aria-label="Sprache wählen / Choose language">
+    <button type="button" data-language-choice="de" aria-pressed="false">DE</button>
+    <span aria-hidden="true">/</span>
+    <button type="button" data-language-choice="en" aria-pressed="false">EN</button>
+  </span>
+</div>
+
+<script>
+  const storageKey = "nexah.public.language";
+  const root = document.documentElement;
+  const controls = document.querySelectorAll<HTMLElement>("[data-language-control]");
+
+  const setLanguage = (language: "de" | "en", remember = false) => {
+    root.dataset.siteLanguage = language;
+    root.lang = language;
+    controls.forEach((control) => {
+      control.querySelectorAll<HTMLButtonElement>("[data-language-choice]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.languageChoice === language));
+      });
+    });
+    if (remember) window.localStorage.setItem(storageKey, language);
+    window.dispatchEvent(new CustomEvent("nexah:language-changed", { detail: language }));
+  };
+
+  controls.forEach((control) => {
+    control.querySelectorAll<HTMLButtonElement>("[data-language-choice]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const language = button.dataset.languageChoice === "en" ? "en" : "de";
+        const url = new URL(window.location.href);
+        url.searchParams.set("lang", language);
+        window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+        setLanguage(language, true);
+      });
+    });
+  });
+
+  setLanguage(root.dataset.siteLanguage === "en" ? "en" : "de");
+</script>
+
+<style>
+  .language-control {
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    color: inherit;
+    font: 650 .55rem/1.2 "SFMono-Regular", Consolas, monospace;
+    letter-spacing: .055em;
+    white-space: nowrap;
+  }
+  .language-control__label { color: currentColor; opacity: .58; }
+  .language-control__choices { display: inline-flex; align-items: center; gap: .25rem; }
+  .language-control button {
+    padding: .18rem .08rem;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    letter-spacing: .08em;
+    opacity: .48;
+  }
+  .language-control button[aria-pressed="true"] { border-color: currentColor; opacity: 1; }
+  .language-control button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  @media (max-width: 620px) { .language-control__label { display: none; } }
+</style>

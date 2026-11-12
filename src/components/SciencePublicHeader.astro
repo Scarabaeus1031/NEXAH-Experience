@@ -1,32 +1,33 @@
 ---
 import { withPublicRevision } from "@/data/public-route";
+import LanguageControl from "./LanguageControl.astro";
 
 const path = Astro.url.pathname;
 
 const mainSections = [
   {
-    label: "Orientieren",
+    label: { de: "Orientieren", en: "Orient" },
     href: "/",
     external: false,
     current: path === "/" || path.startsWith("/about/") || path.startsWith("/how-nexah-works/"),
   },
   {
-    label: "Forschen",
+    label: { de: "Forschen", en: "Research" },
     href: "/forschen/",
     external: false,
     current: path.startsWith("/forschen/") || path.startsWith("/A0_SCIENTIFIC_") || path.startsWith("/A0_MATHEMATICAL_") || path.startsWith("/A0_NEXAH_") || path.startsWith("/A0_RETURN_") || path.startsWith("/A0_FIELDS_") || path.startsWith("/A0_BOUNDARY_"),
   },
   {
-    label: "Lesen & erkunden",
+    label: { de: "Lesen & erkunden", en: "Read & explore" },
     href: "/library/",
     external: false,
     current: path.startsWith("/library/") || path.startsWith("/atlas/") || path.startsWith("/atlas-of-atlases/") || path.startsWith("/01_FROM_LINE_TO_READOUT"),
   },
   {
-    label: "Anwenden & erleben",
-    href: "/A0_TOURS.html",
+    label: { de: "Anwenden & erleben", en: "Apply & experience" },
+    href: "/explore/journeys/",
     external: false,
-    current: path.startsWith("/A0_TOURS") || path.startsWith("/laboratory/") || path.startsWith("/threshold/") || path.startsWith("/departure/"),
+    current: path.startsWith("/explore/journeys/") || path.startsWith("/laboratory/") || path.startsWith("/threshold/") || path.startsWith("/departure/"),
   },
 ] as const;
 
@@ -69,7 +70,7 @@ const menuGroups = [
     code: "04", title: "Anwenden & erleben",
     description: "Touren, Instrumente und die verbundenen öffentlichen Häuser öffnen.",
     links: [
-      { label: "Geführte Tour", href: "/A0_TOURS.html" },
+      { label: "Geführte Tour", href: "/explore/journeys/" },
       { label: "Laboratory", href: "/laboratory/" },
       { label: "NEXAHEDRON · Human", href: "https://nexahedron.com" },
       { label: "Scarabæus · Builder", href: "https://www.scarabaeus1033.net" },
@@ -89,11 +90,12 @@ const menuGroups = [
           target={section.external ? "_blank" : undefined}
           rel={section.external ? "noopener noreferrer" : undefined}
           aria-current={section.current ? "page" : undefined}
-        >{section.label}{section.external ? <span aria-hidden="true"> ↗</span> : null}</a>
+        ><span class="lang-copy lang-copy--de">{section.label.de}</span><span class="lang-copy lang-copy--en">{section.label.en}</span>{section.external ? <span aria-hidden="true"> ↗</span> : null}</a>
       ))}
     </nav>
+    <LanguageControl />
     <details class="science-public-menu">
-      <summary>Navigation <span aria-hidden="true">+</span></summary>
+      <summary><span class="lang-copy lang-copy--de">Navigation</span><span class="lang-copy lang-copy--en">Directory</span> <span aria-hidden="true">+</span></summary>
       <div class="science-public-menu__panel">
         <header>
           <p>NEXAH · öffentliche Übersicht</p>
@@ -132,7 +134,7 @@ const menuGroups = [
     backdrop-filter: blur(14px);
   }
   .science-public-top {
-    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto;
     align-items: center; gap: clamp(1rem, 2.3vw, 2.5rem); min-height: 58px; padding: .7rem 5vw;
   }
   .science-public-brand {
@@ -181,9 +183,9 @@ const menuGroups = [
   .science-public-menu__grid nav a { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-top: 1px solid #e5ded3; font-size: .56rem; }
   .science-public-menu__grid nav a span { color: #9a6c00; }
   @media (max-width: 820px) {
-    .science-public-top { grid-template-columns: auto auto; }
+    .science-public-top { grid-template-columns: auto 1fr auto; }
     .science-public-primary { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; overflow-x: auto; padding: .25rem 0; scrollbar-width: thin; }
-    .science-public-menu { grid-column: 2; grid-row: 1; justify-self: end; }
+    .science-public-menu { grid-column: 3; grid-row: 1; justify-self: end; }
     .science-public-menu__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .science-public-menu__grid > section { border-bottom: 1px solid #d8cfc1; }
     .science-public-menu__grid > section:nth-child(2) { border-right: 0; }

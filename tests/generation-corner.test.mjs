@@ -24,6 +24,8 @@ test("Generation Corner is the unified editorial lens without merging source ide
   assert.match(page, /SAME SCC-003 IDENTITY · NO GRAPH DELTA/);
 
   assert.match(fiveH, /Read Five H inside the unified Generation Corner/);
-  assert.match(review, /Open Generation Corner · Five H \+ Complex Fold/);
+  assert.match(review, /Supplementary visual notebook/);
+  assert.match(review, /Exploratory context only · not part of claims C1–C6/);
+  assert.doesNotMatch(review, /Open Generation Corner · Five H \+ Complex Fold/);
   assert.match(notebook, /Continue through Generation Corner · Five H \+ Complex Fold/);
 });

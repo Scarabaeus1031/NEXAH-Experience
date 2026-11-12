@@ -21,7 +21,7 @@ test("the shared public header exposes the four visitor routes without exposing 
   const home = await read("src/pages/index.astro");
   assert.match(header, /aria-label="NEXAH Hauptnavigation"/);
   for (const label of ["Orientieren", "Forschen", "Lesen & erkunden", "Anwenden & erleben"]) {
-    assert.match(header, new RegExp(`label: "${label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
+    assert.match(header, new RegExp(`de: "${label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
   }
   assert.match(header, /href: "\/forschen\/"/);
   assert.match(layout, /headerVariant = "science"/);
@@ -43,6 +43,8 @@ test("public navigation pins one candidate revision and reports its route to the
   assert.match(bridge, /querySelectorAll\("a\[data-public-href\]"\)/);
   assert.doesNotMatch(header, /A0_TOURS\.html#explanation-path/);
   assert.doesNotMatch(bridge, /A0_TOURS\.html#explanation-path/);
+  assert.doesNotMatch(header, /href=["']\/A0_TOURS\.html/);
+  assert.match(header, /href:\s*["']\/explore\/journeys\//);
   assert.match(bridge, /type: "nexah:owner-route"/);
 });
 
@@ -153,11 +155,11 @@ test("the public family uses one compact NEXAH navigation with a public director
   const header = await read("src/components/SciencePublicHeader.astro");
 
   for (const label of ["Orientieren", "Forschen", "Lesen & erkunden", "Anwenden & erleben"]) {
-    assert.match(header, new RegExp(`label: "${label}"`));
+    assert.match(header, new RegExp(`de: "${label}"`));
   }
   assert.match(header, /NEXAH <span>· Orientation<\/span>/);
   assert.match(header, /aria-label="NEXAH Hauptnavigation"/);
-  assert.match(header, /Navigation <span aria-hidden="true">\+<\/span>/);
+  assert.match(header, /lang-copy--de">Navigation<\/span>/);
   for (const title of ["Orientieren", "Forschen", "Lesen & erkunden", "Anwenden & erleben"]) {
     assert.match(header, new RegExp(`title: "${title.replaceAll("&", "&")}"`));
   }
@@ -170,6 +172,23 @@ test("the public family uses one compact NEXAH navigation with a public director
 
   assert.match(await read("src/pages/library.astro"), /ecosystem-section-hero--library/);
   assert.match(await read("src/pages/atlas-of-atlases\/index.astro"), /ecosystem-section-hero--atlas/);
+});
+
+test("the public frontdoor offers a quiet persistent German and English reading", async () => {
+  const layout = await read("src/layouts/BaseLayout.astro");
+  const control = await read("src/components/LanguageControl.astro");
+  const header = await read("src/components/SciencePublicHeader.astro");
+  const home = await read("src/pages/index.astro");
+
+  assert.match(layout, /nexah\.public\.language/);
+  assert.match(layout, /navigator\.language/);
+  assert.match(control, /Originalsprache: Deutsch/);
+  assert.match(control, /Original language: German/);
+  assert.match(control, /data-language-choice="de"/);
+  assert.match(control, /data-language-choice="en"/);
+  assert.match(header, /<LanguageControl \/>/);
+  assert.match(home, /Orientation begins where a view reveals its boundary/);
+  assert.match(home, /The website shows the way\. The sources carry the claims/);
 });
 
 test("every current public ecosystem destination is explicit and navigable", async () => {
@@ -247,6 +266,7 @@ test("SCC-003-R1 is presented as one bounded open-review projection", async () =
   const verifier = await read("public/review-assets/scc-003-r1/proof/scc003-proof-verifier.mjs");
   const certificate = JSON.parse(await read("public/review-assets/scc-003-r1/proof/scc003-proof-certificate.json"));
   const layout = await read("src/layouts/BaseLayout.astro");
+  const reviewLayout = await read("src/layouts/SccReviewLayout.astro");
   const builder = await read("scripts/build-scc003-review-assets.py");
 
   assert.match(page, /Five Pascal Carriers/);
@@ -254,10 +274,16 @@ test("SCC-003-R1 is presented as one bounded open-review projection", async () =
   assert.match(page, /It cannot return a judgement/);
   assert.match(page, /no novelty or priority claim/i);
   assert.match(page, /SCC-003 \/ A0OE:PASCAL_PENTAGON_D5_TEST/);
-  assert.match(page, /canonicalOrigin="https:\/\/nexah\.de"/);
+  assert.match(page, /SccReviewLayout/);
+  assert.match(reviewLayout, /canonicalOrigin="https:\/\/nexah\.de"/);
+  assert.match(reviewLayout, /robots="noindex, nofollow"/);
+  assert.match(reviewLayout, /hideHeader=\{true\}/);
+  assert.match(reviewLayout, /Direct review link · not in site navigation/);
+  assert.doesNotMatch(reviewLayout, /SciencePublicHeader|SiteHeader/);
   assert.match(page, /Owner-authorized public review/);
-  assert.match(page, /href="\/forschen\/">Open public Science context/);
-  assert.match(page, /robots="noindex, nofollow"/);
+  assert.doesNotMatch(page, /Open public Science context|Open Generation Corner|Open Science Flagship notebook/);
+  assert.match(page, /Supplementary visual notebook/);
+  assert.match(page, /Exploratory context only · not part of claims C1–C6/);
   assert.match(page, /Run proof capsule/);
   assert.match(page, /scc003-proof-verifier\.mjs\?rev=scc003-r1-public-20261112/);
   assert.match(page, /Twenty-eight addresses\.<br \/><em>One held tile\.<\/em>/);
@@ -748,12 +774,12 @@ test("the Home page is a calm public foyer for the NEXAH houses and routes", asy
   assert.match(page, /Human-governed Orientierungssystem/);
   assert.match(page, /Bedeutung, Urteil und Verantwortung bleiben beim Menschen/);
   for (const route of ["Orientieren", "Forschen", "Lesen & erkunden", "Anwenden & erleben"]) {
-    assert.ok(page.includes(`title: "${route}"`), `${route} must remain a public route`);
+    assert.ok(page.includes(`de: "${route}"`), `${route} must remain a public route`);
   }
   for (const movement of ["Beobachten", "Auswählen", "Schnitt zeigen", "Quelle halten", "Vergleichen", "Residuum bewahren", "Zurückkehren"]) {
     assert.ok(page.includes(`"${movement}"`), `${movement} must remain in the compact public practice`);
   }
-  assert.match(page, /Navigation \+/);
+  assert.match(page, /<strong>Navigation \+<\/strong>/);
   assert.match(page, /Interne Desks, Mission Control/);
   assert.match(page, /Science-Inhalte werden source-bound/);
   assert.doesNotMatch(page, /Ein Werk · klare Häuser|Bestehende Räume|Was bereits trägt/);

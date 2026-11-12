@@ -5,42 +5,42 @@ import { withPublicRevision } from "@/data/public-route";
 const publicRoutes = [
   {
     code: "01",
-    title: "Orientieren",
-    description: "Verstehen, was NEXAH ist, welche Aufgabe es hat und wo seine Grenzen liegen.",
+    title: { de: "Orientieren", en: "Orient" },
+    description: { de: "Verstehen, was NEXAH ist, welche Aufgabe es hat und wo seine Grenzen liegen.", en: "Understand what NEXAH is, what it is for and where its boundaries lie." },
     href: "/about/",
-    action: "About NEXAH",
+    action: { de: "About NEXAH", en: "About NEXAH" },
   },
   {
     code: "02",
-    title: "Forschen",
-    description: "Stand, Resultate, Belege, mathematische Felder und offene Fragen prüfen.",
+    title: { de: "Forschen", en: "Research" },
+    description: { de: "Stand, Resultate, Belege, mathematische Felder und offene Fragen prüfen.", en: "Inspect current status, results, evidence, mathematical fields and open questions." },
     href: "/forschen/",
-    action: "Zum Forschungsraum",
+    action: { de: "Zum Forschungsraum", en: "Enter the research space" },
   },
   {
     code: "03",
-    title: "Lesen & erkunden",
-    description: "Bücher, Publikationen, Karten und Atlanten als eigene Räume öffnen.",
+    title: { de: "Lesen & erkunden", en: "Read & explore" },
+    description: { de: "Bücher, Publikationen, Karten und Atlanten als eigene Räume öffnen.", en: "Open books, publications, maps and atlases as spaces in their own right." },
     href: "/library/",
-    action: "Zur Library",
+    action: { de: "Zur Library", en: "Open the Library" },
   },
   {
     code: "04",
-    title: "Anwenden & erleben",
-    description: "Touren, Instrumente, Laboratory und die verbundenen öffentlichen Häuser öffnen.",
-    href: "/A0_TOURS.html",
-    action: "Tour beginnen",
+    title: { de: "Anwenden & erleben", en: "Apply & experience" },
+    description: { de: "Touren, Instrumente, Laboratory und die verbundenen öffentlichen Häuser öffnen.", en: "Open tours, instruments, the Laboratory and the connected public houses." },
+    href: "/explore/journeys/",
+    action: { de: "Tour beginnen", en: "Begin the tour" },
   },
 ] as const;
 
 const practiceSteps = [
-  ["01", "Beobachten", "Zuerst wahrnehmen, was in der gegenwärtigen Ansicht tatsächlich sichtbar ist."],
-  ["02", "Auswählen", "Erkennen, dass Aufmerksamkeit und Darstellung immer eine Auswahl treffen."],
-  ["03", "Schnitt zeigen", "Die Grenze der Ansicht sichtbar machen, statt sie mit der Situation gleichzusetzen."],
-  ["04", "Quelle halten", "Herkunft, Kontext und Veränderung so erhalten, dass sie später prüfbar bleiben."],
-  ["05", "Vergleichen", "Mehrere Ansichten zusammenhalten, ohne ihre Unterschiede einzuebnen."],
-  ["06", "Residuum bewahren", "Widerspruch, Unsicherheit und das noch Ungelöste nicht verstecken."],
-  ["07", "Zurückkehren", "Das Ergebnis an menschliches Urteil, Revision und mögliche Handlung zurückgeben."],
+  ["01", { de: "Beobachten", en: "Observe" }, { de: "Zuerst wahrnehmen, was in der gegenwärtigen Ansicht tatsächlich sichtbar ist.", en: "First notice what is actually visible in the present view." }],
+  ["02", { de: "Auswählen", en: "Select" }, { de: "Erkennen, dass Aufmerksamkeit und Darstellung immer eine Auswahl treffen.", en: "Recognize that attention and representation always make a selection." }],
+  ["03", { de: "Schnitt zeigen", en: "Show the cut" }, { de: "Die Grenze der Ansicht sichtbar machen, statt sie mit der Situation gleichzusetzen.", en: "Make the boundary of the view visible instead of equating it with the situation." }],
+  ["04", { de: "Quelle halten", en: "Hold the source" }, { de: "Herkunft, Kontext und Veränderung so erhalten, dass sie später prüfbar bleiben.", en: "Preserve origin, context and change so they remain inspectable later." }],
+  ["05", { de: "Vergleichen", en: "Compare" }, { de: "Mehrere Ansichten zusammenhalten, ohne ihre Unterschiede einzuebnen.", en: "Hold multiple views together without flattening their differences." }],
+  ["06", { de: "Residuum bewahren", en: "Keep the residual" }, { de: "Widerspruch, Unsicherheit und das noch Ungelöste nicht verstecken.", en: "Do not hide contradiction, uncertainty or what remains unresolved." }],
+  ["07", { de: "Zurückkehren", en: "Return" }, { de: "Das Ergebnis an menschliches Urteil, Revision und mögliche Handlung zurückgeben.", en: "Return the result to Human judgment, revision and possible action." }],
 ] as const;
 
 ---
@@ -55,12 +55,12 @@ const practiceSteps = [
   <section class="cosmos-threshold" aria-labelledby="cosmos-title">
     <div class="container cosmos-threshold__inner">
       <div class="cosmos-threshold__copy">
-        <p class="eyebrow">NEXAH · Orientation at the threshold</p>
-        <h1 id="cosmos-title">A view into the NEXAH Cosmos.</h1>
-        <p class="lead">NEXAH macht Position, Perspektive, Relation und mögliche Wege sichtbar. Es hilft, eine überzeugende Darstellung nicht mit der ganzen Situation zu verwechseln.</p>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">NEXAH · Orientierung an der Schwelle</span><span class="lang-copy lang-copy--en">NEXAH · Orientation at the threshold</span></p>
+        <h1 id="cosmos-title"><span class="lang-copy lang-copy--de">Ein Blick in den NEXAH-Kosmos.</span><span class="lang-copy lang-copy--en">A view into the NEXAH Cosmos.</span></h1>
+        <p class="lead"><span class="lang-copy lang-copy--de">NEXAH macht Position, Perspektive, Relation und mögliche Wege sichtbar. Es hilft, eine überzeugende Darstellung nicht mit der ganzen Situation zu verwechseln.</span><span class="lang-copy lang-copy--en">NEXAH makes position, perspective, relation and possible paths visible. It helps us avoid mistaking a convincing representation for the whole situation.</span></p>
         <div class="cosmos-threshold__actions">
-          <a class="button" href="#what-is-nexah">NEXAH verstehen <span aria-hidden="true">↓</span></a>
-          <a class="button button--quiet" href={withPublicRevision("/forschen/")}>Zum Forschungsraum <span aria-hidden="true">→</span></a>
+          <a class="button" href="#what-is-nexah"><span class="lang-copy lang-copy--de">NEXAH verstehen</span><span class="lang-copy lang-copy--en">Understand NEXAH</span> <span aria-hidden="true">↓</span></a>
+          <a class="button button--quiet" href={withPublicRevision("/forschen/")}><span class="lang-copy lang-copy--de">Zum Forschungsraum</span><span class="lang-copy lang-copy--en">Enter research</span> <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <div class="cosmos-threshold__diagram" aria-label="Eine Quelle, mehrere begrenzte Ansichten und ein sichtbarer Rückweg">
@@ -69,7 +69,7 @@ const practiceSteps = [
         <span class="cosmos-threshold__axis cosmos-threshold__axis--horizontal" aria-hidden="true"></span>
         <span class="cosmos-threshold__axis cosmos-threshold__axis--vertical" aria-hidden="true"></span>
         <strong>N</strong>
-        <small>Ein Träger.<br />Mehrere begrenzte Ansichten.<br />Ein expliziter Rückweg.</small>
+        <small><span class="lang-copy lang-copy--de">Ein Träger.<br />Mehrere begrenzte Ansichten.<br />Ein expliziter Rückweg.</span><span class="lang-copy lang-copy--en">One carrier.<br />Several bounded views.<br />One explicit return path.</span></small>
       </div>
     </div>
   </section>
@@ -77,13 +77,13 @@ const practiceSteps = [
   <section id="what-is-nexah" class="cosmos-definition section--line" aria-labelledby="definition-title">
     <div class="container cosmos-definition__inner">
       <header>
-        <p class="eyebrow">Was ist NEXAH?</p>
-        <h2 id="definition-title">Orientierung beginnt dort, wo eine Ansicht ihre Grenze zeigt.</h2>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Was ist NEXAH?</span><span class="lang-copy lang-copy--en">What is NEXAH?</span></p>
+        <h2 id="definition-title"><span class="lang-copy lang-copy--de">Orientierung beginnt dort, wo eine Ansicht ihre Grenze zeigt.</span><span class="lang-copy lang-copy--en">Orientation begins where a view reveals its boundary.</span></h2>
       </header>
       <div class="cosmos-definition__copy">
-        <p class="lead">NEXAH ist ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie.</p>
-        <p>Es hält Quelle, Auswahl, Veränderung, Evidenz, Unsicherheit und das außerhalb einer Ansicht Liegende unterscheidbar. So können verschiedene Darstellungen miteinander in Beziehung treten, ohne vorschnell identisch gesetzt zu werden.</p>
-        <blockquote>NEXAH unterstützt Verstehen. Bedeutung, Urteil und Verantwortung bleiben beim Menschen.</blockquote>
+        <p class="lead"><span class="lang-copy lang-copy--de">NEXAH ist ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie.</span><span class="lang-copy lang-copy--en">NEXAH is a Human-governed orientation system across culture, science, design and technology.</span></p>
+        <p><span class="lang-copy lang-copy--de">Es hält Quelle, Auswahl, Veränderung, Evidenz, Unsicherheit und das außerhalb einer Ansicht Liegende unterscheidbar. So können verschiedene Darstellungen miteinander in Beziehung treten, ohne vorschnell identisch gesetzt zu werden.</span><span class="lang-copy lang-copy--en">It keeps source, selection, change, evidence, uncertainty and what lies outside a view distinguishable. Different representations can thus enter into relation without being prematurely declared identical.</span></p>
+        <blockquote><span class="lang-copy lang-copy--de">NEXAH unterstützt Verstehen. Bedeutung, Urteil und Verantwortung bleiben beim Menschen.</span><span class="lang-copy lang-copy--en">NEXAH supports understanding. Meaning, judgment and responsibility remain Human.</span></blockquote>
       </div>
     </div>
   </section>
@@ -92,17 +92,17 @@ const practiceSteps = [
     <div class="container">
       <header class="cosmos-section-heading">
         <div>
-          <p class="eyebrow">Eine einfache Praxis</p>
-          <h2 id="practice-title">Orientierung beginnt vor der Antwort.</h2>
+          <p class="eyebrow"><span class="lang-copy lang-copy--de">Eine einfache Praxis</span><span class="lang-copy lang-copy--en">A simple practice</span></p>
+          <h2 id="practice-title"><span class="lang-copy lang-copy--de">Orientierung beginnt vor der Antwort.</span><span class="lang-copy lang-copy--en">Orientation begins before the answer.</span></h2>
         </div>
-        <p>NEXAH ist kein automatisches Urteilssystem. Es ist eine nachvollziehbare Bewegung vom ersten Blick über Quelle und Vergleich bis zum menschlichen Return.</p>
+        <p><span class="lang-copy lang-copy--de">NEXAH ist kein automatisches Urteilssystem. Es ist eine nachvollziehbare Bewegung vom ersten Blick über Quelle und Vergleich bis zum menschlichen Return.</span><span class="lang-copy lang-copy--en">NEXAH is not an automated judgment system. It is an inspectable movement from the first view through source and comparison to Human return.</span></p>
       </header>
       <ol class="cosmos-practice__steps">
         {practiceSteps.map(([number, title, description]) => (
           <li>
             <span>{number}</span>
-            <h3>{title}</h3>
-            <p>{description}</p>
+            <h3><span class="lang-copy lang-copy--de">{title.de}</span><span class="lang-copy lang-copy--en">{title.en}</span></h3>
+            <p><span class="lang-copy lang-copy--de">{description.de}</span><span class="lang-copy lang-copy--en">{description.en}</span></p>
           </li>
         ))}
       </ol>
@@ -113,18 +113,18 @@ const practiceSteps = [
     <div class="container">
       <header class="cosmos-section-heading">
         <div>
-          <p class="eyebrow">Öffentliche Wege</p>
-          <h2 id="routes-title">Wohin möchten Sie gehen?</h2>
+          <p class="eyebrow"><span class="lang-copy lang-copy--de">Öffentliche Wege</span><span class="lang-copy lang-copy--en">Public paths</span></p>
+          <h2 id="routes-title"><span class="lang-copy lang-copy--de">Wohin möchten Sie gehen?</span><span class="lang-copy lang-copy--en">Where would you like to go?</span></h2>
         </div>
-        <p>Vier Einstiege ordnen den vorhandenen Bestand. Die vollständige Übersicht bleibt jederzeit über <strong>Navigation +</strong> erreichbar.</p>
+        <p><span class="lang-copy lang-copy--de">Vier Einstiege ordnen den vorhandenen Bestand. Die vollständige Übersicht bleibt jederzeit über <strong>Navigation +</strong> erreichbar.</span><span class="lang-copy lang-copy--en">Four entrances organize what is already here. The complete directory remains available through <strong>Directory +</strong>.</span></p>
       </header>
       <nav class="cosmos-route-grid" aria-label="Öffentliche NEXAH Wege">
         {publicRoutes.map((route) => (
           <a href={withPublicRevision(route.href)}>
             <span>{route.code}</span>
-            <h3>{route.title}</h3>
-            <p>{route.description}</p>
-            <strong>{route.action} <b aria-hidden="true">→</b></strong>
+            <h3><span class="lang-copy lang-copy--de">{route.title.de}</span><span class="lang-copy lang-copy--en">{route.title.en}</span></h3>
+            <p><span class="lang-copy lang-copy--de">{route.description.de}</span><span class="lang-copy lang-copy--en">{route.description.en}</span></p>
+            <strong><span class="lang-copy lang-copy--de">{route.action.de}</span><span class="lang-copy lang-copy--en">{route.action.en}</span> <b aria-hidden="true">→</b></strong>
           </a>
         ))}
       </nav>
@@ -134,11 +134,11 @@ const practiceSteps = [
   <section class="cosmos-boundary" aria-labelledby="boundary-title">
     <div class="container cosmos-boundary__inner">
       <div>
-        <p class="eyebrow">Öffentliche Projektion</p>
-        <h2 id="boundary-title">Die Website zeigt den Weg. Die Quellen tragen die Aussagen.</h2>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Öffentliche Projektion</span><span class="lang-copy lang-copy--en">Public projection</span></p>
+        <h2 id="boundary-title"><span class="lang-copy lang-copy--de">Die Website zeigt den Weg. Die Quellen tragen die Aussagen.</span><span class="lang-copy lang-copy--en">The website shows the way. The sources carry the claims.</span></h2>
       </div>
-      <p>Interne Desks, Mission Control, Arbeitsaufträge und nicht freigegebene Forschungsstände bleiben außerhalb dieser öffentlichen Ansicht. Science-Inhalte werden source-bound aus dem Science Desk und Science Lab projiziert.</p>
-      <a class="text-link" href="/how-nexah-works/">So arbeitet NEXAH →</a>
+      <p><span class="lang-copy lang-copy--de">Interne Desks, Mission Control, Arbeitsaufträge und nicht freigegebene Forschungsstände bleiben außerhalb dieser öffentlichen Ansicht. Science-Inhalte werden source-bound aus dem Science Desk und Science Lab projiziert.</span><span class="lang-copy lang-copy--en">Internal Desks, Mission Control, work orders and unreleased research states remain outside this public view. Science content is projected source-bound from the Science Desk and Science Lab.</span></p>
+      <a class="text-link" href="/how-nexah-works/"><span class="lang-copy lang-copy--de">So arbeitet NEXAH →</span><span class="lang-copy lang-copy--en">How NEXAH works →</span></a>
     </div>
   </section>
 </BaseLayout>

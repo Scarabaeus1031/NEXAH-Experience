@@ -13,6 +13,7 @@ type Props = {
   description?: string;
   canonicalOrigin?: string;
   hideFooter?: boolean;
+  hideHeader?: boolean;
   hideSessionQuestion?: boolean;
   hideEcosystemRail?: boolean;
   headerVariant?: "default" | "science";
@@ -25,6 +26,7 @@ const {
   description = nexahIdentity.definition,
   canonicalOrigin,
   hideFooter = false,
+  hideHeader = false,
   hideSessionQuestion = false,
   hideEcosystemRail = false,
   headerVariant = "science",
@@ -36,9 +38,22 @@ const structuredData = JSON.stringify(nexahStructuredData());
 ---
 
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} data-site-language={lang}>
   <head>
     <meta charset="UTF-8" />
+    <script is:inline>
+      (() => {
+        const key = "nexah.public.language";
+        const requested = new URLSearchParams(location.search).get("lang");
+        const remembered = localStorage.getItem(key);
+        const browser = navigator.language?.toLowerCase().startsWith("de") ? "de" : "en";
+        const language = requested === "de" || requested === "en"
+          ? requested
+          : remembered === "de" || remembered === "en" ? remembered : browser;
+        document.documentElement.dataset.siteLanguage = language;
+        document.documentElement.lang = language;
+      })();
+    </script>
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
@@ -91,7 +106,7 @@ const structuredData = JSON.stringify(nexahStructuredData());
   </head>
   <body>
     <a class="skip-link" href="#main">Zum Inhalt</a>
-    {headerVariant === "science" ? <SciencePublicHeader /> : <SiteHeader hideEcosystemRail={hideEcosystemRail} />}
+    {!hideHeader && (headerVariant === "science" ? <SciencePublicHeader /> : <SiteHeader hideEcosystemRail={hideEcosystemRail} />)}
     <main id="main">{!hideSessionQuestion && <SessionQuestion />}<slot /></main>
     {!hideFooter && <SiteFooter />}
   </body>

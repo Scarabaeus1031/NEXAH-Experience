@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import SccReviewLayout from "@/layouts/SccReviewLayout.astro";
 
 const manifestHash = "73b0322764620a5faef7a1b92f7cdb552ea39d09e3a79386b6454377679996f2";
 const claims = [
@@ -12,13 +12,10 @@ const claims = [
 ] as const;
 ---
 
-<BaseLayout
+<SccReviewLayout
   title="Five Pascal Carriers. One Quotient. — SCC-003-R1"
   description="Open human review of a finite typed Pascal-carrier quotient with 106 vertices and candidate full D5 symmetry."
-  canonicalOrigin="https://nexah.de"
-  robots="noindex, nofollow"
-  hideSessionQuestion={true}
-  lang="en"
+  current="review"
 >
   <article class="review-page">
     <header class="review-hero">
@@ -27,13 +24,10 @@ const claims = [
           <p class="review-kicker">SCC-003-R1 · Public room for bounded mathematical review</p>
           <h1>Five Pascal Carriers.<br /><em>One Quotient.</em></h1>
           <p class="review-deck">A finite typed graph with <strong>106 vertices</strong>, <strong>180 directed recurrence edges</strong> and a candidate full automorphism group of exactly <strong>D5</strong>.</p>
-          <div class="review-actions" aria-label="Review materials">
+          <div class="review-actions" id="review-materials" aria-label="Review materials">
             <a class="button review-button" href="/review-assets/scc-003-r1/SCC-003-R1_REVIEW_COPY.pdf">Read the review copy <span aria-hidden="true">↓</span></a>
             <a class="button button--secondary review-button" href="/review-assets/scc-003-r1/SCC-003-R1_REPRODUCIBLE_PACKET.zip">Download reproducible packet <span aria-hidden="true">↓</span></a>
             <a class="button button--secondary review-button" href="/scc-003-r1/proof/">Run proof capsule <span aria-hidden="true">→</span></a>
-            <a class="button button--secondary review-button" href="/scc-003-r1/generation-study/">Open Science Flagship notebook <span aria-hidden="true">→</span></a>
-            <a class="button button--secondary review-button" href="/laboratory/roedelheim-observatory/generation-corner/">Open Generation Corner · Five H + Complex Fold <span aria-hidden="true">→</span></a>
-            <a class="button button--secondary review-button" href="/forschen/">Open public Science context <span aria-hidden="true">→</span></a>
           </div>
           <p class="review-status">Owner-authorized public review · reviewer pending · no novelty or priority claim</p>
         </div>
@@ -269,6 +263,10 @@ const claims = [
           <a class="button review-button" href="/review-assets/scc-003-r1/REVIEW_FORM.md">Review form <span aria-hidden="true">→</span></a>
           <a class="button button--secondary review-button" href="/contact/">Contact NEXAH <span aria-hidden="true">→</span></a>
         </div>
+        <p class="review-supplement">
+          <a href="/scc-003-r1/generation-study/">Supplementary visual notebook</a>
+          <span>Exploratory context only · not part of claims C1–C6</span>
+        </p>
       </div>
     </section>
 
@@ -282,7 +280,7 @@ const claims = [
       </div>
     </footer>
   </article>
-</BaseLayout>
+</SccReviewLayout>
 
 <script>
   // @ts-nocheck -- browser instrument imports a published public verifier module.
@@ -504,6 +502,9 @@ const claims = [
   .review-return h2 em { color: #b58b30; font-weight: 400; }
   .review-return__inner > p:not(.section-index) { max-width: 48rem; margin-inline: auto; color: #58656d; font-size: 1.14rem; }
   .review-actions--centered { justify-content: center; margin-top: 2.5rem; }
+  .review-supplement { display: flex; align-items: center; justify-content: center; gap: .7rem 1.2rem; flex-wrap: wrap; margin-top: 2.2rem !important; font-size: .72rem !important; }
+  .review-supplement a { color: #8b681d; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
+  .review-supplement span { color: #748089; letter-spacing: .035em; }
 
   .review-provenance { padding-block: 2.5rem; border-top: 4px solid #e8b747; background: #061018; color: #91a5af; }
   .review-provenance__grid { display: grid; grid-template-columns: .8fr 1fr 2fr 1.2fr 1.4fr; gap: 1.4rem; }

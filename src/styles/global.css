@@ -2,6 +2,10 @@
 
 html { scroll-behavior: smooth; }
 
+.lang-copy--en { display: none; }
+html[data-site-language="en"] .lang-copy--de { display: none; }
+html[data-site-language="en"] .lang-copy--en { display: revert; }
+
 body {
   margin: 0;
   background: var(--paper);
