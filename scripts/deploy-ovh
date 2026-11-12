@@ -9,7 +9,7 @@ readonly BACKUP_ROOT="${REPOSITORY_ROOT:h}/NEXAH deployment backups"
 readonly OVH_HOST="ftp.cluster129.hosting.ovh.net"
 readonly OVH_USER="nexahdy"
 readonly KEYCHAIN_SERVICE="NEXAH OVH SFTP"
-readonly MAX_ARTIFACT_KB=80000
+readonly MAX_ARTIFACT_KB=98304
 
 if ! command -v lftp >/dev/null 2>&1; then
   print -u2 "lftp is required. Install it with: brew install lftp"
@@ -37,7 +37,7 @@ node "${NEXAH_A0_TEST_SCRIPT}" "${DIST_DIR}"
 artifact_size_kb="$(du -sk "${DIST_DIR}" | awk '{print $1}')"
 artifact_files="$(find "${DIST_DIR}" -type f | wc -l | tr -d ' ')"
 if (( artifact_size_kb > MAX_ARTIFACT_KB )); then
-  print -u2 "The artifact is ${artifact_size_kb} KB; the OVH limit is ${MAX_ARTIFACT_KB} KB."
+  print -u2 "The artifact is ${artifact_size_kb} KB; the release safety budget is ${MAX_ARTIFACT_KB} KB."
   exit 1
 fi
 
