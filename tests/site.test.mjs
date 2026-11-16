@@ -876,7 +876,8 @@ test("A0 is presented as a source-bound NEXAH page without duplicating its sourc
   assert.match(layout, /!hideSessionQuestion && <SessionQuestion \/>/);
   assert.match(composer, /\.a0-public-export\.json/);
   assert.match(composer, /A0_SCIENCE\.html/);
-  assert.match(composer, /DIST_DIR}\/forschen/);
+  assert.doesNotMatch(composer, /cp .*A0_SCIENCE\.html.*forschen\/index\.html/);
+  assert.match(composer, /bilingual \/forschen\/ entrance/);
   assert.match(composer, /01_FROM_LINE_TO_READOUT/);
   assert.match(composer, /a0-public-bridge\.css/);
   assert.match(composer, /a0-public-bridge\.js/);
@@ -889,6 +890,27 @@ test("A0 is presented as a source-bound NEXAH page without duplicating its sourc
   assert.match(bridgeStyles, /\.a0-public-bridge__primary \{ display: none; \}/);
   assert.match(bridgeScript, /skip\.textContent = "Zum Inhalt"/);
   assert.match(bridgeStyles, /\.hero h1/);
+});
+
+test("the bilingual research entrance remains mounted and its four routes are traversable", async () => {
+  const page = await read("src/pages/forschen/index.astro");
+  const header = await read("src/components/SciencePublicHeader.astro");
+  const composer = await read("scripts/compose-a0-public");
+  const reachability = await read("scripts/check-a0-public-reachability.mjs");
+
+  for (const destination of [
+    "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261019",
+    "/A0_SCIENCE.html#contributions",
+    "/A0_MATHEMATICAL_JOINTS.html#register-cut-aperture",
+    "/NEXAH_C_CONNECT.html#scientific-review",
+  ]) {
+    const escaped = destination.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    assert.match(page, new RegExp(escaped));
+    assert.match(header, new RegExp(escaped));
+  }
+
+  assert.doesNotMatch(composer, /cp .*A0_SCIENCE\.html.*forschen\/index\.html/);
+  assert.doesNotMatch(reachability, /path === "A0_SCIENCE\.html"/);
 });
 
 test("the existing orientation remains discoverable without internal Home language", async () => {

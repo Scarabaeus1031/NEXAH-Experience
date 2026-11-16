@@ -25,14 +25,15 @@ repository owns only the public implementation and presentation.
   applications plus their declared assets;
 - all other A0 HTMLs remain source/internal objects unless a later receipt
   explicitly admits them;
-- `src/pages/forschen/index.astro` is the development-shell route, while
-  `scripts/compose-a0-public` replaces the built `/forschen/` page with the
-  verified `A0_SCIENCE.html` export. A raw Astro development server and the
-  composed A0 candidate can therefore show different pages at the same route.
+- `src/pages/forschen/index.astro` is the bilingual public entrance and remains
+  mounted at `/forschen/` in both development and the composed release.
+  `scripts/compose-a0-public` adds the verified `A0_SCIENCE.html` export as a
+  distinct root-level, source-bound destination behind the Results & Papers
+  entrance instead of replacing the entrance page.
 
-That last distinction explains part of the recent staging ambiguity. The A0
-Owner frame must review the composed candidate, not an uncomposed development
-server presented as if it were the same artifact.
+The A0 Owner frame must still review the composed candidate, because the four
+entrances become fully traversable only after the allowlisted A0 export has
+been added to the Experience build.
 
 ## Target public navigation
 
@@ -69,7 +70,8 @@ through separate house cards, route cards, room cards and status cards.
 
 | Public route or source | Role | Decision |
 |---|---|---|
-| `/forschen/` | leading public NEXAH Science surface | `KEEP / COMPOSE FROM VERIFIED A0 EXPORT` |
+| `/forschen/` | bilingual public NEXAH Science entrance | `KEEP / CONNECT TO VERIFIED A0 EXPORT` |
+| `A0_SCIENCE.html#contributions` | source-bound results and papers reader | `KEEP / SOURCE-BOUND` |
 | `A0_SCIENTIFIC_POSITION_REPORT.html` | current position, limits and next scientific gate | `KEEP / SOURCE-BOUND` |
 | `A0_MATHEMATICAL_JOINTS.html` | Mathfield and declared joints | `KEEP / SOURCE-BOUND` |
 | `A0_NEXAH_RESEARCH_METHOD.html` | bounded research-method account | `KEEP / SOURCE-BOUND` |
@@ -126,8 +128,8 @@ content house.
    routes. The two models compete.
 2. The homepage repeats destinations through houses, four routes, existing
    rooms and carrying-work cards.
-3. Raw Astro `/forschen/` and composed A0 `/forschen/` are different artifacts
-   at the same public path.
+3. The four `/forschen/` entrances become fully traversable only in the
+   composed artifact that includes the verified A0 export.
 4. `A0_TOURS.html` is correctly allowlisted, but should be presented as the
    Tour inside `Anwenden & erleben`, not as a second global site structure.
 5. Older orientation/explore entrances remain valuable but require a later
@@ -141,8 +143,8 @@ content house.
 3. reduce the homepage to definition, mission, boundary and one four-route
    entrance while keeping every existing destination reachable through its
    route page or `Navigation +`;
-4. keep `/forschen/` composition explicit and label raw development previews
-   as uncomposed;
+4. keep `/forschen/` as the stable bilingual entrance and mount the verified
+   A0 export as distinct source-bound destinations behind it;
 5. verify links, routes, A0 reachability, responsive navigation and the exact
    composed artifact;
 6. show only that exact artifact in the A0 Owner frame.

@@ -4,26 +4,38 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 const researchRoutes = [
   {
     code: "01 · Position",
-    title: "Forschungsstand",
-    description: "Was trägt, welche Grenzen gelten und welches wissenschaftliche Gate als Nächstes offen ist.",
-    href: "/A0_SCIENTIFIC_POSITION_REPORT.html",
+    title: { de: "Forschungsstand", en: "Research position" },
+    description: {
+      de: "Was trägt, welche Grenzen gelten und welches wissenschaftliche Gate als Nächstes offen ist.",
+      en: "What currently holds, which boundaries apply and which scientific gate remains open next.",
+    },
+    href: "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261019",
   },
   {
     code: "02 · Evidence",
-    title: "Ergebnisse & Papers",
-    description: "Formale, negative, methodische und instrumentelle Resultate mit getrennten Evidenzklassen.",
+    title: { de: "Ergebnisse & Papers", en: "Results & papers" },
+    description: {
+      de: "Formale, negative, methodische und instrumentelle Resultate mit getrennten Evidenzklassen.",
+      en: "Formal, negative, methodological and instrumental results with distinct evidence classes.",
+    },
     href: "/A0_SCIENCE.html#contributions",
   },
   {
     code: "03 · Field",
-    title: "Mathfield",
-    description: "Träger, Schnitte, Operatoren, mathematische Fugen und ihre Gültigkeitsgrenzen.",
-    href: "/A0_MATHEMATICAL_JOINTS.html",
+    title: { de: "Mathfield", en: "Mathfield" },
+    description: {
+      de: "Träger, Schnitte, Operatoren, mathematische Fugen und ihre Gültigkeitsgrenzen.",
+      en: "Carriers, cuts, operators, mathematical joints and the boundaries of their validity.",
+    },
+    href: "/A0_MATHEMATICAL_JOINTS.html#register-cut-aperture",
   },
   {
     code: "04 · Review",
-    title: "Offene Fragen",
-    description: "Ungeklärte Fragen, externe Prüfung und der öffentliche Rückkanal bleiben sichtbar.",
+    title: { de: "Offene Fragen", en: "Open questions" },
+    description: {
+      de: "Ungeklärte Fragen, externe Prüfung und der öffentliche Rückkanal bleiben sichtbar.",
+      en: "Unresolved questions, external review and the public return channel remain visible.",
+    },
     href: "/NEXAH_C_CONNECT.html#scientific-review",
   },
 ] as const;
@@ -38,13 +50,13 @@ const researchRoutes = [
   <section class="research-entry">
     <div class="container research-entry__hero">
       <div>
-        <p class="eyebrow">NEXAH Science · öffentlicher Forschungsraum</p>
-        <h1>Was trägt – und was bleibt offen?</h1>
-        <p class="lead">NEXAH Science trennt Forschungsstand, Ergebnisse, mathematische Felder und offene Prüfgrenzen. Die wissenschaftliche Bedeutung und der Evidenzstatus bleiben beim Science Desk und Science Lab.</p>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">NEXAH Science · öffentlicher Forschungsraum</span><span class="lang-copy lang-copy--en">NEXAH Science · public research space</span></p>
+        <h1><span class="lang-copy lang-copy--de">Was trägt – und was bleibt offen?</span><span class="lang-copy lang-copy--en">What holds — and what remains open?</span></h1>
+        <p class="lead"><span class="lang-copy lang-copy--de">NEXAH Science trennt Forschungsstand, Ergebnisse, mathematische Felder und offene Prüfgrenzen. Die wissenschaftliche Bedeutung und der Evidenzstatus bleiben beim Science Desk und Science Lab.</span><span class="lang-copy lang-copy--en">NEXAH Science keeps the research position, results, mathematical fields and open validation boundaries distinct. Scientific meaning and evidence status remain with the Science Desk and Science Lab.</span></p>
       </div>
       <aside>
         <strong>Source-bound</strong>
-        <p>Diese Seite ordnet vorhandene, freigegebene Quellen. Sie erzeugt keine zweite Forschungsautorität und verändert keinen Labstatus.</p>
+        <p><span class="lang-copy lang-copy--de">Diese Seite ordnet vorhandene, freigegebene Quellen. Sie erzeugt keine zweite Forschungsautorität und verändert keinen Labstatus.</span><span class="lang-copy lang-copy--en">This page organizes existing, released sources. It creates no second research authority and changes no Lab status.</span></p>
       </aside>
     </div>
   </section>
@@ -52,15 +64,15 @@ const researchRoutes = [
   <section class="research-routes section--line" aria-labelledby="research-routes-title">
     <div class="container">
       <header>
-        <p class="eyebrow">Vier Zugänge</p>
-        <h2 id="research-routes-title">Beginnen Sie mit Ihrer Frage.</h2>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Vier Zugänge</span><span class="lang-copy lang-copy--en">Four entrances</span></p>
+        <h2 id="research-routes-title"><span class="lang-copy lang-copy--de">Beginnen Sie mit Ihrer Frage.</span><span class="lang-copy lang-copy--en">Begin with your question.</span></h2>
       </header>
-      <nav aria-label="NEXAH Science Forschungsbereiche">
+      <nav aria-label="NEXAH Science research areas">
         {researchRoutes.map((route) => (
           <a href={route.href}>
             <span>{route.code}</span>
-            <h3>{route.title}</h3>
-            <p>{route.description}</p>
+            <h3><span class="lang-copy lang-copy--de">{route.title.de}</span><span class="lang-copy lang-copy--en">{route.title.en}</span></h3>
+            <p><span class="lang-copy lang-copy--de">{route.description.de}</span><span class="lang-copy lang-copy--en">{route.description.en}</span></p>
             <b aria-hidden="true">→</b>
           </a>
         ))}
@@ -68,6 +80,32 @@ const researchRoutes = [
     </div>
   </section>
 </BaseLayout>
+
+<script is:inline>
+  (() => {
+    const metadata = {
+      de: {
+        title: "Forschen — NEXAH Science",
+        description: "Der öffentliche Einstieg in Forschungsstand, Ergebnisse, Mathfield, Methode und offene Review-Fragen von NEXAH Science.",
+      },
+      en: {
+        title: "Research — NEXAH Science",
+        description: "The public entrance to the research position, results, Mathfield, method and open review questions of NEXAH Science.",
+      },
+    };
+    const applyMetadata = (language) => {
+      const copy = metadata[language === "en" ? "en" : "de"];
+      document.title = copy.title;
+      document.querySelector('meta[name="description"]')?.setAttribute("content", copy.description);
+      document.querySelector('meta[property="og:title"]')?.setAttribute("content", copy.title);
+      document.querySelector('meta[property="og:description"]')?.setAttribute("content", copy.description);
+      document.querySelector('meta[name="twitter:title"]')?.setAttribute("content", copy.title);
+      document.querySelector('meta[name="twitter:description"]')?.setAttribute("content", copy.description);
+    };
+    applyMetadata(document.documentElement.dataset.siteLanguage);
+    window.addEventListener("nexah:language-changed", (event) => applyMetadata(event.detail));
+  })();
+</script>
 
 <style>
   .research-entry { padding-block: clamp(5rem, 9vw, 9rem); background: #071d26; color: #edf4f2; }

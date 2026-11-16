@@ -61,8 +61,7 @@ while (queue.length) {
 
 const receipt = JSON.parse(await readFile(join(root, ".a0-public-export.json"), "utf8"));
 const publicPages = receipt.pages
-  .filter((path) => path.endsWith(".html"))
-  .map((path) => path === "A0_SCIENCE.html" ? "forschen/index.html" : path);
+  .filter((path) => path.endsWith(".html"));
 const missing = publicPages.filter((path) => !known.has(path));
 const unreachable = publicPages.filter((path) => known.has(path) && !reachable.has(path));
 

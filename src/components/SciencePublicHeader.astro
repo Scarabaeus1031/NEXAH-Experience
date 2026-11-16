@@ -33,48 +33,48 @@ const mainSections = [
 
 const menuGroups = [
   {
-    code: "01", title: "Orientieren",
-    description: "Verstehen, was NEXAH ist und wie die Bereiche zusammenhängen.",
+    code: "01", title: "Orientieren", titleEn: "Orient",
+    description: "Verstehen, was NEXAH ist und wie die Bereiche zusammenhängen.", descriptionEn: "Understand what NEXAH is and how its areas relate.",
     links: [
-      { label: "Startseite", href: "/" },
-      { label: "About NEXAH", href: "/about/" },
-      { label: "How NEXAH Works", href: "/how-nexah-works/" },
+      { label: "Startseite", labelEn: "Home", href: "/" },
+      { label: "About NEXAH", labelEn: "About NEXAH", href: "/about/" },
+      { label: "How NEXAH Works", labelEn: "How NEXAH Works", href: "/how-nexah-works/" },
     ],
   },
   {
-    code: "02", title: "Forschen",
-    description: "Stand, Resultate, Belege und offene Grenzen prüfen.",
+    code: "02", title: "Forschen", titleEn: "Research",
+    description: "Stand, Resultate, Belege und offene Grenzen prüfen.", descriptionEn: "Inspect the current position, results, evidence and open boundaries.",
     links: [
-      { label: "Forschen · Überblick", href: "/forschen/" },
-      { label: "Forschungsstand", href: "/A0_SCIENTIFIC_POSITION_REPORT.html" },
-      { label: "Ergebnisse & Papers", href: "/forschen/#contributions" },
-      { label: "Mathfield", href: "/A0_MATHEMATICAL_JOINTS.html" },
-      { label: "Offene Fragen & Review", href: "/forschen/#validation-boundary" },
+      { label: "Forschen · Überblick", labelEn: "Research · overview", href: "/forschen/" },
+      { label: "Forschungsstand", labelEn: "Research position", href: "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261019" },
+      { label: "Ergebnisse & Papers", labelEn: "Results & papers", href: "/A0_SCIENCE.html#contributions" },
+      { label: "Mathfield", labelEn: "Mathfield", href: "/A0_MATHEMATICAL_JOINTS.html#register-cut-aperture" },
+      { label: "Offene Fragen & Review", labelEn: "Open questions & review", href: "/NEXAH_C_CONNECT.html#scientific-review" },
     ],
   },
   {
-    code: "03", title: "Lesen & erkunden",
-    description: "Bücher, Publikationen und Karten als eigene Räume öffnen.",
+    code: "03", title: "Lesen & erkunden", titleEn: "Read & explore",
+    description: "Bücher, Publikationen und Karten als eigene Räume öffnen.", descriptionEn: "Open books, publications and maps as spaces of their own.",
     links: [
-      { label: "Library", href: "/library/" },
-      { label: "Orientation-Bücher", href: "/library/#orientation-books" },
-      { label: "Sieben Reader-Räume", href: "/library/#reader-rooms" },
-      { label: "Book · Kapitel 01–08", href: "/01_FROM_LINE_TO_READOUT.html" },
-      { label: "Atlas of Atlases", href: "/atlas-of-atlases/" },
-      { label: "Are.na · Referenzen", href: "https://www.are.na/nexah-scarabaeus1031" },
-      { label: "Substack · Essays", href: "https://nexah.substack.com/" },
-      { label: "Behance · Visuelle Arbeiten", href: "https://www.behance.net/Scarabaeus1033" },
+      { label: "Library", labelEn: "Library", href: "/library/" },
+      { label: "Orientation-Bücher", labelEn: "Orientation books", href: "/library/#orientation-books" },
+      { label: "Sieben Reader-Räume", labelEn: "Seven reading spaces", href: "/library/#reader-rooms" },
+      { label: "Book · Kapitel 01–08", labelEn: "Book · chapters 01–08", href: "/01_FROM_LINE_TO_READOUT.html" },
+      { label: "Atlas of Atlases", labelEn: "Atlas of Atlases", href: "/atlas-of-atlases/" },
+      { label: "Are.na · Referenzen", labelEn: "Are.na · references", href: "https://www.are.na/nexah-scarabaeus1031" },
+      { label: "Substack · Essays", labelEn: "Substack · essays", href: "https://nexah.substack.com/" },
+      { label: "Behance · Visuelle Arbeiten", labelEn: "Behance · visual works", href: "https://www.behance.net/Scarabaeus1033" },
     ],
   },
   {
-    code: "04", title: "Anwenden & erleben",
-    description: "Touren, Instrumente und die verbundenen öffentlichen Häuser öffnen.",
+    code: "04", title: "Anwenden & erleben", titleEn: "Apply & experience",
+    description: "Touren, Instrumente und die verbundenen öffentlichen Häuser öffnen.", descriptionEn: "Open tours, instruments and the connected public houses.",
     links: [
-      { label: "Geführte Tour", href: "/explore/journeys/" },
-      { label: "Laboratory", href: "/laboratory/" },
-      { label: "NEXAHEDRON · Human", href: "https://nexahedron.com" },
-      { label: "Scarabæus · Builder", href: "https://www.scarabaeus1033.net" },
-      { label: "Review & Forschungsfrage", href: "/NEXAH_C_CONNECT.html#scientific-review" },
+      { label: "Geführte Tour", labelEn: "Guided tour", href: "/explore/journeys/" },
+      { label: "Laboratory", labelEn: "Laboratory", href: "/laboratory/" },
+      { label: "NEXAHEDRON · Human", labelEn: "NEXAHEDRON · Human", href: "https://nexahedron.com" },
+      { label: "Scarabæus · Builder", labelEn: "Scarabæus · Builder", href: "https://www.scarabaeus1033.net" },
+      { label: "Review & Forschungsfrage", labelEn: "Review & research question", href: "/NEXAH_C_CONNECT.html#scientific-review" },
     ],
   },
 ] as const;
@@ -98,18 +98,18 @@ const menuGroups = [
       <summary><span class="lang-copy lang-copy--de">Navigation</span><span class="lang-copy lang-copy--en">Directory</span> <span aria-hidden="true">+</span></summary>
       <div class="science-public-menu__panel">
         <header>
-          <p>NEXAH · öffentliche Übersicht</p>
-          <h2>Wohin möchten Sie gehen?</h2>
-          <span>Ein Werk, vier klare Zugänge. Interne A0-, Desk- und Mission-Control-Bereiche bleiben getrennt.</span>
+          <p><span class="lang-copy lang-copy--de">NEXAH · öffentliche Übersicht</span><span class="lang-copy lang-copy--en">NEXAH · public directory</span></p>
+          <h2><span class="lang-copy lang-copy--de">Wohin möchten Sie gehen?</span><span class="lang-copy lang-copy--en">Where would you like to go?</span></h2>
+          <span><span class="lang-copy lang-copy--de">Ein Werk, vier klare Zugänge. Interne A0-, Desk- und Mission-Control-Bereiche bleiben getrennt.</span><span class="lang-copy lang-copy--en">One body of work, four clear entrances. Internal A0, Desk and Mission Control areas remain separate.</span></span>
         </header>
         <div class="science-public-menu__grid">
           {menuGroups.map((group) => (
             <section>
               <small>{group.code}</small>
-              <h3>{group.title}</h3>
-              <p>{group.description}</p>
-              <nav aria-label={group.title}>
-                {group.links.map((link) => <a href={withPublicRevision(link.href)}>{link.label}<span aria-hidden="true">→</span></a>)}
+              <h3><span class="lang-copy lang-copy--de">{group.title}</span><span class="lang-copy lang-copy--en">{group.titleEn}</span></h3>
+              <p><span class="lang-copy lang-copy--de">{group.description}</span><span class="lang-copy lang-copy--en">{group.descriptionEn}</span></p>
+              <nav aria-label={group.titleEn}>
+                {group.links.map((link) => <a href={withPublicRevision(link.href)}><span class="lang-copy lang-copy--de">{link.label}</span><span class="lang-copy lang-copy--en">{link.labelEn}</span><span aria-hidden="true">→</span></a>)}
               </nav>
             </section>
           ))}

@@ -32,30 +32,21 @@ for source in "${A0_EXPORT_DIR}"/*; do
 done
 cp "${A0_EXPORT_DIR}/.a0-public-export.json" "${DIST_DIR}/.a0-public-export.json"
 
-mkdir -p "${DIST_DIR}/forschen"
-cp "${A0_EXPORT_DIR}/A0_SCIENCE.html" "${DIST_DIR}/forschen/index.html"
-
 # Root-level A0 pages retain their source-bound content but receive the same
 # compact public NEXAH shell as the Astro routes. This prevents the primary
 # navigation and reading scale from jumping when a visitor moves between the
-# host site and an allowlisted A0 research page.
+# host site and an allowlisted A0 research page. The bilingual Astro page at
+# /forschen/ remains the public entrance; A0_SCIENCE.html remains a distinct,
+# source-bound destination behind its Results & Papers entrance.
 for public_page in \
   "${DIST_DIR}"/A0_*.html \
   "${DIST_DIR}/01_FROM_LINE_TO_READOUT.html" \
-  "${DIST_DIR}/NEXAH_C_CONNECT.html" \
-  "${DIST_DIR}/forschen/index.html"; do
+  "${DIST_DIR}/NEXAH_C_CONNECT.html"; do
   [[ -f "${public_page}" ]] || continue
   if ! grep -q 'a0-public-bridge.css' "${public_page}"; then
     perl -0pi -e 's#</head>#  <link rel="stylesheet" href="/a0-public-bridge.css?rev=public-shell-r10-20261029">\n  <script src="/a0-public-bridge.js?rev=public-shell-r10-20261029" defer></script>\n</head>#' "${public_page}"
   fi
 done
 
-# The source-bound A0 page also remains usable as a standalone export, where
-# sibling document links are intentionally relative. Once it is mounted at the
-# public /forschen/ route, rebase only those allowlisted document links to the
-# site root so they continue to resolve inside the composed nexah.de build.
-perl -0pi -e 's/href="((?:A0_|NEXAH_C_CONNECT|01_FROM_LINE_TO_READOUT)[^"]*)"/href="\/$1"/g' "${DIST_DIR}/forschen/index.html"
-perl -0pi -e 's#(href|src|poster)="((?:assets|results)/[^"]+)"#$1="/$2"#g' "${DIST_DIR}/forschen/index.html"
-
-print "Composed the verified, allowlisted A0 Science bundle without replacing nexah.de root."
+print "Composed the verified, allowlisted A0 Science bundle behind the bilingual /forschen/ entrance."
 print "Artifact: ${DIST_DIR}"
