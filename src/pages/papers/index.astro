@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { predictionPaper } from "@/data/prediction-paper";
+---
+
+<BaseLayout
+  title="Papers — NEXAH Science"
+  description="Source-bound papers, working papers and review candidates from NEXAH Science."
+  robots="noindex, follow"
+>
+  <header class="papers-hero">
+    <nav class="container papers-breadcrumb" aria-label="Breadcrumb">
+      <a href="/forschen/"><span class="lang-copy lang-copy--de">Forschen</span><span class="lang-copy lang-copy--en">Research</span></a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">Papers</span>
+    </nav>
+    <div class="container papers-hero__grid">
+      <div>
+        <p class="eyebrow">NEXAH Science · Papers</p>
+        <h1><span class="lang-copy lang-copy--de">Lesbare Forschung.<br />Sichtbare Grenzen.</span><span class="lang-copy lang-copy--en">Readable research.<br />Visible boundaries.</span></h1>
+      </div>
+      <p class="lead"><span class="lang-copy lang-copy--de">Diese Fläche hält Paper, Working Paper und Review-Kandidaten auseinander. Eine Route, ein Layout oder ein schönes Diagramm verändert weder Evidenz noch Forschungsstatus.</span><span class="lang-copy lang-copy--en">This surface keeps papers, working papers and review candidates distinct. A route, layout or beautiful diagram changes neither evidence nor research status.</span></p>
+    </div>
+  </header>
+
+  <section class="papers-list container" aria-labelledby="working-papers-title">
+    <header>
+      <p class="eyebrow">Working papers</p>
+      <h2 id="working-papers-title"><span class="lang-copy lang-copy--de">Noch offen für Prüfung.</span><span class="lang-copy lang-copy--en">Still open for review.</span></h2>
+    </header>
+    <article>
+      <div class="papers-list__status"><span>{predictionPaper.documentClass}</span><b>{predictionPaper.predictionStatus}</b></div>
+      <div>
+        <p class="eyebrow">{predictionPaper.category} · {predictionPaper.date}</p>
+        <h3>{predictionPaper.title}<br /><em>{predictionPaper.subtitle}</em></h3>
+        <p><span class="lang-copy lang-copy--de">Eine source-bound Methode, um eine historische Richtungslesart vor einer neuen Beobachtung in einen prüfbaren Hit-, Miss- oder Null-Return zu überführen.</span><span class="lang-copy lang-copy--en">A source-bound method for turning a historical directional reading into a testable hit, miss or null return before a new observation.</span></p>
+        <p><strong>{predictionPaper.reviewStatus}</strong> · <span class="lang-copy lang-copy--de">methodisch prüfbar, wissenschaftlich nicht aktiviert</span><span class="lang-copy lang-copy--en">method-reviewable, scientifically not activated</span></p>
+        <a class="button" href={`/papers/${predictionPaper.slug}/`}><span class="lang-copy lang-copy--de">Working Paper lesen</span><span class="lang-copy lang-copy--en">Read working paper</span></a>
+      </div>
+    </article>
+  </section>
+
+  <aside class="papers-boundary container">
+    <strong>PUBLICATION BOUNDARY</strong>
+    <p><span class="lang-copy lang-copy--de">Dieser Eintrag ist ein lokaler Veröffentlichungskandidat. Der Paper-Entwurf ist nicht gelockt, nicht als Study zugelassen und nicht zur Ausführung oder externen Publikation freigegeben.</span><span class="lang-copy lang-copy--en">This entry is a local publication candidate. The paper draft is not locked, not admitted as a Study and not authorized for execution or external publication.</span></p>
+  </aside>
+</BaseLayout>
+
+<style>
+  .papers-breadcrumb{display:flex;gap:.65rem;align-items:center;margin-bottom:clamp(4rem,8vw,8rem);font:700 .72rem/1.2 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#7f9ca4}.papers-breadcrumb a{color:#efbd3d}
+  .papers-hero{padding:clamp(6rem,11vw,10rem) 0;background:#071b24;color:#f3f1e9}.papers-hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(2rem,7vw,7rem);align-items:end}.papers-hero h1{font-size:clamp(3.6rem,8vw,7.8rem);line-height:.88;letter-spacing:-.06em;margin:1rem 0}.papers-hero .lead{color:#bdcdd0;max-width:38rem}.eyebrow{color:#e9b632;text-transform:uppercase;letter-spacing:.13em;font-size:.72rem;font-weight:800}.papers-list{padding-block:clamp(5rem,9vw,8rem)}.papers-list>header{display:grid;grid-template-columns:.45fr 1.55fr;gap:2rem;margin-bottom:3rem}.papers-list h2{font-size:clamp(2.5rem,5vw,4.6rem);margin:0}.papers-list article{display:grid;grid-template-columns:.42fr 1.58fr;border-top:1px solid #18323c;border-bottom:1px solid #18323c}.papers-list article>div{padding:clamp(1.4rem,4vw,3rem)}.papers-list__status{display:flex;flex-direction:column;justify-content:space-between;border-right:1px solid #18323c;background:#0b2029;color:#e9f0ef}.papers-list__status span{font:700 .72rem/1.5 var(--mono);color:#efbd3d}.papers-list__status b{font-size:1rem}.papers-list h3{font-size:clamp(2.2rem,4.5vw,4.3rem);line-height:.92;margin:1rem 0}.papers-list h3 em{font-weight:400;color:#47636b}.papers-list p{max-width:50rem}.papers-boundary{display:grid;grid-template-columns:.42fr 1.58fr;gap:2rem;padding-bottom:5rem}.papers-boundary strong{font:800 .72rem/1.4 var(--mono);color:#a56f00}.papers-boundary p{margin:0;max-width:52rem;color:#59666a}@media(max-width:760px){.papers-hero__grid,.papers-list>header,.papers-list article,.papers-boundary{grid-template-columns:1fr}.papers-list__status{min-height:10rem;border-right:0;border-bottom:1px solid #18323c}}
+</style>

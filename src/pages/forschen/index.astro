@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { predictionPaper } from "@/data/prediction-paper";
 
 const researchRoutes = [
   {
@@ -79,6 +80,48 @@ const researchRoutes = [
       </nav>
     </div>
   </section>
+
+  <section class="research-papers section--line" aria-labelledby="research-papers-title">
+    <div class="container research-papers__grid">
+      <header>
+        <p class="eyebrow">Working papers</p>
+        <h2 id="research-papers-title"><span class="lang-copy lang-copy--de">Prüfbar lesen, bevor etwas behauptet wird.</span><span class="lang-copy lang-copy--en">Read what can be tested before anything is claimed.</span></h2>
+        <a class="text-link" href="/papers/"><span class="lang-copy lang-copy--de">Paper-Section öffnen</span><span class="lang-copy lang-copy--en">Open paper section</span></a>
+      </header>
+      <article>
+        <div><span>{predictionPaper.category}</span><b>{predictionPaper.reviewStatus}</b></div>
+        <p class="eyebrow">{predictionPaper.date} · Protocol 01</p>
+        <h3>{predictionPaper.title}<br /><em>{predictionPaper.subtitle}</em></h3>
+        <p><span class="lang-copy lang-copy--de">Source-bound Methodenpapier und Preregistration-Kandidat. Keine aktivierte Vorhersage, kein bestätigtes Ergebnis.</span><span class="lang-copy lang-copy--en">Source-bound method paper and preregistration candidate. No activated prediction and no confirmed result.</span></p>
+        <a class="button" href={`/papers/${predictionPaper.slug}/`}><span class="lang-copy lang-copy--de">Working Paper lesen</span><span class="lang-copy lang-copy--en">Read working paper</span></a>
+      </article>
+    </div>
+  </section>
+
+  <section id="review" class="research-review section--line" aria-labelledby="research-review-title">
+    <div class="container">
+      <header class="research-review__head">
+        <p class="eyebrow">Review field</p>
+        <div><h2 id="research-review-title"><span class="lang-copy lang-copy--de">Zwei Objekte. Zwei verschiedene Gates.</span><span class="lang-copy lang-copy--en">Two objects. Two different gates.</span></h2><p><span class="lang-copy lang-copy--de">Öffentlicher Review und methodischer Review-Kandidat bleiben getrennt.</span><span class="lang-copy lang-copy--en">Public review and method-review candidate remain distinct.</span></p></div>
+      </header>
+      <div class="research-review__grid">
+        <article>
+          <p class="eyebrow">SCC-003-R1 · Public review</p>
+          <h3>Five Pascal Carriers.<br />One Quotient.</h3>
+          <p><span class="lang-copy lang-copy--de">Owner-autorisierter, begrenzter mathematischer Review. Reviewer ausstehend; keine Novelty- oder Prioritätsbehauptung.</span><span class="lang-copy lang-copy--en">Owner-authorized bounded mathematical review. Reviewer pending; no novelty or priority claim.</span></p>
+          <strong>PUBLIC_REVIEW · REVIEWER_PENDING</strong>
+          <a class="button" href="/scc-003-r1/"><span class="lang-copy lang-copy--de">Review-Raum öffnen</span><span class="lang-copy lang-copy--en">Open review room</span></a>
+        </article>
+        <article>
+          <p class="eyebrow">{predictionPaper.category} · Protocol 01</p>
+          <h3>{predictionPaper.title}<br /><em>{predictionPaper.subtitle}</em></h3>
+          <p><span class="lang-copy lang-copy--de">Bereit für die Prüfung von Methode, Lock-Feldern und Falsifikationslogik. Keine aktivierte Vorhersage und noch kein öffentlicher wissenschaftlicher Review.</span><span class="lang-copy lang-copy--en">Ready for review of method, lock fields and falsification logic. No activated prediction and not yet a public scientific review.</span></p>
+          <strong>{predictionPaper.reviewStatus} · {predictionPaper.predictionStatus}</strong>
+          <a class="button" href={`/papers/${predictionPaper.slug}/#lock`}><span class="lang-copy lang-copy--de">Review-Grenzen lesen</span><span class="lang-copy lang-copy--en">Read review boundaries</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <script is:inline>
@@ -123,11 +166,31 @@ const researchRoutes = [
   .research-routes nav a { position: relative; min-height: 22rem; padding: var(--space-4); border-right: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
   .research-routes nav a:last-child { border-right: 0; }
   .research-routes nav span { color: var(--gold); font: 800 .66rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
-  .research-routes nav h3 { margin: 3rem 0 1rem; font-family: var(--serif); font-size: var(--step-2); font-weight: 400; }
+  .research-routes nav h3 { margin: 3rem 0 1rem; overflow-wrap: anywhere; font-family: var(--serif); font-size: clamp(1.65rem, 2.35vw, 2.55rem); font-weight: 400; hyphens: auto; line-height: 1.05; }
   .research-routes nav p { color: var(--muted); }
   .research-routes nav b { position: absolute; right: 1.5rem; bottom: 1.25rem; color: var(--gold); }
+  .research-papers { padding-block: var(--space-7); background: #eef0ea; }
+  .research-papers__grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(2rem, 7vw, 7rem); }
+  .research-papers header h2 { margin: 1rem 0 2rem; font-size: var(--step-3); }
+  .research-papers article { padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--rule); background: var(--paper); }
+  .research-papers article > div { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--rule); font: 800 .66rem/1.4 var(--mono); }
+  .research-papers article > div span { color: var(--gold); }
+  .research-papers article h3 { margin: 2rem 0 1rem; font-family: var(--serif); font-size: var(--step-3); font-weight: 400; line-height: 1; }
+  .research-papers article h3 em { color: var(--muted); font-weight: 400; }
+  .research-review { padding-block: var(--space-7); background: #071d26; color: #edf4f2; }
+  .research-review__head { display: grid; grid-template-columns: .45fr 1.55fr; gap: var(--space-5); margin-bottom: var(--space-5); }
+  .research-review__head h2 { margin: 0; color: #edf4f2; font-size: var(--step-3); }
+  .research-review__head p { color: #aebfc4; }
+  .research-review__grid { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid #34505a; }
+  .research-review__grid article { display: flex; min-height: 28rem; flex-direction: column; padding: clamp(1.5rem, 4vw, 3rem); }
+  .research-review__grid article + article { border-left: 1px solid #34505a; }
+  .research-review__grid h3 { margin: 2rem 0 1rem; color: #fff; font-family: var(--serif); font-size: var(--step-3); font-weight: 400; line-height: 1; }
+  .research-review__grid h3 em { color: #8fb0b7; font-weight: 400; }
+  .research-review__grid article > p:not(.eyebrow) { color: #b8c9cd; }
+  .research-review__grid strong { margin-top: auto; padding-block: 1rem; color: #efbd3d; font: 800 .7rem/1.4 var(--mono); }
+  .research-review__grid .button { align-self: flex-start; }
   @media (max-width: 900px) {
-    .research-entry__hero, .research-routes header { grid-template-columns: 1fr; }
+    .research-entry__hero, .research-routes header, .research-papers__grid, .research-review__head { grid-template-columns: 1fr; }
     .research-routes nav { grid-template-columns: repeat(2, 1fr); }
     .research-routes nav a:nth-child(2) { border-right: 0; }
     .research-routes nav a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
@@ -137,5 +200,7 @@ const researchRoutes = [
     .research-routes nav { grid-template-columns: 1fr; }
     .research-routes nav a { min-height: 16rem; border-right: 0; border-bottom: 1px solid var(--rule); }
     .research-routes nav a:last-child { border-bottom: 0; }
+    .research-review__grid { grid-template-columns: 1fr; }
+    .research-review__grid article + article { border-top: 1px solid #34505a; border-left: 0; }
   }
 </style>
