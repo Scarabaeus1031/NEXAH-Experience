@@ -1,5 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const observerLensSource = import.meta.env.DEV
+  ? "http://127.0.0.1:8765/A0_NEWTON_GOETHE_OBSERVER_LENS.html"
+  : "/A0_NEWTON_GOETHE_OBSERVER_LENS.html";
 ---
 
 <BaseLayout
@@ -10,13 +14,32 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 >
   <section class="observer-lens-frame" aria-label="The Observer Lens">
     <iframe
-      src="/A0_NEWTON_GOETHE_OBSERVER_LENS.html?projection=nexah-observer-lens"
+      src={`${observerLensSource}?projection=nexah-observer-lens`}
+      data-observer-lens-source={observerLensSource}
       title="Newton, Leibniz and Goethe Observer Lens"
       loading="eager"
       allow="autoplay"
     ></iframe>
   </section>
 </BaseLayout>
+
+<script>
+  const frame = document.querySelector<HTMLIFrameElement>("[data-observer-lens-source]");
+
+  const syncObserverLensLanguage = (language?: string) => {
+    if (!frame?.dataset.observerLensSource) return;
+    const source = new URL(frame.dataset.observerLensSource, window.location.origin);
+    source.searchParams.set("projection", "nexah-observer-lens");
+    source.searchParams.set("lang", language === "en" ? "en" : "de");
+    const nextSource = source.toString();
+    if (frame.src !== nextSource) frame.src = nextSource;
+  };
+
+  syncObserverLensLanguage(document.documentElement.dataset.siteLanguage);
+  window.addEventListener("nexah:language-changed", (event) => {
+    syncObserverLensLanguage((event as CustomEvent<string>).detail);
+  });
+</script>
 
 <style>
   :global(body){display:flex;min-height:100svh;flex-direction:column;overflow:hidden;background:#05070c}

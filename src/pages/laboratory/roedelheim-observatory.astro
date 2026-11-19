@@ -1,88 +1,171 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-
-const rooms = [
-  ["01", "One Carrier · Seven Views", "One source can support several declared views."],
-  ["02", "Thread Loom", "A translation trace keeps what was carried, transformed and lost visible."],
-  ["03", "3+1 Dual Belt", "Inside, outside, direction, seam and return remain distinguishable."],
-  ["04", "MIWA · Aperture · Andromeda", "Named frames keep observer position and projection explicit."],
-  ["05", "Root Space 8 → 16", "A finite carrier is separated from what its lifted representation introduces."],
-  ["06", "Tessarec · Qι Pearl", "Cut, aperture, local address and return close the bounded sequence."],
-] as const;
+import { roedelheimRooms } from "@/data/roedelheim-rooms";
 ---
 
 <BaseLayout
   title="Rödelheim Observatory — NEXAH Laboratory"
-  description="Six source-bound rooms for inspecting view, translation, frame, state lift, aperture and Human Return."
+  description="A local window into nested celestial motion, followed by source-bound instruments for view, cut, translation and Human Return."
 >
-  <header class="observatory-hero container">
-    <p class="eyebrow">NEXAH Laboratory · Rödelheim Observatory</p>
-    <h1>One source.<br />Several views.<br />Explicit return.</h1>
-    <p class="lead">A bounded public window into six existing representation instruments. The Observatory compares declared views; it does not turn visual similarity into common identity or scientific proof.</p>
+  <header class="observatory-hero">
+    <div class="observatory-hero__visual" aria-hidden="true">
+      <svg viewBox="0 0 1200 760" role="presentation">
+        <defs>
+          <radialGradient id="observatory-sky" cx="50%" cy="48%" r="62%">
+            <stop offset="0" stop-color="#123243" />
+            <stop offset=".56" stop-color="#081b27" />
+            <stop offset="1" stop-color="#040d14" />
+          </radialGradient>
+          <linearGradient id="observatory-horizon" x1="0" x2="1">
+            <stop offset="0" stop-color="#42cde2" stop-opacity="0" />
+            <stop offset=".5" stop-color="#42cde2" stop-opacity=".84" />
+            <stop offset="1" stop-color="#42cde2" stop-opacity="0" />
+          </linearGradient>
+          <filter id="observatory-glow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="7" />
+          </filter>
+        </defs>
+        <rect width="1200" height="760" fill="url(#observatory-sky)" />
+        <g class="observatory-hero__stars" fill="#dce8ee">
+          <circle cx="112" cy="132" r="2" /><circle cx="242" cy="211" r="1.5" /><circle cx="358" cy="91" r="2.4" />
+          <circle cx="884" cy="119" r="1.7" /><circle cx="1018" cy="206" r="2.2" /><circle cx="1091" cy="92" r="1.4" />
+          <circle cx="103" cy="472" r="1.5" /><circle cx="1080" cy="499" r="1.8" /><circle cx="947" cy="342" r="1.4" />
+        </g>
+        <g class="observatory-hero__clocks" fill="none">
+          <ellipse cx="600" cy="385" rx="440" ry="178" stroke="#42cde2" stroke-opacity=".34" />
+          <ellipse cx="600" cy="385" rx="357" ry="250" stroke="#f15bb5" stroke-opacity=".44" transform="rotate(-17 600 385)" />
+          <ellipse cx="600" cy="385" rx="277" ry="322" stroke="#e9b541" stroke-opacity=".58" transform="rotate(31 600 385)" />
+          <ellipse cx="600" cy="385" rx="194" ry="118" stroke="#dce8ee" stroke-opacity=".38" transform="rotate(-38 600 385)" />
+          <path d="M600 52V718M162 385H1038" stroke="#dce8ee" stroke-opacity=".1" />
+        </g>
+        <g class="observatory-hero__window" fill="none" stroke="#dce8ee">
+          <path d="M382 124H818V646H382Z" stroke-opacity=".25" />
+          <path d="M600 124V646M382 385H818" stroke-opacity=".13" />
+        </g>
+        <path d="M101 507Q600 298 1099 507" fill="none" stroke="url(#observatory-horizon)" stroke-width="2" />
+        <circle cx="600" cy="385" r="9" fill="#e9b541" />
+        <circle cx="600" cy="385" r="27" fill="#e9b541" opacity=".16" filter="url(#observatory-glow)" />
+      </svg>
+    </div>
+    <div class="observatory-hero__copy container">
+      <p class="eyebrow">NEXAH Laboratory · Rödelheim Observatory</p>
+      <h1><span class="lang-copy lang-copy--de">Ein lokales Fenster in verschachtelte Himmelsbewegung.</span><span class="lang-copy lang-copy--en">A local window into nested celestial motion.</span></h1>
+      <p class="observatory-hero__score"><span class="lang-copy lang-copy--de">Der Himmel folgt nicht nur einer Uhr.<br />Er ist eine Partitur verschachtelter Uhren.</span><span class="lang-copy lang-copy--en">The sky is not one clock.<br />It is a score of nested clocks.</span></p>
+      <p class="observatory-hero__boundary"><span class="lang-copy lang-copy--de">Eine begrenzte Position. Mehrere deklarierte Ansichten. Ein expliziter Return.</span><span class="lang-copy lang-copy--en">One bounded position. Several declared views. An explicit return.</span></p>
+      <a class="button observatory-hero__action" href="#observatory-instruments"><span class="lang-copy lang-copy--de">Das Observatorium betreten</span><span class="lang-copy lang-copy--en">Enter the Observatory</span> <span aria-hidden="true">↓</span></a>
+    </div>
   </header>
 
-  <section class="observatory-rooms container" aria-labelledby="rooms-title">
+  <section id="observatory-instruments" class="observatory-instruments" aria-labelledby="instruments-title">
+    <header class="observatory-instruments__header container">
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Interaktive Instrumente</span><span class="lang-copy lang-copy--en">Live instruments</span></p>
+      <h2 id="instruments-title"><span class="lang-copy lang-copy--de">Durch eine deklarierte Ansicht eintreten.</span><span class="lang-copy lang-copy--en">Enter through a declared view.</span></h2>
+      <p><span class="lang-copy lang-copy--de">Jedes Instrument legt seinen Rahmen, seinen Schnitt und seinen Rückweg offen. Beginnen Sie mit der zentralen Linse und folgen Sie anschließend der erweiterten Beobachtersequenz.</span><span class="lang-copy lang-copy--en">Each instrument exposes its frame, its cut and its route back. Begin with the principal lens; continue into the extended observer sequence.</span></p>
+    </header>
+
+    <article class="observatory-instrument container" aria-labelledby="observer-lens-title">
+      <div class="observatory-instrument__mark" aria-hidden="true"><span></span><i>Q</i></div>
+      <div>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">01 · Zentrales interaktives Instrument · quellgebundene A0-Linse</span><span class="lang-copy lang-copy--en">01 · Principal live instrument · source-bound A0 lens</span></p>
+        <h2 id="observer-lens-title">The Observer<br />Lens.</h2>
+        <p class="observatory-instrument__lead"><span class="lang-copy lang-copy--de">Fünf Stationen führen von der Quelle über Relation, Grenze und Faltung zum Return. Newton, Leibniz und Goethe bleiben unterschiedliche Lesarten innerhalb eines deklarierten Beobachtungsrahmens.</span><span class="lang-copy lang-copy--en">Five stations move from source through relation, boundary and fold to Return. Newton, Leibniz and Goethe remain distinct readings inside one declared observation frame.</span></p>
+        <p><span class="lang-copy lang-copy--de">Licht, Schatten, Klang und Echo bilden eine interaktive Reise. Das Instrument ist eine Vergleichs- und Orientierungsfläche – kein kalibriertes Optikexperiment und keine neue Theorie des Lichts.</span><span class="lang-copy lang-copy--en">Light, shadow, sound and echo form an interactive journey. The instrument is a comparison and orientation surface—not a calibrated optics experiment or a new theory of light.</span></p>
+        <a class="button" href="/laboratory/roedelheim-observatory/observer-lens/"><span class="lang-copy lang-copy--de">Observer Lens öffnen</span><span class="lang-copy lang-copy--en">Open the Observer Lens</span></a>
+      </div>
+    </article>
+
+    <article class="observatory-extension container" aria-labelledby="extension-title">
+      <div>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">02 · Erweiterte Sequenz · quellgebundene Linse</span><span class="lang-copy lang-copy--en">02 · Extended sequence · source-bound lens</span></p>
+        <h2 id="extension-title">The Generation<br />Corner.</h2>
+      </div>
+      <div>
+        <p class="observatory-extension__lead"><span class="lang-copy lang-copy--de">Folgen Sie der lokalen Q°-Beobachterachse durch Schnitt, Relation, Eingriff, Erzeugung, Quelle und Court. Die Grammatik kehrt zurück. Der Weltzustand nicht.</span><span class="lang-copy lang-copy--en">Follow the local Q° observer axis through cut, relation, intervention, generation, source and court. The grammar returns. The world-state does not.</span></p>
+        <p><span class="lang-copy lang-copy--de">Diese geführte Sequenz verbindet vorhandenes Material aus dem Orientation Demonstrator und Five H, ohne eine neue wissenschaftliche Identität zu erzeugen oder die unvollständige historische Reihe nachträglich zu vervollständigen.</span><span class="lang-copy lang-copy--en">This guided sequence composes existing Orientation Demonstrator and Five H material without creating a new scientific identity or completing the incomplete historical series.</span></p>
+        <a class="button button--secondary" href="/laboratory/roedelheim-observatory/generation-corner/"><span class="lang-copy lang-copy--de">Der Q°-Achse folgen</span><span class="lang-copy lang-copy--en">Follow the Q° axis</span> <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </section>
+
+  <section id="observatory-rooms" class="observatory-rooms container" aria-labelledby="rooms-title">
     <header>
-      <p class="eyebrow">Six-room release cut</p>
-      <h2 id="rooms-title">A movement through difference.</h2>
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Freigegebener Ausschnitt mit sechs Räumen</span><span class="lang-copy lang-copy--en">Six-room release cut</span></p>
+      <h2 id="rooms-title"><span class="lang-copy lang-copy--de">Was die Instrumente unterscheidbar halten.</span><span class="lang-copy lang-copy--en">What the instruments keep distinct.</span></h2>
     </header>
     <ol>
-      {rooms.map(([number, title, description]) => (
+      {roedelheimRooms.map((room) => (
         <li>
-          <span>{number}</span>
-          <h3>{title}</h3>
-          <p>{description}</p>
+          <a href={`/laboratory/roedelheim-observatory/rooms/${room.slug}/`} aria-label={`Open ${room.title}`}>
+            <span class="observatory-room__number">{room.number}</span>
+            <h3>{room.title}</h3>
+            <p><span class="lang-copy lang-copy--de">{room.descriptionDe}</span><span class="lang-copy lang-copy--en">{room.description}</span></p>
+            <strong><span class="lang-copy lang-copy--de">Raum öffnen</span><span class="lang-copy lang-copy--en">Open room</span> <i aria-hidden="true">→</i></strong>
+          </a>
         </li>
       ))}
     </ol>
   </section>
 
-  <section class="observatory-instrument container" aria-labelledby="observer-lens-title">
-    <div class="observatory-instrument__mark" aria-hidden="true"><span></span><i>Q</i></div>
+  <section class="observatory-book container" aria-labelledby="observatory-book-title">
+    <figure>
+      <img src="/observatory-assets/roedelheim-observatory-book-cover.png" alt="Cover of Rödelheim Observatory — How a Moving World Leaves a Trace" loading="lazy" />
+    </figure>
     <div>
-      <p class="eyebrow">Live instrument · source-bound A0 lens</p>
-      <h2 id="observer-lens-title">The Observer<br />Lens.</h2>
-      <p class="observatory-instrument__lead">Five stations move from source through relation, boundary and fold to Return. Newton, Leibniz and Goethe remain distinct readings inside one declared observation frame.</p>
-      <p>Light, shadow, sound and echo form an interactive journey. The instrument is a comparison and orientation surface—not a calibrated optics experiment or a new theory of light.</p>
-      <a class="button" href="/laboratory/roedelheim-observatory/observer-lens/">Open the Observer Lens</a>
-    </div>
-  </section>
-
-  <section class="observatory-extension container" aria-labelledby="extension-title">
-    <div>
-      <p class="eyebrow">Extended sequence · source-bound lens</p>
-      <h2 id="extension-title">The Generation<br />Corner.</h2>
-    </div>
-    <div>
-      <p class="observatory-extension__lead">Follow the local Q° observer axis through cut, relation, intervention, generation, source and court. The grammar returns. The world-state does not.</p>
-      <p>This guided sequence composes existing Orientation Demonstrator and Five H material without creating a new scientific identity or completing the incomplete historical series.</p>
-      <a class="button" href="/laboratory/roedelheim-observatory/generation-corner/">Follow the Q° axis <span aria-hidden="true">→</span></a>
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Observatory Fieldbook · visuelle Sequenz in 73 Teilen</span><span class="lang-copy lang-copy--en">Observatory fieldbook · 73-part visual sequence</span></p>
+      <h2 id="observatory-book-title">How a Moving World<br />Leaves a Trace.</h2>
+      <p class="observatory-book__lead"><span class="lang-copy lang-copy--de">Ein Fenster, ein Horizont, eine Uhr und ein Beobachter: Das Buch versammelt das Observatorium in einer visuellen Lesesequenz, ohne seine unterschiedlichen Instrumente zu einer einzigen Aussage zu verschmelzen.</span><span class="lang-copy lang-copy--en">A window, a horizon, a clock and an observer: the book gathers the Observatory into one visual reading sequence without collapsing its different instruments into a single claim.</span></p>
+      <p><span class="lang-copy lang-copy--de">Die derzeitige öffentliche Lesefläche ist der originale englischsprachige Are.na-Kanal. Ein nativer NEXAH Reader kann später folgen; heute wird er nicht als fertig dargestellt.</span><span class="lang-copy lang-copy--en">The current public reading surface is the original English-language Are.na channel. A native NEXAH reader can follow later; it is not presented as complete today.</span></p>
+      <div class="observatory-book__actions">
+        <a class="button" href="https://www.are.na/nexah-scarabaeus1031/the-rodelhaeim-observatory" target="_blank" rel="noreferrer"><span class="lang-copy lang-copy--de">Buch auf Are.na öffnen</span><span class="lang-copy lang-copy--en">Open the book on Are.na</span> <span aria-hidden="true">↗</span></a>
+        <span><span class="lang-copy lang-copy--de">Nativer Reader · in Vorbereitung</span><span class="lang-copy lang-copy--en">Native reader · in preparation</span></span>
+      </div>
     </div>
   </section>
 
   <aside class="observatory-return container">
-    <div><p class="eyebrow">Claim ceiling</p><h2>An Observatory is a way of looking—not the object looked at.</h2></div>
+    <div><p class="eyebrow"><span class="lang-copy lang-copy--de">Aussagegrenze</span><span class="lang-copy lang-copy--en">Claim ceiling</span></p><h2><span class="lang-copy lang-copy--de">Ein Observatorium ist eine Art zu schauen – nicht das betrachtete Objekt.</span><span class="lang-copy lang-copy--en">An Observatory is a way of looking—not the object looked at.</span></h2></div>
     <div>
-      <p>The selected rooms are documentary and representational instruments. They make frames, cuts and residuals inspectable. They do not establish an ephemeris, physical coupling, universal operator or literal higher-dimensional object.</p>
+      <p><span class="lang-copy lang-copy--de">Die ausgewählten Räume sind dokumentarische und darstellende Instrumente. Sie machen Rahmen, Schnitte und Residuen nachvollziehbar. Sie begründen keine Ephemeride, physische Kopplung, universellen Operatoren oder buchstäblichen höherdimensionalen Objekte.</span><span class="lang-copy lang-copy--en">The selected rooms are documentary and representational instruments. They make frames, cuts and residuals inspectable. They do not establish an ephemeris, physical coupling, universal operator or literal higher-dimensional object.</span></p>
       <nav aria-label="Observatory returns">
-        <a class="button" href="/how-nexah-works/">Return to the NEXAH method</a>
-        <a class="text-link" href="https://www.scarabaeus1033.net/observatory">Visit the Scarabäus studio window ↗</a>
+        <a class="button" href="/how-nexah-works/"><span class="lang-copy lang-copy--de">Zur NEXAH-Methode zurückkehren</span><span class="lang-copy lang-copy--en">Return to the NEXAH method</span></a>
+        <a class="text-link" href="https://www.scarabaeus1033.net/observatory"><span class="lang-copy lang-copy--de">Das Scarabäus-Studiofenster besuchen</span><span class="lang-copy lang-copy--en">Visit the Scarabäus studio window</span> ↗</a>
       </nav>
     </div>
   </aside>
 </BaseLayout>
 
 <style>
-  .observatory-hero{padding-block:clamp(5rem,10vw,11rem)}
-  .observatory-hero h1{max-width:12ch;margin:.6rem 0 2rem;font-family:var(--font-display);font-size:clamp(3.6rem,8vw,9rem);font-weight:500;letter-spacing:-.055em;line-height:.87}
-  .observatory-hero .lead{max-width:48rem}
+  .observatory-hero{position:relative;display:grid;min-height:min(82rem,calc(100svh - 4rem));overflow:hidden;background:#040d14;color:#e7f1f4;isolation:isolate}
+  .observatory-hero::after{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,13,20,.95) 0%,rgba(4,13,20,.76) 42%,rgba(4,13,20,.18) 75%),linear-gradient(0deg,rgba(4,13,20,.72),transparent 42%);content:""}
+  .observatory-hero__visual{position:absolute;inset:0;z-index:-2}
+  .observatory-hero__visual svg{width:100%;height:100%;object-fit:cover}
+  .observatory-hero__copy{display:flex;min-height:inherit;flex-direction:column;align-items:flex-start;justify-content:center;padding-block:clamp(5rem,10vw,9rem)}
+  .observatory-hero h1{max-width:10.5ch;margin:.65rem 0 1.75rem;font-family:var(--font-display);font-size:clamp(3.5rem,7.6vw,8.6rem);font-weight:500;letter-spacing:-.055em;line-height:.88}
+  .observatory-hero__score{max-width:28rem;margin:0;color:#e9b541;font-family:var(--font-display);font-size:clamp(1.4rem,2.4vw,2.15rem);line-height:1.15}
+  .observatory-hero__boundary{max-width:32rem;margin:1.5rem 0 0;color:#9fb6c1;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase}
+  .observatory-hero__action{margin-top:2.2rem;border-color:#e9b541;background:#e9b541;color:#071923}
+  .observatory-hero__action:hover{background:#f3cb6b}
+  .observatory-hero__clocks ellipse{transform-box:fill-box;transform-origin:center}
+  .observatory-hero__clocks ellipse:nth-child(2){animation:observatory-orbit 38s linear infinite}
+  .observatory-hero__clocks ellipse:nth-child(3){animation:observatory-orbit-reverse 52s linear infinite}
+  .observatory-hero__stars{animation:observatory-stars 7s ease-in-out infinite alternate}
+  .observatory-instruments{background:linear-gradient(180deg,#f5f0e6 0%,var(--paper) 34%)}
+  .observatory-instruments__header{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.8fr);gap:clamp(1.5rem,6vw,7rem);padding-block:clamp(4.5rem,8vw,8rem);border-bottom:1px solid var(--color-line)}
+  .observatory-instruments__header .eyebrow{grid-column:1/-1;margin-bottom:-1rem}
+  .observatory-instruments__header h2{max-width:12ch;margin:0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.9}
+  .observatory-instruments__header p:last-child{align-self:end;margin:0;color:var(--ink-soft);font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.55}
   .observatory-rooms{padding-block:clamp(4rem,8vw,8rem);border-block:1px solid var(--color-line)}
   .observatory-rooms h2,.observatory-return h2{max-width:14ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(2.6rem,5vw,5.6rem);font-weight:500;line-height:.94}
   .observatory-rooms ol{display:grid;grid-template-columns:repeat(3,1fr);margin:3.5rem 0 0;padding:0;list-style:none}
-  .observatory-rooms li{min-height:18rem;padding:1.4rem;border:1px solid var(--color-line);margin:-1px 0 0 -1px}
-  .observatory-rooms span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
+  .observatory-rooms li{min-height:18rem;border:1px solid var(--color-line);margin:-1px 0 0 -1px}
+  .observatory-rooms li>a{display:flex;height:100%;min-height:18rem;flex-direction:column;padding:1.4rem;color:inherit;text-decoration:none;transition:background-color .18s ease,color .18s ease,transform .18s ease}
+  .observatory-rooms li>a:hover,.observatory-rooms li>a:focus-visible{position:relative;z-index:1;background:#071923;color:#e8f2f4;outline:2px solid #42cde2;outline-offset:-2px;transform:translateY(-.22rem)}
+  .observatory-room__number{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
   .observatory-rooms h3{margin:5rem 0 .8rem;font-family:var(--font-display);font-size:1.8rem;line-height:1}
   .observatory-rooms p,.observatory-return p{line-height:1.65}
+  .observatory-rooms strong{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:2rem;color:#a97900;font:700 .7rem/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
+  .observatory-rooms li>a:hover strong,.observatory-rooms li>a:focus-visible strong{color:#e9b541}
+  .observatory-rooms strong i{font-size:1rem;font-style:normal}
   .observatory-instrument{display:grid;grid-template-columns:minmax(18rem,.85fr) minmax(0,1fr);gap:clamp(2rem,7vw,8rem);align-items:center;padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
   .observatory-instrument h2{max-width:10ch;margin:.4rem 0 1.5rem;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
   .observatory-instrument__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
@@ -95,8 +178,19 @@ const rooms = [
   .observatory-extension h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
   .observatory-extension__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
   .observatory-extension .button{margin-top:1.25rem}
+  .observatory-book{display:grid;grid-template-columns:minmax(16rem,.72fr) minmax(0,1fr);gap:clamp(2.5rem,8vw,9rem);align-items:center;padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
+  .observatory-book figure{margin:0;background:#e9e1d1;box-shadow:0 1.5rem 4rem rgba(18,27,32,.14)}
+  .observatory-book img{display:block;width:100%;height:auto}
+  .observatory-book h2{max-width:12ch;margin:.5rem 0 1.5rem;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.88}
+  .observatory-book__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
+  .observatory-book__actions{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
+  .observatory-book__actions>span{color:var(--ink-soft);font:600 .68rem/1.3 var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
   .observatory-return{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,9vw,9rem)}
   .observatory-return nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
-  @media(max-width:800px){.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-instrument,.observatory-extension,.observatory-return{grid-template-columns:1fr}}
+  @keyframes observatory-orbit{to{transform:rotate(360deg)}}
+  @keyframes observatory-orbit-reverse{to{transform:rotate(-360deg)}}
+  @keyframes observatory-stars{to{opacity:.48}}
+  @media(max-width:800px){.observatory-hero::after{background:linear-gradient(0deg,rgba(4,13,20,.95) 0%,rgba(4,13,20,.48) 76%,rgba(4,13,20,.58))}.observatory-hero__copy{justify-content:flex-end}.observatory-instruments__header,.observatory-instrument,.observatory-extension,.observatory-book,.observatory-return{grid-template-columns:1fr}.observatory-instruments__header .eyebrow{grid-column:auto}.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-instrument__mark{order:2}.observatory-instrument>div:last-child{order:1}.observatory-book figure{width:min(100%,28rem)}}
   @media(max-width:520px){.observatory-rooms ol{grid-template-columns:1fr}.observatory-rooms h3{margin-top:3rem}}
+  @media(prefers-reduced-motion:reduce){.observatory-hero__clocks ellipse,.observatory-hero__stars{animation:none}}
 </style>

@@ -32,12 +32,13 @@ const further = publications.filter((publication) => !featuredKeys.has(publicati
     <section class="container instrument-entry" aria-labelledby="journey-instrument-title">
       <div>
         <p class="eyebrow">Interactive instrument</p>
-        <h2 id="journey-instrument-title">The Observer Lens.</h2>
+        <h2 id="journey-instrument-title">The Rödelheim Observatory.</h2>
       </div>
       <div>
         <p class="lead">Follow light, shadow, sound and echo through five stations, four orientations and one Return.</p>
-        <p>A source-bound A0 journey inside the Rödelheim Observatory. Its three historical readings remain distinct; the interface makes their relation inspectable.</p>
-        <a class="button" href="/laboratory/roedelheim-observatory/observer-lens/">Open the instrument</a>
+        <p>Enter the Observatory first, then choose between its source-bound instruments. The Observer Lens keeps three historical readings distinct while making their relation inspectable.</p>
+        <a class="button" href="/laboratory/roedelheim-observatory/">Enter the Observatory</a>
+        <a class="instrument-entry__direct" href="/laboratory/roedelheim-observatory/observer-lens/">Open the Observer Lens directly →</a>
       </div>
     </section>
   )}
@@ -68,5 +69,6 @@ const further = publications.filter((publication) => !featuredKeys.has(publicati
   .instrument-entry{display:grid;grid-template-columns:minmax(0,.9fr) minmax(18rem,1.1fr);gap:clamp(2rem,7vw,8rem);margin-bottom:clamp(4rem,8vw,8rem);padding-block:clamp(3rem,6vw,6rem);border-block:1px solid var(--color-line)}
   .instrument-entry h2{max-width:10ch;margin:.5rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6rem);font-weight:500;letter-spacing:-.045em;line-height:.9}
   .instrument-entry .button{margin-top:1.25rem}
+  .instrument-entry__direct{display:inline-block;margin:.9rem 0 0 1rem;font-weight:700}
   @media(max-width:760px){.instrument-entry{grid-template-columns:1fr}}
 </style>

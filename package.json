@@ -18,6 +18,7 @@
     "prebuild": "npm run generate:orion",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
     "compose:a0": "./scripts/compose-a0-public",
+    "compose:observatory": "node scripts/compose-roedelheim-rooms.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "precheck": "npm run generate:orion",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",

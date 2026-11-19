@@ -44,6 +44,7 @@ test("public navigation pins one candidate revision and reports its route to the
   assert.doesNotMatch(header, /A0_TOURS\.html#explanation-path/);
   assert.doesNotMatch(bridge, /A0_TOURS\.html#explanation-path/);
   assert.doesNotMatch(header, /href=["']\/A0_TOURS\.html/);
+  assert.match(header, /href:\s*["']\/laboratory\/roedelheim-observatory\//);
   assert.match(header, /href:\s*["']\/explore\/journeys\//);
   assert.match(bridge, /type: "nexah:owner-route"/);
 });
@@ -908,7 +909,9 @@ test("the Observer Lens is a source-bound instrument with three public entrances
   assert.match(observatory, /not a calibrated optics experiment or a new theory of light/);
   assert.match(journeys, /door\.id === "journeys"/);
   assert.match(journeys, new RegExp(route));
-  assert.match(lens, /A0_NEWTON_GOETHE_OBSERVER_LENS\.html\?projection=nexah-observer-lens/);
+  assert.match(lens, /A0_NEWTON_GOETHE_OBSERVER_LENS\.html/);
+  assert.match(lens, /source\.searchParams\.set\("projection", "nexah-observer-lens"\)/);
+  assert.match(lens, /source\.searchParams\.set\("lang", language === "en" \? "en" : "de"\)/);
   assert.match(lens, /allow="autoplay"/);
   assert.match(bridgeScript, /window\.parent !== window/);
   assert.match(bridgeStyles, /\.a0-public-embedded > \.a0-public-bridge/);
@@ -1037,6 +1040,9 @@ test("Library presentation remains independent from ORION and LYRA", async () =>
 test("the Library presents one primary reading path before optional journeys and the complete Catalog", async () => {
   const page = await read("src/pages/library.astro");
   assert.match(page, /What would you like to read\?/);
+  assert.match(page, /Was möchten Sie lesen\?/);
+  assert.match(page, /Die derzeit veröffentlichten Bücher und Reader liegen ausschließlich in englischer Sprache vor/);
+  assert.match(page, /The books and readers currently published here are available in English only/);
   assert.match(page, /Start here · Primary reading/);
   assert.match(page, /primaryReading = visitorGuide/);
   assert.match(page, /Begin reading/);

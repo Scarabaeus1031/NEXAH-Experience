@@ -4,7 +4,10 @@ set -euo pipefail
 
 readonly SCRIPT_DIR="${0:A:h}"
 readonly REPOSITORY_ROOT="${SCRIPT_DIR:h}"
-readonly DIST_DIR="${REPOSITORY_ROOT}/dist"
+# A release may be frozen into a non-synchronised staging directory before the
+# remote backup starts. The default remains the repository build for ordinary
+# local use.
+readonly DIST_DIR="${NEXAH_DIST_DIR:-${REPOSITORY_ROOT}/dist}"
 readonly BACKUP_ROOT="${REPOSITORY_ROOT:h}/NEXAH deployment backups"
 readonly OVH_HOST="ftp.cluster129.hosting.ovh.net"
 readonly OVH_USER="nexahdy"
@@ -71,12 +74,27 @@ run_lftp "mirror --continue --no-perms --parallel=1 www \"${backup_dir}\""
 
 print "Synchronizing ${artifact_files} files (${artifact_size_kb} KB) to OVH…"
 
-run_lftp "set cmd:fail-exit no
+if [[ "${NEXAH_FULL_REPLACE:-0}" == "1" ]]; then
+  print "Full-replace mode: recreating the backed-up www target before upload…"
+  run_lftp "set cmd:fail-exit no
+rm -rf www_previous
+rm -rf www_next
+rm -rf www
+set cmd:fail-exit yes
+mkdir www
+set xfer:use-temp-file no
+mirror --reverse --continue --no-empty-dirs --no-perms --parallel=1 --verbose=1 \"${DIST_DIR}\" www"
+else
+  run_lftp "set cmd:fail-exit no
 rm -rf www_previous
 rm -rf www_next
 set cmd:fail-exit yes
 set xfer:use-temp-file no
-mirror --reverse --delete --continue --no-empty-dirs --no-perms --parallel=1 --verbose=1 \"${DIST_DIR}\" www"
+# Remove remote files that no longer belong to the release before transferring
+# additions. This keeps the OVH quota bounded by the new artifact instead of
+# temporarily retaining the complete old and new payloads at once.
+mirror --reverse --delete --delete-first --continue --no-empty-dirs --no-perms --parallel=1 --verbose=1 \"${DIST_DIR}\" www"
+fi
 
 unset deployment_password
 print "NEXAH deployed. The previous release is archived at ${backup_dir}."

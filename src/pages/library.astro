@@ -46,17 +46,22 @@ const orientationScience = requirePublication("orientation-science");
   <section class="ecosystem-section-hero ecosystem-section-hero--library">
     <header class="container library-hero">
       <div>
-        <p class="eyebrow">About NEXAH · Library</p>
-        <h1>What would you like to read?</h1>
-        <p class="lead">All {publications.length} recorded publications remain accessible here.</p>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Über NEXAH · Bibliothek</span><span class="lang-copy lang-copy--en">About NEXAH · Library</span></p>
+        <h1><span class="lang-copy lang-copy--de">Was möchten Sie lesen?</span><span class="lang-copy lang-copy--en">What would you like to read?</span></h1>
+        <p class="lead"><span class="lang-copy lang-copy--de">Alle {publications.length} erfassten Publikationen bleiben hier zugänglich.</span><span class="lang-copy lang-copy--en">All {publications.length} recorded publications remain accessible here.</span></p>
       </div>
       <aside class="library-hero__note">
         <span aria-hidden="true">✦</span>
-        <p>Every recorded work explores orientation: how people find clarity, direction and relation in life, society and the world.</p>
-        <small>Draft labels, internal instruments and visual similarities do not become publications automatically.</small>
+        <p><span class="lang-copy lang-copy--de">Jedes erfasste Werk untersucht Orientierung: wie Menschen Klarheit, Richtung und Beziehung im Leben, in der Gesellschaft und in der Welt finden.</span><span class="lang-copy lang-copy--en">Every recorded work explores orientation: how people find clarity, direction and relation in life, society and the world.</span></p>
+        <small><span class="lang-copy lang-copy--de">Entwurfsbezeichnungen, interne Instrumente und visuelle Ähnlichkeiten werden nicht automatisch zu Publikationen.</span><span class="lang-copy lang-copy--en">Draft labels, internal instruments and visual similarities do not become publications automatically.</span></small>
       </aside>
     </header>
   </section>
+
+  <aside class="container library-language-note" aria-label="Language information">
+    <strong><span class="lang-copy lang-copy--de">Sprachhinweis</span><span class="lang-copy lang-copy--en">Language note</span></strong>
+    <p><span class="lang-copy lang-copy--de">Die derzeit veröffentlichten Bücher und Reader liegen ausschließlich in englischer Sprache vor. Die deutsche Oberfläche ordnet den Zugang; sie übersetzt die Publikationen nicht.</span><span class="lang-copy lang-copy--en">The books and readers currently published here are available in English only. The interface organizes access; it does not translate the publications.</span></p>
+  </aside>
 
   <section class="container orientation-shelf" id="orientation-books" aria-labelledby="orientation-shelf-title">
     <header class="orientation-shelf__header">
@@ -248,9 +253,31 @@ const orientationScience = requirePublication("orientation-science");
 </BaseLayout>
 
 <style>
+  .library-language-note {
+    display: grid;
+    grid-template-columns: minmax(8rem, .28fr) minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-block: 1.35rem;
+    border-block: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+
+  .library-language-note strong {
+    color: #a97900;
+    font: 700 .72rem/1.5 var(--font-mono);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .library-language-note p { margin: 0; line-height: 1.6; }
+
   .orientation-shelf {
     padding-block: var(--space-6);
     border-bottom: 1px solid var(--line);
+  }
+
+  @media (max-width: 640px) {
+    .library-language-note { grid-template-columns: 1fr; gap: .45rem; }
   }
 
   .orientation-shelf__header {
