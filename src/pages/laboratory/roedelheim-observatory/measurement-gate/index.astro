@@ -1,0 +1,415 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { measurementGateCases } from "@/data/measurement-gate";
+import { measurementGateReaderPages } from "@/data/measurement-gate-reader";
+
+const gateData = JSON.stringify({
+  schema: "nexah.measurement-gate.public-candidate.v1",
+  status: "LOCAL_CANDIDATE",
+  graphEffect: "REUSE_EXISTING_IDENTITIES_ZERO_COUNT_CHANGE",
+  cases: measurementGateCases,
+  readerPages: measurementGateReaderPages,
+});
+---
+
+<BaseLayout
+  title="The Measurement Gate — Rödelheim Observatory"
+  description="A source-bound NEXAH instrument for keeping number, quantity type, reference, cut, trace and return distinguishable."
+>
+  <header class="measurement-hero">
+    <div class="container measurement-hero__grid">
+      <div>
+        <p class="eyebrow">Rödelheim Observatory · Source → Return</p>
+        <h1>The<br /><em>Measurement</em><br />Gate.</h1>
+        <p class="measurement-hero__lead"><span class="lang-copy lang-copy--de">Eine Zahl wird erst prüfbar, wenn Typ, Einheit, Referenz, Rahmen und Quelle gebunden bleiben.</span><span class="lang-copy lang-copy--en">A number becomes inspectable only when type, unit, reference, frame and source remain attached.</span></p>
+        <p class="measurement-boundary"><strong><span class="lang-copy lang-copy--de">Aussagegrenze:</span><span class="lang-copy lang-copy--en">Claim boundary:</span></strong> <span class="lang-copy lang-copy--de">Dieses Instrument übt Quellen- und Darstellungsdisziplin. Es erzeugt keine Bahn und macht aus einer NEXAH-Lesart keine Physik.</span><span class="lang-copy lang-copy--en">This instrument practices source and representation discipline. It creates no orbit and turns no NEXAH reading into physics.</span></p>
+        <a class="button" href="#declare"><span class="lang-copy lang-copy--de">Durch das Gate gehen</span><span class="lang-copy lang-copy--en">Enter the gate</span> <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="measurement-hero__mark" role="img" aria-label="Two distinct source loops meet at a typed measurement gate">
+        <span class="measurement-loop measurement-loop--source"></span>
+        <span class="measurement-loop measurement-loop--view"></span>
+        <span class="measurement-axis"></span>
+        <b>TYPE</b>
+        <small>SOURCE · FRAME · REFERENCE</small>
+      </div>
+    </div>
+  </header>
+
+  <nav class="measurement-chain container" aria-label="Measurement Gate sequence">
+    <span>SOURCE</span><span>TYPE</span><span>CUT</span><span>TRACE</span><span>COMPARE</span><span>RETURN</span>
+  </nav>
+
+  <section id="declare" class="measurement-room measurement-room--dark">
+    <div class="container">
+      <header class="measurement-room__head">
+        <div><p class="eyebrow">Room A · Declare</p><h2><span class="lang-copy lang-copy--de">Eine Zahl braucht einen Typ.</span><span class="lang-copy lang-copy--en">A number needs a type.</span></h2></div>
+        <p><span class="lang-copy lang-copy--de">Wähle einen quellgebundenen Fall und danach eine Größe. Das Interface zeigt keinen nackten Wert ohne seine Messadresse.</span><span class="lang-copy lang-copy--en">Choose a source-bound case and then a quantity. The interface refuses to show a bare value without its measurement address.</span></p>
+      </header>
+      <div class="measurement-cases" data-measurement-cases role="group" aria-label="Source-bound cases"></div>
+      <div class="measurement-declare">
+        <aside class="measurement-controls">
+          <label for="measurement-quantity"><span class="lang-copy lang-copy--de">Größentyp</span><span class="lang-copy lang-copy--en">Quantity type</span></label>
+          <select id="measurement-quantity" data-measurement-quantity></select>
+          <dl data-measurement-meta></dl>
+        </aside>
+        <article class="measurement-value" aria-live="polite">
+          <small data-measurement-qualifier></small>
+          <strong data-measurement-value>—</strong>
+          <b data-measurement-unit>—</b>
+          <h3 data-measurement-type>—</h3>
+          <p data-measurement-note></p>
+          <i>TYPE ≠ VALUE ≠ OBJECT</i>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="cut" class="measurement-room measurement-room--paper">
+    <div class="container">
+      <header class="measurement-room__head">
+        <div><p class="eyebrow">Room B · Cut</p><h2><span class="lang-copy lang-copy--de">Die Ansicht wählt. Die Quelle bleibt.</span><span class="lang-copy lang-copy--en">The view selects. The source remains.</span></h2></div>
+        <p><span class="lang-copy lang-copy--de">Jeder Fall besitzt nur seinen deklarierten Operator. Die Zeichnung ist eine Ansicht oder Ableitung – kein Ersatz für den Träger.</span><span class="lang-copy lang-copy--en">Each case permits only its declared operator. The drawing is a view or derivation—not a replacement for the carrier.</span></p>
+      </header>
+      <div class="measurement-operator" data-measurement-operator></div>
+      <div class="measurement-visual" data-measurement-visual aria-live="polite"></div>
+      <div class="measurement-trace">
+        <article><small><span class="lang-copy lang-copy--de">Quellenrecord</span><span class="lang-copy lang-copy--en">Source record</span></small><h3 data-measurement-source-title>—</h3><p data-measurement-source-copy>—</p></article>
+        <article><small><span class="lang-copy lang-copy--de">Erzeugte Spur</span><span class="lang-copy lang-copy--en">Produced trace</span></small><h3 data-measurement-trace-title>—</h3><p data-measurement-trace-copy>—</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="return" class="measurement-room measurement-room--dark">
+    <div class="container">
+      <header class="measurement-room__head">
+        <div><p class="eyebrow">Room C · Return</p><h2><span class="lang-copy lang-copy--de">Die Unterscheidung zurückgeben.</span><span class="lang-copy lang-copy--en">Return the distinction.</span></h2></div>
+        <p><span class="lang-copy lang-copy--de">Der Receipt nennt, was erhalten blieb, was unterdrückt wurde und was die Darstellung ausdrücklich nicht behauptet.</span><span class="lang-copy lang-copy--en">The receipt names what was preserved, what was suppressed and what the representation explicitly does not claim.</span></p>
+      </header>
+      <div class="measurement-return">
+        <div class="measurement-return__cards" data-measurement-return-cards></div>
+        <article class="measurement-receipt">
+          <strong data-measurement-status>PASS</strong>
+          <pre data-measurement-receipt aria-label="Machine-readable return receipt"></pre>
+          <button class="button button--secondary" type="button" data-copy-measurement><span class="lang-copy lang-copy--de">Receipt kopieren</span><span class="lang-copy lang-copy--en">Copy receipt</span></button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="measurement-fieldbook container" aria-labelledby="measurement-fieldbook-title">
+    <header>
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Das visuelle Fieldbook · fünf Tafeln</span><span class="lang-copy lang-copy--en">The visual fieldbook · five plates</span></p>
+      <h2 id="measurement-fieldbook-title"><span class="lang-copy lang-copy--de">Die Visuals sind der Reader.</span><span class="lang-copy lang-copy--en">The visuals are the reader.</span></h2>
+      <p><span class="lang-copy lang-copy--de">Jede Tafel bleibt an ihre Quelldatei, ihren Prüfstatus und ihre Aussagegrenze gebunden. Orientierung wird gezeigt, aber nicht still als Physik übernommen.</span><span class="lang-copy lang-copy--en">Each plate remains attached to its source file, review status and claim boundary. Orientation is shown without silently becoming physics.</span></p>
+    </header>
+
+    <div class="measurement-reader" data-reader-root>
+      <div class="measurement-reader__stage">
+        <button type="button" class="measurement-reader__image-button" data-reader-open aria-label="Open current plate at full size">
+          <img data-reader-image src={measurementGateReaderPages[0].src} width={measurementGateReaderPages[0].width} height={measurementGateReaderPages[0].height} alt={measurementGateReaderPages[0].title} />
+          <span><span class="lang-copy lang-copy--de">Tafel vergrößern</span><span class="lang-copy lang-copy--en">Enlarge plate</span> ↗</span>
+        </button>
+      </div>
+      <aside class="measurement-reader__meta" aria-live="polite">
+        <div class="measurement-reader__topline"><span data-reader-counter>01 / 05</span><strong data-reader-status>CANONICAL_METHOD_CORE</strong></div>
+        <h3 data-reader-title>{measurementGateReaderPages[0].title}</h3>
+        <p data-reader-caption>{measurementGateReaderPages[0].caption}</p>
+        <div class="measurement-reader__boundary"><b><span class="lang-copy lang-copy--de">Aussagegrenze</span><span class="lang-copy lang-copy--en">Claim boundary</span></b><p data-reader-boundary>{measurementGateReaderPages[0].boundary}</p></div>
+        <dl>
+          <div><dt><span class="lang-copy lang-copy--de">Quelldatei</span><span class="lang-copy lang-copy--en">Source file</span></dt><dd data-reader-source>{measurementGateReaderPages[0].sourceFile}</dd></div>
+          <div><dt>Binding</dt><dd data-reader-binding>SHA-256 · {measurementGateReaderPages[0].assetSha256.slice(0, 16)}…</dd></div>
+        </dl>
+        <div class="measurement-reader__controls">
+          <button type="button" data-reader-prev disabled>← <span class="lang-copy lang-copy--de">Zurück</span><span class="lang-copy lang-copy--en">Previous</span></button>
+          <button type="button" data-reader-next><span class="lang-copy lang-copy--de">Weiter</span><span class="lang-copy lang-copy--en">Next</span> →</button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="measurement-reader__thumbs" data-reader-thumbs aria-label="Visual fieldbook plates">
+      {measurementGateReaderPages.map((page, index) => (
+        <button type="button" data-reader-index={index} aria-pressed={index === 0 ? "true" : "false"}>
+          <img src={page.src} width={page.width} height={page.height} alt="" loading="lazy" />
+          <span>{String(page.sequence).padStart(2, "0")}</span>
+          <b>{page.title}</b>
+        </button>
+      ))}
+    </div>
+
+    <dialog class="measurement-reader__dialog" data-reader-dialog aria-labelledby="reader-dialog-title">
+      <button type="button" data-reader-close aria-label="Close visual reader">×</button>
+      <h3 id="reader-dialog-title" data-reader-dialog-title>{measurementGateReaderPages[0].title}</h3>
+      <img data-reader-dialog-image src={measurementGateReaderPages[0].src} width={measurementGateReaderPages[0].width} height={measurementGateReaderPages[0].height} alt={measurementGateReaderPages[0].title} />
+    </dialog>
+
+    <div class="measurement-method-index">
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Methodenindex</span><span class="lang-copy lang-copy--en">Method index</span></p>
+      <ol>
+      <li><span>01</span><h3>Relation</h3><p><span class="lang-copy lang-copy--de">Zyklen können verglichen werden, sobald Referenz und Rhythmus benannt sind.</span><span class="lang-copy lang-copy--en">Cycles become comparable once reference and rhythm are named.</span></p></li>
+      <li><span>02</span><h3>Type</h3><p><span class="lang-copy lang-copy--de">Durchmesser, Radius, Halbachse und Separation bleiben verschiedene Größen.</span><span class="lang-copy lang-copy--en">Diameter, radius, semi-major axis and separation remain different quantities.</span></p></li>
+      <li><span>03</span><h3>Carrier</h3><p><span class="lang-copy lang-copy--de">Ein Objekt, ein Datensatz oder ein materieller Record trägt die Spur.</span><span class="lang-copy lang-copy--en">An object, dataset or material record carries the trace.</span></p></li>
+      <li><span>04</span><h3>Cut</h3><p><span class="lang-copy lang-copy--de">Der Schnitt macht etwas sichtbar und hält anderes zurück.</span><span class="lang-copy lang-copy--en">The cut makes something visible and withholds something else.</span></p></li>
+      <li><span>05</span><h3>Trace</h3><p><span class="lang-copy lang-copy--de">Die Spur erinnert an den Schnitt, ohne den Träger vollständig zu enthalten.</span><span class="lang-copy lang-copy--en">The trace remembers the cut without containing the whole carrier.</span></p></li>
+      <li><span>06</span><h3>Compare</h3><p><span class="lang-copy lang-copy--de">Nur typgleiche, referenzierte Felder dürfen direkt verglichen werden.</span><span class="lang-copy lang-copy--en">Only type-compatible, referenced fields may be directly compared.</span></p></li>
+      <li><span>07</span><h3>Return</h3><p><span class="lang-copy lang-copy--de">Relation kann zurückkehren, bevor Zustand zurückkehrt.</span><span class="lang-copy lang-copy--en">Relation may return before state returns.</span></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="measurement-instrument" aria-labelledby="measurement-instrument-title">
+    <div class="container">
+      <header class="measurement-instrument__head">
+        <div>
+          <p class="eyebrow"><span class="lang-copy lang-copy--de">Von der Tafel zum Instrument</span><span class="lang-copy lang-copy--en">From plate to instrument</span></p>
+          <h2 id="measurement-instrument-title">Saturn–Titan<br /><em>QRT Record.</em></h2>
+        </div>
+        <div>
+          <p><span class="lang-copy lang-copy--de">Die beiden Fieldbook-Tafeln sind Ansichten dieses erhaltenen HTML-Instruments. Hier lässt sich der Schnitt tatsächlich wechseln: ein Träger, verschiedene Cuts, vergleichbare Spuren.</span><span class="lang-copy lang-copy--en">The two fieldbook plates are views of this preserved HTML instrument. Here the cut can actually be changed: one carrier, different cuts, comparable traces.</span></p>
+          <p class="measurement-instrument__boundary"><strong><span class="lang-copy lang-copy--de">Grenze:</span><span class="lang-copy lang-copy--en">Boundary:</span></strong> <span class="lang-copy lang-copy--de">Anwendungsdemonstrator und Orientierungsanalogie — keine gemessene planetare Übertragungsfunktion.</span><span class="lang-copy lang-copy--en">Application demonstrator and orientation analogy—not a measured planetary transfer function.</span></p>
+        </div>
+      </header>
+      <div class="measurement-instrument__frame">
+        <iframe src="/review-assets/measurement-gate/saturn-titan-qrt-record.html" title="Saturn–Titan QRT Record interactive source" loading="lazy" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <div class="measurement-instrument__source">
+        <span>ART:HTML:CAAEAD5F19ED · SHA-256 d95993f32cd1e828…</span>
+        <a class="button button--secondary" href="/review-assets/measurement-gate/saturn-titan-qrt-record.html" target="_blank" rel="noreferrer"><span class="lang-copy lang-copy--de">Instrument einzeln öffnen</span><span class="lang-copy lang-copy--en">Open instrument standalone</span> ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="measurement-connections container" aria-labelledby="measurement-connections-title">
+    <header class="measurement-connections__head">
+      <div>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Verbundene Instrumente · getrennte Schichten</span><span class="lang-copy lang-copy--en">Connected instruments · distinct layers</span></p>
+        <h2 id="measurement-connections-title"><span class="lang-copy lang-copy--de">Was gehört wohin?</span><span class="lang-copy lang-copy--en">What belongs where?</span></h2>
+      </div>
+      <p><span class="lang-copy lang-copy--de">A0 liefert Orientierung und gemeinsame Begriffe. Experience macht ausgewählte Relationen erfahrbar. Runtime hält Cuts und Receipts transportierbar. Evidenz bleibt eine eigene, strengere Schicht.</span><span class="lang-copy lang-copy--en">A0 supplies orientation and shared terms. Experience makes selected relations inspectable. Runtime keeps cuts and receipts transportable. Evidence remains its own, stricter layer.</span></p>
+    </header>
+    <div class="measurement-connections__grid">
+      <article>
+        <small>SOURCE-BOUND DEEP DIVE · LOCAL CANDIDATE</small><h3>Interstellar Entry / Exit Lens</h3>
+        <p><span class="lang-copy lang-copy--de">1I, 2I und die temporäre 3I-Lösung: gefrorene JPL-Quellen, Zweikörper-Asymptoten und entfernte Horizons-Vektoren bleiben vergleichbar, ohne daraus eine Vorhersage zu erfinden.</span><span class="lang-copy lang-copy--en">1I, 2I and the temporary 3I solution: frozen JPL sources, two-body asymptotes and distant Horizons vectors remain comparable without inventing a prediction.</span></p>
+        <a href="/laboratory/roedelheim-observatory/measurement-gate/interstellar-entry-exit/"><span class="lang-copy lang-copy--de">Source Lens öffnen</span><span class="lang-copy lang-copy--en">Open source lens</span></a>
+        <span class="measurement-connections__status">SOURCE LOCKED · RETURN UNRESOLVED · NO +1</span>
+      </article>
+      <article>
+        <small>EXPERIENCE · EXISTING</small><h3>Five H · One Q°</h3>
+        <p><span class="lang-copy lang-copy--de">Fünf reale Perioden, ein gemeinsamer Beobachtungszeitpunkt. Bereits in der Generation Corner eingebunden; keine zweite Kopie nötig.</span><span class="lang-copy lang-copy--en">Five real periods, one shared observation time. Already bound in Generation Corner; no second copy is needed.</span></p>
+        <a href="/laboratory/roedelheim-observatory/generation-corner/#five-h"><span class="lang-copy lang-copy--de">Bestehendes Instrument öffnen</span><span class="lang-copy lang-copy--en">Open existing instrument</span> →</a>
+      </article>
+      <article>
+        <small>RUNTIME · VALIDATED INFRASTRUCTURE</small><h3>Common Runtime Adapter</h3>
+        <p><span class="lang-copy lang-copy--de">ART:RUNTIME:ADAPTER hält Profile, zwei Cuts, Residual und Receipt zusammen. Die interne Master-Version wird hier nicht still als öffentliches Instrument ausgegeben.</span><span class="lang-copy lang-copy--en">ART:RUNTIME:ADAPTER keeps profiles, two cuts, residual and receipt together. Its internal master is not silently presented here as a public instrument.</span></p>
+        <span class="measurement-connections__status"><span class="lang-copy lang-copy--de">Nächster Schritt: reduzierte Public-View</span><span class="lang-copy lang-copy--en">Next step: reduced public view</span></span>
+      </article>
+      <article>
+        <small>CONCEPT · NOT IMPLEMENTED</small><h3>Relations Through T</h3>
+        <p><span class="lang-copy lang-copy--de">Eine dokumentierte Challenge für erhaltene und neu gesetzte Relationen durch T. Noch kein HTML-Instrument, keine Ausführung und keine Evidenzpromotion.</span><span class="lang-copy lang-copy--en">A documented challenge for preserved and newly introduced relations through T. Not yet an HTML instrument, an execution or an evidence promotion.</span></p>
+        <span class="measurement-connections__status">IMPLEMENTATION: NO · EXECUTION: NO</span>
+      </article>
+      <article>
+        <small>E2 · DESCRIPTIVE SUPPLEMENT</small><h3>HZ/FZ Contrast Compass</h3>
+        <p><span class="lang-copy lang-copy--de">Reale externe Beobachtungen, aber nur ein deskriptiver E2-Zusatz. Die 0,5-Hz-Struktur ist ein inkonklusiver Kandidat; Achsenrotation erzeugt keine neue Evidenz.</span><span class="lang-copy lang-copy--en">Real external observations, but only a descriptive E2 supplement. The 0.5 Hz structure is an inconclusive candidate; rotating axes creates no new evidence.</span></p>
+        <span class="measurement-connections__status">NO PROFILE ACTIVATION · REPLICATION REQUIRED</span>
+      </article>
+    </div>
+    <p class="measurement-connections__a0"><strong>A0 / Zeta Timegear:</strong> <span class="lang-copy lang-copy--de">gemeinsames Zyklus-Lineal und Orientierungsmodell; verwandt mit diesem Gate, aber nicht dessen Messresultat.</span><span class="lang-copy lang-copy--en">a shared cycle ruler and orientation model; related to this gate, but not its measurement result.</span></p>
+  </section>
+
+  <section class="measurement-miwa" aria-labelledby="measurement-miwa-title">
+    <div class="container measurement-miwa__grid">
+      <div class="measurement-miwa__mark" aria-hidden="true"><span></span><span></span><b>Q</b></div>
+      <div>
+        <p class="eyebrow">Next instrument · MIWA</p>
+        <h2 id="measurement-miwa-title"><span class="lang-copy lang-copy--de">Wenn die Messadresse steht, beginnt der Framevergleich.</span><span class="lang-copy lang-copy--en">Once the measurement address is declared, frame comparison begins.</span></h2>
+        <p><span class="lang-copy lang-copy--de">MIWA übernimmt keinen nackten Wert. Es übernimmt einen quellgebundenen Record und hält Milky-Way-, Aperture- und Andromeda-Frame unterscheidbar. Eine spätere Erweiterung kann Measurement-Gate-Receipts als Eingabe lesen, ohne das historische Instrument still zu überschreiben.</span><span class="lang-copy lang-copy--en">MIWA receives no bare value. It receives a source-bound record and keeps Milky Way, Aperture and Andromeda frames distinguishable. A later extension can read Measurement Gate receipts without silently overwriting the historical instrument.</span></p>
+        <a class="button" href="/laboratory/roedelheim-observatory/rooms/miwa-aperture-andromeda/"><span class="lang-copy lang-copy--de">Bestehendes MIWA öffnen</span><span class="lang-copy lang-copy--en">Open existing MIWA</span> <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <aside id="source-boundaries" class="measurement-source-boundary container">
+    <p class="eyebrow"><span class="lang-copy lang-copy--de">Quellen- und Versionsgrenze</span><span class="lang-copy lang-copy--en">Source and version boundary</span></p>
+    <p><span class="lang-copy lang-copy--de">Kandidat vom 19. November 2026. Fünf quellgebundene Fälle; ED₁₃₈ ist als vorläufiger TNO- und Resonanzrand-Kandidat gekennzeichnet. Keine neue Navigator-Identität, kein bestätigtes Forschungsergebnis und keine aktivierte Preregistrierung.</span><span class="lang-copy lang-copy--en">Candidate dated 19 November 2026. Five source-bound cases; ED₁₃₈ is marked as a provisional TNO and resonance-edge candidate. No new Navigator identity, confirmed research result or activated preregistration.</span></p>
+  </aside>
+
+  <script is:inline type="application/json" id="measurement-gate-data" set:html={gateData}></script>
+</BaseLayout>
+
+<script>
+  type Language = "de" | "en";
+  type GateCase = (typeof import("@/data/measurement-gate").measurementGateCases)[number];
+  type ReaderPage = (typeof import("@/data/measurement-gate-reader").measurementGateReaderPages)[number];
+  const dataNode = document.querySelector<HTMLScriptElement>("#measurement-gate-data");
+  const data = dataNode ? JSON.parse(dataNode.textContent || "{}") as { cases: GateCase[]; readerPages: ReaderPage[] } : { cases: [], readerPages: [] };
+  let caseId: string | undefined = data.cases[0]?.id;
+  let quantityId: string | undefined = data.cases[0]?.quantities[0]?.id;
+  let readerIndex = 0;
+  const one = <T extends Element>(selector: string) => document.querySelector<T>(selector);
+  const language = (): Language => document.documentElement.dataset.siteLanguage === "de" ? "de" : "en";
+  const currentCase = () => data.cases.find((entry) => entry.id === caseId) ?? data.cases[0];
+  const currentQuantity = () => currentCase()?.quantities.find((entry) => entry.id === quantityId) ?? currentCase()?.quantities[0];
+  const escape = (value: unknown) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character] ?? character);
+  const local = (entry: Record<string, unknown>, key: string) => String(language() === "de" ? entry[`${key}De`] ?? entry[key] : entry[key]);
+
+  function drawConic(entry: GateCase, quantity: GateCase["quantities"][number]) {
+    const hyperbolic = entry.return.class === "HYPERBOLIC";
+    const orbit = hyperbolic
+      ? '<path class="gate-pink" d="M520 330C570 215 665 155 830 130"/><path class="gate-pink gate-thin" d="M520 330C570 445 665 505 830 530"/>'
+      : '<ellipse class="gate-cyan" cx="455" cy="330" rx="280" ry="145"/><path class="gate-cyan gate-thin" d="M190 330l-20-10m20 10l-20 10"/>';
+    return `<svg viewBox="0 0 900 600" role="img" aria-label="${escape(entry.return.class)}"><path class="gate-grid" d="M60 330H850M520 70V550"/><circle cx="520" cy="330" r="31" class="gate-sun"/>${orbit}<text x="60" y="75">Q° PORT · CONIC GATE</text><text class="gate-small" x="60" y="105">typed classification · schematic · not to scale</text><text x="60" y="535">${escape(entry.return.class)}</text><text class="gate-small" x="60" y="565">${escape(quantity.symbol)} = ${escape(quantity.display)} ${escape(quantity.unit)}</text></svg>`;
+  }
+
+  function drawResonance(quantity: GateCase["quantities"][number]) {
+    const rows = [["4:1",2.065],["3:1",2.501],["5:2",2.825],["7:3",2.958],["2:1",3.278],["3:2",3.971],["1:1",5.203]] as const;
+    return `<svg viewBox="0 0 900 600" role="img" aria-label="Jupiter resonance coordinates"><text x="55" y="65">JUPITER · RESONANCE COORDINATES</text><text class="gate-small" x="55" y="95">a = aJ · (q/p)^(2/3) · aJ = 5.203 au</text><line class="gate-axis-line" x1="90" y1="430" x2="820" y2="430"/>${rows.map(([id,value]) => { const x = 90 + (value - 2) / 3.203 * 730; const active = id === quantity.id; return `<line x1="${x}" y1="${active ? 150 : 235}" x2="${x}" y2="430" class="${active ? "gate-pink" : "gate-cyan gate-thin"}"/><circle cx="${x}" cy="430" r="${active ? 9 : 5}" class="gate-point"/><text class="gate-small" x="${x-15}" y="${active ? 130 : 215}">${id}</text><text class="gate-small" x="${x-24}" y="${active ? 108 : 193}">${value}</text>`; }).join("")}<circle cx="820" cy="430" r="34" class="gate-jupiter"/><text class="gate-small" x="55" y="555">COORDINATE ≠ OUTCOME · CONDITIONS REMAIN REQUIRED</text></svg>`;
+  }
+
+  function drawRecord(quantity: GateCase["quantities"][number]) {
+    const rings = quantity.id === "ep45" ? 3 : quantity.id === "lp33" ? 6 : 9;
+    return `<svg viewBox="0 0 900 600" role="img" aria-label="Record carrier cut and trace analogy"><text x="55" y="65">SATURN–TITAN · QRT RECORD</text><text class="gate-small" x="55" y="95">one carrier · selected cut · comparable trace</text><path class="gate-cyan" d="M55 300C120 245 165 355 245 300"/>${Array.from({length:rings},(_,index) => `<ellipse cx="430" cy="300" rx="${120+index*14}" ry="${52+index*7}" class="${index===rings-1 ? "gate-pink" : "gate-gold gate-thin"}"/>`).join("")}<circle cx="430" cy="300" r="72" class="gate-saturn"/><line x1="430" y1="300" x2="650" y2="195" class="gate-green"/><circle cx="650" cy="195" r="17" class="gate-green-fill"/><path d="M690 225A76 76 0 0 1 690 375Z" class="gate-mask-light"/><path d="M690 225A76 76 0 0 0 690 375Z" class="gate-mask-dark"/><line x1="690" y1="215" x2="690" y2="385" class="gate-pink"/><path class="gate-gold" d="M780 300h18l8-48 13 95 14-80 16 64 16-31h20"/><text class="gate-small" x="55" y="530">${escape(quantity.display)} ${escape(quantity.unit)}</text><text class="gate-small" x="55" y="560">ANALOGY ONLY · NO MEASURED PLANETARY TRANSFER FUNCTION</text></svg>`;
+  }
+
+  function drawOrbitComparator(quantity: GateCase["quantities"][number]) {
+    return `<svg viewBox="0 0 900 600" role="img" aria-label="2026 ED138 and Eris orbit comparison"><text x="55" y="65">2026 ED₁₃₈ · ERIS — SAME NEIGHBORHOOD, DIFFERENT ORBITS</text><text class="gate-small" x="55" y="95">barycentric orientation comparison · reference paths are schematic</text><circle cx="450" cy="315" r="18" class="gate-sun"/><ellipse cx="450" cy="315" rx="285" ry="275" class="gate-pink gate-thin"/><ellipse cx="450" cy="315" rx="400" ry="155" class="gate-cyan"/><circle cx="708" cy="222" r="10" class="gate-point"/><circle cx="812" cy="315" r="10" class="gate-green-fill"/><text class="gate-small" x="625" y="180">ED₁₃₈ · a 43.09 au · e 0.139 · i 24.4°</text><text class="gate-small" x="510" y="520">ERIS REFERENCE · a ≈ 68 au · e ≈ 0.44 · i ≈ 44°</text><line x1="450" y1="315" x2="690" y2="315" class="gate-gold gate-thin"/><text class="gate-small" x="500" y="300">q ED₁₃₈ = 37.113 au</text><text class="gate-small" x="55" y="555">${escape(quantity.symbol)} = ${escape(quantity.display)} ${escape(quantity.unit)} · COMPARISON ≠ IDENTITY</text></svg>`;
+  }
+
+  function render() {
+    const entry = currentCase();
+    const quantity = currentQuantity();
+    if (!entry || !quantity) return;
+    const lang = language();
+    const cases = one<HTMLElement>("[data-measurement-cases]");
+    if (cases) {
+      cases.innerHTML = data.cases.map((item, index) => `<button type="button" data-case="${escape(item.id)}" aria-pressed="${item.id === entry.id}"><small>CASE ${String(index + 1).padStart(2,"0")}</small><strong>${escape(item.label)}</strong><span>${escape(local(item as unknown as Record<string, unknown>, "subtitle"))}</span></button>`).join("");
+      cases.querySelectorAll<HTMLButtonElement>("button").forEach((button) => button.addEventListener("click", () => { caseId = button.dataset.case; quantityId = currentCase().quantities[0].id; render(); }));
+    }
+    const select = one<HTMLSelectElement>("[data-measurement-quantity]");
+    if (select) select.innerHTML = entry.quantities.map((item) => `<option value="${escape(item.id)}" ${item.id === quantity.id ? "selected" : ""}>${escape(local(item as unknown as Record<string, unknown>, "type"))} · ${escape(item.symbol)}</option>`).join("");
+    const meta = one<HTMLElement>("[data-measurement-meta]");
+    if (meta) meta.innerHTML = [[lang === "de" ? "Träger" : "Carrier",entry.carrier.object],[lang === "de" ? "Rahmen" : "Frame",local(entry.carrier as unknown as Record<string, unknown>,"frame")],[lang === "de" ? "Autorität" : "Authority",entry.source.authority],[lang === "de" ? "Version" : "Version",entry.source.version],[lang === "de" ? "Epoche" : "Epoch",entry.source.epoch]].map(([key,value]) => `<div><dt>${escape(key)}</dt><dd>${escape(value)}</dd></div>`).join("");
+    const put = (selector: string, value: string) => { const node = one<HTMLElement>(selector); if (node) node.textContent = value; };
+    put("[data-measurement-qualifier]", `${quantity.symbol} · ${local(quantity as unknown as Record<string, unknown>, "qualifier")}`);
+    put("[data-measurement-value]", quantity.display); put("[data-measurement-unit]", quantity.unit);
+    put("[data-measurement-type]", local(quantity as unknown as Record<string, unknown>, "type"));
+    put("[data-measurement-note]", local(quantity as unknown as Record<string, unknown>, "note"));
+    const operator = one<HTMLElement>("[data-measurement-operator]");
+    if (operator) operator.innerHTML = `<span>${escape(entry.operator.replaceAll("_", " "))}</span><b>${entry.analogy ? (lang === "de" ? "ANALOGIE" : "ANALOGY") : (lang === "de" ? "KLASSIFIKATION / ABLEITUNG" : "CLASSIFICATION / DERIVATION")}</b>`;
+    const visual = one<HTMLElement>("[data-measurement-visual]");
+    if (visual) visual.innerHTML = entry.operator === "CONIC_GATE" ? drawConic(entry, quantity) : entry.operator === "ORBIT_COMPARATOR" ? drawOrbitComparator(quantity) : entry.operator === "RESONANCE_SORTER" ? drawResonance(quantity) : drawRecord(quantity);
+    put("[data-measurement-source-title]", entry.carrier.object);
+    put("[data-measurement-source-copy]", `${local(quantity as unknown as Record<string, unknown>, "type")}: ${quantity.display} ${quantity.unit}. ${local(quantity as unknown as Record<string, unknown>, "qualifier")}.`);
+    put("[data-measurement-trace-title]", local(entry.trace as unknown as Record<string, unknown>, "title"));
+    put("[data-measurement-trace-copy]", local(entry.trace as unknown as Record<string, unknown>, "text"));
+    const cards = one<HTMLElement>("[data-measurement-return-cards]");
+    const sourceReferences = "references" in entry.source ? entry.source.references : [];
+    const sourceLinks = [`<a href="${escape(entry.source.url)}">${escape(entry.source.authority)} · ${escape(entry.source.title)}</a>`, ...sourceReferences.map((reference) => `<a href="${escape(reference.url)}">${escape(reference.authority)} · ${escape(reference.title)}</a>`)].join("<br />");
+    const groups = [
+      [lang === "de" ? "Quellen" : "Sources", sourceLinks],
+      [lang === "de" ? "Erhalten" : "Preserved", escape((lang === "de" ? entry.return.preservesDe : entry.return.preserves).join(" · "))],
+      [lang === "de" ? "Unterdrückt" : "Suppressed", escape((lang === "de" ? entry.return.suppressesDe : entry.return.suppresses).join(" · "))],
+      [lang === "de" ? "Behauptet nicht" : "Does not claim", escape((lang === "de" ? entry.return.nonclaimsDe : entry.return.nonclaims).join(" · "))],
+    ];
+    if (cards) cards.innerHTML = groups.map(([title,copy]) => `<article><small>${title}</small><p>${copy}</p></article>`).join("");
+    put("[data-measurement-status]", entry.return.status);
+    const receipt = { schema: "nexah.measurement-gate.receipt.v1", generated_from: "pinned local data", case_id: entry.id, source: entry.source, carrier: entry.carrier, selected_quantity: { type: quantity.type, symbol: quantity.symbol, value: quantity.display, unit: quantity.unit, qualifier: quantity.qualifier }, operator: entry.operator, return: entry.return, claim_ceiling: entry.analogy ? "orientation analogy only" : "typed classification or declared derivation; no new physical law" };
+    put("[data-measurement-receipt]", JSON.stringify(receipt, null, 2));
+  }
+
+  function renderReader() {
+    const page = data.readerPages[readerIndex];
+    if (!page) return;
+    const lang = language();
+    const title = lang === "de" ? page.titleDe : page.title;
+    const caption = lang === "de" ? page.captionDe : page.caption;
+    const boundary = lang === "de" ? page.boundaryDe : page.boundary;
+    const put = (selector: string, value: string) => { const node = one<HTMLElement>(selector); if (node) node.textContent = value; };
+    const image = one<HTMLImageElement>("[data-reader-image]");
+    const dialogImage = one<HTMLImageElement>("[data-reader-dialog-image]");
+    for (const node of [image, dialogImage]) {
+      if (!node) continue;
+      node.src = page.src;
+      node.alt = title;
+      node.width = page.width;
+      node.height = page.height;
+    }
+    put("[data-reader-counter]", `${String(page.sequence).padStart(2, "0")} / ${String(data.readerPages.length).padStart(2, "0")}`);
+    put("[data-reader-status]", page.status);
+    put("[data-reader-title]", title);
+    put("[data-reader-dialog-title]", title);
+    put("[data-reader-caption]", caption);
+    put("[data-reader-boundary]", boundary);
+    put("[data-reader-source]", page.sourceFile);
+    put("[data-reader-binding]", `${page.artifactId ? `${page.artifactId} · ` : ""}SHA-256 · ${page.assetSha256.slice(0, 16)}…`);
+    const previous = one<HTMLButtonElement>("[data-reader-prev]");
+    const next = one<HTMLButtonElement>("[data-reader-next]");
+    if (previous) previous.disabled = readerIndex === 0;
+    if (next) next.disabled = readerIndex === data.readerPages.length - 1;
+    document.querySelectorAll<HTMLButtonElement>("[data-reader-index]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(Number(button.dataset.readerIndex) === readerIndex));
+    });
+  }
+
+  one<HTMLSelectElement>("[data-measurement-quantity]")?.addEventListener("change", (event) => { quantityId = (event.currentTarget as HTMLSelectElement).value; render(); });
+  one<HTMLButtonElement>("[data-copy-measurement]")?.addEventListener("click", async (event) => { const button = event.currentTarget as HTMLButtonElement; const receipt = one<HTMLElement>("[data-measurement-receipt]")?.textContent ?? ""; try { await navigator.clipboard.writeText(receipt); button.dataset.copied = "true"; setTimeout(() => delete button.dataset.copied, 1500); } catch { button.dataset.copied = "false"; } });
+  one<HTMLButtonElement>("[data-reader-prev]")?.addEventListener("click", () => { if (readerIndex > 0) { readerIndex -= 1; renderReader(); } });
+  one<HTMLButtonElement>("[data-reader-next]")?.addEventListener("click", () => { if (readerIndex < data.readerPages.length - 1) { readerIndex += 1; renderReader(); } });
+  document.querySelectorAll<HTMLButtonElement>("[data-reader-index]").forEach((button) => button.addEventListener("click", () => { readerIndex = Number(button.dataset.readerIndex ?? 0); renderReader(); one<HTMLElement>("[data-reader-root]")?.scrollIntoView({ behavior: "smooth", block: "center" }); }));
+  const readerDialog = one<HTMLDialogElement>("[data-reader-dialog]");
+  one<HTMLButtonElement>("[data-reader-open]")?.addEventListener("click", () => readerDialog?.showModal());
+  one<HTMLButtonElement>("[data-reader-close]")?.addEventListener("click", () => readerDialog?.close());
+  readerDialog?.addEventListener("click", (event) => { if (event.target === readerDialog) readerDialog.close(); });
+  window.addEventListener("nexah:language-changed", () => { render(); renderReader(); });
+  render();
+  renderReader();
+</script>
+
+<style>
+  :global(body){background:#f4f0e7}
+  .measurement-hero{overflow:hidden;background:#06151e;color:#edf6f5}
+  .measurement-hero__grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(2rem,7vw,8rem);align-items:center;min-height:80svh;padding-block:clamp(5rem,10vw,10rem)}
+  .measurement-hero h1{margin:.7rem 0 1.8rem;font-family:var(--font-display);font-size:clamp(4.1rem,9vw,9.5rem);font-weight:500;letter-spacing:-.065em;line-height:.78}
+  .measurement-hero h1 em{color:#4dd6e5;font-weight:400}
+  .measurement-hero__lead{max-width:38rem;color:#d4e4e4;font-size:clamp(1.2rem,2vw,1.55rem)}
+  .measurement-boundary{max-width:40rem;margin:1.4rem 0 2rem;padding:1rem;border-left:3px solid #e9b541;background:rgba(233,181,65,.08);color:#c8d4d5}
+  .measurement-boundary strong{color:#e9b541}
+  .measurement-hero__mark{position:relative;aspect-ratio:1;border:1px solid #27434d;border-radius:50%;background:radial-gradient(circle,rgba(233,181,65,.12),transparent 47%)}
+  .measurement-loop{position:absolute;top:14%;bottom:14%;width:44%;border:2px solid;border-radius:50%}
+  .measurement-loop--source{left:9%;border-color:#4dd6e5;transform:rotate(-13deg)}
+  .measurement-loop--view{right:9%;border-color:#ee5ab1;transform:rotate(13deg)}
+  .measurement-axis{position:absolute;top:8%;bottom:8%;left:50%;border-left:1px dashed #e9b541}
+  .measurement-hero__mark b{position:absolute;top:50%;left:50%;display:grid;width:5rem;aspect-ratio:1;place-items:center;transform:translate(-50%,-50%);border:1px solid #e9b541;border-radius:50%;background:#06151e;color:#e9b541;font:700 .85rem/1 var(--font-mono)}
+  .measurement-hero__mark small{position:absolute;bottom:8%;left:12%;width:76%;color:#8eabb4;text-align:center;font:700 .65rem/1.4 var(--font-mono);letter-spacing:.08em}
+  .measurement-chain{display:grid;grid-template-columns:repeat(6,1fr);padding-block:1.1rem 3.5rem;background:#f4f0e7}
+  .measurement-chain span{padding:.8rem;border-top:2px solid #c7bda8;color:#6a6962;text-align:center;font:700 .65rem/1 var(--font-mono);letter-spacing:.08em}
+  .measurement-chain span:nth-child(-n+2){border-color:#35afc6}.measurement-chain span:nth-child(n+3):nth-child(-n+4){border-color:#dc4b9e}.measurement-chain span:nth-child(n+5){border-color:#c88f12}
+  .measurement-room{padding-block:clamp(5rem,9vw,9rem)}
+  .measurement-room--dark{background:#06151e;color:#edf6f5}.measurement-room--paper{background:#f4f0e7;color:#14212a}
+  .measurement-room__head{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(18rem,.75fr);gap:clamp(2rem,7vw,8rem);align-items:end;margin-bottom:3rem}
+  .measurement-room__head h2,.measurement-fieldbook h2,.measurement-miwa h2{max-width:13ch;margin:.45rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.5rem);font-weight:500;letter-spacing:-.05em;line-height:.9}
+  .measurement-room__head>p{margin:0;color:inherit;opacity:.72;font-size:1.08rem;line-height:1.6}
+  .measurement-cases{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin-bottom:1rem}
+  .measurement-cases :global(button){min-height:9rem;padding:1rem;border:1px solid #31505b;border-radius:.7rem;background:#0a202b;color:#edf6f5;text-align:left;cursor:pointer}
+  .measurement-cases :global(button[aria-pressed="true"]){border-color:#4dd6e5;box-shadow:inset 0 0 0 1px #4dd6e5}
+  .measurement-cases :global(small),.measurement-cases :global(strong),.measurement-cases :global(span){display:block}.measurement-cases :global(small){color:#e9b541;font:700 .65rem var(--font-mono)}.measurement-cases :global(strong){margin:.7rem 0 .35rem;font-size:1.1rem}.measurement-cases :global(span){color:#9eb5bc;font-size:.86rem}
+  .measurement-declare{display:grid;grid-template-columns:.72fr 1.28fr;gap:1rem}
+  .measurement-controls,.measurement-value,.measurement-visual,.measurement-trace article,.measurement-receipt,.measurement-return__cards article{border:1px solid #31505b;border-radius:.85rem;background:#0a202b}
+  .measurement-controls{padding:1.2rem}.measurement-controls label{display:block;margin-bottom:.5rem;color:#a9bdc3;font:700 .75rem var(--font-mono)}
+  .measurement-controls select{width:100%;padding:.8rem;border:1px solid #466873;border-radius:.45rem;background:#06151e;color:#edf6f5}
+  .measurement-controls :global(dl){margin:1.2rem 0 0}.measurement-controls :global(dl>div){display:grid;grid-template-columns:6.5rem 1fr;gap:.6rem;padding:.6rem 0;border-top:1px solid #28444e}.measurement-controls :global(dt){color:#8ea8b0;font:700 .65rem var(--font-mono);text-transform:uppercase}.measurement-controls :global(dd){margin:0;overflow-wrap:anywhere}
+  .measurement-value{position:relative;min-height:24rem;padding:1.5rem;overflow:hidden}.measurement-value small{color:#ee5ab1;font:700 .7rem var(--font-mono);text-transform:uppercase}.measurement-value>strong{display:block;margin:.7rem 0;color:#e9b541;font-family:var(--font-display);font-size:clamp(3.5rem,8vw,7rem);line-height:.9}.measurement-value>b{color:#4dd6e5;font:700 1rem var(--font-mono)}.measurement-value h3{margin:2rem 0 .4rem;font-size:1.4rem}.measurement-value p{max-width:45rem;color:#a9bdc3}.measurement-value i{position:absolute;right:1rem;bottom:.7rem;color:#64818a;font:700 .62rem var(--font-mono);font-style:normal}
+  .measurement-operator{display:flex;justify-content:space-between;margin-bottom:.75rem;padding:.8rem 1rem;border:1px solid #b9ae99;border-radius:.6rem;font:700 .7rem var(--font-mono);letter-spacing:.07em}.measurement-operator b{color:#b32c78}
+  .measurement-visual{min-height:35rem;padding:1rem;background:#071923}.measurement-visual :global(svg){display:block;width:100%;height:auto;min-height:32rem}.measurement-visual :global(svg text){fill:#e6f0f1;font:700 15px var(--font-mono)}.measurement-visual :global(.gate-small){fill:#92aab2;font-size:12px}.measurement-visual :global(.gate-grid),.measurement-visual :global(.gate-axis-line){stroke:#27434d;fill:none}.measurement-visual :global(.gate-cyan){stroke:#4dd6e5;stroke-width:5;fill:none}.measurement-visual :global(.gate-pink){stroke:#ee5ab1;stroke-width:5;fill:none}.measurement-visual :global(.gate-gold){stroke:#e9b541;stroke-width:5;fill:none}.measurement-visual :global(.gate-green){stroke:#61d5ab;stroke-width:4}.measurement-visual :global(.gate-thin){stroke-width:2;opacity:.65}.measurement-visual :global(.gate-sun),.measurement-visual :global(.gate-point){fill:#e9b541}.measurement-visual :global(.gate-jupiter){fill:#ce9a59}.measurement-visual :global(.gate-saturn){fill:#bb7243}.measurement-visual :global(.gate-green-fill){fill:#61d5ab}.measurement-visual :global(.gate-mask-light){fill:#edf2f2}.measurement-visual :global(.gate-mask-dark){fill:#071923;stroke:#718890}
+  .measurement-trace{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1rem}.measurement-trace article{padding:1.15rem;background:#fff}.measurement-trace small,.measurement-return__cards small{color:#a97900;font:700 .68rem var(--font-mono);text-transform:uppercase}.measurement-trace h3{margin:.45rem 0}.measurement-trace p{color:#59636a}
+  .measurement-return{display:grid;grid-template-columns:.75fr 1.25fr;gap:1rem}.measurement-return__cards{display:grid;gap:.75rem}.measurement-return__cards :global(article){padding:1rem;border:1px solid #31505b;border-radius:.85rem;background:#0a202b}.measurement-return__cards :global(p){margin:.4rem 0;color:#a9bdc3}.measurement-return__cards :global(a){color:#5bdeed}.measurement-return__cards :global(small){color:#a97900;font:700 .68rem var(--font-mono);text-transform:uppercase}.measurement-receipt{padding:1.2rem}.measurement-receipt>strong{display:inline-flex;padding:.35rem .6rem;border:1px solid #61d5ab;border-radius:99px;color:#61d5ab;font:700 .7rem var(--font-mono)}.measurement-receipt pre{max-height:34rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;color:#d9e6e7;font:12px/1.55 var(--font-mono)}.measurement-receipt button[data-copied="true"]::after{content:" ✓"}
+  .measurement-fieldbook{padding-block:clamp(5rem,9vw,9rem)}.measurement-fieldbook>header{display:grid;grid-template-columns:1fr .75fr;gap:clamp(2rem,7vw,8rem);align-items:end}.measurement-fieldbook>header .eyebrow{grid-column:1/-1}.measurement-fieldbook>header p:last-child{color:#5d6568;font-size:1.08rem;line-height:1.6}
+  .measurement-reader{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(20rem,.75fr);margin-top:4rem;border:1px solid #263e49;border-radius:1rem;overflow:hidden;background:#06151e;color:#edf6f5}.measurement-reader__stage{display:grid;min-height:46rem;place-items:center;padding:clamp(1rem,3vw,2.5rem);background:radial-gradient(circle at 50% 45%,#17303c 0,#081821 55%,#040e14 100%)}.measurement-reader__image-button{position:relative;display:grid;width:100%;height:100%;min-height:40rem;padding:0;border:0;background:transparent;place-items:center;cursor:zoom-in}.measurement-reader__image-button img{display:block;width:auto;max-width:100%;height:auto;max-height:43rem;object-fit:contain;filter:drop-shadow(0 1.2rem 2rem rgba(0,0,0,.35))}.measurement-reader__image-button>span{position:absolute;right:.5rem;bottom:.5rem;padding:.45rem .65rem;border:1px solid #49626b;border-radius:99px;background:rgba(6,21,30,.82);color:#d8e6e6;font:700 .64rem var(--font-mono);letter-spacing:.04em}.measurement-reader__meta{display:flex;flex-direction:column;padding:clamp(1.4rem,3vw,2.5rem);border-left:1px solid #263e49}.measurement-reader__topline{display:flex;gap:.75rem;justify-content:space-between;align-items:flex-start;color:#e9b541;font:700 .66rem/1.35 var(--font-mono)}.measurement-reader__topline strong{max-width:15rem;color:#61d5ab;text-align:right;overflow-wrap:anywhere}.measurement-reader__meta h3{margin:clamp(2.5rem,5vw,5rem) 0 1rem;font-family:var(--font-display);font-size:clamp(2.2rem,4vw,4.5rem);font-weight:500;letter-spacing:-.04em;line-height:.92}.measurement-reader__meta>p{color:#a9bdc3;font-size:1.02rem;line-height:1.6}.measurement-reader__boundary{margin:1.5rem 0;padding:1rem;border-left:3px solid #ee5ab1;background:#0a202b}.measurement-reader__boundary b{color:#ee78bd;font:700 .65rem var(--font-mono);text-transform:uppercase}.measurement-reader__boundary p{margin:.5rem 0 0;color:#c7d6d8;font-size:.9rem;line-height:1.55}.measurement-reader__meta dl{margin:auto 0 1.5rem}.measurement-reader__meta dl>div{padding:.7rem 0;border-top:1px solid #29444e}.measurement-reader__meta dt{color:#78959e;font:700 .62rem var(--font-mono);text-transform:uppercase}.measurement-reader__meta dd{margin:.3rem 0 0;color:#c6d4d6;font:600 .72rem/1.45 var(--font-mono);overflow-wrap:anywhere}.measurement-reader__controls{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.measurement-reader__controls button{padding:.8rem;border:1px solid #496873;border-radius:.45rem;background:#0a202b;color:#edf6f5;cursor:pointer}.measurement-reader__controls button:disabled{opacity:.35;cursor:not-allowed}.measurement-reader__thumbs{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem;margin-top:.75rem}.measurement-reader__thumbs button{display:grid;grid-template-columns:auto 1fr;gap:.25rem .55rem;min-width:0;padding:.6rem;border:1px solid #c7bda8;border-radius:.6rem;background:#eee8dc;color:#14212a;text-align:left;cursor:pointer}.measurement-reader__thumbs button[aria-pressed="true"]{border-color:#b32c78;box-shadow:inset 0 0 0 1px #b32c78}.measurement-reader__thumbs img{grid-column:1/-1;width:100%;height:8rem;border-radius:.3rem;background:#06151e;object-fit:contain}.measurement-reader__thumbs span{color:#a97900;font:700 .62rem var(--font-mono)}.measurement-reader__thumbs b{min-width:0;font-size:.76rem;line-height:1.25}.measurement-reader__dialog{width:min(94vw,110rem);height:min(94vh,80rem);padding:3.5rem 1rem 1rem;border:1px solid #49626b;border-radius:1rem;background:#06151e;color:#edf6f5}.measurement-reader__dialog::backdrop{background:rgba(0,0,0,.84)}.measurement-reader__dialog>button{position:absolute;top:.7rem;right:.8rem;width:2.4rem;height:2.4rem;border:1px solid #49626b;border-radius:50%;background:#0a202b;color:#fff;font-size:1.5rem;cursor:pointer}.measurement-reader__dialog h3{position:absolute;top:.9rem;left:1.2rem;max-width:calc(100% - 5rem);margin:0;font:700 .75rem var(--font-mono)}.measurement-reader__dialog img{display:block;width:100%;height:100%;object-fit:contain}.measurement-method-index{margin-top:clamp(5rem,8vw,8rem)}.measurement-method-index ol{display:grid;grid-template-columns:repeat(4,1fr);margin:1.5rem 0 0;padding:0;list-style:none}.measurement-method-index li{min-height:17rem;margin:-1px 0 0 -1px;padding:1.2rem;border:1px solid #c7bda8}.measurement-method-index li span{font:700 .65rem var(--font-mono)}.measurement-method-index li h3{margin:4rem 0 .8rem;font-family:var(--font-display);font-size:2rem}.measurement-method-index li p{color:#5d6568}
+  .measurement-instrument{padding-block:clamp(5rem,9vw,9rem);background:#06151e;color:#edf6f5}.measurement-instrument__head{display:grid;grid-template-columns:1fr .8fr;gap:clamp(2rem,7vw,8rem);align-items:end;margin-bottom:2.5rem}.measurement-instrument__head h2,.measurement-connections__head h2{margin:.45rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.5rem);font-weight:500;letter-spacing:-.05em;line-height:.9}.measurement-instrument__head h2 em{color:#ee5ab1;font-weight:400}.measurement-instrument__head>div:last-child>p:first-child{color:#b7c8cb;font-size:1.08rem;line-height:1.65}.measurement-instrument__boundary{padding:1rem;border-left:3px solid #e9b541;background:#0a202b;color:#c8d6d8}.measurement-instrument__boundary strong{color:#e9b541}.measurement-instrument__frame{overflow:hidden;border:1px solid #36545f;border-radius:1rem;background:#03090d}.measurement-instrument__frame iframe{display:block;width:100%;height:min(76vw,58rem);min-height:42rem;border:0}.measurement-instrument__source{display:flex;gap:1rem;justify-content:space-between;align-items:center;padding-top:1rem}.measurement-instrument__source>span{color:#7f9aa2;font:600 .68rem/1.5 var(--font-mono);overflow-wrap:anywhere}.measurement-instrument__source .button{border-color:#4dd6e5;background:#0a202b;color:#edf6f5}
+  .measurement-connections{padding-block:clamp(5rem,9vw,9rem)}.measurement-connections__head{display:grid;grid-template-columns:1fr .75fr;gap:clamp(2rem,7vw,8rem);align-items:end}.measurement-connections__head>div .eyebrow{margin-bottom:.5rem}.measurement-connections__head>p{color:#5d6568;font-size:1.08rem;line-height:1.65}.measurement-connections__grid{display:grid;grid-template-columns:repeat(2,1fr);margin-top:3rem}.measurement-connections__grid article{min-height:21rem;margin:-1px 0 0 -1px;padding:1.35rem;border:1px solid #c7bda8}.measurement-connections__grid small{color:#a97900;font:700 .66rem var(--font-mono);letter-spacing:.05em}.measurement-connections__grid h3{margin:4rem 0 .8rem;font-family:var(--font-display);font-size:clamp(2rem,3vw,3.2rem);font-weight:500}.measurement-connections__grid p{max-width:38rem;color:#5d6568;line-height:1.6}.measurement-connections__grid a{color:#8c1e60;font-weight:700}.measurement-connections__status{display:block;margin-top:1.4rem;color:#536970;font:700 .67rem/1.5 var(--font-mono)}.measurement-connections__a0{margin:1.5rem 0 0;padding:1rem;border-left:3px solid #35afc6;background:#e6edf0;color:#42545b}
+  .measurement-miwa{padding-block:clamp(5rem,9vw,9rem);background:#e6edf0}.measurement-miwa__grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(2rem,8vw,9rem);align-items:center}.measurement-miwa__mark{position:relative;width:min(100%,27rem);aspect-ratio:1;border:2px solid #dc4b9e;border-radius:50%}.measurement-miwa__mark span:first-child{position:absolute;inset:22%;border:2px solid #35afc6;border-radius:50%}.measurement-miwa__mark span:nth-child(2){position:absolute;top:50%;left:8%;width:84%;border-top:2px solid #c88f12;transform:rotate(-22deg)}.measurement-miwa__mark b{position:absolute;top:50%;left:50%;display:grid;width:3rem;aspect-ratio:1;place-items:center;transform:translate(-50%,-50%);border-radius:50%;background:#071923;color:#fff;font:700 .8rem var(--font-mono)}.measurement-miwa p:not(.eyebrow){max-width:46rem;color:#4f5d64;font-size:1.08rem;line-height:1.65}
+  .measurement-source-boundary{padding-block:3rem}.measurement-source-boundary p:last-child{max-width:65rem;color:#5d6568}
+  @media(max-width:900px){.measurement-hero__grid,.measurement-room__head,.measurement-declare,.measurement-return,.measurement-fieldbook>header,.measurement-reader,.measurement-instrument__head,.measurement-connections__head,.measurement-miwa__grid{grid-template-columns:1fr}.measurement-hero__mark{width:min(100%,32rem)}.measurement-cases{grid-template-columns:1fr 1fr}.measurement-reader__meta{border-top:1px solid #263e49;border-left:0}.measurement-reader__thumbs{grid-template-columns:repeat(3,1fr)}.measurement-method-index ol{grid-template-columns:1fr 1fr}.measurement-fieldbook>header .eyebrow{grid-column:auto}}
+  @media(max-width:560px){.measurement-chain{grid-template-columns:repeat(2,1fr)}.measurement-cases,.measurement-trace,.measurement-method-index ol,.measurement-connections__grid{grid-template-columns:1fr}.measurement-hero h1{font-size:4.2rem}.measurement-controls dl>div{grid-template-columns:1fr}.measurement-visual{min-height:24rem}.measurement-visual :global(svg){min-height:22rem}.measurement-reader__stage{min-height:32rem}.measurement-reader__image-button{min-height:29rem}.measurement-reader__thumbs{grid-template-columns:1fr 1fr}.measurement-reader__thumbs img{height:6.5rem}.measurement-method-index li{min-height:13rem}.measurement-method-index li h3,.measurement-connections__grid h3{margin-top:2.5rem}.measurement-instrument__frame iframe{min-height:34rem}.measurement-instrument__source{align-items:flex-start;flex-direction:column}}
+  @media(prefers-reduced-motion:reduce){.measurement-cases button{transition:none}}
+</style>

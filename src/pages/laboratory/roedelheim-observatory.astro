@@ -85,6 +85,19 @@ import { roedelheimRooms } from "@/data/roedelheim-rooms";
         <a class="button button--secondary" href="/laboratory/roedelheim-observatory/generation-corner/"><span class="lang-copy lang-copy--de">Der Q°-Achse folgen</span><span class="lang-copy lang-copy--en">Follow the Q° axis</span> <span aria-hidden="true">→</span></a>
       </div>
     </article>
+
+    <article class="observatory-extension observatory-extension--measurement container" aria-labelledby="measurement-gate-title">
+      <div>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">03 · Measurement Gate · quellgebundener lokaler Kandidat</span><span class="lang-copy lang-copy--en">03 · Measurement Gate · source-bound local candidate</span></p>
+        <h2 id="measurement-gate-title">The Measurement<br />Gate.</h2>
+      </div>
+      <div>
+        <p class="observatory-extension__lead"><span class="lang-copy lang-copy--de">Quelle, Größentyp, Einheit, Referenz, Schnitt und Return bleiben miteinander verbunden. Ein Wert erscheint nie ohne seine Messadresse.</span><span class="lang-copy lang-copy--en">Source, quantity type, unit, reference, cut and Return remain attached. A value never appears without its measurement address.</span></p>
+        <p><span class="lang-copy lang-copy--de">Fünf Fälle führen durch Deklaration, Darstellung und Receipt. ED₁₃₈ bleibt dabei ein quellgebundener Kandidat. Das Fieldbook rekonstruiert die geprüfte Methode des Clockwork-Intake, ohne seine offenen Tafeln zu physikalischen Behauptungen zu machen.</span><span class="lang-copy lang-copy--en">Five cases move through declaration, representation and receipt. ED₁₃₈ remains a source-bound candidate. The fieldbook reconstructs the reviewed method of the Clockwork intake without turning its open plates into physical claims.</span></p>
+        <a class="button button--secondary" href="/laboratory/roedelheim-observatory/measurement-gate/"><span class="lang-copy lang-copy--de">Measurement Gate öffnen</span><span class="lang-copy lang-copy--en">Open the Measurement Gate</span> <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+
   </section>
 
   <section id="observatory-rooms" class="observatory-rooms container" aria-labelledby="rooms-title">
@@ -92,6 +105,18 @@ import { roedelheimRooms } from "@/data/roedelheim-rooms";
       <p class="eyebrow"><span class="lang-copy lang-copy--de">Freigegebener Ausschnitt mit sechs Räumen</span><span class="lang-copy lang-copy--en">Six-room release cut</span></p>
       <h2 id="rooms-title"><span class="lang-copy lang-copy--de">Was die Instrumente unterscheidbar halten.</span><span class="lang-copy lang-copy--en">What the instruments keep distinct.</span></h2>
     </header>
+    <article class="observatory-prediction-entry" aria-labelledby="interstellar-lens-title">
+      <div>
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Prediction-Modul · quellgebundener Kandidat</span><span class="lang-copy lang-copy--en">Prediction module · source-bound candidate</span></p>
+        <h3 id="interstellar-lens-title">Interstellar<br />Entry / Exit Lens.</h3>
+      </div>
+      <div>
+        <p class="observatory-prediction-entry__lead"><span class="lang-copy lang-copy--de">1I, 2I und die temporäre 3I-Lösung werden aus eingefrorenen JPL-Quellen durch zwei unterscheidbare Rechenwege gelesen. Die historische ALGO/OLGO-Regel bleibt als deklarierte Hypothese sichtbar.</span><span class="lang-copy lang-copy--en">1I, 2I and the temporary 3I solution are read from frozen JPL sources through two distinguishable computational views. The historical ALGO/OLGO rule remains visible as a declared hypothesis.</span></p>
+        <p><span class="lang-copy lang-copy--de">NEXAHs erste formal vorbereitete Prediction-Linie – noch keine bestätigte oder aktivierte Vorhersage. Phase, Kovarianz, Zielkorridor und Trefferregel müssen vor dem nächsten Ziel eingefroren werden.</span><span class="lang-copy lang-copy--en">NEXAH's first formally prepared prediction line—not yet a confirmed or activated prediction. Phase, covariance, target corridor and scoring rule must be frozen before the next target is inspected.</span></p>
+        <div class="observatory-prediction__status"><span>DRAFT PROTOCOL</span><span>NO TARGET</span><span>NO +1 YET</span></div>
+        <a class="button button--secondary" href="/laboratory/roedelheim-observatory/measurement-gate/interstellar-entry-exit/"><span class="lang-copy lang-copy--de">Prediction Lens öffnen</span><span class="lang-copy lang-copy--en">Open the Prediction Lens</span></a>
+      </div>
+    </article>
     <ol>
       {roedelheimRooms.map((room) => (
         <li>
@@ -178,6 +203,8 @@ import { roedelheimRooms } from "@/data/roedelheim-rooms";
   .observatory-extension h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
   .observatory-extension__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
   .observatory-extension .button{margin-top:1.25rem}
+  .observatory-extension--measurement{background:linear-gradient(135deg,rgba(66,205,226,.06),rgba(241,91,181,.05))}
+  .observatory-prediction-entry{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.9fr);gap:clamp(2rem,7vw,8rem);margin-top:3.5rem;padding:clamp(2rem,5vw,4rem);overflow:hidden;background:#071923;color:#e8f2f4}.observatory-prediction-entry::before{position:absolute;inset:0;background:radial-gradient(circle at 17% 33%,rgba(66,205,226,.16),transparent 34%),radial-gradient(circle at 86% 70%,rgba(233,181,65,.14),transparent 30%);content:"";pointer-events:none}.observatory-prediction-entry>*{position:relative}.observatory-prediction-entry .eyebrow{color:#e9b541}.observatory-prediction-entry h3{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(2.7rem,5.5vw,5.8rem);font-weight:500;letter-spacing:-.045em;line-height:.86}.observatory-prediction-entry p{color:#b7c9ce;line-height:1.6}.observatory-prediction-entry__lead{font-size:clamp(1.1rem,1.8vw,1.35rem)}.observatory-prediction__status{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}.observatory-prediction__status span{padding:.45rem .65rem;border:1px solid #34515b;color:#8ddced;font:700 .7rem/1 var(--font-mono);letter-spacing:.08em}.observatory-prediction-entry .button{margin-top:1.25rem;border-color:#e9b541;color:#e9b541}
   .observatory-book{display:grid;grid-template-columns:minmax(16rem,.72fr) minmax(0,1fr);gap:clamp(2.5rem,8vw,9rem);align-items:center;padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
   .observatory-book figure{margin:0;background:#e9e1d1;box-shadow:0 1.5rem 4rem rgba(18,27,32,.14)}
   .observatory-book img{display:block;width:100%;height:auto}
@@ -190,7 +217,7 @@ import { roedelheimRooms } from "@/data/roedelheim-rooms";
   @keyframes observatory-orbit{to{transform:rotate(360deg)}}
   @keyframes observatory-orbit-reverse{to{transform:rotate(-360deg)}}
   @keyframes observatory-stars{to{opacity:.48}}
-  @media(max-width:800px){.observatory-hero::after{background:linear-gradient(0deg,rgba(4,13,20,.95) 0%,rgba(4,13,20,.48) 76%,rgba(4,13,20,.58))}.observatory-hero__copy{justify-content:flex-end}.observatory-instruments__header,.observatory-instrument,.observatory-extension,.observatory-book,.observatory-return{grid-template-columns:1fr}.observatory-instruments__header .eyebrow{grid-column:auto}.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-instrument__mark{order:2}.observatory-instrument>div:last-child{order:1}.observatory-book figure{width:min(100%,28rem)}}
+  @media(max-width:800px){.observatory-hero::after{background:linear-gradient(0deg,rgba(4,13,20,.95) 0%,rgba(4,13,20,.48) 76%,rgba(4,13,20,.58))}.observatory-hero__copy{justify-content:flex-end}.observatory-instruments__header,.observatory-instrument,.observatory-extension,.observatory-prediction-entry,.observatory-book,.observatory-return{grid-template-columns:1fr}.observatory-instruments__header .eyebrow{grid-column:auto}.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-instrument__mark{order:2}.observatory-instrument>div:last-child{order:1}.observatory-book figure{width:min(100%,28rem)}}
   @media(max-width:520px){.observatory-rooms ol{grid-template-columns:1fr}.observatory-rooms h3{margin-top:3rem}}
   @media(prefers-reduced-motion:reduce){.observatory-hero__clocks ellipse,.observatory-hero__stars{animation:none}}
 </style>

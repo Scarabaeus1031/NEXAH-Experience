@@ -1,0 +1,176 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { interstellarHistoricalDeclaration, interstellarLensObjects } from "@/data/interstellar-entry-exit-lens";
+
+const lensData = JSON.stringify({
+  schema: "nexah.interstellar-entry-exit-lens.local-candidate.v1",
+  status: "LOCAL_SOURCE_BOUND_CANDIDATE",
+  graphEffect: "REUSE_EXISTING_IDENTITIES_ZERO_COUNT_CHANGE",
+  objects: interstellarLensObjects,
+  declaration: interstellarHistoricalDeclaration,
+});
+---
+
+<BaseLayout
+  title="Interstellar Entry / Exit Lens — Measurement Gate"
+  description="A source-bound comparison of two-body asymptotes and frozen JPL Horizons vectors for 1I, 2I and 3I."
+>
+  <header class="iel-hero">
+    <div class="container iel-hero__grid">
+      <div>
+        <p class="eyebrow">Rödelheim Observatory · Measurement Gate · Local candidate</p>
+        <h1>Interstellar<br /><em>Entry / Exit</em><br />Lens.</h1>
+      </div>
+      <div class="iel-hero__copy">
+        <p class="iel-hero__lead"><span class="lang-copy lang-copy--de">Eine Quelle. Zwei Transformationen. Ein ungelöster Return.</span><span class="lang-copy lang-copy--en">One source. Two transforms. One unresolved return.</span></p>
+        <p><span class="lang-copy lang-copy--de">Dieses Instrument vergleicht gefrorene Bahnelemente mit weit entfernten JPL-Horizons-Zustandsvektoren. Es sucht keine Muster und sagt kein nächstes Objekt voraus.</span><span class="lang-copy lang-copy--en">This instrument compares frozen orbital elements with distant JPL Horizons state vectors. It does not search for patterns or predict a next object.</span></p>
+        <a href="#source" class="iel-button"><span class="lang-copy lang-copy--de">Quellenstand prüfen</span><span class="lang-copy lang-copy--en">Inspect source state</span></a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="iel-chain container" aria-label="Interstellar lens sequence">
+    <a href="#source">SOURCE</a><a href="#transform">TRANSFORM</a><a href="#declare">DECLARE</a><a href="#return">RETURN</a>
+  </nav>
+
+  <main>
+    <section id="source" class="iel-room iel-room--ink">
+      <div class="container">
+        <header class="iel-room__head">
+          <div><p class="eyebrow">Room 01 · Source</p><h2><span class="lang-copy lang-copy--de">Erst die Lösung einfrieren.</span><span class="lang-copy lang-copy--en">Freeze the solution first.</span></h2></div>
+          <p><span class="lang-copy lang-copy--de">Jede Richtung bleibt an Objekt, JPL-Orbitlösung, Epoche, Frame und Snapshot-Hash gebunden.</span><span class="lang-copy lang-copy--en">Every direction remains bound to object, JPL orbit solution, epoch, frame and snapshot hash.</span></p>
+        </header>
+        <div class="iel-object-tabs" role="tablist" aria-label="Interstellar objects">
+          {interstellarLensObjects.map((object, index) => <button type="button" role="tab" data-interstellar-object={object.id} aria-selected={index === 0 ? "true" : "false"}>{object.label}</button>)}
+        </div>
+        <div class="iel-source-grid">
+          <article class="iel-source-card">
+            <div class="iel-source-card__top"><span data-object-id>1I</span><b data-object-label>1I/ʻOumuamua</b><i data-temporary-badge hidden>TEMPORARY SOLUTION</i></div>
+            <dl data-source-meta></dl>
+            <a data-source-link target="_blank" rel="noreferrer"><span class="lang-copy lang-copy--de">Gebundene JPL-Abfrage öffnen</span><span class="lang-copy lang-copy--en">Open bound JPL query</span></a>
+          </article>
+          <article class="iel-elements-card">
+            <p class="eyebrow"><span class="lang-copy lang-copy--de">Gefrorene Bahnelemente</span><span class="lang-copy lang-copy--en">Frozen orbital elements</span></p>
+            <div class="iel-elements" data-elements></div>
+            <p data-source-note></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="transform" class="iel-room iel-room--paper">
+      <div class="container">
+        <header class="iel-room__head">
+          <div><p class="eyebrow">Room 02 · Transform</p><h2><span class="lang-copy lang-copy--de">Gleiche Quelle, zwei Rechenwege.</span><span class="lang-copy lang-copy--en">Same source, two computational views.</span></h2></div>
+          <p><span class="lang-copy lang-copy--de">Der Zweikörper-Asymptot transformiert Elemente. Horizons liefert entfernte Zustandsvektoren mit seinem eigenen Ephemeridenmodell. Die Differenz ist ein Audit, kein Fehlerbeweis.</span><span class="lang-copy lang-copy--en">The two-body asymptote transforms elements. Horizons supplies distant state vectors through its own ephemeris model. Their difference is an audit, not proof of error.</span></p>
+        </header>
+        <div class="iel-map-wrap">
+          <div class="iel-map-label"><strong>ECLIPTIC J2000</strong><span>longitude λ · latitude β</span></div>
+          <svg class="iel-map" viewBox="0 0 760 400" role="img" aria-labelledby="iel-map-title iel-map-desc">
+            <title id="iel-map-title">Entry and exit directions</title>
+            <desc id="iel-map-desc">Two-body and JPL Horizons directions on an ecliptic longitude and latitude grid.</desc>
+            <g class="iel-grid">
+              <path d="M40 30V350M210 30V350M380 30V350M550 30V350M720 30V350"/><path d="M40 30H720M40 110H720M40 190H720M40 270H720M40 350H720"/>
+            </g>
+            <g class="iel-axis-labels"><text x="36" y="375">0°</text><text x="198" y="375">90°</text><text x="362" y="375">180°</text><text x="532" y="375">270°</text><text x="694" y="375">360°</text><text x="4" y="36">+90°</text><text x="13" y="196">0°</text><text x="6" y="354">−90°</text></g>
+            <g data-map-points></g>
+          </svg>
+          <div class="iel-legend"><span><i class="iel-dot iel-dot--entry"></i>ENTRY</span><span><i class="iel-dot iel-dot--exit"></i>EXIT</span><span><b>●</b>TWO-BODY</span><span><b>×</b>HORIZONS</span></div>
+        </div>
+        <div class="iel-compare">
+          <article><small>TWO-BODY ASYMPTOTE</small><h3 data-twobody-speed>—</h3><dl data-twobody-values></dl></article>
+          <article><small>JPL HORIZONS VECTOR</small><h3><span class="lang-copy lang-copy--de">Entfernter Kontrollschnitt</span><span class="lang-copy lang-copy--en">Distant control cut</span></h3><dl data-horizons-values></dl></article>
+          <article class="iel-difference"><small>ANGULAR DIFFERENCE</small><h3 data-max-difference>—</h3><p><span class="lang-copy lang-copy--de">Ohne propagierte Kovarianz ist dies keine Akzeptanzgrenze.</span><span class="lang-copy lang-copy--en">Without propagated covariance, this is not an acceptance boundary.</span></p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="declare" class="iel-room iel-room--ink">
+      <div class="container">
+        <header class="iel-room__head">
+          <div><p class="eyebrow">Room 03 · Declare</p><h2><span class="lang-copy lang-copy--de">Eine Lesart muss sich selbst benennen.</span><span class="lang-copy lang-copy--en">A reading must name itself.</span></h2></div>
+          <p><span class="lang-copy lang-copy--de">Die historische ALGO/OLGO-Regel bleibt erhalten, aber getrennt von den astronomischen Quellenwerten.</span><span class="lang-copy lang-copy--en">The historical ALGO/OLGO rule remains preserved, but separate from the astronomical source values.</span></p>
+        </header>
+        <div class="iel-declare-grid">
+          <article class="iel-declaration">
+            <label class="iel-switch"><input type="checkbox" data-declaration-toggle/><span></span><b><span class="lang-copy lang-copy--de">Historische deklarierte Hypothese zeigen</span><span class="lang-copy lang-copy--en">Show historical declared hypothesis</span></b></label>
+            <div data-declaration-panel hidden>
+              <strong>HISTORICAL DECLARED HYPOTHESIS</strong>
+              <ol>{interstellarHistoricalDeclaration.rules.map((rule) => <li>{rule}</li>)}</ol>
+              <p>SHA-256 · {interstellarHistoricalDeclaration.sourceSha256}</p>
+            </div>
+          </article>
+          <article class="iel-not-plotted">
+            <small>DISPLAY DECISION</small><h3>NOT PLOTTED</h3>
+            <p><span class="lang-copy lang-copy--de">ALGO und OLGO erscheinen nicht als Himmelsrichtungen: Der Phasenoperator und die Breitenregel sind nicht definiert.</span><span class="lang-copy lang-copy--en">ALGO and OLGO do not appear as sky directions: the phase operator and latitude rule are unresolved.</span></p>
+          </article>
+        </div>
+        <aside class="iel-milva"><b>MILVA asks</b><p><span class="lang-copy lang-copy--de">Ist das ein gemessener Wert, eine Transformation oder eine deklarierte Lesart?</span><span class="lang-copy lang-copy--en">Is this a measured value, a transform or a declared reading?</span></p></aside>
+      </div>
+    </section>
+
+    <section id="return" class="iel-room iel-room--return">
+      <div class="container">
+        <header class="iel-room__head">
+          <div><p class="eyebrow">Room 04 · Return</p><h2><span class="lang-copy lang-copy--de">Der Return bleibt gesperrt.</span><span class="lang-copy lang-copy--en">The return remains locked.</span></h2></div>
+          <p><span class="lang-copy lang-copy--de">Die Quelle ist gebunden und die Transformation reproduzierbar. Eine Vorhersage ist daraus noch nicht entstanden.</span><span class="lang-copy lang-copy--en">The source is bound and the transform is reproducible. This has not yet produced a prediction.</span></p>
+        </header>
+        <div class="iel-return-grid">
+          <article class="iel-lock"><span aria-hidden="true">×</span><small>RETURN STATUS</small><h3>UNRESOLVED</h3><p>NO CORRIDOR · NO TARGET · NO +1</p></article>
+          <article class="iel-checklist"><h3><span class="lang-copy lang-copy--de">Fehlende Zulassungen</span><span class="lang-copy lang-copy--en">Missing admissions</span></h3><ul>{interstellarHistoricalDeclaration.unresolved.map((item) => <li>{item}</li>)}</ul></article>
+          <article class="iel-receipt"><h3><span class="lang-copy lang-copy--de">Prüfbarer Receipt</span><span class="lang-copy lang-copy--en">Inspectable receipt</span></h3><pre data-receipt></pre><button type="button" data-copy-receipt><span class="lang-copy lang-copy--de">JSON kopieren</span><span class="lang-copy lang-copy--en">Copy JSON</span></button></article>
+        </div>
+        <aside class="iel-milva iel-milva--light"><b>MILVA asks</b><p><span class="lang-copy lang-copy--de">Was müsste eine unabhängige Beobachtung zeigen, damit „+1“ mehr als eine schöne Fortsetzung ist?</span><span class="lang-copy lang-copy--en">What would an independent observation need to show before “+1” becomes more than an elegant continuation?</span></p></aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="iel-footer container">
+    <a href="/laboratory/roedelheim-observatory/measurement-gate/"><span class="lang-copy lang-copy--de">Zurück zum Measurement Gate</span><span class="lang-copy lang-copy--en">Back to the Measurement Gate</span></a>
+    <p>CANDIDATE · 2026-11-19 · ZERO NAVIGATOR COUNT CHANGE · PREDICTION NOT ACTIVATED</p>
+  </footer>
+  <script is:inline type="application/json" id="interstellar-lens-data" set:html={lensData}></script>
+</BaseLayout>
+
+<script>
+  type LensObject = (typeof import("@/data/interstellar-entry-exit-lens").interstellarLensObjects)[number];
+  const node = document.querySelector<HTMLScriptElement>("#interstellar-lens-data");
+  const payload = JSON.parse(node?.textContent || "{}") as { objects: LensObject[]; declaration: { unresolved: string[] } };
+  let selected = payload.objects[0];
+  const one = <T extends Element>(selector: string) => document.querySelector<T>(selector);
+  const language = () => document.documentElement.dataset.siteLanguage === "de" ? "de" : "en";
+  const n = (value: number, digits = 3) => value.toLocaleString(language() === "de" ? "de-DE" : "en-US", { maximumFractionDigits: digits });
+  const direction = (value: { longitudeDeg: number; latitudeDeg: number }) => `λ ${n(value.longitudeDeg, 6)}° · β ${n(value.latitudeDeg, 6)}°`;
+  const xy = (value: { longitudeDeg: number; latitudeDeg: number }) => ({ x: 40 + value.longitudeDeg / 360 * 680, y: 30 + (90 - value.latitudeDeg) / 180 * 320 });
+  const receipt = () => ({ schema: "nexah.interstellar-entry-exit.receipt.v1", object: selected.id, source: { authority: selected.source.authority, orbit: selected.source.orbit, snapshotSha256: selected.source.snapshotSha256 }, transforms: ["TWO_BODY_ASYMPTOTE", "JPL_HORIZONS_DISTANT_VECTOR"], outcome: "RETURN_UNRESOLVED", prediction: false, missing: payload.declaration.unresolved });
+
+  function render() {
+    document.querySelectorAll<HTMLButtonElement>("[data-interstellar-object]").forEach((button) => button.setAttribute("aria-selected", String(button.dataset.interstellarObject === selected.id)));
+    one<HTMLElement>("[data-object-id]")!.textContent = selected.id;
+    one<HTMLElement>("[data-object-label]")!.textContent = selected.label;
+    one<HTMLElement>("[data-temporary-badge]")!.hidden = !selected.temporary;
+    const sourceLink = one<HTMLAnchorElement>("[data-source-link]")!; sourceLink.href = selected.source.url;
+    one<HTMLElement>("[data-source-meta]")!.innerHTML = `<div><dt>ORBIT</dt><dd>${selected.source.orbit} · ${selected.source.solutionDate}</dd></div><div><dt>EPOCH</dt><dd>${selected.source.epoch}</dd></div><div><dt>FRAME</dt><dd>${selected.source.frame}</dd></div><div><dt>EPHEMERIS</dt><dd>${selected.source.ephemeris}</dd></div><div><dt>OBS / ARC</dt><dd>${selected.source.observations} · ${selected.source.dataArcDays} d</dd></div><div><dt>SNAPSHOT</dt><dd>${selected.source.snapshotSha256.slice(0, 18)}…</dd></div>`;
+    one<HTMLElement>("[data-elements]")!.innerHTML = [["e", selected.elements.e], ["a", `${n(selected.elements.aAu, 9)} au`], ["q", `${n(selected.elements.qAu, 9)} au`], ["i", `${n(selected.elements.inclinationDeg, 6)}°`], ["Ω", `${n(selected.elements.nodeDeg, 6)}°`], ["ω", `${n(selected.elements.perihelionArgumentDeg, 6)}°`]].map(([key, value]) => `<div><b>${key}</b><span>${value}</span></div>`).join("");
+    one<HTMLElement>("[data-source-note]")!.textContent = language() === "de" ? selected.source.noteDe : selected.source.note;
+    const points = [[selected.twoBody.entry, "entry", "●"], [selected.horizons.entry, "entry", "×"], [selected.twoBody.exit, "exit", "●"], [selected.horizons.exit, "exit", "×"]] as const;
+    one<SVGGElement>("[data-map-points]")!.innerHTML = points.map(([value, kind, symbol]) => { const p = xy(value); return `<text class="iel-point iel-point--${kind}" x="${p.x}" y="${p.y}" text-anchor="middle" dominant-baseline="middle">${symbol}</text>`; }).join("");
+    one<HTMLElement>("[data-twobody-speed]")!.textContent = `v∞ ${n(selected.twoBody.velocityKmS, 6)} km/s`;
+    one<HTMLElement>("[data-twobody-values]")!.innerHTML = `<div><dt>ENTRY</dt><dd>${direction(selected.twoBody.entry)}</dd></div><div><dt>EXIT</dt><dd>${direction(selected.twoBody.exit)}</dd></div>`;
+    one<HTMLElement>("[data-horizons-values]")!.innerHTML = `<div><dt>ENTRY</dt><dd>${direction(selected.horizons.entry)} · ${n(selected.horizons.entryDistanceAu, 1)} au</dd></div><div><dt>EXIT</dt><dd>${direction(selected.horizons.exit)} · ${n(selected.horizons.exitDistanceAu, 1)} au</dd></div>`;
+    const maximum = Math.max(selected.horizons.entryDifferenceDeg, selected.horizons.exitDifferenceDeg);
+    one<HTMLElement>("[data-max-difference]")!.textContent = `${n(maximum, 9)}° max`;
+    one<HTMLElement>("[data-receipt]")!.textContent = JSON.stringify(receipt(), null, 2);
+  }
+  document.querySelectorAll<HTMLButtonElement>("[data-interstellar-object]").forEach((button) => button.addEventListener("click", () => { selected = payload.objects.find((object) => object.id === button.dataset.interstellarObject) ?? selected; render(); }));
+  one<HTMLInputElement>("[data-declaration-toggle]")?.addEventListener("change", (event) => { one<HTMLElement>("[data-declaration-panel]")!.hidden = !(event.currentTarget as HTMLInputElement).checked; });
+  one<HTMLButtonElement>("[data-copy-receipt]")?.addEventListener("click", async (event) => { await navigator.clipboard.writeText(JSON.stringify(receipt(), null, 2)); (event.currentTarget as HTMLButtonElement).textContent = language() === "de" ? "Kopiert" : "Copied"; });
+  window.addEventListener("nexah:language-change", render);
+  render();
+</script>
+
+<style>
+  :global(body){background:#07141a}.iel-hero{padding:clamp(7rem,13vw,12rem) 0 5rem;background:radial-gradient(circle at 75% 20%,#12343f 0,transparent 36%),#07141a;color:#f3efe4}.iel-hero__grid,.iel-room__head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(18rem,.75fr);gap:clamp(2rem,6vw,7rem);align-items:end}.iel-hero h1{font-size:clamp(3.8rem,9vw,8.4rem);line-height:.78;letter-spacing:-.07em;margin:.5rem 0}.iel-hero h1 em{color:#5bd4ed;font-weight:inherit}.iel-hero__copy{font-size:1.05rem;color:#c5d0d2}.iel-hero__lead{font-size:clamp(1.4rem,2.5vw,2.2rem);line-height:1.1;color:#fff}.iel-button,.iel-receipt button{display:inline-flex;margin-top:1.2rem;padding:.8rem 1rem;border:1px solid #5bd4ed;color:#fff;background:transparent;text-decoration:none;font:inherit}.iel-chain{display:grid;grid-template-columns:repeat(4,1fr);padding-top:1rem;padding-bottom:1rem}.iel-chain a{text-decoration:none;text-align:center;color:#17282e;font-weight:800;letter-spacing:.12em}.iel-room{padding:clamp(5rem,10vw,9rem) 0}.iel-room--ink{background:#0a191f;color:#eef3f2}.iel-room--paper{background:#f3efe4;color:#13242a}.iel-room--return{background:#efb735;color:#172329}.iel-room__head{align-items:start;margin-bottom:3rem}.iel-room__head h2{font-size:clamp(2.6rem,6vw,5.5rem);line-height:.9;letter-spacing:-.05em;margin:.4rem 0}.iel-room__head>p{font-size:1.05rem;line-height:1.65;max-width:38rem}.iel-object-tabs{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}.iel-object-tabs button{border:1px solid #48646d;background:transparent;color:#fff;padding:.85rem 1rem;font:inherit}.iel-object-tabs button[aria-selected=true]{background:#5bd4ed;color:#07141a;border-color:#5bd4ed}.iel-source-grid,.iel-declare-grid,.iel-return-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}.iel-source-card,.iel-elements-card,.iel-declaration,.iel-not-plotted{border:1px solid #34515a;padding:clamp(1.3rem,3vw,2.5rem);background:#0d2027}.iel-source-card__top{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}.iel-source-card__top>span{font-size:3rem;color:#5bd4ed}.iel-source-card__top i{font-style:normal;font-size:.75rem;background:#efb735;color:#172329;padding:.35rem .5rem}.iel-source-card dl div,.iel-compare dl div{display:grid;grid-template-columns:8rem 1fr;gap:1rem;border-top:1px solid #29434b;padding:.7rem 0}.iel-source-card dt,.iel-compare dt{color:#7f9aa2}.iel-source-card dd,.iel-compare dd{margin:0}.iel-source-card a{color:#5bd4ed}.iel-elements{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.iel-elements div{border:1px solid #2e4850;padding:1rem}.iel-elements b,.iel-elements span{display:block}.iel-elements b{color:#efb735;font-size:1.25rem}.iel-map-wrap{border:1px solid #b9b29e;background:#fff;padding:1rem}.iel-map-label{display:flex;justify-content:space-between}.iel-map{width:100%;height:auto;min-height:300px}.iel-grid{stroke:#d8d3c6;fill:none}.iel-axis-labels{font-size:12px;fill:#6f716e}.iel-point{font-size:28px;font-weight:800}.iel-point--entry{fill:#1da9c7}.iel-point--exit{fill:#d68b17}.iel-legend{display:flex;gap:1.3rem;flex-wrap:wrap;font-size:.8rem}.iel-legend span{display:flex;gap:.4rem;align-items:center}.iel-dot{width:.7rem;height:.7rem;border-radius:50%}.iel-dot--entry{background:#1da9c7}.iel-dot--exit{background:#d68b17}.iel-compare{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}.iel-compare article{border:1px solid #b9b29e;padding:1.2rem;background:#faf8f1}.iel-compare h3{font-size:1.45rem}.iel-difference{background:#17282e!important;color:white}.iel-declare-grid{grid-template-columns:1.3fr .7fr}.iel-switch{display:flex;align-items:center;gap:1rem;cursor:pointer}.iel-switch input{width:1.3rem;height:1.3rem}.iel-declaration [data-declaration-panel]{margin-top:2rem;border-top:1px solid #34515a;padding-top:2rem}.iel-declaration ol{font-family:monospace;line-height:2}.iel-declaration [data-declaration-panel] p{overflow-wrap:anywhere;color:#78919a}.iel-not-plotted h3{font-size:clamp(2.5rem,5vw,4.5rem);color:#efb735;margin:.5rem 0}.iel-milva{display:grid;grid-template-columns:8rem 1fr;gap:1rem;margin-top:2rem;padding:1.2rem;border-left:4px solid #b475e6;background:#101f25}.iel-milva b{color:#b475e6}.iel-milva p{margin:0}.iel-milva--light{background:#f8d56f;border-color:#172329}.iel-milva--light b{color:#172329}.iel-return-grid{grid-template-columns:.75fr .9fr 1.35fr}.iel-return-grid article{border:1px solid #9e7410;padding:1.4rem;background:#f8d56f}.iel-lock>span{font-size:4rem;line-height:1}.iel-lock h3{font-size:2.3rem;margin:.4rem 0}.iel-checklist li{margin:.7rem 0}.iel-receipt pre{font-size:.72rem;white-space:pre-wrap;background:#172329;color:#dce7e7;padding:1rem;max-height:18rem;overflow:auto}.iel-receipt button{border-color:#172329;color:#172329}.iel-footer{padding-top:2rem;padding-bottom:3rem;color:#9db0b5;display:flex;justify-content:space-between;gap:2rem}.iel-footer a{color:#5bd4ed}.iel-footer p{margin:0;font-size:.75rem;text-align:right}.eyebrow{letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;font-weight:800;color:#efb735}
+  @media(max-width:850px){.iel-hero__grid,.iel-room__head,.iel-source-grid,.iel-declare-grid,.iel-return-grid,.iel-compare{grid-template-columns:1fr}.iel-return-grid{grid-template-columns:1fr}.iel-source-card dl div{grid-template-columns:6rem 1fr}.iel-chain{overflow-x:auto}.iel-chain a{min-width:8rem}.iel-footer{display:block}.iel-footer p{text-align:left;margin-top:1rem}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
