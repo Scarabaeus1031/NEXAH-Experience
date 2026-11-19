@@ -43,10 +43,12 @@ It does not own the scientific framework, ORION’s certified deterministic Core
 
 **Publication status:** `nexah.de` is publicly deployed and exposes the
 Version 1 public identity, Visitor Guide, Library, Living Atlas, Laboratory and
-ecosystem map represented in this source tree. The exact production commit has
-not yet been rebound to this README through a dated deployment receipt, so the
-repository remains a Version 1 release candidate and no stable versioned
-Experience release is declared here.
+ecosystem map represented in this source tree. The self-description and five
+research supports were deployed from commit
+`fba7c38bd2fd0d5c1ef6acc13d6b61b0d731e95f` on 2026-11-19 and returned through
+the dated Mission Control release receipt `CH014`. This binding records the
+production revision; it does not declare a new stable Experience version or
+promote any scientific claim.
 
 This is an independent application repository. It does not belong to ORION and
 does not redefine the frozen ORION v1 Architecture Baseline.
