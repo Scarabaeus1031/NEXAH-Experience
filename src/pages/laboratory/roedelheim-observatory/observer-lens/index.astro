@@ -1,0 +1,27 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="The Observer Lens — Rödelheim Observatory"
+  description="A source-bound journey through light, shadow, sound, echo and Human Return."
+  hideFooter={true}
+  hideSessionQuestion={true}
+>
+  <section class="observer-lens-frame" aria-label="The Observer Lens">
+    <iframe
+      src="/A0_NEWTON_GOETHE_OBSERVER_LENS.html?projection=nexah-observer-lens"
+      title="Newton, Leibniz and Goethe Observer Lens"
+      loading="eager"
+      allow="autoplay"
+    ></iframe>
+  </section>
+</BaseLayout>
+
+<style>
+  :global(body){display:flex;min-height:100svh;flex-direction:column;overflow:hidden;background:#05070c}
+  :global(body > .site-header){flex:none}
+  :global(body > main){display:flex;min-height:0;flex:1;flex-direction:column}
+  .observer-lens-frame{display:flex;min-height:0;flex:1;flex-direction:column}
+  .observer-lens-frame iframe{display:block;width:100%;min-height:0;flex:1;border:0;background:#05070c}
+</style>

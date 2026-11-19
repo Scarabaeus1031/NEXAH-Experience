@@ -892,6 +892,28 @@ test("A0 is presented as a source-bound NEXAH page without duplicating its sourc
   assert.match(bridgeStyles, /\.hero h1/);
 });
 
+test("the Observer Lens is a source-bound instrument with three public entrances", async () => {
+  const home = await read("src/pages/index.astro");
+  const observatory = await read("src/pages/laboratory/roedelheim-observatory.astro");
+  const journeys = await read("src/pages/explore/[door].astro");
+  const lens = await read("src/pages/laboratory/roedelheim-observatory/observer-lens/index.astro");
+  const bridgeScript = await read("public/a0-public-bridge.js");
+  const bridgeStyles = await read("public/a0-public-bridge.css");
+  const route = "/laboratory/roedelheim-observatory/observer-lens/";
+
+  assert.match(home, /Eine Praxis, die man betreten kann/);
+  assert.match(home, /A practice you can enter/);
+  assert.match(home, new RegExp(route));
+  assert.match(observatory, new RegExp(route));
+  assert.match(observatory, /not a calibrated optics experiment or a new theory of light/);
+  assert.match(journeys, /door\.id === "journeys"/);
+  assert.match(journeys, new RegExp(route));
+  assert.match(lens, /A0_NEWTON_GOETHE_OBSERVER_LENS\.html\?projection=nexah-observer-lens/);
+  assert.match(lens, /allow="autoplay"/);
+  assert.match(bridgeScript, /window\.parent !== window/);
+  assert.match(bridgeStyles, /\.a0-public-embedded > \.a0-public-bridge/);
+});
+
 test("the bilingual research entrance remains mounted and its four routes are traversable", async () => {
   const page = await read("src/pages/forschen/index.astro");
   const header = await read("src/components/SciencePublicHeader.astro");

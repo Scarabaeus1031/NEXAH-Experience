@@ -109,6 +109,26 @@ const practiceSteps = [
     </div>
   </section>
 
+  <section class="observer-entry section--line" aria-labelledby="observer-entry-title">
+    <div class="container observer-entry__inner">
+      <div class="observer-entry__copy">
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Eine Praxis, die man betreten kann</span><span class="lang-copy lang-copy--en">A practice you can enter</span></p>
+        <h2 id="observer-entry-title"><span class="lang-copy lang-copy--de">The Observer Lens.</span><span class="lang-copy lang-copy--en">The Observer Lens.</span></h2>
+        <p class="lead"><span class="lang-copy lang-copy--de">Licht, Schatten, Klang und Echo bewegen sich durch fünf Stationen, vier Orientierungen und einen Return.</span><span class="lang-copy lang-copy--en">Light, shadow, sound and echo move through five stations, four orientations and one Return.</span></p>
+        <p><span class="lang-copy lang-copy--de">Newton, Leibniz und Goethe bleiben drei verschiedene Lesarten. Die interaktive Linse hält ihren gemeinsamen Beobachtungsrahmen sichtbar, ohne ihre Aussagen gleichzusetzen.</span><span class="lang-copy lang-copy--en">Newton, Leibniz and Goethe remain three distinct readings. The interactive lens keeps their shared observation frame visible without equating their claims.</span></p>
+        <a class="button" href="/laboratory/roedelheim-observatory/observer-lens/"><span class="lang-copy lang-copy--de">Observer Lens öffnen</span><span class="lang-copy lang-copy--en">Open the Observer Lens</span></a>
+      </div>
+      <div class="observer-entry__aperture" aria-hidden="true">
+        <span class="observer-entry__ring observer-entry__ring--outer"></span>
+        <span class="observer-entry__ring observer-entry__ring--inner"></span>
+        <span class="observer-entry__axis observer-entry__axis--gold"></span>
+        <span class="observer-entry__axis observer-entry__axis--cyan"></span>
+        <span class="observer-entry__axis observer-entry__axis--pink"></span>
+        <i>Q</i>
+      </div>
+    </div>
+  </section>
+
   <section class="cosmos-routes section--line" aria-labelledby="routes-title">
     <div class="container">
       <header class="cosmos-section-heading">
@@ -182,6 +202,23 @@ const practiceSteps = [
   .cosmos-practice__steps span { color: var(--gold); font: 800 .65rem/1 var(--mono); }
   .cosmos-practice__steps h3 { margin: 2.25rem 0 .75rem; font-family: var(--serif); font-size: var(--step-1); font-weight: 400; }
   .cosmos-practice__steps p { color: var(--muted); font-size: .84rem; }
+  .observer-entry { padding-block: var(--space-6); overflow: hidden; background: #071923; color: #edf4f2; }
+  .observer-entry__inner { display: grid; grid-template-columns: minmax(0,1fr) minmax(18rem,.8fr); gap: var(--space-6); align-items: center; }
+  .observer-entry__copy { max-width: 48rem; }
+  .observer-entry .eyebrow { color: #f1bd3d; }
+  .observer-entry h2 { margin: .8rem 0 1.2rem; color: #fff; font-size: var(--step-4); }
+  .observer-entry p { color: #b9cbd0; }
+  .observer-entry .lead { color: #edf4f2; }
+  .observer-entry .button { margin-top: var(--space-4); }
+  .observer-entry__aperture { position: relative; width: min(32rem,80vw); aspect-ratio: 1; justify-self: center; }
+  .observer-entry__ring,.observer-entry__axis { position: absolute; display: block; }
+  .observer-entry__ring { inset: 8%; border: 2px solid #f15bb5; border-radius: 50%; box-shadow: 0 0 2rem rgba(241,91,181,.2); }
+  .observer-entry__ring--inner { inset: 29%; border-color: #4edbe8; }
+  .observer-entry__axis { top: 50%; left: 50%; width: 72%; height: 2px; transform-origin: left center; }
+  .observer-entry__axis--gold { background: #f1bd3d; transform: rotate(-90deg); }
+  .observer-entry__axis--cyan { background: #4edbe8; transform: rotate(-28deg); }
+  .observer-entry__axis--pink { background: #f15bb5; transform: rotate(34deg); }
+  .observer-entry__aperture i { position: absolute; top: 50%; left: 50%; display: grid; width: 3.2rem; aspect-ratio: 1; place-items: center; transform: translate(-50%,-50%); border: 1px solid #f1bd3d; border-radius: 50%; background: #071923; color: #fff; font: 700 1rem/1 var(--mono); }
   .cosmos-routes { padding-block: var(--space-6); }
   .cosmos-route-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); border: 1px solid var(--rule); }
   .cosmos-route-grid a { display: flex; min-height: 17rem; flex-direction: column; padding: var(--space-4); border-right: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
@@ -196,7 +233,7 @@ const practiceSteps = [
   .cosmos-boundary .text-link { grid-column: 2; }
   @media (max-width: 900px) {
     .cosmos-threshold { min-height: auto; }
-    .cosmos-threshold__inner, .cosmos-definition__inner, .cosmos-section-heading, .cosmos-boundary__inner { grid-template-columns: 1fr; }
+    .cosmos-threshold__inner, .cosmos-definition__inner, .cosmos-section-heading, .observer-entry__inner, .cosmos-boundary__inner { grid-template-columns: 1fr; }
     .cosmos-threshold__diagram { width: min(80vw, 32rem); margin-inline: auto; }
     .cosmos-route-grid { grid-template-columns: repeat(2,1fr); }
     .cosmos-route-grid a:nth-child(2) { border-right: 0; }

@@ -15,10 +15,39 @@
         : "research";
 
   document.body.classList.add("a0-public-composed", `a0-public-route--${current}`);
+  if (window.parent !== window) document.body.classList.add("a0-public-embedded");
 
   document.querySelectorAll("a[data-public-href]").forEach((link) => {
     link.setAttribute("href", publicHref(link.dataset.publicHref));
   });
+
+  const publicA0Pages = new Set([
+    "A0_SCIENCE.html",
+    "A0_SCIENTIFIC_POSITION_REPORT.html",
+    "A0_MATHEMATICAL_JOINTS.html",
+    "01_FROM_LINE_TO_READOUT.html",
+    "A0_TOURS.html",
+    "A0_NEWTON_GOETHE_OBSERVER_LENS.html",
+    "NEXAH_C_CONNECT.html",
+    "A0_NEXAH_RESEARCH_METHOD.html",
+    "A0_NEXAH_FAMILY_METHOD_WHITE_PAPER.html",
+    "A0_RETURN_WITHOUT_IDENTITY_PAPER.html",
+    "A0_FIELDS_AND_JOINTS_ATLAS.html",
+    "A0_BOUNDARY_GRAPH_DEMONSTRATOR.html",
+  ]);
+  const holdUnexportedLinks = () => {
+    document.querySelectorAll("a[href]").forEach((link) => {
+      const target = new URL(link.getAttribute("href"), location.href);
+      if (target.origin !== location.origin) return;
+      const file = decodeURIComponent(target.pathname).split("/").pop();
+      if (!file || !/\.html?$/i.test(file) || publicA0Pages.has(file)) return;
+      link.removeAttribute("href");
+      link.setAttribute("aria-disabled", "true");
+      link.dataset.publicBoundary = "source-not-exported";
+    });
+  };
+  holdUnexportedLinks();
+  addEventListener("DOMContentLoaded", holdUnexportedLinks, { once: true });
 
   const links = [
     ["orient", "Orientieren", publicHref("/")],

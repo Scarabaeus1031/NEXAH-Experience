@@ -37,6 +37,17 @@ const rooms = [
     </ol>
   </section>
 
+  <section class="observatory-instrument container" aria-labelledby="observer-lens-title">
+    <div class="observatory-instrument__mark" aria-hidden="true"><span></span><i>Q</i></div>
+    <div>
+      <p class="eyebrow">Live instrument · source-bound A0 lens</p>
+      <h2 id="observer-lens-title">The Observer<br />Lens.</h2>
+      <p class="observatory-instrument__lead">Five stations move from source through relation, boundary and fold to Return. Newton, Leibniz and Goethe remain distinct readings inside one declared observation frame.</p>
+      <p>Light, shadow, sound and echo form an interactive journey. The instrument is a comparison and orientation surface—not a calibrated optics experiment or a new theory of light.</p>
+      <a class="button" href="/laboratory/roedelheim-observatory/observer-lens/">Open the Observer Lens</a>
+    </div>
+  </section>
+
   <section class="observatory-extension container" aria-labelledby="extension-title">
     <div>
       <p class="eyebrow">Extended sequence · source-bound lens</p>
@@ -72,12 +83,20 @@ const rooms = [
   .observatory-rooms span{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em}
   .observatory-rooms h3{margin:5rem 0 .8rem;font-family:var(--font-display);font-size:1.8rem;line-height:1}
   .observatory-rooms p,.observatory-return p{line-height:1.65}
+  .observatory-instrument{display:grid;grid-template-columns:minmax(18rem,.85fr) minmax(0,1fr);gap:clamp(2rem,7vw,8rem);align-items:center;padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
+  .observatory-instrument h2{max-width:10ch;margin:.4rem 0 1.5rem;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
+  .observatory-instrument__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
+  .observatory-instrument .button{margin-top:1.25rem}
+  .observatory-instrument__mark{position:relative;width:min(26rem,78vw);aspect-ratio:1;justify-self:center;border:2px solid #f15bb5;border-radius:50%}
+  .observatory-instrument__mark::before{position:absolute;inset:22%;border:2px solid #42cde2;border-radius:50%;content:""}
+  .observatory-instrument__mark span{position:absolute;top:50%;left:8%;width:84%;border-top:2px solid #e9b541;transform:rotate(-22deg)}
+  .observatory-instrument__mark i{position:absolute;top:50%;left:50%;display:grid;width:3.2rem;aspect-ratio:1;place-items:center;transform:translate(-50%,-50%);border-radius:50%;background:#071923;color:#fff;font:700 1rem/1 var(--font-mono)}
   .observatory-extension{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,9vw,9rem);border-bottom:1px solid var(--color-line)}
   .observatory-extension h2{max-width:12ch;margin:.4rem 0 0;font-family:var(--font-display);font-size:clamp(3rem,6vw,6.4rem);font-weight:500;letter-spacing:-.045em;line-height:.86}
   .observatory-extension__lead{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.45}
   .observatory-extension .button{margin-top:1.25rem}
   .observatory-return{display:grid;grid-template-columns:minmax(0,1fr) minmax(18rem,.85fr);gap:clamp(2rem,7vw,8rem);padding-block:clamp(5rem,9vw,9rem)}
   .observatory-return nav{display:flex;flex-wrap:wrap;align-items:center;gap:1.25rem;margin-top:2rem}
-  @media(max-width:800px){.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-extension,.observatory-return{grid-template-columns:1fr}}
+  @media(max-width:800px){.observatory-rooms ol{grid-template-columns:1fr 1fr}.observatory-instrument,.observatory-extension,.observatory-return{grid-template-columns:1fr}}
   @media(max-width:520px){.observatory-rooms ol{grid-template-columns:1fr}.observatory-rooms h3{margin-top:3rem}}
 </style>

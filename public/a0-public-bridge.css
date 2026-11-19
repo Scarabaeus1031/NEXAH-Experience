@@ -64,6 +64,8 @@
    stable secondary row for the research areas. */
 .a0-public-composed > .top,
 .a0-public-composed > .a0-public-top { display: none !important; }
+.a0-public-embedded > .a0-public-bridge,
+.a0-public-embedded > .a0-public-bridge-skip { display: none !important; }
 .a0-public-composed > .science-nav { position: relative !important; top: auto !important; z-index: 20 !important; min-height: 62px !important; }
 .a0-public-composed > .science-nav a { min-height: 62px !important; padding-top: 10px !important; padding-bottom: 10px !important; }
 
