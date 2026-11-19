@@ -5,6 +5,8 @@ export const predictionPaper = {
   subtitle: "Interstellar Entry/Exit Geometry",
   category: "PREDICTION PROTOCOL",
   reviewStatus: "METHOD_REVIEW_CANDIDATE",
+  reviewRoute: "/review/nexah-prediction-protocol-01/",
+  reviewRoomStatus: "OPEN_METHOD_REVIEW / REVIEWER_PENDING",
   documentClass: "WORKING_PAPER / PREREGISTRATION_CANDIDATE",
   date: "2026-11-19",
   status: "DRAFT_NOT_LOCKED / UNADMITTED / NOT_EXECUTION_READY",
@@ -15,12 +17,17 @@ export const predictionPaper = {
   scienceDeskReturn: "prediction-protocol-01-method-review-return-20261119",
   source: {
     label: "PAPER_DRAFT_NEXAH_PREDICTION_PROTOCOL_01.md",
-    sha256: "552061a9b96e2f87036801eb0193a776d76139c25ae2db1586aaf1d6e6ce7789",
+    sha256: "fa292b2a754aca9221f5311cf2a8cb4abcf2461c2d28afa0d8863d93b8455d8c",
   },
   preregistration: {
     label: "PREDICTION_PROTOCOL_01_PREREGISTRATION_DRAFT.json",
-    sha256: "68da7a315c0cbaa3eee3c4baef7a6ace31bfbac66b6bdc5304b93672f25de590",
+    sha256: "17c64bd962b75d91ddc617cdbccacbca4a9511ba739bb976e0c593007f1119c2",
     state: "NOT_LOCKED",
+  },
+  prelockReceipt: {
+    label: "PREDICTION_PROTOCOL_01_PRELOCK_REVIEW_RECEIPT_2026-11-19.json",
+    sha256: "70d4fa4b68b7ef1b47880c46b3e09348e3cc9903c3f45473880f938028dada07",
+    state: "PRELOCK_REVIEW_PACKET_FROZEN_PREDICTION_NOT_LOCKED",
   },
   audit: [
     { object: "1I/ʻOumuamua", entryDeg: 0.038994850449, exitDeg: 0.048224261707 },

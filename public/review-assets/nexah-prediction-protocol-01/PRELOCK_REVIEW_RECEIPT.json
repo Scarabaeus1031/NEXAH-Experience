@@ -1,0 +1,45 @@
+{
+  "schema": "nexah.prediction-protocol.prelock-review-receipt.v1",
+  "receipt_id": "NEXAH-PREDICTION-PROTOCOL-01-PRELOCK-REVIEW-2026-11-19",
+  "protocol_id": "NEXAH-PREDICTION-PROTOCOL-01-CANDIDATE",
+  "owning_intake": "M-CURATE01_ATLAS_III_INTERSTELLAR_ENTRY_EXIT_LENS",
+  "created_at": "2026-11-19",
+  "status": "PRELOCK_REVIEW_PACKET_FROZEN_PREDICTION_NOT_LOCKED",
+  "source_receipt_sha256": "70d4fa4b68b7ef1b47880c46b3e09348e3cc9903c3f45473880f938028dada07",
+  "authority": {
+    "activation_authorized": false,
+    "execution_authorized": false,
+    "prediction_lock_authorized": false,
+    "graph_admission_authorized": false
+  },
+  "frozen_review_inputs": {
+    "paper_sha256": "fa292b2a754aca9221f5311cf2a8cb4abcf2461c2d28afa0d8863d93b8455d8c",
+    "preregistration_sha256": "17c64bd962b75d91ddc617cdbccacbca4a9511ba739bb976e0c593007f1119c2",
+    "slog7_control_sha256": "23a83c66aeae6d00d5a93e89129f15efbf34ca56a4112813b74852e8346a6f57",
+    "forecast_specification_sha256": "8b3e4e3ea8df8bc7dade7e7a8e32be25b5bfc1c3fb1c94fceb62ef25260741f2",
+    "two_body_audit_sha256": "e7fd155c253cd5c2cdf7eec128b000430a623c5388c3ade56ded696cc8438872",
+    "horizons_audit_sha256": "8627a6df784a8c423ef7c9e65e19cd17539c6e8e58ab889bbe19b690e70ed03a"
+  },
+  "forecast_boundary": {
+    "primary_hypothesis": "ALGO",
+    "primary_operator_state": "UNRESOLVED_REQUIRED_BEFORE_LOCK",
+    "secondary_control": "SLOG-7",
+    "secondary_control_scored_separately": true,
+    "secondary_control_may_rescue_primary": false,
+    "combined_success_outcome_allowed": false
+  },
+  "outcomes": ["HIT", "MISS", "INDETERMINATE", "INVALID_FRAME", "INVALID_SOURCE", "UNINFORMATIVE"],
+  "review_gate": {
+    "next_permitted_action": "Independent astronomy or orbital-dynamics review of the frozen pre-lock packet.",
+    "admission_after_review": "Separate Human Owner decision required.",
+    "forecast_may_run_now": false,
+    "public_result_claim_may_advance_now": false
+  },
+  "graph_delta": {
+    "identities": 0,
+    "relations": 0,
+    "aliases": 0,
+    "studies": 0,
+    "findings": 0
+  }
+}

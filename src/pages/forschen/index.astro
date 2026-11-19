@@ -115,9 +115,9 @@ const researchRoutes = [
         <article>
           <p class="eyebrow">{predictionPaper.category} · Protocol 01</p>
           <h3>{predictionPaper.title}<br /><em>{predictionPaper.subtitle}</em></h3>
-          <p><span class="lang-copy lang-copy--de">Bereit für die Prüfung von Methode, Lock-Feldern und Falsifikationslogik. Keine aktivierte Vorhersage und noch kein öffentlicher wissenschaftlicher Review.</span><span class="lang-copy lang-copy--en">Ready for review of method, lock fields and falsification logic. No activated prediction and not yet a public scientific review.</span></p>
-          <strong>{predictionPaper.reviewStatus} · {predictionPaper.predictionStatus}</strong>
-          <a class="button" href={`/papers/${predictionPaper.slug}/#lock`}><span class="lang-copy lang-copy--de">Review-Grenzen lesen</span><span class="lang-copy lang-copy--en">Read review boundaries</span></a>
+          <p><span class="lang-copy lang-copy--de">Das Pre-Lock-Paket ist hashgebunden und für die unabhängige Prüfung von Methode, Lock-Feldern und Falsifikationslogik geöffnet. Die Vorhersage bleibt unversiegelt und inaktiv.</span><span class="lang-copy lang-copy--en">The pre-lock packet is hash-bound and open for independent review of method, lock fields and falsification logic. The prediction remains unsealed and inactive.</span></p>
+          <strong>{predictionPaper.reviewRoomStatus} · {predictionPaper.predictionStatus}</strong>
+          <a class="button" href={predictionPaper.reviewRoute}><span class="lang-copy lang-copy--de">Method Review öffnen</span><span class="lang-copy lang-copy--en">Open method review</span></a>
         </article>
       </div>
     </div>
