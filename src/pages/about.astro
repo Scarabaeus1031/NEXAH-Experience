@@ -14,7 +14,7 @@ const orientationDimensions = [
 
 <BaseLayout
   title="About NEXAH — A Human Project for Orientation"
-  description="NEXAH ist ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie."
+  description="NEXAH ist ein Human-governed Forschungs- und Orientierungssystem für begrenzte Darstellungen, Transformation, Informationsverlust und Return."
   headerVariant="science"
   hideSessionQuestion={true}
   lang="de"
@@ -28,7 +28,7 @@ const orientationDimensions = [
       <dl class="about-position-definition" aria-label="NEXAH in drei klaren Aussagen">
         <div>
           <dt>What it is</dt>
-          <dd>Ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie.</dd>
+          <dd>Ein Human-governed Orientierungssystem zwischen Kultur, Wissenschaft, Design und Technologie — und ein Forschungsprogramm für Transformation, Informationsverlust und Return.</dd>
         </div>
         <div>
           <dt>What it makes visible</dt>
@@ -161,6 +161,32 @@ const orientationDimensions = [
           <span>Observe</span><i>→</i><span>Select</span><i>→</i><span>Cut</span><i>→</i><span>Record</span><i>→</i><span>Compare</span><i>→</i><span>Return</span>
         </p>
         <p class="about-practice-boundary"><strong>Return</strong> bedeutet, ein Ergebnis in Kontext, Erinnerung, Revision und menschliches Urteil zurückzuführen. Er schließt einen Prüfzyklus, nicht die Welt.</p>
+      </div>
+    </section>
+
+    <section id="research-foundation" class="about-research-foundation section--line" aria-labelledby="research-foundation-title">
+      <div class="container">
+        <header class="about-section-heading about-section-heading--split">
+          <div>
+            <p class="eyebrow">What carries the research</p>
+            <h2 id="research-foundation-title">Five supports. No hidden total theory.</h2>
+          </div>
+          <div>
+            <p class="lead">NEXAH untersucht, was erhalten bleibt, sich verändert oder verloren geht, wenn begrenzte Darstellungen ausgewählt, geschnitten, transformiert oder zurückgeführt werden.</p>
+            <p>Der eigene Beitrag liegt in der Verbindung formaler Objekte, prüfbarer Instrumente, negativer Resultate, typisierter Fugen und unabhängiger Review-Gates — nicht in der behaupteten Neuheit jedes einzelnen Bausteins.</p>
+          </div>
+        </header>
+        <ol class="research-foundation-grid">
+          {nexahIdentity.researchFoundation.map((_, index) => (
+            <li>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{aboutCopyDe.researchFoundation[index].name}</h3>
+              <p>{aboutCopyDe.researchFoundation[index].role}</p>
+              <small>{aboutCopyDe.researchFoundation[index].boundary}</small>
+            </li>
+          ))}
+        </ol>
+        <p class="research-foundation-boundary"><strong>Current scientific position:</strong> Enge formale Linien sind intern replaybar. Externe Neuheit, unabhängige Replikation, allgemeine Utility und eine einheitliche Naturtheorie sind nicht etabliert.</p>
       </div>
     </section>
 
@@ -412,6 +438,38 @@ const orientationDimensions = [
     padding-bottom: var(--space-6);
   }
 
+  .about-research-foundation {
+    background: #071d26;
+    color: #edf4f2;
+  }
+
+  .about-research-foundation .eyebrow { color: #f1bd3d; }
+  .about-research-foundation h2 { color: #edf4f2; }
+  .about-research-foundation .lead,
+  .about-research-foundation .about-section-heading p { color: #c8d6d9; }
+
+  .research-foundation-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: var(--space-5) 0 0;
+    padding: 0;
+    border: 1px solid #34505a;
+    list-style: none;
+  }
+
+  .research-foundation-grid li {
+    min-height: 23rem;
+    padding: var(--space-4);
+  }
+
+  .research-foundation-grid li + li { border-left: 1px solid #34505a; }
+  .research-foundation-grid span { color: #f1bd3d; font: 800 .68rem/1 var(--mono); letter-spacing: .1em; }
+  .research-foundation-grid h3 { margin: var(--space-5) 0 var(--space-3); color: #fff; font-family: var(--serif); font-size: var(--step-1); font-weight: 400; line-height: 1.08; }
+  .research-foundation-grid p { color: #c8d6d9; }
+  .research-foundation-grid small { display: block; margin-top: var(--space-4); color: #91aab0; line-height: 1.55; }
+  .research-foundation-boundary { margin: 0; padding: var(--space-4); border: 1px solid #34505a; border-top: 0; color: #b8c9cd; }
+  .research-foundation-boundary strong { color: #f1bd3d; }
+
   .about-layer-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -501,6 +559,10 @@ const orientationDimensions = [
     .about-practice-line i {
       transform: rotate(90deg);
     }
+
+    .research-foundation-grid { grid-template-columns: 1fr; }
+    .research-foundation-grid li { min-height: auto; }
+    .research-foundation-grid li + li { border-top: 1px solid #34505a; border-left: 0; }
 
     .about-layer-grid { grid-template-columns: 1fr; }
     .about-layer-grid a { min-height: 15rem; }

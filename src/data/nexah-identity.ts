@@ -40,9 +40,9 @@ export const nexahIdentity = Object.freeze({
   fullName: "NEXAH Orientation Ecosystem",
   publicUrl: "https://nexah.de/",
   definition:
-    "NEXAH is an evidence-bound orientation ecosystem for making relationships, limits and possible transitions between bounded representations inspectable and navigable while keeping meaning, judgment and responsibility Human.",
+    "NEXAH is a Human-governed research and orientation ecosystem for investigating what remains, changes or is lost when bounded representations are selected, cut, transformed or returned.",
   purpose:
-    "NEXAH helps people investigate questions across sources and representations while keeping provenance, context, uncertainty, authority and unresolved difference visible.",
+    "NEXAH connects bounded formal objects, source-bound instruments, negative results, typed relations and independent review while keeping provenance, uncertainty, authority and unresolved difference visible.",
   compactBoundary:
     "Orientation supports understanding. It does not decide, recommend, authorize action or replace a source.",
   instrumentBoundary:
@@ -52,6 +52,33 @@ export const nexahIdentity = Object.freeze({
     "NEXAH is not an autonomous decision-maker or a replacement for domain expertise.",
     "A visual similarity, interactive instrument or passing implementation test is not by itself scientific evidence.",
     "Internal reproducibility is not external validation, and an incomplete prior-art search is not proof of worldwide novelty.",
+  ]),
+  researchFoundation: Object.freeze([
+    {
+      name: "Bounded formal objects",
+      role: "Finite structures, declared operators, frames and fixtures make narrow claims decidable and replayable.",
+      boundary: "A result remains limited to its declared object and contract.",
+    },
+    {
+      name: "Source-bound instruments",
+      role: "Visualizations, software and records retain source, selection, transformation, version and Return.",
+      boundary: "A working instrument is not by itself a scientific proof.",
+    },
+    {
+      name: "Negative returns",
+      role: "MISS, ABSTAIN, INDETERMINATE, INVALID and UNINFORMATIVE remain publishable outcomes.",
+      boundary: "The architecture must preserve failure instead of optimizing only for matches.",
+    },
+    {
+      name: "Typed joints",
+      role: "Different mathematical, dynamic, cultural and technical islands meet through declared relations.",
+      boundary: "Similarity, co-presence and shared address do not establish identity or a common mechanism.",
+    },
+    {
+      name: "Human Return and review",
+      role: "Claim ceilings, admission, review, interpretation and action remain explicit Human and domain decisions.",
+      boundary: "Internal replay does not replace qualified external review or independent replication.",
+    },
   ]),
   hierarchy: Object.freeze([
     {
@@ -259,6 +286,9 @@ export function renderNexahMarkdown(): string {
     .map((entry) => `- [${entry.subject}](${entry.subjectUrl}) ${entry.relation} [${entry.object}](${entry.objectUrl}). ${entry.status}`)
     .join("\n");
   const boundaryRows = nexahIdentity.nonClaims.map((claim) => `- ${claim}`).join("\n");
+  const researchFoundationRows = nexahIdentity.researchFoundation
+    .map((entry) => `- **${entry.name}:** ${entry.role} Boundary: ${entry.boundary}`)
+    .join("\n");
   const viewRows = nexahIdentity.publicViews
     .map((view) => `- [${view.name}](${view.href}): ${view.role} Boundary: ${view.boundary}`)
     .join("\n");
@@ -266,7 +296,7 @@ export function renderNexahMarkdown(): string {
     .map((movement, index) => `${index + 1}. **${movement.name} — ${movement.question}** ${movement.description}`)
     .join("\n");
 
-  return `# ${nexahIdentity.fullName}\n\n> ${nexahIdentity.definition}\n\n${nexahIdentity.purpose}\n\n## Three public views\n\n${viewRows}\n\n## How NEXAH works\n\n${movementRows}\n\n${nexahIdentity.instrumentBoundary}\n\n## Identity hierarchy\n\n${hierarchyRows}\n\n## Source and authority map\n\n${sourceRows}\n\n## Research identifiers\n\n${identifierRows}\n\n## Important research relations\n\n${relationRows}\n\n## Interpretation boundaries\n\n${boundaryRows}\n\nFor dated scientific status, follow the NEXAH Science Lab and its maintained Lab Register. Public summaries do not replace the linked source records.\n`;
+  return `# ${nexahIdentity.fullName}\n\n> ${nexahIdentity.definition}\n\n${nexahIdentity.purpose}\n\n## What carries the research\n\n${researchFoundationRows}\n\n## Three public views\n\n${viewRows}\n\n## How NEXAH works\n\n${movementRows}\n\n${nexahIdentity.instrumentBoundary}\n\n## Identity hierarchy\n\n${hierarchyRows}\n\n## Source and authority map\n\n${sourceRows}\n\n## Research identifiers\n\n${identifierRows}\n\n## Important research relations\n\n${relationRows}\n\n## Interpretation boundaries\n\n${boundaryRows}\n\nFor dated scientific status, follow the NEXAH Science Lab and its maintained Lab Register. Public summaries do not replace the linked source records.\n`;
 }
 
 export function renderLlmsTxt(): string {

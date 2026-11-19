@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { predictionPaper } from "@/data/prediction-paper";
+import { nexahIdentity } from "@/data/nexah-identity";
+import { aboutCopyDe } from "@/data/about-copy.de";
 
 const researchRoutes = [
   {
@@ -53,12 +55,35 @@ const researchRoutes = [
       <div>
         <p class="eyebrow"><span class="lang-copy lang-copy--de">NEXAH Science · öffentlicher Forschungsraum</span><span class="lang-copy lang-copy--en">NEXAH Science · public research space</span></p>
         <h1><span class="lang-copy lang-copy--de">Was trägt – und was bleibt offen?</span><span class="lang-copy lang-copy--en">What holds — and what remains open?</span></h1>
-        <p class="lead"><span class="lang-copy lang-copy--de">NEXAH Science trennt Forschungsstand, Ergebnisse, mathematische Felder und offene Prüfgrenzen. Die wissenschaftliche Bedeutung und der Evidenzstatus bleiben beim Science Desk und Science Lab.</span><span class="lang-copy lang-copy--en">NEXAH Science keeps the research position, results, mathematical fields and open validation boundaries distinct. Scientific meaning and evidence status remain with the Science Desk and Science Lab.</span></p>
+        <p class="lead"><span class="lang-copy lang-copy--de">NEXAH Science untersucht, was erhalten bleibt, sich verändert oder verloren geht, wenn begrenzte Darstellungen ausgewählt, geschnitten, transformiert oder zurückgeführt werden. Forschungsstand, Ergebnisse und offene Prüfgrenzen bleiben unterscheidbar.</span><span class="lang-copy lang-copy--en">NEXAH Science investigates what remains, changes or is lost when bounded representations are selected, cut, transformed or returned. Research position, results and open validation boundaries remain distinct.</span></p>
       </div>
       <aside>
         <strong>Source-bound</strong>
         <p><span class="lang-copy lang-copy--de">Diese Seite ordnet vorhandene, freigegebene Quellen. Sie erzeugt keine zweite Forschungsautorität und verändert keinen Labstatus.</span><span class="lang-copy lang-copy--en">This page organizes existing, released sources. It creates no second research authority and changes no Lab status.</span></p>
       </aside>
+    </div>
+  </section>
+
+  <section class="research-foundation section--line" aria-labelledby="research-foundation-title">
+    <div class="container">
+      <header class="research-foundation__head">
+        <p class="eyebrow"><span class="lang-copy lang-copy--de">Was die Forschung trägt</span><span class="lang-copy lang-copy--en">What carries the research</span></p>
+        <div>
+          <h2 id="research-foundation-title"><span class="lang-copy lang-copy--de">Fünf Säulen. Keine verborgene Gesamtformel.</span><span class="lang-copy lang-copy--en">Five supports. No hidden total formula.</span></h2>
+          <p><span class="lang-copy lang-copy--de">Der eigene Beitrag liegt in ihrer kontrollierten Verbindung, nicht in der behaupteten Neuheit jedes Bausteins.</span><span class="lang-copy lang-copy--en">The distinct contribution lies in their controlled integration, not in claiming that every component is new.</span></p>
+        </div>
+      </header>
+      <ol class="research-foundation__grid">
+        {nexahIdentity.researchFoundation.map((entry, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3><span class="lang-copy lang-copy--de">{aboutCopyDe.researchFoundation[index].name}</span><span class="lang-copy lang-copy--en">{entry.name}</span></h3>
+            <p><span class="lang-copy lang-copy--de">{aboutCopyDe.researchFoundation[index].role}</span><span class="lang-copy lang-copy--en">{entry.role}</span></p>
+            <small><span class="lang-copy lang-copy--de">{aboutCopyDe.researchFoundation[index].boundary}</span><span class="lang-copy lang-copy--en">{entry.boundary}</span></small>
+          </li>
+        ))}
+      </ol>
+      <p class="research-foundation__position"><strong>R2–R3 · internal:</strong> <span class="lang-copy lang-copy--de">Enge formale Linien sind replaybar. Externe Neuheit, unabhängige Replikation und allgemeine Utility bleiben offen.</span><span class="lang-copy lang-copy--en">Narrow formal lines are replayable. External novelty, independent replication and general utility remain open.</span></p>
     </div>
   </section>
 
@@ -159,6 +184,20 @@ const researchRoutes = [
   .research-entry aside { padding: 1.5rem 0 1.5rem 1.5rem; border-left: 1px solid #f1bd3d; }
   .research-entry aside strong { color: #f1bd3d; font: 800 .68rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
   .research-entry aside p { color: #b8c9cd; }
+  .research-foundation { padding-block: var(--space-7); background: #eef0ea; }
+  .research-foundation__head { display: grid; grid-template-columns: .45fr 1.55fr; gap: var(--space-5); margin-bottom: var(--space-5); }
+  .research-foundation__head h2 { margin: 0; font-size: var(--step-3); }
+  .research-foundation__head > p { color: var(--gold); }
+  .research-foundation__head div > p { color: var(--muted); }
+  .research-foundation__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 0; padding: 0; border: 1px solid var(--rule); list-style: none; }
+  .research-foundation__grid li { min-height: 24rem; padding: var(--space-4); }
+  .research-foundation__grid li + li { border-left: 1px solid var(--rule); }
+  .research-foundation__grid li > span { color: var(--gold); font: 800 .66rem/1 var(--mono); letter-spacing: .09em; }
+  .research-foundation__grid h3 { margin: 3rem 0 1rem; font-family: var(--serif); font-size: clamp(1.45rem, 2vw, 2.1rem); font-weight: 400; line-height: 1.05; }
+  .research-foundation__grid p { color: var(--muted); }
+  .research-foundation__grid small { display: block; margin-top: 1.5rem; color: #66767a; line-height: 1.5; }
+  .research-foundation__position { margin: 0; padding: var(--space-4); border: 1px solid var(--rule); border-top: 0; color: var(--muted); }
+  .research-foundation__position strong { color: var(--gold); font-family: var(--mono); }
   .research-routes { padding-block: var(--space-7); }
   .research-routes header { display: grid; grid-template-columns: .6fr 1.4fr; gap: var(--space-5); align-items: end; margin-bottom: var(--space-5); }
   .research-routes h2 { margin: 0; font-size: var(--step-3); }
@@ -190,7 +229,10 @@ const researchRoutes = [
   .research-review__grid strong { margin-top: auto; padding-block: 1rem; color: #efbd3d; font: 800 .7rem/1.4 var(--mono); }
   .research-review__grid .button { align-self: flex-start; }
   @media (max-width: 900px) {
-    .research-entry__hero, .research-routes header, .research-papers__grid, .research-review__head { grid-template-columns: 1fr; }
+    .research-entry__hero, .research-foundation__head, .research-routes header, .research-papers__grid, .research-review__head { grid-template-columns: 1fr; }
+    .research-foundation__grid { grid-template-columns: 1fr; }
+    .research-foundation__grid li { min-height: auto; }
+    .research-foundation__grid li + li { border-top: 1px solid var(--rule); border-left: 0; }
     .research-routes nav { grid-template-columns: repeat(2, 1fr); }
     .research-routes nav a:nth-child(2) { border-right: 0; }
     .research-routes nav a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }

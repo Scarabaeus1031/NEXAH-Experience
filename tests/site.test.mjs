@@ -82,6 +82,7 @@ test("the public identity keeps NEXAH above its programmes, disciplines, project
   const layout = await read("src/layouts/BaseLayout.astro");
   const home = await read("src/pages/index.astro");
   const about = await read("src/pages/about.astro");
+  const identity = await read("src/data/nexah-identity.ts");
   const architecture = await read("src/data/research-architecture.ts");
   const threshold = await read("src/threshold/knowledge.mjs");
 
@@ -96,6 +97,12 @@ test("the public identity keeps NEXAH above its programmes, disciplines, project
   assert.match(about, /Bedeutung, Urteil und Verantwortung bleiben beim Menschen/);
   assert.match(architecture, /Six responsibilities\. No shared authority\./);
   assert.match(about, /Human View, Science and Builder remain distinct/);
+  assert.match(about, /What carries the research/);
+  assert.match(about, /Five supports\. No hidden total theory/);
+  assert.match(identity, /researchFoundation/);
+  for (const support of ["Bounded formal objects", "Source-bound instruments", "Negative returns", "Typed joints", "Human Return and review"]) {
+    assert.match(identity, new RegExp(support));
+  }
   assert.doesNotMatch(about, /NEXAH is orientation cartography/i);
   assert.doesNotMatch(about, /Orientation is an established discipline/i);
   assert.doesNotMatch(layout, /NEXAH — Orientation Cartography/);
@@ -135,9 +142,9 @@ test("About introduces the Human mission before design and research", async () =
   assert.match(about, /For AI and search systems/);
   assert.match(about, /nexahIdentity\.hierarchy/);
   assert.match(about, /nexahIdentity\.authoritySources/);
-  assert.match(aboutGerman, /NEXAH ist ein evidenzgebundenes Orientierungssystem/);
+  assert.match(aboutGerman, /NEXAH ist ein Human-governed Forschungs- und Orientierungssystem/);
   assert.match(aboutGerman, /Die Human View erzeugt keine wissenschaftliche/);
-  assert.match(identity, /NEXAH is an evidence-bound orientation ecosystem/);
+  assert.match(identity, /NEXAH is a Human-governed research and orientation ecosystem/);
   assert.match(identity, /NEXAH Science Lab/);
   assert.match(identity, /A0 is not identical with NEXAH or NEXAH Science/);
   assert.match(identity, /SCC-003/);
@@ -936,6 +943,9 @@ test("the bilingual research entrance remains mounted and its four routes are tr
 
   assert.doesNotMatch(composer, /cp .*A0_SCIENCE\.html.*forschen\/index\.html/);
   assert.doesNotMatch(reachability, /path === "A0_SCIENCE\.html"/);
+  assert.match(page, /Was die Forschung trägt/);
+  assert.match(page, /Fünf Säulen\. Keine verborgene Gesamtformel/);
+  assert.match(page, /R2–R3 · internal/);
 });
 
 test("the existing orientation remains discoverable without internal Home language", async () => {

@@ -8,9 +8,16 @@ This repository owns the public and intellectual home of the NEXAH Orientation E
 
 **NEXAH — The Orientation Ecosystem**
 
-NEXAH is an **evidence-bound orientation ecosystem** for making relationships,
-limits and possible transitions between bounded representations inspectable and
-navigable while keeping meaning, judgment and responsibility Human.
+NEXAH is a **Human-governed research and orientation ecosystem** for examining
+what remains, changes or is lost when bounded representations are selected,
+cut, transformed or returned. Meaning, judgment and responsibility remain
+Human.
+
+The research is carried by five explicit supports: bounded formal objects,
+source-bound instruments and replay, admissible negative returns, typed joints,
+and independent review with Human Return. Their controlled integration is the
+programme's distinct contribution; it does not establish external novelty,
+independent replication, general utility or a unified theory.
 
 **Start here:** [Visitor Guide](https://nexah.de/visitor-guide/) · [Try NEXAHEDRON](https://nexahedron.com) · [Research & Framework](https://github.com/Scarabaeus1031/NEXAH)
 

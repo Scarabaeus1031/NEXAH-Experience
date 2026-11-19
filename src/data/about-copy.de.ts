@@ -1,8 +1,35 @@
 export const aboutCopyDe = Object.freeze({
   definition:
-    "NEXAH ist ein evidenzgebundenes Orientierungssystem, das Beziehungen, Grenzen und mögliche Übergänge zwischen begrenzten Darstellungen prüfbar und navigierbar macht, während Bedeutung, Urteil und Verantwortung beim Menschen bleiben.",
+    "NEXAH ist ein Human-governed Forschungs- und Orientierungssystem. Es untersucht, was erhalten bleibt, sich verändert oder verloren geht, wenn begrenzte Darstellungen ausgewählt, geschnitten, transformiert oder zurückgeführt werden.",
   purpose:
-    "NEXAH hilft Menschen, Fragen über verschiedene Quellen und Darstellungen hinweg zu untersuchen und dabei Herkunft, Kontext, Unsicherheit, Autorität und ungelöste Unterschiede sichtbar zu halten.",
+    "NEXAH verbindet begrenzte formale Objekte, source-bound Instrumente, negative Resultate, typisierte Fugen und unabhängige Prüfung, während Herkunft, Unsicherheit, Autorität und ungelöste Unterschiede sichtbar bleiben.",
+  researchFoundation: Object.freeze([
+    {
+      name: "Begrenzte formale Objekte",
+      role: "Endliche Strukturen, deklarierte Operatoren, Frames und Fixtures machen enge Aussagen entscheidbar und replaybar.",
+      boundary: "Ein Resultat bleibt auf sein deklariertes Objekt und seinen Vertrag begrenzt.",
+    },
+    {
+      name: "Source-bound Instrumente",
+      role: "Visualisierungen, Software und Records halten Quelle, Auswahl, Transformation, Version und Return sichtbar.",
+      boundary: "Ein funktionierendes Instrument ist für sich noch kein wissenschaftlicher Beweis.",
+    },
+    {
+      name: "Negative Returns",
+      role: "MISS, ABSTAIN, INDETERMINATE, INVALID und UNINFORMATIVE bleiben veröffentlichbare Ergebnisse.",
+      boundary: "Die Architektur bewahrt Fehlschlag, statt nur auf Treffer zu optimieren.",
+    },
+    {
+      name: "Typisierte Fugen",
+      role: "Mathematische, dynamische, kulturelle und technische Inseln begegnen sich über deklarierte Relationen.",
+      boundary: "Ähnlichkeit, Ko-Präsenz und gemeinsame Adresse begründen keine Identität und keinen gemeinsamen Mechanismus.",
+    },
+    {
+      name: "Human Return und Review",
+      role: "Claim Ceiling, Admission, Review, Interpretation und Handlung bleiben explizite menschliche und fachliche Entscheidungen.",
+      boundary: "Interner Replay ersetzt weder qualifizierten externen Review noch unabhängige Replikation.",
+    },
+  ]),
   hierarchy: Object.freeze([
     {
       role: "Das vollständige Orientierungssystem.",
