@@ -1,5 +1,5 @@
 (() => {
-  const routeRevision = "nexah-science-r11-20261029";
+  const routeRevision = "nexah-science-r12-20261121";
   const publicHref = (href) => {
     const url = new URL(href, location.origin);
     url.searchParams.set("rev", routeRevision);

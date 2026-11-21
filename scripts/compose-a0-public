@@ -44,7 +44,7 @@ for public_page in \
   "${DIST_DIR}/NEXAH_C_CONNECT.html"; do
   [[ -f "${public_page}" ]] || continue
   if ! grep -q 'a0-public-bridge.css' "${public_page}"; then
-    perl -0pi -e 's#</head>#  <link rel="stylesheet" href="/a0-public-bridge.css?rev=public-shell-r10-20261029">\n  <script src="/a0-public-bridge.js?rev=public-shell-r10-20261029" defer></script>\n</head>#' "${public_page}"
+    perl -0pi -e 's#</head>#  <link rel="stylesheet" href="/a0-public-bridge.css?rev=public-shell-r12-20261121">\n  <script src="/a0-public-bridge.js?rev=public-shell-r12-20261121" defer></script>\n</head>#' "${public_page}"
   fi
 done
 

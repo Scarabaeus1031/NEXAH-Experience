@@ -35,11 +35,11 @@ test("public navigation pins one candidate revision and reports its route to the
   const layout = await read("src/layouts/BaseLayout.astro");
   const bridge = await read("public/a0-public-bridge.js");
 
-  assert.match(routing, /PUBLIC_ROUTE_REVISION = "nexah-science-r11-20261029"/);
+  assert.match(routing, /PUBLIC_ROUTE_REVISION = "nexah-science-r12-20261121"/);
   assert.match(header, /withPublicRevision\(section\.href\)/);
   assert.match(header, /withPublicRevision\(link\.href\)/);
   assert.match(layout, /type: "nexah:owner-route"/);
-  assert.match(bridge, /routeRevision = "nexah-science-r11-20261029"/);
+  assert.match(bridge, /routeRevision = "nexah-science-r12-20261121"/);
   assert.match(bridge, /querySelectorAll\("a\[data-public-href\]"\)/);
   assert.doesNotMatch(header, /A0_TOURS\.html#explanation-path/);
   assert.doesNotMatch(bridge, /A0_TOURS\.html#explanation-path/);
@@ -931,7 +931,7 @@ test("the bilingual research entrance remains mounted and its four routes are tr
   const reachability = await read("scripts/check-a0-public-reachability.mjs");
 
   for (const destination of [
-    "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261019",
+    "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261121",
     "/A0_SCIENCE.html#contributions",
     "/A0_MATHEMATICAL_JOINTS.html#register-cut-aperture",
     "/NEXAH_C_CONNECT.html#scientific-review",

@@ -12,7 +12,7 @@ const researchRoutes = [
       de: "Was trägt, welche Grenzen gelten und welches wissenschaftliche Gate als Nächstes offen ist.",
       en: "What currently holds, which boundaries apply and which scientific gate remains open next.",
     },
-    href: "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261019",
+    href: "/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261121",
   },
   {
     code: "02 · Evidence",
@@ -87,6 +87,24 @@ const researchRoutes = [
     </div>
   </section>
 
+  <section class="research-currentness section--line" aria-labelledby="research-currentness-title">
+    <div class="container">
+      <header class="research-currentness__head">
+        <p class="eyebrow">Currentness · 21 November 2026</p>
+        <div>
+          <h2 id="research-currentness-title"><span class="lang-copy lang-copy--de">Prime Architecture V1 ist als Instrumentenfeld gebunden.</span><span class="lang-copy lang-copy--en">Prime Architecture V1 is bound as an instrument field.</span></h2>
+          <p><span class="lang-copy lang-copy--de">Sechs bestehende Master-Builds bilden eine Route. Das verbessert Orientierung und Reproduzierbarkeit, ohne den wissenschaftlichen Status zu erhöhen.</span><span class="lang-copy lang-copy--en">Six existing master builds now form one route. This improves orientation and reproducibility without raising the scientific status.</span></p>
+        </div>
+      </header>
+      <div class="research-currentness__grid">
+        <article><strong>6</strong><span class="lang-copy lang-copy--de">Master-Builds · eine Domain-Route</span><span class="lang-copy lang-copy--en">master builds · one domain route</span></article>
+        <article><strong>5 + 1</strong><span class="lang-copy lang-copy--de">Suiten geschlossen · Primecube auf Custody Hold</span><span class="lang-copy lang-copy--en">suites closed · Primecube on custody hold</span></article>
+        <article><strong>0</strong><span class="lang-copy lang-copy--de">neue Studies, Findings oder Claim-Promotions</span><span class="lang-copy lang-copy--en">new studies, findings or claim promotions</span></article>
+      </div>
+      <a class="text-link" href="/A0_SCIENTIFIC_POSITION_REPORT.html#currentness-20261121"><span class="lang-copy lang-copy--de">Einordnung und Grenzen lesen</span><span class="lang-copy lang-copy--en">Read the position and boundaries</span></a>
+    </div>
+  </section>
+
   <section class="research-routes section--line" aria-labelledby="research-routes-title">
     <div class="container">
       <header>
@@ -134,14 +152,14 @@ const researchRoutes = [
           <p class="eyebrow">SCC-003-R1 · Public review</p>
           <h3>Five Pascal Carriers.<br />One Quotient.</h3>
           <p><span class="lang-copy lang-copy--de">Owner-autorisierter, begrenzter mathematischer Review. Reviewer ausstehend; keine Novelty- oder Prioritätsbehauptung.</span><span class="lang-copy lang-copy--en">Owner-authorized bounded mathematical review. Reviewer pending; no novelty or priority claim.</span></p>
-          <strong>PUBLIC_REVIEW · REVIEWER_PENDING</strong>
+          <strong><span class="lang-copy lang-copy--de">Unabhängiger Review offen</span><span class="lang-copy lang-copy--en">Independent review open</span></strong>
           <a class="button" href="/scc-003-r1/"><span class="lang-copy lang-copy--de">Review-Raum öffnen</span><span class="lang-copy lang-copy--en">Open review room</span></a>
         </article>
         <article>
           <p class="eyebrow">{predictionPaper.category} · Protocol 01</p>
           <h3>{predictionPaper.title}<br /><em>{predictionPaper.subtitle}</em></h3>
           <p><span class="lang-copy lang-copy--de">Das Pre-Lock-Paket ist hashgebunden und für die unabhängige Prüfung von Methode, Lock-Feldern und Falsifikationslogik geöffnet. Die Vorhersage bleibt unversiegelt und inaktiv.</span><span class="lang-copy lang-copy--en">The pre-lock packet is hash-bound and open for independent review of method, lock fields and falsification logic. The prediction remains unsealed and inactive.</span></p>
-          <strong>{predictionPaper.reviewRoomStatus} · {predictionPaper.predictionStatus}</strong>
+          <strong><span class="lang-copy lang-copy--de">Methodenkandidat · inaktiv</span><span class="lang-copy lang-copy--en">Method candidate · inactive</span></strong>
           <a class="button" href={predictionPaper.reviewRoute}><span class="lang-copy lang-copy--de">Method Review öffnen</span><span class="lang-copy lang-copy--en">Open method review</span></a>
         </article>
       </div>
@@ -198,6 +216,16 @@ const researchRoutes = [
   .research-foundation__grid small { display: block; margin-top: 1.5rem; color: #66767a; line-height: 1.5; }
   .research-foundation__position { margin: 0; padding: var(--space-4); border: 1px solid var(--rule); border-top: 0; color: var(--muted); }
   .research-foundation__position strong { color: var(--gold); font-family: var(--mono); }
+  .research-currentness { padding-block: var(--space-7); background: #071d26; color: #edf4f2; }
+  .research-currentness__head { display: grid; grid-template-columns: .45fr 1.55fr; gap: var(--space-5); margin-bottom: var(--space-5); }
+  .research-currentness__head h2 { margin: 0; color: #edf4f2; font-size: var(--step-3); }
+  .research-currentness__head p { color: #b8c9cd; }
+  .research-currentness__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-bottom: var(--space-4); border: 1px solid #34505a; }
+  .research-currentness__grid article { display: grid; min-height: 12rem; align-content: space-between; gap: 1rem; padding: var(--space-4); }
+  .research-currentness__grid article + article { border-left: 1px solid #34505a; }
+  .research-currentness__grid strong { color: #efbd3d; font: 700 clamp(2.2rem, 4vw, 4rem)/1 var(--serif); }
+  .research-currentness__grid span { color: #b8c9cd; }
+  .research-currentness .text-link { color: #edf4f2; }
   .research-routes { padding-block: var(--space-7); }
   .research-routes header { display: grid; grid-template-columns: .6fr 1.4fr; gap: var(--space-5); align-items: end; margin-bottom: var(--space-5); }
   .research-routes h2 { margin: 0; font-size: var(--step-3); }
@@ -229,11 +257,14 @@ const researchRoutes = [
   .research-review__grid strong { margin-top: auto; padding-block: 1rem; color: #efbd3d; font: 800 .7rem/1.4 var(--mono); }
   .research-review__grid .button { align-self: flex-start; }
   @media (max-width: 900px) {
-    .research-entry__hero, .research-foundation__head, .research-routes header, .research-papers__grid, .research-review__head { grid-template-columns: 1fr; }
+    .research-entry__hero, .research-foundation__head, .research-currentness__head, .research-routes header, .research-papers__grid, .research-review__head { grid-template-columns: 1fr; }
     .research-foundation__grid { grid-template-columns: 1fr; }
     .research-foundation__grid li { min-height: auto; }
     .research-foundation__grid li + li { border-top: 1px solid var(--rule); border-left: 0; }
     .research-routes nav { grid-template-columns: repeat(2, 1fr); }
+    .research-currentness__grid { grid-template-columns: 1fr; }
+    .research-currentness__grid article { min-height: auto; }
+    .research-currentness__grid article + article { border-top: 1px solid #34505a; border-left: 0; }
     .research-routes nav a:nth-child(2) { border-right: 0; }
     .research-routes nav a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
   }

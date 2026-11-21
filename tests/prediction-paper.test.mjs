@@ -45,14 +45,15 @@ test("connects the paper section and instrument in both directions", () => {
 });
 
 test("routes the research entrances through canonical A0 science and keeps review gates distinct", () => {
-  assert.match(research, /href: "\/A0_SCIENTIFIC_POSITION_REPORT\.html#currentness-20261019"/);
+  assert.match(research, /href: "\/A0_SCIENTIFIC_POSITION_REPORT\.html#currentness-20261121"/);
   assert.match(research, /href: "\/A0_SCIENCE\.html#contributions"/);
   assert.match(research, /href: "\/A0_MATHEMATICAL_JOINTS\.html#register-cut-aperture"/);
   assert.match(research, /href: "\/NEXAH_C_CONNECT\.html#scientific-review"/);
-  assert.match(research, /PUBLIC_REVIEW · REVIEWER_PENDING/);
+  assert.match(research, /Unabhängiger Review offen/);
+  assert.match(research, /Methodenkandidat · inaktiv/);
+  assert.doesNotMatch(research, /PUBLIC_REVIEW · REVIEWER_PENDING/);
   assert.match(data, /METHOD_REVIEW_CANDIDATE/);
   assert.match(data, /OPEN_METHOD_REVIEW \/ REVIEWER_PENDING/);
-  assert.match(research, /predictionPaper\.reviewRoomStatus/);
   assert.match(research, /predictionPaper\.reviewRoute/);
 });
 
