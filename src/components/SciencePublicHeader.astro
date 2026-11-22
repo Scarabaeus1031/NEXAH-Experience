@@ -130,7 +130,7 @@ const selectedInstruments = [
         ><span class="lang-copy lang-copy--de">{section.label.de}</span><span class="lang-copy lang-copy--en">{section.label.en}</span>{section.external ? <span aria-hidden="true"> ↗</span> : null}</a>
       ))}
     </nav>
-    <a class="science-public-contact" href="/contact/"><span class="lang-copy lang-copy--de">Kontakt</span><span class="lang-copy lang-copy--en">Contact</span></a>
+    <a class="science-public-contact" href="/contact/" aria-label="Kontakt / Contact"><span aria-hidden="true"></span></a>
     <LanguageControl />
     <details class="science-public-menu">
       <summary><span class="lang-copy lang-copy--de">Navigation</span><span class="lang-copy lang-copy--en">Directory</span> <span aria-hidden="true">+</span></summary>
@@ -198,13 +198,12 @@ const selectedInstruments = [
   .science-public-brand span { color: #657287; font-weight: 550; letter-spacing: .03em; }
   .science-public-primary { display: flex; justify-content: flex-end; gap: clamp(.65rem, 1.15vw, 1.15rem); min-width: 0; }
   .science-public-contact {
-    display: inline-flex; align-items: center; justify-content: center; min-height: 2.2rem; padding: .55rem .8rem;
-    border: 1px solid #d63283; border-radius: 999px; background: #e54793; color: #fff;
-    font: 800 .57rem/1 "SFMono-Regular", Consolas, monospace; letter-spacing: .08em; text-decoration: none; text-transform: uppercase;
-    box-shadow: 0 .35rem 1.1rem rgba(213, 50, 131, .16); transition: background 150ms ease, transform 150ms ease;
+    display: inline-grid; width: 2.2rem; height: 2.2rem; border-radius: 50%; place-items: center;
+    text-decoration: none; transition: background 150ms ease, transform 150ms ease;
   }
-  .science-public-contact:hover, .science-public-contact:focus-visible { background: #c82b76; color: #fff; transform: translateY(-1px); }
-  .science-public-contact:focus-visible { outline: 3px solid #f4a8cd; outline-offset: 2px; }
+  .science-public-contact span { width: .58rem; height: .58rem; border: 1px solid #ffb1d4; border-radius: 50%; background: #e54793; box-shadow: 0 0 .7rem rgba(229,71,147,.75); }
+  .science-public-contact:hover, .science-public-contact:focus-visible { background: rgba(229,71,147,.1); transform: scale(1.06); }
+  .science-public-contact:focus-visible { outline: 2px solid #e54793; outline-offset: 1px; }
   .science-public-shell nav a, .science-public-menu summary {
     color: inherit; font: 750 .58rem/1.2 "SFMono-Regular", Consolas, monospace;
     letter-spacing: .065em; text-decoration: none; text-transform: uppercase;
@@ -270,7 +269,7 @@ const selectedInstruments = [
   }
   @media (max-width: 680px) {
     .science-public-top { padding-inline: 1rem; }
-    .science-public-contact { min-height: 2rem; padding-inline: .65rem; }
+    .science-public-contact { width: 2rem; height: 2rem; }
     .science-public-primary { display: none; }
     .science-public-menu__panel { right: .75rem; left: .75rem; max-height: calc(100vh - 5.5rem); }
     .science-public-menu__panel > header { grid-template-columns: 1fr; }

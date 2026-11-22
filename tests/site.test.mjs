@@ -43,7 +43,7 @@ test("the public header and every public review entrance expose a visible contac
   const header = await read("src/components/SciencePublicHeader.astro");
   const sccReview = await read("src/pages/scc-003-r1/index.astro");
   const predictionReview = await read("src/pages/review/nexah-prediction-protocol-01/index.astro");
-  assert.match(header, /class="science-public-contact" href="\/contact\/"/);
+  assert.match(header, /class="science-public-contact" href="\/contact\/" aria-label="Kontakt \/ Contact"/);
   for (const review of [sccReview, predictionReview]) {
     assert.match(review, /review-contact-button/);
     assert.match(review, /href="\/contact\/"/);
