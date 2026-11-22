@@ -261,7 +261,7 @@ const claims = [
         <p>A useful review identifies the exact definition, inference, computation or prior construction that changes the disposition. Terminological resemblance alone is not enough; neither is internal agreement between AI systems.</p>
         <div class="review-actions review-actions--centered">
           <a class="button review-button" href="/review-assets/scc-003-r1/REVIEW_FORM.md">Review form <span aria-hidden="true">→</span></a>
-          <a class="button button--secondary review-button" href="/contact/">Contact NEXAH <span aria-hidden="true">→</span></a>
+          <a class="button review-button review-contact-button" href="/contact/">Review contact <span aria-hidden="true">→</span></a>
         </div>
         <p class="review-supplement">
           <a href="/scc-003-r1/generation-study/">Supplementary visual notebook</a>
@@ -384,6 +384,8 @@ const claims = [
   .review-deck strong { color: #fff; }
   .review-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
   .review-button { border-radius: 0; }
+  .review-actions .review-contact-button { border-color: #d63283; background: #e54793; color: #fff; }
+  .review-actions .review-contact-button:hover { background: #c82b76; }
   .review-hero .review-button { border-color: #e8b747; background: #e8b747; color: #07131e; }
   .review-hero .button--secondary { background: transparent; color: #edf4f2; }
   .review-hero .button--secondary:hover { background: rgba(232, 183, 71, .09); }

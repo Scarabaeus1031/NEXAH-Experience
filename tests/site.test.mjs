@@ -29,6 +29,50 @@ test("the shared public header exposes the four visitor routes without exposing 
   assert.doesNotMatch(header, /Science Desk|Builder Desk|Mission Control · Strategie/);
 });
 
+test("the public directory highlights selected instruments without declaring flagships", async () => {
+  const header = await read("src/components/SciencePublicHeader.astro");
+  assert.match(header, /Ausgewählte Instrumente/);
+  assert.match(header, /Selected instruments/);
+  for (const route of ["\/#primecube", "\/#beta-return", "\/library\/#mathfield-book", "\/laboratory\/roedelheim-observatory\/observer-lens\/"]) {
+    assert.match(header, new RegExp(`href: "${route}"`));
+  }
+  assert.doesNotMatch(header, /Flagships/);
+});
+
+test("the public header and every public review entrance expose a visible contact route", async () => {
+  const header = await read("src/components/SciencePublicHeader.astro");
+  const sccReview = await read("src/pages/scc-003-r1/index.astro");
+  const predictionReview = await read("src/pages/review/nexah-prediction-protocol-01/index.astro");
+  assert.match(header, /class="science-public-contact" href="\/contact\/"/);
+  for (const review of [sccReview, predictionReview]) {
+    assert.match(review, /review-contact-button/);
+    assert.match(review, /href="\/contact\/"/);
+  }
+});
+
+test("the Library presents MathField as one living book with three source-bound Numbermagick highlights", async () => {
+  const library = await read("src/pages/library.astro");
+  const feature = await read("src/components/library/MathfieldBookFeature.astro");
+  const header = await read("src/components/SciencePublicHeader.astro");
+
+  assert.match(library, /MathfieldBookFeature/);
+  assert.match(library, /<MathfieldBookFeature \/>[\s\S]*library-language-note/);
+  assert.match(feature, /id="mathfield-book"/);
+  assert.match(feature, /A0_MATHEMATICAL_JOINTS\.html#register-cut-aperture/);
+  assert.doesNotMatch(feature, /A0_NUMBERMAGICK_GRID_RESEARCH\.html/);
+  assert.equal((feature.match(/code: "0[123]"/g) ?? []).length, 3);
+  assert.match(feature, /Im MathField weiterlesen/);
+  for (const stage of ["Träger", "Ansichtsregel", "Frame \/ Apertur", "Zugehörigkeit", "Kreuzungen", "Exakter Return"]) {
+    assert.match(feature, new RegExp(stage));
+  }
+  assert.match(feature, /MathField · lebendes Mathematikbuch/);
+  assert.doesNotMatch(feature, /living mathematics book|The same source|Continue in MathField/);
+  assert.match(feature, /SOURCE_BOUND_ENGINEERING_VIEW/);
+  assert.match(feature, /134\/134 PASS/);
+  assert.match(feature, /keine Behauptung eines neuen mathematischen Satzes/);
+  assert.match(header, /MathField · Mathematikbuch/);
+});
+
 test("public navigation pins one candidate revision and reports its route to the A0 Owner frame", async () => {
   const routing = await read("src/data/public-route.ts");
   const header = await read("src/components/SciencePublicHeader.astro");
@@ -1125,6 +1169,7 @@ test("Home, Explore and Library preserve orientation instead of creating a secon
   const homeSequence = [
     'class="cosmos-threshold"',
     'id="what-is-nexah"',
+    '<PrimecubeSignature />',
     'class="cosmos-practice section--line"',
     'class="cosmos-routes section--line"',
     'class="cosmos-boundary"',
@@ -1146,6 +1191,42 @@ test("Home, Explore and Library preserve orientation instead of creating a secon
   assert.match(publication, /CatalogPublicationLayout/);
   assert.match(publication, /BookLayout/);
   assert.doesNotMatch([home, explore, door, library, publication].join("\n"), /orientationAdapter|LyraOrientationExecutor|TransformationEngine/);
+});
+
+test("the homepage presents one interactive Primecube signature before the non-interactive practice sequence", async () => {
+  const home = await read("src/pages/index.astro");
+  const signature = await read("src/components/PrimecubeSignature.astro");
+
+  assert.match(home, /import PrimecubeSignature/);
+  assert.equal((home.match(/<PrimecubeSignature\s*\/>/g) ?? []).length, 1);
+  assert.ok(home.indexOf("<PrimecubeSignature />") < home.indexOf('class="cosmos-practice section--line"'));
+  assert.match(home, /cosmos-practice__steps::before/);
+  assert.match(home, /cosmos-practice__steps li::before/);
+  assert.match(signature, /Standard-Adressregel · Base 11/);
+  assert.match(signature, /n = 1 \+ x \+ 11y \+ 121z/);
+  assert.match(signature, /is-coordinate-guide/);
+  assert.match(signature, /data-primecube-view="matrix"/);
+  assert.match(signature, /data-primecube-view="cube"/);
+  assert.match(signature, /data-primecube-view="fold"/);
+  assert.match(signature, /RECORD PC1111:N0661/);
+  assert.match(signature, /No prime generator and no intrinsic cubic prime geometry/);
+});
+
+test("the homepage follows the Primecube with one claim-bounded three-view feedback story", async () => {
+  const home = await read("src/pages/index.astro");
+  const triptych = await read("src/components/BetaReturnTriptych.astro");
+
+  assert.match(home, /import BetaReturnTriptych/);
+  assert.equal((home.match(/<BetaReturnTriptych\s*\/>/g) ?? []).length, 1);
+  assert.ok(home.indexOf("<PrimecubeSignature />") < home.indexOf("<BetaReturnTriptych />"));
+  assert.ok(home.indexOf("<BetaReturnTriptych />") < home.indexOf('class="cosmos-practice section--line"'));
+  for (const direction of ["BACKWARD", "REFERENCE", "FORWARD"]) assert.match(triptych, new RegExp(direction));
+  assert.match(triptych, /zₙ₊₁ = zₙ² \+ c \+ β\(zₙ − zₙ₋₁\)/);
+  assert.match(triptych, /keine neue Naturgleichung/);
+  assert.match(triptych, /not a new Mandelbrot or Julia theory/);
+  assert.match(triptych, /data-beta-mode="julia"/);
+  assert.match(triptych, /data-beta-mode="mandelbrot"/);
+  assert.doesNotMatch(triptych, /A0_BETA_RETURN_MANDELBROT_JULIA_DEMONSTRATOR/);
 });
 
 test("Reader availability remains explicit and cannot be fabricated", async () => {

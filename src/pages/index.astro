@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import PrimecubeSignature from "@/components/PrimecubeSignature.astro";
+import BetaReturnTriptych from "@/components/BetaReturnTriptych.astro";
 import { withPublicRevision } from "@/data/public-route";
 
 const publicRoutes = [
@@ -87,6 +89,10 @@ const practiceSteps = [
       </div>
     </div>
   </section>
+
+  <PrimecubeSignature />
+
+  <BetaReturnTriptych />
 
   <section class="cosmos-practice section--line" aria-labelledby="practice-title">
     <div class="container">
@@ -194,14 +200,13 @@ const practiceSteps = [
   .cosmos-section-heading { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: var(--space-6); align-items: end; margin-bottom: var(--space-5); }
   .cosmos-section-heading > p { max-width: 45rem; margin: 0; color: var(--muted); }
   .cosmos-practice { padding-block: var(--space-6); background: #f4efe5; }
-  .cosmos-practice__steps { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); margin: 0; padding: 0; border: 1px solid var(--rule); list-style: none; }
-  .cosmos-practice__steps li { min-height: 14rem; padding: var(--space-4); border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); background: rgba(255,255,255,.34); }
-  .cosmos-practice__steps li:nth-child(4n) { border-right: 0; }
-  .cosmos-practice__steps li:nth-last-child(-n+3) { border-bottom: 0; }
-  .cosmos-practice__steps li:last-child { border-right: 0; }
-  .cosmos-practice__steps span { color: var(--gold); font: 800 .65rem/1 var(--mono); }
-  .cosmos-practice__steps h3 { margin: 2.25rem 0 .75rem; font-family: var(--serif); font-size: var(--step-1); font-weight: 400; }
-  .cosmos-practice__steps p { color: var(--muted); font-size: .84rem; }
+  .cosmos-practice__steps { position: relative; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 3rem clamp(1.5rem,3vw,3.5rem); margin: var(--space-5) 0 0; padding: 0; list-style: none; }
+  .cosmos-practice__steps::before { display: none; content: ""; }
+  .cosmos-practice__steps li { position: relative; min-width: 0; padding-top: 3rem; border-top: 1px solid #c7a34c; }
+  .cosmos-practice__steps li::before { position: absolute; top: -.48rem; left: 0; width: .82rem; height: .82rem; border: 2px solid #c08a14; border-radius: 50%; background: #f4efe5; content: ""; }
+  .cosmos-practice__steps span { position: absolute; top: -.7rem; left: 1.35rem; padding-inline: .35rem; background: #f4efe5; color: var(--gold); font: 800 .62rem/1 var(--mono); }
+  .cosmos-practice__steps h3 { min-height: 2.4rem; margin: 0 0 .75rem; font-family: var(--serif); font-size: clamp(1.05rem,1.6vw,1.4rem); font-weight: 400; line-height: 1.05; }
+  .cosmos-practice__steps p { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.55; }
   .observer-entry { padding-block: var(--space-6); overflow: hidden; background: #071923; color: #edf4f2; }
   .observer-entry__inner { display: grid; grid-template-columns: minmax(0,1fr) minmax(18rem,.8fr); gap: var(--space-6); align-items: center; }
   .observer-entry__copy { max-width: 48rem; }
@@ -239,10 +244,6 @@ const practiceSteps = [
     .cosmos-route-grid a:nth-child(2) { border-right: 0; }
     .cosmos-route-grid a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
     .cosmos-practice__steps { grid-template-columns: repeat(2,1fr); }
-    .cosmos-practice__steps li { min-height: 15rem; border-bottom: 1px solid var(--rule); }
-    .cosmos-practice__steps li:nth-child(odd) { border-right: 1px solid var(--rule); }
-    .cosmos-practice__steps li:nth-child(even) { border-right: 0; }
-    .cosmos-practice__steps li:last-child { border-bottom: 0; }
     .cosmos-boundary .text-link { grid-column: 1; }
   }
   @media (max-width: 600px) {
@@ -251,7 +252,11 @@ const practiceSteps = [
     .cosmos-route-grid { grid-template-columns: 1fr; }
     .cosmos-route-grid a { min-height: 16rem; border-right: 0; border-bottom: 1px solid var(--rule); }
     .cosmos-route-grid a:last-child { border-bottom: 0; }
-    .cosmos-practice__steps { grid-template-columns: 1fr; }
-    .cosmos-practice__steps li { min-height: auto; border-right: 0 !important; border-bottom: 1px solid var(--rule); }
+    .cosmos-practice__steps { grid-template-columns: 1fr; gap: 0; margin-left: .25rem; padding-left: 2.2rem; }
+    .cosmos-practice__steps::before { display: block; top: 0; bottom: 0; left: .45rem; width: 1px; border: 0; background: #c7a34c; }
+    .cosmos-practice__steps li { padding: 0 0 2rem; border: 0; }
+    .cosmos-practice__steps li::before { top: .28rem; left: -2.2rem; }
+    .cosmos-practice__steps span { top: .08rem; left: -1rem; }
+    .cosmos-practice__steps h3 { min-height: 0; }
   }
 </style>

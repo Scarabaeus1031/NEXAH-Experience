@@ -1,6 +1,7 @@
 ---
 import CatalogRow from "@/components/library/CatalogRow.astro";
 import EditorialPublicationCard from "@/components/library/EditorialPublicationCard.astro";
+import MathfieldBookFeature from "@/components/library/MathfieldBookFeature.astro";
 import PublicationCover from "@/components/library/PublicationCover.astro";
 import { getPublicationExcerpt, publicationByRouteSlug, publicationCatalog, publications } from "@/data/catalog";
 import { books as readerBooks } from "@/data/library/books";
@@ -58,10 +59,7 @@ const orientationScience = requirePublication("orientation-science");
     </header>
   </section>
 
-  <aside class="container library-language-note" aria-label="Language information">
-    <strong><span class="lang-copy lang-copy--de">Sprachhinweis</span><span class="lang-copy lang-copy--en">Language note</span></strong>
-    <p><span class="lang-copy lang-copy--de">Die derzeit veröffentlichten Bücher und Reader liegen ausschließlich in englischer Sprache vor. Die deutsche Oberfläche ordnet den Zugang; sie übersetzt die Publikationen nicht.</span><span class="lang-copy lang-copy--en">The books and readers currently published here are available in English only. The interface organizes access; it does not translate the publications.</span></p>
-  </aside>
+  <MathfieldBookFeature />
 
   <section class="container orientation-shelf" id="orientation-books" aria-labelledby="orientation-shelf-title">
     <header class="orientation-shelf__header">
@@ -224,6 +222,11 @@ const orientationScience = requirePublication("orientation-science");
       </div>
     </details>
   </section>
+
+  <aside class="container library-language-note" aria-label="Language information">
+    <strong><span class="lang-copy lang-copy--de">Sprachhinweis</span><span class="lang-copy lang-copy--en">Language note</span></strong>
+    <p><span class="lang-copy lang-copy--de">Die derzeit veröffentlichten Bücher und Reader liegen ausschließlich in englischer Sprache vor. Die deutsche Oberfläche ordnet den Zugang; sie übersetzt die Publikationen nicht.</span><span class="lang-copy lang-copy--en">The books and readers currently published here are available in English only. The interface organizes access; it does not translate the publications.</span></p>
+  </aside>
 
   <script>
     const browser = document.querySelector<HTMLElement>("[data-catalog-browser]");

@@ -1,0 +1,195 @@
+---
+const researchHref = "/forschen/";
+---
+
+<section id="beta-return" class="beta-return" aria-labelledby="beta-return-title" data-beta-return>
+  <div class="container beta-return__heading">
+    <div>
+      <p class="eyebrow"><span class="lang-copy lang-copy--de">Ein bekanntes Objekt · drei gerichtete Ansichten</span><span class="lang-copy lang-copy--en">A known object · three directed views</span></p>
+      <h2 id="beta-return-title"><span class="lang-copy lang-copy--de">Dasselbe Bild.<br />Eine andere Rückwirkung.</span><span class="lang-copy lang-copy--en">The same image.<br />A different return.</span></h2>
+    </div>
+    <div class="beta-return__introduction">
+      <p class="lead"><span class="lang-copy lang-copy--de">Mandelbrot und Julia sind bekannte mathematische Objekte. NEXAH stellt drei Berechnungen nebeneinander und macht sichtbar, wie eine lokale Rückbindung den Weg verändert.</span><span class="lang-copy lang-copy--en">Mandelbrot and Julia are known mathematical objects. NEXAH places three computations side by side and makes visible how local feedback changes the path.</span></p>
+      <p><span class="lang-copy lang-copy--de">Links wirkt die letzte Bewegung rückwärts, in der Mitte bleibt die klassische quadratische Referenz, rechts wirkt sie vorwärts. Keine Ansicht ersetzt die andere.</span><span class="lang-copy lang-copy--en">On the left, the previous motion acts backwards; the centre retains the classical quadratic reference; on the right, it acts forwards. No view replaces another.</span></p>
+    </div>
+  </div>
+
+  <div class="container beta-return__instrument">
+    <div class="beta-return__toolbar">
+      <div class="beta-return__mode" role="group" aria-label="Fractal view">
+        <button type="button" data-beta-mode="julia" aria-pressed="true">Julia</button>
+        <button type="button" data-beta-mode="mandelbrot" aria-pressed="false">Mandelbrot</button>
+      </div>
+      <label>
+        <span><span class="lang-copy lang-copy--de">Rückbindungsstärke</span><span class="lang-copy lang-copy--en">Feedback strength</span></span>
+        <input type="range" min="0" max="0.42" value="0.18" step="0.01" data-beta-strength />
+        <output data-beta-output>±0.18</output>
+      </label>
+      <code>zₙ₊₁ = zₙ² + c + β(zₙ − zₙ₋₁)</code>
+    </div>
+
+    <div class="beta-return__views" aria-label="Reverse, reference and forward feedback views">
+      <article data-beta-sign="-1">
+        <header><strong>BACKWARD</strong><span data-beta-label>β = −0.18</span></header>
+        <canvas width="336" height="252" aria-label="Backward feedback fractal view"></canvas>
+        <footer><span class="lang-copy lang-copy--de">Rückwirkung</span><span class="lang-copy lang-copy--en">Reverse influence</span><b data-beta-metric>—</b></footer>
+      </article>
+      <article data-beta-sign="0">
+        <header><strong>REFERENCE</strong><span>β = 0</span></header>
+        <canvas width="336" height="252" aria-label="Classical quadratic reference view"></canvas>
+        <footer><span class="lang-copy lang-copy--de">Referenz</span><span class="lang-copy lang-copy--en">Reference</span><b data-beta-metric>—</b></footer>
+      </article>
+      <article data-beta-sign="1">
+        <header><strong>FORWARD</strong><span data-beta-label>β = +0.18</span></header>
+        <canvas width="336" height="252" aria-label="Forward feedback fractal view"></canvas>
+        <footer><span class="lang-copy lang-copy--de">Vorwirkung</span><span class="lang-copy lang-copy--en">Forward influence</span><b data-beta-metric>—</b></footer>
+      </article>
+    </div>
+
+    <div class="beta-return__reading">
+      <p><strong><span class="lang-copy lang-copy--de">Orientierungslesart:</span><span class="lang-copy lang-copy--en">Orientation reading:</span></strong> <span class="lang-copy lang-copy--de">Ein gemeinsamer Frame, drei deklarierte Übergänge. Der Vergleich zeigt Veränderung, nicht Wahrheit oder Richtung an sich.</span><span class="lang-copy lang-copy--en">One shared frame, three declared transitions. The comparison shows change, not truth or direction in itself.</span></p>
+      <p><strong><span class="lang-copy lang-copy--de">Grenze:</span><span class="lang-copy lang-copy--en">Boundary:</span></strong> <span class="lang-copy lang-copy--de">Explorative Rekurrenz und Erklärungsinstrument — keine neue Naturgleichung und keine neue Mandelbrot- oder Julia-Theorie.</span><span class="lang-copy lang-copy--en">Exploratory recurrence and explanatory instrument — not a new law of nature and not a new Mandelbrot or Julia theory.</span></p>
+      <a class="button" href={researchHref}><span class="lang-copy lang-copy--de">Den Forschungsraum öffnen</span><span class="lang-copy lang-copy--en">Open the research space</span></a>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Mode = "julia" | "mandelbrot";
+
+  document.querySelectorAll<HTMLElement>("[data-beta-return]").forEach((root) => {
+    const strength = root.querySelector<HTMLInputElement>("[data-beta-strength]");
+    const output = root.querySelector<HTMLOutputElement>("[data-beta-output]");
+    const modeButtons = [...root.querySelectorAll<HTMLButtonElement>("[data-beta-mode]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[data-beta-sign]")];
+    if (!strength || !output || modeButtons.length !== 2 || panels.length !== 3) return;
+
+    let mode: Mode = "julia";
+    let pending = 0;
+
+    const renderPanel = (panel: HTMLElement, beta: number) => {
+      const canvas = panel.querySelector<HTMLCanvasElement>("canvas");
+      const metric = panel.querySelector<HTMLElement>("[data-beta-metric]");
+      if (!canvas || !metric) return;
+      const context = canvas.getContext("2d", { alpha: false });
+      if (!context) return;
+      const image = context.createImageData(canvas.width, canvas.height);
+      const iterations = 68;
+      const scale = mode === "julia" ? 1.58 : 1.72;
+      const centreX = mode === "julia" ? 0 : -.55;
+      const fixed = { real: -.745, imaginary: .113 };
+      const accent = beta < 0 ? [63, 218, 229] : beta > 0 ? [239, 91, 188] : [241, 189, 61];
+      let bounded = 0;
+
+      for (let py = 0; py < canvas.height; py += 1) {
+        const imaginary = (.5 - py / canvas.height) * 2 * scale * canvas.height / canvas.width;
+        for (let px = 0; px < canvas.width; px += 1) {
+          const real = centreX + (px / canvas.width - .5) * 2 * scale;
+          const cr = mode === "julia" ? fixed.real : real;
+          const ci = mode === "julia" ? fixed.imaginary : imaginary;
+          let zr = mode === "julia" ? real : 0;
+          let zi = mode === "julia" ? imaginary : 0;
+          let previousR = zr;
+          let previousI = zi;
+          let iteration = 0;
+
+          for (; iteration < iterations; iteration += 1) {
+            const nextR = zr * zr - zi * zi + cr + beta * (zr - previousR);
+            const nextI = 2 * zr * zi + ci + beta * (zi - previousI);
+            previousR = zr;
+            previousI = zi;
+            zr = nextR;
+            zi = nextI;
+            if (zr * zr + zi * zi > 16) break;
+          }
+
+          const index = (py * canvas.width + px) * 4;
+          if (iteration === iterations) {
+            bounded += 1;
+            image.data[index] = 3;
+            image.data[index + 1] = 13;
+            image.data[index + 2] = 19;
+          } else {
+            const intensity = Math.pow(iteration / iterations, .36);
+            const band = .6 + .4 * Math.sin(iteration * .7) ** 2;
+            image.data[index] = 5 + accent[0] * intensity * band;
+            image.data[index + 1] = 10 + accent[1] * intensity * band;
+            image.data[index + 2] = 16 + accent[2] * intensity * band;
+          }
+          image.data[index + 3] = 255;
+        }
+      }
+      context.putImageData(image, 0, 0);
+      metric.textContent = `${(100 * bounded / (canvas.width * canvas.height)).toFixed(1)}% bounded`;
+    };
+
+    const render = () => {
+      pending = 0;
+      const magnitude = Number(strength.value);
+      output.value = `±${magnitude.toFixed(2)}`;
+      panels.forEach((panel) => {
+        const sign = Number(panel.dataset.betaSign);
+        const label = panel.querySelector<HTMLElement>("[data-beta-label]");
+        if (label) label.textContent = `β = ${sign < 0 ? "−" : "+"}${magnitude.toFixed(2)}`;
+        renderPanel(panel, sign * magnitude);
+      });
+    };
+
+    const schedule = () => {
+      if (!pending) pending = requestAnimationFrame(render);
+    };
+
+    strength.addEventListener("input", schedule);
+    modeButtons.forEach((button) => button.addEventListener("click", () => {
+      mode = (button.dataset.betaMode ?? "julia") as Mode;
+      modeButtons.forEach((candidate) => candidate.setAttribute("aria-pressed", String(candidate === button)));
+      schedule();
+    }));
+    render();
+  });
+</script>
+
+<style>
+  .beta-return { overflow: hidden; padding-block: clamp(4.5rem,8vw,8rem); background: radial-gradient(circle at 50% 64%, rgba(239,91,188,.13), transparent 31rem), #071017; color: #edf4f2; }
+  .beta-return__heading { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(2rem,7vw,7rem); align-items: end; margin-bottom: clamp(2rem,4vw,3.5rem); }
+  .beta-return .eyebrow { color: #4ddae8; }
+  .beta-return h2 { max-width: 12ch; margin: .8rem 0 0; color: #fff; font-size: clamp(2.8rem,5vw,5.5rem); font-weight: 400; line-height: .91; }
+  .beta-return__introduction { max-width: 46rem; color: #9fb1b7; }
+  .beta-return__introduction .lead { color: #d1dde0; }
+  .beta-return__instrument { padding: 0; border: 1px solid #28424e; background: rgba(3,12,18,.76); box-shadow: 0 2rem 6rem rgba(0,0,0,.35); }
+  .beta-return__toolbar { display: grid; grid-template-columns: auto minmax(18rem,1fr) auto; gap: 1.5rem; align-items: center; padding: 1rem; border-bottom: 1px solid #28424e; }
+  .beta-return__mode { display: grid; grid-template-columns: repeat(2,1fr); border: 1px solid #28424e; }
+  .beta-return button { min-width: 7rem; min-height: 2.7rem; border: 0; background: transparent; color: #8fa5ab; cursor: pointer; font: 700 .68rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .beta-return button + button { border-left: 1px solid #28424e; }
+  .beta-return button[aria-pressed="true"] { background: #173040; color: #fff; box-shadow: inset 0 -2px #f1bd3d; }
+  .beta-return button:focus-visible,.beta-return input:focus-visible { outline: 2px solid #f1bd3d; outline-offset: 3px; }
+  .beta-return__toolbar label { display: grid; grid-template-columns: auto minmax(8rem,1fr) 4rem; gap: 1rem; align-items: center; color: #9fb1b7; font: 700 .68rem/1 var(--mono); letter-spacing: .05em; text-transform: uppercase; }
+  .beta-return__toolbar input { width: 100%; accent-color: #ef5bbc; }
+  .beta-return__toolbar output { color: #fff; text-align: right; }
+  .beta-return__toolbar code { color: #f4d37d; font: 600 .76rem/1.3 var(--mono); white-space: nowrap; }
+  .beta-return__views { display: grid; grid-template-columns: repeat(3,1fr); }
+  .beta-return__views article { min-width: 0; background: #06131a; }
+  .beta-return__views article + article { border-left: 1px solid #28424e; }
+  .beta-return__views header,.beta-return__views footer { display: flex; justify-content: space-between; gap: 1rem; align-items: center; padding: .85rem 1rem; color: #758e96; font: 700 .62rem/1 var(--mono); letter-spacing: .06em; }
+  .beta-return__views article:first-child header strong { color: #4ddae8; }
+  .beta-return__views article:nth-child(2) header strong { color: #f1bd3d; }
+  .beta-return__views article:last-child header strong { color: #ef5bbc; }
+  .beta-return__views canvas { display: block; width: 100%; height: auto; aspect-ratio: 4/3; background: #030c11; }
+  .beta-return__views footer { border-top: 1px solid #1e333d; }
+  .beta-return__views footer b { color: #c7d5d8; font-weight: 600; }
+  .beta-return__reading { display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem; align-items: center; padding: 1.25rem; border-top: 1px solid #28424e; }
+  .beta-return__reading p { margin: 0; color: #8fa5ab; font-size: .75rem; line-height: 1.55; }
+  .beta-return__reading strong { color: #dce7e9; }
+  .beta-return__reading .button { white-space: nowrap; }
+  @media (max-width: 1000px) {
+    .beta-return__heading,.beta-return__reading { grid-template-columns: 1fr; }
+    .beta-return__toolbar { grid-template-columns: 1fr; }
+    .beta-return__toolbar code { white-space: normal; }
+  }
+  @media (max-width: 760px) {
+    .beta-return__views { grid-template-columns: 1fr; }
+    .beta-return__views article + article { border-top: 1px solid #28424e; border-left: 0; }
+    .beta-return__toolbar label { grid-template-columns: 1fr auto; }
+    .beta-return__toolbar input { grid-column: 1/-1; grid-row: 2; }
+  }
+</style>

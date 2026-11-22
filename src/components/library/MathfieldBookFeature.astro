@@ -1,0 +1,249 @@
+---
+import { withPublicRevision } from "@/data/public-route";
+
+const isPrime = (value: number) => {
+  if (value < 2) return false;
+  for (let divisor = 2; divisor * divisor <= value; divisor += 1) {
+    if (value % divisor === 0) return false;
+  }
+  return true;
+};
+
+const primes = Array.from({ length: 999 }, (_, index) => index + 2).filter(isPrime);
+const tau = Math.PI * 2;
+const toPoint = (centerX: number, centerY: number, radius: number, angle: number) => ({
+  x: centerX + Math.cos(angle) * radius,
+  y: centerY + Math.sin(angle) * radius,
+});
+
+const spokePoints = primes.map((prime) => {
+  const radius = 18 + Math.sqrt(prime / 1000) * 82;
+  const angle = ((prime % 7) / 7) * tau - Math.PI / 2;
+  return toPoint(150, 110, radius, angle);
+});
+
+const apertureAxis = 1.5 * Math.PI;
+const apertureWidth = 112 * Math.PI / 180;
+const polarPoints = primes.map((prime, index) => {
+  const radius = 15 + Math.sqrt(prime / 1000) * 86;
+  const angle = (index * Math.PI * (3 - Math.sqrt(5))) % tau;
+  const delta = Math.abs(Math.atan2(Math.sin(angle - apertureAxis), Math.cos(angle - apertureAxis)));
+  return { ...toPoint(150, 110, radius, angle), inside: delta <= apertureWidth / 2 };
+});
+
+const fibPoints: Array<{ x: number; y: number }> = [];
+let fibA = 0;
+let fibB = 1;
+for (let index = 0; index < 34; index += 1) {
+  fibPoints.push({ x: 30 + (fibA % 7) * 34, y: 28 + (fibA % 11) * 16 });
+  [fibA, fibB] = [fibB, (fibA + fibB) % 77];
+}
+const fibPath = fibPoints.map((point) => `${point.x},${point.y}`).join(" ");
+
+const mathfieldHref = withPublicRevision("/A0_MATHEMATICAL_JOINTS.html#register-cut-aperture");
+const instruments = [
+  {
+    code: "01",
+    title: "Ein Träger – verschiedene Winkelregeln",
+    description: "168 feste Primzahlpunkte bleiben erhalten. Golden Angle, Uniform und Restklassenstrahlen verändern ausschließlich die sichtbare Winkelregel.",
+    kind: "spokes",
+  },
+  {
+    code: "02",
+    title: "Der Frame entscheidet über innen und außen",
+    description: "Shell, Apertur, Spiegelung, Eintritt, Austritt und Crossing werden am selben endlichen Primzahlträger sichtbar.",
+    kind: "aperture",
+  },
+  {
+    code: "03",
+    title: "Exakter Zustand – quasiperiodische Ansicht",
+    description: "Das Fibonacci-Paar bleibt exakt rekonstruierbar. CRT-Reste, Golden Angle und Uniform sind getrennte Ansichten desselben Zustands.",
+    kind: "fib",
+  },
+] as const;
+---
+
+<section class="mathfield-book" id="mathfield-book" aria-labelledby="mathfield-book-title">
+  <div class="container mathfield-book__intro">
+    <div>
+      <p class="eyebrow">MathField · lebendes Mathematikbuch</p>
+      <h2 id="mathfield-book-title">Dieselbe Quelle. Andere Ansicht. Sichtbarer Rückweg.</h2>
+    </div>
+    <div class="mathfield-book__copy">
+      <p>MathField liest bekannte mathematische Objekte als begehbaren Atlas: Träger, Projektionsregel, Frame und Return bleiben unterscheidbar. Numbermagick stellt dazu die spezialisierten Zahlen- und Adressinstrumente bereit.</p>
+      <a class="mathfield-book__primary" href={mathfieldHref} data-carry-question>MathField als Buch betreten</a>
+    </div>
+  </div>
+
+  <div class="container mathfield-book__sequence" aria-label="MathField-Lesesequenz">
+    <span>Träger</span><i aria-hidden="true"></i><span>Ansichtsregel</span><i aria-hidden="true"></i><span>Frame / Apertur</span><i aria-hidden="true"></i><span>Zugehörigkeit</span><i aria-hidden="true"></i><span>Kreuzungen</span><i aria-hidden="true"></i><span>Exakter Return</span>
+  </div>
+
+  <div class="container mathfield-book__grid">
+    {instruments.map((instrument) => (
+      <article class="mathfield-instrument">
+        <header>
+          <span>{instrument.code}</span>
+          <small>Quellgebundenes Instrument</small>
+        </header>
+
+        <div class="mathfield-instrument__visual" aria-hidden="true">
+          {instrument.kind === "spokes" && (
+            <svg viewBox="0 0 300 220" role="img">
+              <circle cx="150" cy="110" r="100" class="ring" />
+              <circle cx="150" cy="110" r="54" class="ring ring--inner" />
+              {Array.from({ length: 7 }, (_, index) => {
+                const endpoint = toPoint(150, 110, 100, (index / 7) * tau - Math.PI / 2);
+                return <line x1="150" y1="110" x2={endpoint.x} y2={endpoint.y} class="spoke" />;
+              })}
+              {spokePoints.map((point, index) => <circle cx={point.x} cy={point.y} r={index % 13 === 0 ? 2.6 : 1.5} class="prime-point" />)}
+              <circle cx="150" cy="110" r="5" class="origin" />
+            </svg>
+          )}
+          {instrument.kind === "aperture" && (
+            <svg viewBox="0 0 300 220" role="img">
+              <circle cx="150" cy="110" r="100" class="ring" />
+              <circle cx="150" cy="110" r="68" class="ring ring--inner" />
+              <circle cx="150" cy="110" r="34" class="ring ring--inner" />
+              <path d="M 67 54 L 150 110 L 233 54" class="aperture" />
+              <line x1="150" y1="10" x2="150" y2="210" class="axis" />
+              {polarPoints.map((point, index) => <circle cx={point.x} cy={point.y} r={index % 17 === 0 ? 2.7 : 1.55} class={point.inside ? "point-in" : "point-out"} />)}
+              <circle cx="150" cy="110" r="5" class="origin" />
+            </svg>
+          )}
+          {instrument.kind === "fib" && (
+            <svg viewBox="0 0 300 220" role="img">
+              {Array.from({ length: 7 }, (_, index) => <line x1={30 + index * 34} y1="28" x2={30 + index * 34} y2="188" class="grid-line" />)}
+              {Array.from({ length: 11 }, (_, index) => <line x1="30" y1={28 + index * 16} x2="234" y2={28 + index * 16} class="grid-line" />)}
+              <polyline points={fibPath} class="fib-path" />
+              {fibPoints.map((point, index) => <circle cx={point.x} cy={point.y} r={index === 20 ? 5 : 2} class={index === 20 ? "fib-active" : "fib-point"} />)}
+              <circle cx="267" cy="55" r="22" class="return-ring" />
+              <path d="M267 33 A22 22 0 1 1 254 73" class="return-path" />
+              <text x="267" y="59" text-anchor="middle" class="return-text">1520</text>
+              <text x="267" y="91" text-anchor="middle" class="return-label">EXACT</text>
+            </svg>
+          )}
+        </div>
+
+        <div class="mathfield-instrument__body">
+          <h3>{instrument.title}</h3>
+          <p>{instrument.description}</p>
+          <a href={mathfieldHref} data-carry-question>Im MathField weiterlesen</a>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <footer class="container mathfield-book__boundary">
+    <strong>Einordnung</strong>
+    <p>Bekannte Mathematik · eigenständiges NEXAH Instrument- und Vergleichsdesign · keine Behauptung eines neuen mathematischen Satzes. Der Polar Cut Atlas ist als <code>SOURCE_BOUND_ENGINEERING_VIEW</code> mit <code>134/134 PASS</code> dokumentiert.</p>
+  </footer>
+</section>
+
+<style>
+  .mathfield-book {
+    padding-block: clamp(4.5rem, 8vw, 8rem);
+    overflow: hidden;
+    border-block: 1px solid #29424e;
+    background:
+      radial-gradient(circle at 84% 16%, rgba(55, 204, 222, .12), transparent 24rem),
+      radial-gradient(circle at 15% 78%, rgba(240, 82, 142, .09), transparent 25rem),
+      #061923;
+    color: #dce9ec;
+  }
+
+  .mathfield-book__intro {
+    display: grid;
+    grid-template-columns: minmax(0, .95fr) minmax(20rem, 1.05fr);
+    gap: clamp(2rem, 6vw, 7rem);
+    align-items: end;
+  }
+
+  .mathfield-book .eyebrow { color: #f1bd3d; }
+  .mathfield-book h2 { max-width: 13ch; margin: .8rem 0 0; color: #f5f7f3; font-size: clamp(2.65rem, 5vw, 5.5rem); line-height: .94; }
+  .mathfield-book__copy { max-width: 46rem; }
+  .mathfield-book__copy p { color: #aebfc4; font-size: 1.05rem; }
+
+  .mathfield-book__primary {
+    display: inline-flex;
+    min-height: 3.2rem;
+    align-items: center;
+    margin-top: 1.1rem;
+    padding: .82rem 1.25rem;
+    border: 1px solid #f1bd3d;
+    color: #f1bd3d;
+    font: 800 .68rem/1.3 var(--mono);
+    letter-spacing: .09em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .mathfield-book__primary:hover,
+  .mathfield-book__primary:focus-visible { background: #f1bd3d; color: #071923; }
+
+  .mathfield-book__sequence {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin-block: clamp(3rem, 6vw, 5.5rem) 1.3rem;
+    overflow-x: auto;
+    color: #92a9b1;
+    font: 750 .62rem/1.2 var(--mono);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mathfield-book__sequence i { width: clamp(1rem, 3vw, 3.5rem); height: 1px; flex: 0 0 auto; background: linear-gradient(90deg, #35c5da, #f0528e); }
+
+  .mathfield-book__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid #29424e; border-left: 1px solid #29424e; }
+  .mathfield-instrument { min-width: 0; border-right: 1px solid #29424e; border-bottom: 1px solid #29424e; }
+  .mathfield-instrument > header { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; border-bottom: 1px solid #29424e; color: #f1bd3d; font: 800 .6rem/1.2 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .mathfield-instrument > header small { color: #7d99a3; font: inherit; }
+  .mathfield-instrument__visual { aspect-ratio: 1.36; padding: 1rem; border-bottom: 1px solid #29424e; background: rgba(1, 12, 19, .42); }
+  .mathfield-instrument__visual svg { width: 100%; height: 100%; }
+  .mathfield-instrument__body { display: flex; min-height: 18rem; flex-direction: column; padding: clamp(1.25rem, 2vw, 2rem); }
+  .mathfield-instrument__body h3 { margin: 0 0 1rem; color: #f4f6f2; font-family: var(--serif); font-size: clamp(1.45rem, 2vw, 2rem); font-weight: 400; line-height: 1.02; }
+  .mathfield-instrument__body p { color: #9fb2b8; font-size: .88rem; line-height: 1.65; }
+  .mathfield-instrument__body a { align-self: flex-start; margin-top: auto; padding-top: 1.5rem; color: #f1bd3d; font: 800 .62rem/1.35 var(--mono); letter-spacing: .07em; text-decoration: none; text-transform: uppercase; }
+  .mathfield-instrument__body a:hover,
+  .mathfield-instrument__body a:focus-visible { color: #fff; text-decoration: underline; }
+
+  :global(.mathfield-instrument__visual .ring) { fill: none; stroke: #2a5664; stroke-width: 1; }
+  :global(.mathfield-instrument__visual .ring--inner) { stroke-dasharray: 3 5; opacity: .8; }
+  :global(.mathfield-instrument__visual .spoke) { stroke: #254552; stroke-width: .7; }
+  :global(.mathfield-instrument__visual .prime-point) { fill: #35c5da; opacity: .86; }
+  :global(.mathfield-instrument__visual .origin) { fill: #f1bd3d; stroke: #fff; stroke-width: 2; }
+  :global(.mathfield-instrument__visual .aperture) { fill: rgba(53, 197, 218, .05); stroke: #f1bd3d; stroke-width: 1; stroke-dasharray: 4 5; }
+  :global(.mathfield-instrument__visual .axis) { stroke: #e7edf0; stroke-width: .8; opacity: .6; }
+  :global(.mathfield-instrument__visual .point-in) { fill: #35c5da; }
+  :global(.mathfield-instrument__visual .point-out) { fill: #f0528e; opacity: .52; }
+  :global(.mathfield-instrument__visual .grid-line) { stroke: #284957; stroke-width: .7; }
+  :global(.mathfield-instrument__visual .fib-path) { fill: none; stroke: #a26be8; stroke-width: 1.2; opacity: .72; }
+  :global(.mathfield-instrument__visual .fib-point) { fill: #35c5da; }
+  :global(.mathfield-instrument__visual .fib-active) { fill: #f1bd3d; stroke: #fff; stroke-width: 2; }
+  :global(.mathfield-instrument__visual .return-ring) { fill: none; stroke: #294957; stroke-width: 1; }
+  :global(.mathfield-instrument__visual .return-path) { fill: none; stroke: #f0528e; stroke-width: 2; }
+  :global(.mathfield-instrument__visual .return-text) { fill: #f1bd3d; font: 700 8px var(--mono); }
+  :global(.mathfield-instrument__visual .return-label) { fill: #78939d; font: 700 5px var(--mono); letter-spacing: .08em; }
+
+  .mathfield-book__boundary { display: grid; grid-template-columns: minmax(8rem, .25fr) minmax(0, 1fr); gap: 2rem; padding-top: 1.35rem; color: #849ca5; font-size: .78rem; }
+  .mathfield-book__boundary strong { color: #f1bd3d; font: 800 .62rem/1.5 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .mathfield-book__boundary p { margin: 0; }
+  .mathfield-book__boundary code { color: #c4d7dc; }
+
+  @media (max-width: 920px) {
+    .mathfield-book__intro { grid-template-columns: 1fr; align-items: start; }
+    .mathfield-book h2 { max-width: 16ch; }
+    .mathfield-book__grid { grid-template-columns: 1fr; }
+    .mathfield-instrument__visual { aspect-ratio: 2 / 1; }
+    .mathfield-instrument__body { min-height: auto; }
+    .mathfield-instrument__body a { margin-top: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .mathfield-book__sequence { margin-right: -1.5rem; padding-right: 1.5rem; }
+    .mathfield-instrument__visual { aspect-ratio: 1.25; }
+    .mathfield-book__boundary { grid-template-columns: 1fr; gap: .5rem; }
+  }
+</style>
