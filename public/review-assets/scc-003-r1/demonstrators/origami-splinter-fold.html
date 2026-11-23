@@ -42,6 +42,21 @@
       display: grid;
       gap: calc(var(--font-size-base) * 0.25);
     }
+    #origami-splinter-study .oss-address {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      align-items: center;
+      width: fit-content;
+      padding: .32rem .62rem;
+      border: 1px solid color-mix(in srgb, var(--viz-series-2) 58%, #3c3c3c);
+      border-radius: 999px;
+      color: var(--muted-foreground);
+      background: color-mix(in srgb, var(--viz-series-2) 7%, #202020);
+      font: 700 .78rem/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+    }
+    #origami-splinter-study .oss-address strong { color: var(--viz-series-2); }
     #origami-splinter-study .oss-controls {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(220px, 0.55fr);
@@ -252,19 +267,82 @@
       min-height: calc(var(--font-size-base) * 2.2);
       color: var(--muted-foreground);
     }
+    #origami-splinter-study .oss-contract-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: calc(var(--font-size-base) * 0.7);
+    }
+    #origami-splinter-study .oss-contract-card {
+      display: grid;
+      gap: .55rem;
+      min-width: 0;
+      padding: .9rem;
+      border: 1px solid #3c3c3c;
+      border-radius: 14px;
+      background: #202020;
+    }
+    #origami-splinter-study .oss-contract-card h2 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+    #origami-splinter-study .oss-role {
+      color: var(--viz-series-2);
+      font: 700 .72rem/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    #origami-splinter-study .oss-formula {
+      color: var(--foreground);
+      font: 700 .86rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    #origami-splinter-study .oss-mini-stage {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 132px;
+      border: 1px solid #343434;
+      border-radius: 10px;
+      background: #171717;
+    }
+    #origami-splinter-study .oss-mini-stage text {
+      fill: var(--foreground);
+      font: 700 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    #origami-splinter-study .oss-mini-stage .mini-boundary,
+    #origami-splinter-study .oss-mini-stage .mini-grid {
+      fill: none;
+      stroke: color-mix(in srgb, var(--foreground) 48%, var(--background));
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-mini-stage .mini-splinter {
+      fill: none;
+      stroke: var(--viz-series-3);
+      stroke-width: 2.4;
+      stroke-dasharray: 7 5;
+      vector-effect: non-scaling-stroke;
+    }
+    #origami-splinter-study .oss-mini-stage .mini-sail-a { fill: color-mix(in srgb, var(--viz-series-1) 20%, transparent); }
+    #origami-splinter-study .oss-mini-stage .mini-sail-b { fill: color-mix(in srgb, var(--viz-series-2) 16%, transparent); }
+    #origami-splinter-study .oss-boundary-note {
+      color: var(--muted-foreground);
+      font-size: .82rem;
+    }
     @media (max-width: 620px) {
       #origami-splinter-study .oss-controls { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-lens-bar { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-state-key { justify-content: flex-start; }
       #origami-splinter-study .oss-view-bar { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-tilts { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-contract-grid { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-stage { max-height: none; }
     }
   </style>
 
   <div class="oss-title">
-    <h1>Faltung, Überlagerung und wandernder Splinter</h1>
-    <p class="text-muted">Links entsteht der Papierflieger; rechts wird seine Dreiecksstruktur auf den festen Fünferträger projiziert.</p>
+    <h1>Faltung, Überlagerung und typisierter Splinter</h1>
+    <p class="text-muted">Links entsteht der schematische Papierflieger; rechts wird seine Dreiecksstruktur auf den festen Fünferträger projiziert. Der SCC-Splinter ist die gebundene Restzone, nicht eine einzelne Außenspitze.</p>
+    <p class="oss-address"><span>Number / Prime Plate</span><strong id="oss-plate-address">UNBOUND VIEW</strong><span>· address only</span></p>
   </div>
 
   <div class="oss-controls">
@@ -274,9 +352,10 @@
       <button class="btn" type="button" data-step="2" aria-pressed="false">Zweite Faltung</button>
       <button class="btn" type="button" data-step="3" aria-pressed="false">Rückenfalte</button>
       <button class="btn btn-primary" type="button" data-step="4" aria-pressed="true">Überlagerung</button>
+      <button class="btn" type="button" data-action="reset">Zustand zurücksetzen</button>
     </div>
     <label class="oss-slider" for="oss-asymmetry">
-      <span class="oss-label-row"><span>Asymmetrie / Versatz</span><strong id="oss-asymmetry-value" class="tabular-nums">14</strong></span>
+      <span class="oss-label-row"><span>Asymmetrie / Versatz</span><strong id="oss-asymmetry-value" class="tabular-nums">30</strong></span>
       <input id="oss-asymmetry" class="form-range" type="range" min="0" max="30" step="1" value="30">
     </label>
   </div>
@@ -314,21 +393,49 @@
 
   <svg class="oss-stage" viewBox="0 0 980 520" role="img" aria-labelledby="oss-svg-title oss-svg-desc">
     <title id="oss-svg-title">Vom A4-Blatt zur überlagerten Dreiecksprojektion</title>
-    <desc id="oss-svg-desc">Eine interaktive Faltstudie. Links wird ein A4-Blatt schrittweise zum Papierflieger gefaltet. Rechts überlagern sich zwei Dreiecksansichten auf einem Pentagon. Ihre Schnittmenge bildet eine wandernde Speerspitze; die überstehenden Ecken sind Splinter.</desc>
+    <desc id="oss-svg-desc">Eine interaktive Faltstudie. Links wird ein A4-Blatt schrittweise zum Papierflieger gefaltet. Rechts werden zwei Dreiecksansichten am Pentagonträger abgeschnitten. Ihre Schnittmenge bildet die gemeinsame Zone; ihre symmetrische Differenz innerhalb des Pentagons ist der äußere SCC-Splinter-Residual.</desc>
     <defs>
       <marker id="oss-arrow" orient="auto" markerUnits="userSpaceOnUse" refX="8" refY="5" markerWidth="10" markerHeight="10">
         <path d="M1 1L8 5 1 9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
       </marker>
     </defs>
     <text x="205" y="25" text-anchor="middle">FALTTRÄGER · A4</text>
-    <text id="oss-projection-title" x="725" y="25" text-anchor="middle">PROJEKTION · 5 + 2</text>
+    <text id="oss-projection-title" x="725" y="25" text-anchor="middle">PROJEKTION · 5 + 2 / V + II</text>
     <g id="oss-paper"></g>
     <path d="M405 255H485" class="leader" marker-end="url(#oss-arrow)"/>
     <text x="445" y="239" text-anchor="middle" class="muted-text">projiziert</text>
     <g id="oss-projection"></g>
   </svg>
 
+  <section class="oss-contract-grid" aria-label="Typed Splinter comparison">
+    <article class="oss-contract-card">
+      <span class="oss-role">SCC-003 · OUTER_SPLINTER_RESIDUAL</span>
+      <h2>Rest einer gebundenen Projektion</h2>
+      <p class="oss-formula">S<sub>out</sub> = (T₁ △ T₂) ∩ P₅ = NP ∪ PN</p>
+      <p class="oss-boundary-note">Flächenrolle im festen P₅-Träger. Der frühere äußerste Punkt von T₂ ist nur eine Projektionsspitze und definiert den Splinter nicht.</p>
+    </article>
+    <article class="oss-contract-card">
+      <span class="oss-role">Prime Cube · SPLINTER_SAIL_DIAGONAL</span>
+      <h2>Zwei typisierte Diagonalen im festen Leitergitter</h2>
+      <svg class="oss-mini-stage" viewBox="0 0 420 180" role="img" aria-label="Prime Cube Splinter Sail comparison with six roots, two splinter diagonals and four sails">
+        <polygon class="mini-sail-a" points="54,38 210,38 54,142"/>
+        <polygon class="mini-sail-a" points="210,38 210,142 54,142"/>
+        <polygon class="mini-sail-b" points="210,38 366,38 210,142"/>
+        <polygon class="mini-sail-b" points="366,38 366,142 210,142"/>
+        <path class="mini-boundary" stroke-width="2" d="M54 38H210H366V142H210H54Z"/>
+        <path class="mini-grid" stroke-width="2" d="M210 38V142"/>
+        <path class="mini-splinter" d="M210 38L54 142M366 38L210 142"/>
+        <g text-anchor="middle"><text x="54" y="28">1</text><text x="210" y="28">8</text><text x="366" y="28">11</text><text x="54" y="162">33</text><text x="210" y="162">27</text><text x="366" y="162">22</text></g>
+      </svg>
+      <p class="oss-boundary-note">Diagonalen <code>8↔33</code> und <code>11↔27</code>; Sails <code>[1,8,33]</code>, <code>[8,27,33]</code>, <code>[8,11,27]</code>, <code>[11,22,27]</code>. Vergleichslinse, keine Identitätsgleichsetzung.</p>
+    </article>
+  </section>
+
   <p id="oss-readout" class="oss-readout" aria-live="polite"></p>
+
+  <script type="application/json" id="oss-typed-contract">
+    {"schema":"nexah.scc003.typed-splinter-comparison/1.0.0","scc":{"role":"OUTER_SPLINTER_RESIDUAL","formula":"((T1 SYMMETRIC_DIFFERENCE T2) INTERSECT P5)","zones":["NP","PN"]},"primeCube":{"role":"SPLINTER_SAIL_DIAGONAL","layout":"2x3_LADDER","boundaryCycle":[1,8,11,22,27,33],"diagonals":[[8,33],[11,27]],"sails":[[1,8,33],[8,27,33],[8,11,27],[11,22,27]]},"identityMerge":false,"relationChange":false,"claimPromotion":false}
+  </script>
 
   <script>
     (() => {
@@ -346,6 +453,11 @@
       const tiltAValue = root.querySelector('#oss-tilt-a-value');
       const tiltBValue = root.querySelector('#oss-tilt-b-value');
       const projectionTitle = root.querySelector('#oss-projection-title');
+      const plateAddressOutput = root.querySelector('#oss-plate-address');
+      const resetButton = root.querySelector('[data-action="reset"]');
+      const typedContract = JSON.parse(root.querySelector('#oss-typed-contract').textContent);
+      const plateParam = new URLSearchParams(location.search).get('plate');
+      const plateAddress = /^\d{1,4}$/.test(plateParam || '') ? Number(plateParam) : null;
       const storageKey = 'nexah:scc003:origami-splinter-fold:v1';
       let saved = null;
       try { saved = JSON.parse(localStorage.getItem(storageKey) || 'null'); } catch {}
@@ -417,8 +529,9 @@
         const triA = [[725,62],[548,376],[858,273]];
         const angle = (asymmetry - 15) * Math.PI / 420;
         const triB = rotate([[725,70],[592,258],[905,386]], angle, 725, 255, asymmetry-14, (asymmetry-14)*0.35);
-        const overlap = clipConvex(triA, triB);
-        const splinter = triB.reduce((best,p) => p[0] > best[0] ? p : best, triB[0]);
+        const triAInCarrier = clipConvex(triA, pentagon);
+        const triBInCarrier = clipConvex(triB, pentagon);
+        const overlap = clipConvex(triAInCarrier, triBInCarrier);
         const overlapShape = overlap.length >= 3 ? '<polygon class="intersection" points="'+poly(overlap)+'"/>' : '';
         if (view === 'side') {
           drawSideProjection(triA, triB);
@@ -426,39 +539,39 @@
         }
         const center = '<circle class="ty-center" cx="725" cy="255" r="7"/><text class="zone-label" x="738" y="250">TY</text>';
         const base = '<circle class="guide" cx="725" cy="255" r="205"/>';
-        const leader = '<path class="leader" d="M'+splinter[0]+' '+splinter[1]+'L915 122"/><text x="918" y="116" class="muted-text">Splinter</text>';
+        const residualLabel = '<text x="918" y="116" text-anchor="end" class="muted-text">S_out = NP ∪ PN</text>';
         if (mode === 'mask') {
           projection.innerHTML = base+
             '<g aria-label="Opake Projektionsmaske">'+
               '<polygon class="mask-shape" points="'+poly(pentagon)+'"/>'+
-              '<polygon class="mask-shape" points="'+poly(triA)+'"/>'+
-              '<polygon class="mask-shape" points="'+poly(triB)+'"/>'+
+              '<polygon class="mask-shape" points="'+poly(triAInCarrier)+'"/>'+
+              '<polygon class="mask-shape" points="'+poly(triBInCarrier)+'"/>'+
               '<polygon class="mask-edge" points="'+poly(pentagon)+'"/>'+
-              '<polygon class="mask-edge" points="'+poly(triA)+'"/>'+
-              '<polygon class="mask-edge" points="'+poly(triB)+'"/>'+
-            '</g>'+center+leader+
+              '<polygon class="mask-edge" points="'+poly(triAInCarrier)+'"/>'+
+              '<polygon class="mask-edge" points="'+poly(triBInCarrier)+'"/>'+
+            '</g>'+center+residualLabel+
             '<text x="725" y="474" text-anchor="middle" class="muted-text">MASKE · nur Silhouette / Schatten · Innenrelationen verdeckt</text>';
         } else if (mode === 'gap') {
           const defs = '<defs>'+
-            '<mask id="oss-zone-np"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triA)+'" fill="white"/><polygon points="'+poly(triB)+'" fill="black"/></mask>'+
-            '<mask id="oss-zone-pn"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triB)+'" fill="white"/><polygon points="'+poly(triA)+'" fill="black"/></mask>'+
+            '<mask id="oss-zone-np"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triAInCarrier)+'" fill="white"/><polygon points="'+poly(triBInCarrier)+'" fill="black"/></mask>'+
+            '<mask id="oss-zone-pn"><rect x="500" y="35" width="450" height="420" fill="black"/><polygon points="'+poly(triBInCarrier)+'" fill="white"/><polygon points="'+poly(triAInCarrier)+'" fill="black"/></mask>'+
           '</defs>';
           projection.innerHTML = defs+base+
             '<polygon class="carrier" points="'+poly(pentagon)+'"/>'+
             '<rect class="zone-np" x="500" y="35" width="450" height="420" mask="url(#oss-zone-np)"/>'+
             '<rect class="zone-pn" x="500" y="35" width="450" height="420" mask="url(#oss-zone-pn)"/>'+
             (overlap.length >= 3 ? '<polygon class="zone-nn" points="'+poly(overlap)+'"/>' : '')+
-            '<polygon class="mask-edge" points="'+poly(triA)+'"/><polygon class="mask-edge" points="'+poly(triB)+'"/>'+
+            '<polygon class="mask-edge" points="'+poly(triAInCarrier)+'"/><polygon class="mask-edge" points="'+poly(triBInCarrier)+'"/>'+
             '<text class="zone-label" x="730" y="175">NN</text><text class="zone-label" x="600" y="325">NP</text><text class="zone-label" x="842" y="350">PN</text><text class="zone-label muted-text" x="535" y="430">PP</text>'+
-            center+leader+
-            '<text x="725" y="474" text-anchor="middle" class="muted-text">SPALT · NN / NP / PN / PP · Zwei-Lagen-Lesung</text>';
+            center+residualLabel+
+            '<text x="725" y="474" text-anchor="middle" class="muted-text">SPALT · S_out = (T₁ △ T₂) ∩ P₅ = NP ∪ PN</text>';
         } else {
           projection.innerHTML = base+
             '<polygon class="carrier" points="'+poly(pentagon)+'"/>'+
-            '<polygon class="view-a" points="'+poly(triA)+'"/>'+
-            '<polygon class="view-b" points="'+poly(triB)+'"/>'+
+            '<polygon class="view-a" points="'+poly(triAInCarrier)+'"/>'+
+            '<polygon class="view-b" points="'+poly(triBInCarrier)+'"/>'+
             overlapShape+
-            '<path class="ridge" d="M725 62L725 432"/>'+center+leader+
+            '<path class="ridge" d="M725 85L725 402"/>'+center+residualLabel+
             '<text x="725" y="474" text-anchor="middle" class="muted-text">GLAS · P₅-Hülle + T₁/T₂ · TY bleibt getrennter Zentrumsträger</text>';
         }
       }
@@ -521,7 +634,10 @@
         tiltBInput.value = String(tiltB);
         tiltAValue.textContent = tiltA + '°';
         tiltBValue.textContent = tiltB + '°';
-        projectionTitle.textContent = view === 'side' ? 'SEITENPROFIL · MAPPE' : 'PROJEKTION · 5 + 2';
+        plateAddressOutput.textContent = plateAddress === null ? 'UNBOUND VIEW' : `PLATE ${String(plateAddress).padStart(2, '0')}`;
+        projectionTitle.textContent = view === 'side'
+          ? `SEITENPROFIL · A4 MAPPE${plateAddress === null ? '' : ` · P${plateAddress}`}`
+          : `PROJEKTION · 5 + 2 / V + II${plateAddress === null ? '' : ` · P${plateAddress}`}`;
         drawPaper();
         drawProjection();
         const messages = [
@@ -529,17 +645,20 @@
           'Die ersten beiden Ecken erzeugen zwei spiegelnde Dreiecke mit einem gemeinsamen Treffpunkt.',
           'Die zweite Faltung verdichtet beide Dreiecke zur schlanken Speerform.',
           'Die Mittelfalte macht aus der ebenen Konstruktion einen dreidimensional lesbaren Rücken mit zwei Flügeln.',
-          'Durch den Versatz decken sich die Projektionen nicht mehr: Die helle Schnittmenge wandert, außen bleiben Splinter stehen.'
+          'Durch den Versatz decken sich die Projektionen nicht mehr: Die helle Schnittmenge wandert; NP und PN bilden gemeinsam den gebundenen äußeren Splinter-Residual.'
         ];
         const modeMessages = {
           glass: ' GLAS zeigt Träger, Überlagerung und Schnittmenge zugleich.',
           mask: ' MASKE zeigt die opake Projektion als Schatten; Innenlinien und Tiefenrelationen bleiben verdeckt.',
-          gap: ' SPALT trennt NN, NP, PN und PP als Zwei-Lagen-Zustände; TY bleibt davon unabhängig.'
+          gap: ' SPALT trennt NN, NP, PN und PP als Zwei-Lagen-Zustände; der gebundene SCC-Splinter ist NP ∪ PN, TY bleibt davon unabhängig.'
         };
         const viewMessage = view === 'side'
           ? ' SEITE hebt die verlorene Tiefeninformation als deklarierte Tilts α₁ und α₂ wieder an; die projizierte Fläche folgt A·|cos α|.'
           : ' OBEN zeigt die orthogonale Überlagerung; die Tilt-Vorzeichen und Höhen bleiben in dieser Ansicht unsichtbar.';
-        readout.textContent = messages[step] + modeMessages[mode] + viewMessage + ' 5+2 ist eine Adresslesung; keine √5-Identität, starre Origami-Lösung oder Materialphysik.';
+        const plateMessage = plateAddress === null
+          ? ' Keine Number/Prime Plate ist gebunden.'
+          : ` Plate ${plateAddress} adressiert diese Ansicht; die Faltung berechnet oder klassifiziert die Zahl nicht.`;
+        readout.textContent = messages[step] + modeMessages[mode] + viewMessage + plateMessage + ` ${typedContract.scc.role} und ${typedContract.primeCube.role} bleiben typisierte Vergleichsrollen; keine Identitätsgleichsetzung.` + ' 5+2 / V+II ist eine Adresslesung; keine √5-Identität, starre Origami-Lösung oder Materialphysik.';
         if (shouldSave) save();
       }
       buttons.forEach(button => button.addEventListener('click', () => {
@@ -568,6 +687,16 @@
         tiltB = Number(tiltBInput.value);
         view = 'side';
         render(true);
+      });
+      resetButton.addEventListener('click', () => {
+        localStorage.removeItem(storageKey);
+        step = 4;
+        asymmetry = 30;
+        mode = 'glass';
+        view = 'top';
+        tiltA = 32;
+        tiltB = 48;
+        render(false);
       });
       render(false);
     })();
