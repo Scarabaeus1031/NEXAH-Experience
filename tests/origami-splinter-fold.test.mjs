@@ -27,7 +27,7 @@ test("Origami Splinter freezes the typed SCC and Prime Cube comparison", async (
   assert.ok(match, "typed comparison contract must be embedded");
   const contract = JSON.parse(match[1]);
 
-  assert.equal(contract.schema, "nexah.scc003.typed-splinter-comparison/1.0.0");
+  assert.equal(contract.schema, "nexah.scc003.typed-splinter-comparison/1.1.0");
   assert.deepEqual(contract.scc, {
     role: "OUTER_SPLINTER_RESIDUAL",
     formula: "((T1 SYMMETRIC_DIFFERENCE T2) INTERSECT P5)",
@@ -43,6 +43,43 @@ test("Origami Splinter freezes the typed SCC and Prime Cube comparison", async (
   assert.equal(contract.identityMerge, false);
   assert.equal(contract.relationChange, false);
   assert.equal(contract.claimPromotion, false);
+});
+
+test("Origami Splinter connects the bounded C24 and exact length adapters", async () => {
+  const html = await readFile(source, "utf8");
+  const match = html.match(
+    /<script type="application\/json" id="oss-typed-contract">\s*([\s\S]*?)\s*<\/script>/,
+  );
+  assert.ok(match, "typed comparison contract must be embedded");
+  const contract = JSON.parse(match[1]);
+  const adapter = contract.controlPlane;
+
+  assert.equal(adapter.role, "SOURCE_BOUND_COMPARATOR");
+  assert.equal(adapter.refinement24.modulus, 24);
+  assert.deepEqual(adapter.refinement24.c6, [0, 4, 8, 12, 16, 20]);
+  assert.deepEqual(adapter.refinement24.c8, [0, 3, 6, 9, 12, 15, 18, 21]);
+  assert.deepEqual(adapter.refinement24.c8_d12_intersection, [0, 6, 12, 18]);
+  assert.equal(adapter.mz24.positionMatches, 0);
+  assert.equal(adapter.mz24.identityEstablished, false);
+  assert.equal(adapter.crossProportion.product, 5040);
+  assert.deepEqual(adapter.crossProportion.expanded84, [6, 7, 2]);
+  assert.equal(adapter.length.ticksPerCentimeter, 50);
+  assert.equal(adapter.length.ticksPerInch, 127);
+  assert.deepEqual(adapter.length.disk10, { centimeters: "25.40", ticks: 1270 });
+  assert.deepEqual(adapter.length.disk12, { centimeters: "30.48", ticks: 1524 });
+  assert.deepEqual(adapter.length.commonReturn, { inches: 50, centimeters: 127, ticks: 6350 });
+  assert.deepEqual(adapter.sourceAuthority, ["ART:A0:MATHEMATICAL_JOINTS", "MOD:NUMBER_VIEW_SUITE", "MOD:TESSAREC"]);
+
+  for (const marker of [
+    'id="oss-primecube-control-adapter"',
+    'id="oss-c24-grid"',
+    'data-inch-preset="10"',
+    'data-inch-preset="12"',
+    "90/60 = 84/56 = 3/2",
+    "60·84 = 90·56 = 5040",
+    "50″ = 127 cm = 6350 ticks",
+    "constructed C24 ≠ retained MZ24",
+  ]) assert.match(html, new RegExp(marker));
 });
 
 test("Origami Splinter clips both views to P5 and removes the old point heuristic", async () => {

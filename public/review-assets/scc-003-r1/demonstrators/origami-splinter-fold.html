@@ -328,6 +328,81 @@
       color: var(--muted-foreground);
       font-size: .82rem;
     }
+    #origami-splinter-study .oss-control-plane {
+      overflow: hidden;
+      border: 1px solid #3c4c60;
+      border-radius: 16px;
+      background: #1b2028;
+    }
+    #origami-splinter-study .oss-control-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: flex-end;
+      padding: .9rem;
+      border-bottom: 1px solid #354254;
+    }
+    #origami-splinter-study .oss-control-head h2 { margin: .15rem 0 0; font-size: 1.08rem; }
+    #origami-splinter-study .oss-control-badge {
+      color: #8ee8c3;
+      font: 700 .7rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      text-transform: uppercase;
+    }
+    #origami-splinter-study .oss-control-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(260px, .75fr);
+    }
+    #origami-splinter-study .oss-control-card { min-width: 0; padding: .9rem; }
+    #origami-splinter-study .oss-control-card + .oss-control-card { border-left: 1px solid #354254; }
+    #origami-splinter-study .oss-control-card h3 { margin: 0 0 .35rem; font-size: .98rem; }
+    #origami-splinter-study .oss-control-card > p { color: var(--muted-foreground); font-size: .8rem; }
+    #origami-splinter-study .oss-c24-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 2px;
+      margin-top: .75rem;
+    }
+    #origami-splinter-study .oss-c24-cell {
+      min-width: 0;
+      padding: .42rem .15rem;
+      border: 1px solid #343f4d;
+      border-radius: 5px;
+      background: #171b22;
+      color: var(--foreground);
+      font: 700 .7rem/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      cursor: pointer;
+    }
+    #origami-splinter-study .oss-c24-cell[data-c6="true"] { box-shadow: inset 0 -2px var(--viz-series-1); }
+    #origami-splinter-study .oss-c24-cell[data-c8="true"] { background: #1c2234; }
+    #origami-splinter-study .oss-c24-cell[data-d12="true"] { color: var(--viz-series-2); }
+    #origami-splinter-study .oss-c24-cell[data-mz="true"] { outline: 1px solid var(--viz-series-3); outline-offset: -2px; }
+    #origami-splinter-study .oss-c24-cell[aria-pressed="true"] { border-color: #fff; box-shadow: inset 0 0 0 1px #fff; }
+    #origami-splinter-study .oss-adapter-readout {
+      min-height: 2.35rem;
+      margin-top: .65rem;
+      padding: .6rem;
+      border-left: 2px solid var(--viz-series-1);
+      background: #151b23;
+      color: #cbd8e8;
+      font: 700 .76rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    #origami-splinter-study .oss-length-presets,
+    #origami-splinter-study .oss-control-formulas { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .65rem; }
+    #origami-splinter-study .oss-length-presets button { padding: .38rem .58rem; }
+    #origami-splinter-study .oss-length-output {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .35rem;
+      margin-top: .65rem;
+    }
+    #origami-splinter-study .oss-length-output div { padding: .55rem; border: 1px solid #354254; border-radius: 8px; background: #171b22; }
+    #origami-splinter-study .oss-length-output small,
+    #origami-splinter-study .oss-length-output strong { display: block; }
+    #origami-splinter-study .oss-length-output small { color: var(--muted-foreground); font-size: .65rem; text-transform: uppercase; }
+    #origami-splinter-study .oss-length-output strong { margin-top: .2rem; font: 700 .85rem/1.2 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    #origami-splinter-study .oss-control-formulas { padding: 0 .9rem .9rem; margin-top: 0; }
+    #origami-splinter-study .oss-control-formulas code { padding: .35rem .5rem; border: 1px solid #41536a; border-radius: 999px; color: #b8e8f4; background: #172331; font-size: .72rem; }
+    #origami-splinter-study .oss-control-boundary { margin: 0; padding: .75rem .9rem; border-top: 1px solid #3b392c; background: #242218; color: #c2b995; font-size: .78rem; }
     @media (max-width: 620px) {
       #origami-splinter-study .oss-controls { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-lens-bar { grid-template-columns: 1fr; }
@@ -335,6 +410,10 @@
       #origami-splinter-study .oss-view-bar { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-tilts { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-contract-grid { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-control-grid { grid-template-columns: 1fr; }
+      #origami-splinter-study .oss-control-card + .oss-control-card { border-left: 0; border-top: 1px solid #354254; }
+      #origami-splinter-study .oss-c24-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      #origami-splinter-study .oss-length-output { grid-template-columns: 1fr; }
       #origami-splinter-study .oss-stage { max-height: none; }
     }
   </style>
@@ -428,13 +507,38 @@
         <g text-anchor="middle"><text x="54" y="28">1</text><text x="210" y="28">8</text><text x="366" y="28">11</text><text x="54" y="162">33</text><text x="210" y="162">27</text><text x="366" y="162">22</text></g>
       </svg>
       <p class="oss-boundary-note">Diagonalen <code>8↔33</code> und <code>11↔27</code>; Sails <code>[1,8,33]</code>, <code>[8,27,33]</code>, <code>[8,11,27]</code>, <code>[11,22,27]</code>. Vergleichslinse, keine Identitätsgleichsetzung.</p>
+      <p class="oss-boundary-note"><a href="https://github.com/Scarabaeus1031/NEXAH-Science-Lab/blob/ac27bf904fe2be1be8e451acb70d778d6293dbd7/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_PRIMECUBE_GAP_FOLD_LAB.html#L234">Quelle auf GitHub: Splinter Sail Grid in der Prime-Cube-Bench</a></p>
     </article>
+  </section>
+
+  <section class="oss-control-plane" id="oss-primecube-control-adapter" aria-labelledby="oss-control-title">
+    <header class="oss-control-head">
+      <div><span class="oss-role">Prime Cube · source-bound comparator</span><h2 id="oss-control-title">C24 refinement and exact disk measure</h2></div>
+      <span class="oss-control-badge">typed adapter · no identity merge</span>
+    </header>
+    <div class="oss-control-grid">
+      <article class="oss-control-card">
+        <h3>C6 / C8 / D12 → C24</h3>
+        <p><code>lcm(6,8,12)=24</code>. Click a tick to inspect the three constructed index embeddings and the separately observed MZ24 marks.</p>
+        <div class="oss-c24-grid" id="oss-c24-grid" aria-label="Twenty-four tick common refinement"></div>
+        <p class="oss-adapter-readout" id="oss-c24-readout" aria-live="polite"></p>
+      </article>
+      <article class="oss-control-card">
+        <h3>Inch / centimeter · exact integer rail</h3>
+        <p><code>1″ = 2.54 cm = 127/50 cm</code>; one common tick is <code>0.2 mm</code>. Unit, value and tick address remain separate.</p>
+        <div class="oss-length-presets" aria-label="Disk size presets"><button class="btn btn-primary" type="button" data-inch-preset="10">10″ disk</button><button class="btn" type="button" data-inch-preset="12">12″ disk</button><button class="btn" type="button" data-inch-preset="50">50″ return</button></div>
+        <label class="oss-slider" for="oss-inch-value"><span class="oss-label-row"><span>Length in whole inches</span><strong id="oss-inch-label" class="tabular-nums">10″</strong></span><input id="oss-inch-value" class="form-range" type="range" min="1" max="50" step="1" value="10"></label>
+        <div class="oss-length-output"><div><small>inch</small><strong id="oss-inch-output">10″</strong></div><div><small>centimeter</small><strong id="oss-cm-output">25.40 cm</strong></div><div><small>0.2 mm ticks</small><strong id="oss-tick-output">1270</strong></div></div>
+      </article>
+    </div>
+    <div class="oss-control-formulas"><code>90/60 = 84/56 = 3/2</code><code>60·84 = 90·56 = 5040</code><code>84 = 6·7·2</code><code>10:12 = 5:6</code><code>50″ = 127 cm = 6350 ticks</code></div>
+    <p class="oss-control-boundary"><strong>BOUNDARY.</strong> C24 is a constructed common index refinement and matches the retained six-state MZ24 readout at 0/6 positions. The inch/cm rail is an exact length conversion. Neither adapter changes the SCC‑003 residual, derives a cube geometry, identifies angle with length or establishes a physical suspension, phase or material law.</p>
   </section>
 
   <p id="oss-readout" class="oss-readout" aria-live="polite"></p>
 
   <script type="application/json" id="oss-typed-contract">
-    {"schema":"nexah.scc003.typed-splinter-comparison/1.0.0","scc":{"role":"OUTER_SPLINTER_RESIDUAL","formula":"((T1 SYMMETRIC_DIFFERENCE T2) INTERSECT P5)","zones":["NP","PN"]},"primeCube":{"role":"SPLINTER_SAIL_DIAGONAL","layout":"2x3_LADDER","boundaryCycle":[1,8,11,22,27,33],"diagonals":[[8,33],[11,27]],"sails":[[1,8,33],[8,27,33],[8,11,27],[11,22,27]]},"identityMerge":false,"relationChange":false,"claimPromotion":false}
+    {"schema":"nexah.scc003.typed-splinter-comparison/1.1.0","scc":{"role":"OUTER_SPLINTER_RESIDUAL","formula":"((T1 SYMMETRIC_DIFFERENCE T2) INTERSECT P5)","zones":["NP","PN"]},"primeCube":{"role":"SPLINTER_SAIL_DIAGONAL","layout":"2x3_LADDER","boundaryCycle":[1,8,11,22,27,33],"diagonals":[[8,33],[11,27]],"sails":[[1,8,33],[8,27,33],[8,11,27],[11,22,27]]},"controlPlane":{"role":"SOURCE_BOUND_COMPARATOR","refinement24":{"modulus":24,"c6":[0,4,8,12,16,20],"c8":[0,3,6,9,12,15,18,21],"d12":[0,2,4,6,8,10,12,14,16,18,20,22],"c8_d12_intersection":[0,6,12,18]},"mz24":{"observed":[2,5,4,13,10,11],"positionMatches":0,"identityEstablished":false},"crossProportion":{"angle":"90/60","cardinality":"84/56","ratio":"3/2","product":5040,"expanded84":[6,7,2]},"length":{"tickMillimeters":"0.2","ticksPerCentimeter":50,"ticksPerInch":127,"disk10":{"centimeters":"25.40","ticks":1270},"disk12":{"centimeters":"30.48","ticks":1524},"ratio":"5:6","commonReturn":{"inches":50,"centimeters":127,"ticks":6350}},"sourceAuthority":["ART:A0:MATHEMATICAL_JOINTS","MOD:NUMBER_VIEW_SUITE","MOD:TESSAREC"]},"identityMerge":false,"relationChange":false,"claimPromotion":false}
   </script>
 
   <script>
@@ -456,6 +560,14 @@
       const plateAddressOutput = root.querySelector('#oss-plate-address');
       const resetButton = root.querySelector('[data-action="reset"]');
       const typedContract = JSON.parse(root.querySelector('#oss-typed-contract').textContent);
+      const c24Grid = root.querySelector('#oss-c24-grid');
+      const c24Readout = root.querySelector('#oss-c24-readout');
+      const inchInput = root.querySelector('#oss-inch-value');
+      const inchLabel = root.querySelector('#oss-inch-label');
+      const inchOutput = root.querySelector('#oss-inch-output');
+      const cmOutput = root.querySelector('#oss-cm-output');
+      const tickOutput = root.querySelector('#oss-tick-output');
+      const inchPresetButtons = [...root.querySelectorAll('[data-inch-preset]')];
       const plateParam = new URLSearchParams(location.search).get('plate');
       const plateAddress = /^\d{1,4}$/.test(plateParam || '') ? Number(plateParam) : null;
       const storageKey = 'nexah:scc003:origami-splinter-fold:v1';
@@ -467,6 +579,8 @@
       let view = saved && ['top','side'].includes(saved.view) ? saved.view : 'top';
       let tiltA = saved && Number.isFinite(saved.tiltA) ? Math.max(0, Math.min(80, saved.tiltA)) : 32;
       let tiltB = saved && Number.isFinite(saved.tiltB) ? Math.max(0, Math.min(80, saved.tiltB)) : 48;
+      let controlTick = saved && Number.isInteger(saved.controlTick) ? Math.max(0, Math.min(23, saved.controlTick)) : 0;
+      let lengthInches = saved && Number.isInteger(saved.lengthInches) ? Math.max(1, Math.min(50, saved.lengthInches)) : 10;
 
       const poly = points => points.map(p => p.join(',')).join(' ');
       const area = points => points.reduce((sum, p, i) => {
@@ -509,6 +623,41 @@
           return [cx + px*c - py*s + dx, cy + px*s + py*c + dy];
         });
       };
+
+      function renderControlAdapters() {
+        const adapter = typedContract.controlPlane;
+        const indexOf = (values, tick) => values.indexOf(tick);
+        c24Grid.innerHTML = Array.from({length: 24}, (_, tick) => {
+          const c6 = indexOf(adapter.refinement24.c6, tick);
+          const c8 = indexOf(adapter.refinement24.c8, tick);
+          const d12 = indexOf(adapter.refinement24.d12, tick);
+          const mz = indexOf(adapter.mz24.observed, tick);
+          const labels = [c6 >= 0 ? `C6:${c6}` : '', c8 >= 0 ? `C8:${c8}` : '', d12 >= 0 ? `D12:${d12}` : '', mz >= 0 ? `MZ:${mz}` : ''].filter(Boolean);
+          return `<button type="button" class="oss-c24-cell" data-control-tick="${tick}" data-c6="${c6 >= 0}" data-c8="${c8 >= 0}" data-d12="${d12 >= 0}" data-mz="${mz >= 0}" aria-pressed="${tick === controlTick}" title="${labels.join(' · ') || 'no source mark'}">${tick}</button>`;
+        }).join('');
+        const c6 = indexOf(adapter.refinement24.c6, controlTick);
+        const c8 = indexOf(adapter.refinement24.c8, controlTick);
+        const d12 = indexOf(adapter.refinement24.d12, controlTick);
+        const mz = indexOf(adapter.mz24.observed, controlTick);
+        c24Readout.textContent = `TICK ${controlTick} · ${c6 >= 0 ? `C6:${c6}` : 'C6:—'} · ${c8 >= 0 ? `C8:${c8}` : 'C8:—'} · ${d12 >= 0 ? `D12:${d12}` : 'D12:—'} · ${mz >= 0 ? `MZ:${mz}` : 'MZ:—'} · constructed C24 ≠ retained MZ24`;
+        c24Grid.querySelectorAll('[data-control-tick]').forEach(button => button.addEventListener('click', () => {
+          controlTick = Number(button.dataset.controlTick);
+          renderControlAdapters();
+          save();
+        }));
+        const cmHundredths = lengthInches * 254;
+        const centimeters = `${Math.floor(cmHundredths / 100)}.${String(cmHundredths % 100).padStart(2, '0')}`;
+        inchInput.value = String(lengthInches);
+        inchLabel.textContent = `${lengthInches}″`;
+        inchOutput.textContent = `${lengthInches}″`;
+        cmOutput.textContent = `${centimeters} cm`;
+        tickOutput.textContent = String(lengthInches * 127);
+        inchPresetButtons.forEach(button => {
+          const active = Number(button.dataset.inchPreset) === lengthInches;
+          button.classList.toggle('btn-primary', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+      }
 
       function drawPaper() {
         const center = '<path class="crease" d="M205 48V458"/><text x="214" y="474" class="muted-text">Hauptlinie / Rückenfalte</text>';
@@ -610,7 +759,7 @@
       }
 
       function save() {
-        localStorage.setItem(storageKey, JSON.stringify({step,asymmetry,mode,view,tiltA,tiltB}));
+        localStorage.setItem(storageKey, JSON.stringify({step,asymmetry,mode,view,tiltA,tiltB,controlTick,lengthInches}));
       }
       function render(shouldSave=false) {
         slider.value = String(asymmetry);
@@ -640,6 +789,7 @@
           : `PROJEKTION · 5 + 2 / V + II${plateAddress === null ? '' : ` · P${plateAddress}`}`;
         drawPaper();
         drawProjection();
+        renderControlAdapters();
         const messages = [
           'Das A4-Blatt trägt bereits die spätere Hauptlinie; noch existiert keine Speerspitze.',
           'Die ersten beiden Ecken erzeugen zwei spiegelnde Dreiecke mit einem gemeinsamen Treffpunkt.',
@@ -688,6 +838,16 @@
         view = 'side';
         render(true);
       });
+      inchInput.addEventListener('input', () => {
+        lengthInches = Number(inchInput.value);
+        renderControlAdapters();
+        save();
+      });
+      inchPresetButtons.forEach(button => button.addEventListener('click', () => {
+        lengthInches = Number(button.dataset.inchPreset);
+        renderControlAdapters();
+        save();
+      }));
       resetButton.addEventListener('click', () => {
         localStorage.removeItem(storageKey);
         step = 4;
@@ -696,6 +856,8 @@
         view = 'top';
         tiltA = 32;
         tiltB = 48;
+        controlTick = 0;
+        lengthInches = 10;
         render(false);
       });
       render(false);
