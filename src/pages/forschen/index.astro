@@ -22,6 +22,7 @@ const researchRoutes = [
       en: "Formal, negative, methodological and instrumental results with distinct evidence classes.",
     },
     href: "/A0_SCIENCE.html#contributions",
+    exampleHref: "https://github.com/Scarabaeus1031/NEXAH-Science-Lab/blob/0e81f2597884e0bcacbc43e409b005b2d3dc9af3/RESEARCH_PROGRAM_B_MATHEMATICAL_FOUNDATIONS/AXIOM0_QMODE_ORIENTATION_TO_MEASUREMENT_FOUNDATION_PACKAGE_2026-10-01/A0_BOOK/A0_DRAFT_DRIFT_HOUSING_112_NOTE_2026-11-23.md#beispielphase-137-h--august--und-septemberwechsel",
   },
   {
     code: "03 · Field",
@@ -95,12 +96,20 @@ const researchRoutes = [
       </header>
       <nav aria-label="NEXAH Science research areas">
         {researchRoutes.map((route) => (
-          <a href={route.href}>
-            <span>{route.code}</span>
-            <h3><span class="lang-copy lang-copy--de">{route.title.de}</span><span class="lang-copy lang-copy--en">{route.title.en}</span></h3>
-            <p><span class="lang-copy lang-copy--de">{route.description.de}</span><span class="lang-copy lang-copy--en">{route.description.en}</span></p>
-            <b aria-hidden="true">→</b>
-          </a>
+          <div class="research-routes__item">
+            <a class="research-routes__primary" href={route.href}>
+              <span>{route.code}</span>
+              <h3><span class="lang-copy lang-copy--de">{route.title.de}</span><span class="lang-copy lang-copy--en">{route.title.en}</span></h3>
+              <p><span class="lang-copy lang-copy--de">{route.description.de}</span><span class="lang-copy lang-copy--en">{route.description.en}</span></p>
+              <b aria-hidden="true">→</b>
+            </a>
+            {"exampleHref" in route && (
+              <a class="research-routes__example text-link text-link--external" href={route.exampleHref}>
+                <span class="lang-copy lang-copy--de">IOTA/JPL +137 h · Warum übersieht ein Raster zwei Wechsel?</span>
+                <span class="lang-copy lang-copy--en">IOTA/JPL +137 h · Why does a grid miss two crossings?</span>
+              </a>
+            )}
+          </div>
         ))}
       </nav>
     </div>
@@ -202,9 +211,11 @@ const researchRoutes = [
   .research-routes header { display: grid; grid-template-columns: .6fr 1.4fr; gap: var(--space-5); align-items: end; margin-bottom: var(--space-5); }
   .research-routes h2 { margin: 0; font-size: var(--step-3); }
   .research-routes nav { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--rule); }
-  .research-routes nav a { position: relative; min-height: 22rem; padding: var(--space-4); border-right: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
-  .research-routes nav a:last-child { border-right: 0; }
-  .research-routes nav span { color: var(--gold); font: 800 .66rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .research-routes__item { display: flex; flex-direction: column; min-height: 22rem; border-right: 1px solid var(--rule); }
+  .research-routes__item:last-child { border-right: 0; }
+  .research-routes__primary { position: relative; flex: 1; padding: var(--space-4) var(--space-4) 3rem; color: var(--ink); text-decoration: none; }
+  .research-routes__primary > span { color: var(--gold); font: 800 .66rem/1 var(--mono); letter-spacing: .09em; text-transform: uppercase; }
+  .research-routes__example { align-self: flex-start; margin: 0 var(--space-4) var(--space-4); }
   .research-routes nav h3 { margin: 3rem 0 1rem; overflow-wrap: anywhere; font-family: var(--serif); font-size: clamp(1.65rem, 2.35vw, 2.55rem); font-weight: 400; hyphens: auto; line-height: 1.05; }
   .research-routes nav p { color: var(--muted); }
   .research-routes nav b { position: absolute; right: 1.5rem; bottom: 1.25rem; color: var(--gold); }
@@ -234,14 +245,14 @@ const researchRoutes = [
     .research-foundation__grid li { min-height: auto; }
     .research-foundation__grid li + li { border-top: 1px solid var(--rule); border-left: 0; }
     .research-routes nav { grid-template-columns: repeat(2, 1fr); }
-    .research-routes nav a:nth-child(2) { border-right: 0; }
-    .research-routes nav a:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+    .research-routes__item:nth-child(2) { border-right: 0; }
+    .research-routes__item:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
   }
   @media (max-width: 600px) {
     .research-entry h1 { font-size: clamp(3.1rem, 17vw, 5rem); }
     .research-routes nav { grid-template-columns: 1fr; }
-    .research-routes nav a { min-height: 16rem; border-right: 0; border-bottom: 1px solid var(--rule); }
-    .research-routes nav a:last-child { border-bottom: 0; }
+    .research-routes__item { min-height: 16rem; border-right: 0; border-bottom: 1px solid var(--rule); }
+    .research-routes__item:last-child { border-bottom: 0; }
     .research-review__grid { grid-template-columns: 1fr; }
     .research-review__grid article + article { border-top: 1px solid #34505a; border-left: 0; }
   }

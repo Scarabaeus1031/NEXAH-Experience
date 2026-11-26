@@ -20,7 +20,7 @@ const researchSignals = [
   ["01", "Formal result", "SCC-003", "The strongest narrow candidate: a bounded, internally reproducible result with a defined external review gate."],
   ["02", "Negative result", "Euler support does not carry.", "A tested route was rejected. The negative result remains visible as a methodological boundary."],
   ["03", "Methodical result", "Return without identity.", "A return can preserve provenance and difference without declaring distinct representations to be the same object."],
-  ["04", "Instrumental result", "Operable comparison views.", "Benches, LOOK AGAIN and related instruments make cuts, views and Returns inspectable; Human utility remains open."],
+  ["04", "Instrumental result", "Operable comparison views.", "Benches, LOOK AGAIN and related instruments make cuts, views and Returns inspectable; Human utility remains open.", "https://www.nexahedron.com/a0-human/start/A0_LOOK_AGAIN_PLAY.html"],
 ] as const;
 
 const fields = [
@@ -128,11 +128,12 @@ const programmes = [
 
   <section class="science-signals" aria-label="Current research signals">
     <div class="container science-signals__grid">
-      {researchSignals.map(([marker, label, title, text]) => (
+      {researchSignals.map(([marker, label, title, text, href]) => (
         <article>
           <p><span>{marker}</span>{label}</p>
           <h3>{title}</h3>
           <p>{text}</p>
+          {href && <a class="text-link text-link--external" href={href}>Play LOOK AGAIN</a>}
         </article>
       ))}
     </div>
@@ -370,7 +371,8 @@ const programmes = [
   .science-signals article > p:first-child { color: var(--cyan); font: 700 .67rem/1.2 var(--font-mono); letter-spacing: .12em; text-transform: uppercase; }
   .science-signals article > p:first-child span { display: block; margin-bottom: 2.5rem; color: var(--gold); }
   .science-signals h3 { margin-bottom: 1rem; font-size: clamp(1.5rem, 2vw, 2rem); line-height: 1; }
-  .science-signals article > p:last-child { color: color-mix(in srgb, var(--paper) 72%, transparent); }
+  .science-signals article > p:last-of-type { color: color-mix(in srgb, var(--paper) 72%, transparent); }
+  .science-signals .text-link { color: var(--cyan); }
   .science-fields,
   .science-programmes { padding-block: clamp(4rem, 6vw, 6rem); }
   .science-section-head {
