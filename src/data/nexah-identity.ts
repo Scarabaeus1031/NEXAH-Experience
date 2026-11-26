@@ -35,6 +35,12 @@ export type NexahOrientationMovement = {
   readonly description: string;
 };
 
+const currentResearchRoute = Object.freeze({
+  name: "Aktueller Forschungsstand, Ergebnisse und Working Papers",
+  href: "https://nexah.de/forschen/",
+  description: "Public research status, results, working papers and open review questions.",
+});
+
 export const nexahIdentity = Object.freeze({
   name: "NEXAH",
   fullName: "NEXAH Orientation Ecosystem",
@@ -266,6 +272,7 @@ export const nexahIdentity = Object.freeze({
   publicRoutes: Object.freeze([
     { name: "About NEXAH", href: "https://nexah.de/about/", description: "Purpose, definition, hierarchy and authority boundaries." },
     { name: "Visitor Guide", href: "https://nexah.de/visitor-guide/", description: "A Human entrance and public ecosystem map." },
+    currentResearchRoute,
     { name: "Laboratory", href: "https://nexah.de/laboratory/", description: "Public research orientation and routes to authoritative records." },
     { name: "Research Architecture", href: "https://nexah.de/research-architecture/", description: "Six coordinated responsibilities without shared authority." },
     { name: "A0", href: "https://nexah.de/a0/", description: "A bounded current mathematical and methodological programme." },
@@ -296,7 +303,7 @@ export function renderNexahMarkdown(): string {
     .map((movement, index) => `${index + 1}. **${movement.name} — ${movement.question}** ${movement.description}`)
     .join("\n");
 
-  return `# ${nexahIdentity.fullName}\n\n> ${nexahIdentity.definition}\n\n${nexahIdentity.purpose}\n\n## What carries the research\n\n${researchFoundationRows}\n\n## Three public views\n\n${viewRows}\n\n## How NEXAH works\n\n${movementRows}\n\n${nexahIdentity.instrumentBoundary}\n\n## Identity hierarchy\n\n${hierarchyRows}\n\n## Source and authority map\n\n${sourceRows}\n\n## Research identifiers\n\n${identifierRows}\n\n## Important research relations\n\n${relationRows}\n\n## Interpretation boundaries\n\n${boundaryRows}\n\nFor dated scientific status, follow the NEXAH Science Lab and its maintained Lab Register. Public summaries do not replace the linked source records.\n`;
+  return `# ${nexahIdentity.fullName}\n\n> ${nexahIdentity.definition}\n\n${nexahIdentity.purpose}\n\n## What carries the research\n\n[${currentResearchRoute.name}](${currentResearchRoute.href})\n\n${researchFoundationRows}\n\n## Three public views\n\n${viewRows}\n\n## How NEXAH works\n\n${movementRows}\n\n${nexahIdentity.instrumentBoundary}\n\n## Identity hierarchy\n\n${hierarchyRows}\n\n## Source and authority map\n\n${sourceRows}\n\n## Research identifiers\n\n${identifierRows}\n\n## Important research relations\n\n${relationRows}\n\n## Interpretation boundaries\n\n${boundaryRows}\n\nFor dated scientific status, follow the NEXAH Science Lab and its maintained Lab Register. Public summaries do not replace the linked source records.\n`;
 }
 
 export function renderLlmsTxt(): string {
